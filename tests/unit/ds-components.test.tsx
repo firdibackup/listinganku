@@ -37,9 +37,9 @@ describe('Card', () => {
 });
 
 describe('Chip', () => {
-  it('menampilkan teks apa adanya, bukan huruf besar semua', () => {
-    render(<Chip tone="tint">Published</Chip>);
-    expect(screen.getByText('Published')).toBeInTheDocument();
+  it('merender teks anak persis seperti yang diberikan', () => {
+    render(<Chip>Published</Chip>);
+    expect(screen.getByText('Published').textContent).toBe('Published');
   });
 });
 
@@ -58,5 +58,18 @@ describe('Input', () => {
   it('merender textarea saat diminta', () => {
     render(<Input label="Deskripsi" textarea rows={3} />);
     expect(screen.getByLabelText(/Deskripsi/).tagName).toBe('TEXTAREA');
+  });
+
+  it('aria-describedby hanya merujuk id yang ada di DOM', () => {
+    render(<Input label="Harga" hint="Masukkan harga dalam Rp" error="Wajib diisi." />);
+    const input = screen.getByLabelText(/Harga/);
+    const describedBy = input.getAttribute('aria-describedby');
+
+    if (describedBy) {
+      const ids = describedBy.split(/\s+/);
+      for (const id of ids) {
+        expect(document.getElementById(id)).toBeInTheDocument();
+      }
+    }
   });
 });

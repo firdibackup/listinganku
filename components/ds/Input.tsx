@@ -28,7 +28,7 @@ export function Input({
   const fieldId = id ?? generated;
   const hintId = `${fieldId}-hint`;
   const errorId = `${fieldId}-error`;
-  const describedBy = [error ? errorId : null, hint ? hintId : null].filter(Boolean).join(' ') || undefined;
+  const describedBy = [error ? errorId : null, !error && hint ? hintId : null].filter(Boolean).join(' ') || undefined;
 
   const shared = {
     id: fieldId,
