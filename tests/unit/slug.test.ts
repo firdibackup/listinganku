@@ -7,6 +7,11 @@ describe('slugify', () => {
     expect(slugify('  Casa Verde   Alam Sutera ')).toBe('casa-verde-alam-sutera');
     expect(slugify('Bintaro Loop / Residence #2')).toBe('bintaro-loop-residence-2');
   });
+
+  it('tidak melempar error untuk null atau undefined', () => {
+    expect(slugify(null)).toBe(slugify(''));
+    expect(slugify(undefined)).toBe(slugify(''));
+  });
 });
 
 describe('isReservedSlug', () => {

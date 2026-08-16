@@ -8,7 +8,8 @@ export const RESERVED_SLUGS = [
   'agent', 'admin', 'app', 'static', 'assets', 'uploads', 'brand',
 ] as const;
 
-export function slugify(input: string): string {
+export function slugify(input: string | null | undefined): string {
+  if (input === null || input === undefined) input = '';
   return input
     .normalize('NFKD')
     .replace(/[̀-ͯ]/g, '')

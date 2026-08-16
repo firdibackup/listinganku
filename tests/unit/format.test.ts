@@ -31,3 +31,59 @@ describe('format lain', () => {
     expect(formatDateShort('2026-08-16T00:00:00.000Z')).toBe('16 Agu 2026');
   });
 });
+
+describe('handle nilai kosong', () => {
+  it('formatNumber mengembalikan em dash untuk null, undefined, dan NaN', () => {
+    expect(formatNumber(null)).toBe('—');
+    expect(formatNumber(undefined)).toBe('—');
+    expect(formatNumber(NaN)).toBe('—');
+  });
+
+  it('formatRupiah mengembalikan em dash untuk null, undefined, dan NaN', () => {
+    expect(formatRupiah(null)).toBe('—');
+    expect(formatRupiah(undefined)).toBe('—');
+    expect(formatRupiah(NaN)).toBe('—');
+  });
+
+  it('formatRupiahShort mengembalikan em dash untuk null, undefined, dan NaN', () => {
+    expect(formatRupiahShort(null)).toBe('—');
+    expect(formatRupiahShort(undefined)).toBe('—');
+    expect(formatRupiahShort(NaN)).toBe('—');
+  });
+
+  it('formatArea mengembalikan em dash untuk null, undefined, dan NaN', () => {
+    expect(formatArea(null)).toBe('—');
+    expect(formatArea(undefined)).toBe('—');
+    expect(formatArea(NaN)).toBe('—');
+  });
+
+  it('formatDateLong mengembalikan em dash untuk null, undefined, dan invalid date', () => {
+    expect(formatDateLong(null)).toBe('—');
+    expect(formatDateLong(undefined)).toBe('—');
+    expect(formatDateLong('not-a-date')).toBe('—');
+  });
+
+  it('formatDateShort mengembalikan em dash untuk null, undefined, dan invalid date', () => {
+    expect(formatDateShort(null)).toBe('—');
+    expect(formatDateShort(undefined)).toBe('—');
+    expect(formatDateShort('not-a-date')).toBe('—');
+  });
+});
+
+describe('nol adalah nilai nyata', () => {
+  it('formatNumber(0) tidak mengembalikan em dash', () => {
+    expect(formatNumber(0)).toBe('0');
+  });
+
+  it('formatRupiah(0) tidak mengembalikan em dash', () => {
+    expect(formatRupiah(0)).toBe('Rp0');
+  });
+
+  it('formatRupiahShort(0) tidak mengembalikan em dash', () => {
+    expect(formatRupiahShort(0)).toBe('Rp0');
+  });
+
+  it('formatArea(0) tidak mengembalikan em dash', () => {
+    expect(formatArea(0)).toBe('0 m²');
+  });
+});
