@@ -37,9 +37,11 @@ describe('Accordion', () => {
   it('mengubah data-state dari closed ke open saat trigger diklik', async () => {
     render(<Accordion items={[{ id: 'kpr', question: 'Apakah bisa KPR?', answer: 'Bisa, lewat bank rekanan.' }]} />);
     const trigger = screen.getByRole('button', { name: 'Apakah bisa KPR?' });
-    expect(trigger.parentElement).toHaveAttribute('data-state', 'closed');
+    // Diperiksa di trigger, bukan di header pembungkusnya: selektor CSS penanda
+    // +/- berpegang pada data-state milik .ui-acc__trigger.
+    expect(trigger).toHaveAttribute('data-state', 'closed');
     await userEvent.click(trigger);
-    expect(trigger.parentElement).toHaveAttribute('data-state', 'open');
+    expect(trigger).toHaveAttribute('data-state', 'open');
   });
 
   it('CSS mengandung data-state swap dan active press state', () => {
