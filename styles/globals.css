@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+/* Token DS diimpor TANPA @layer. Tailwind menaruh theme-nya di `@layer theme`,
+   dan CSS tak-berlapis selalu menang atas CSS berlapis — jadi nilai DS aman
+   dari default Tailwind yang kebetulan senama (mis. --radius-sm). */
+@import "./tokens/colors.css";
+@import "./tokens/typography.css";
+@import "./tokens/spacing.css";
+@import "./tokens/radius.css";
+@import "./tokens/elevation.css";
+@import "./tokens/motion.css";
+@import "./type-utils.css";
+
+/* Jembatan ke utility Tailwind. Hanya warna — spasi/radius/shadow dipakai lewat
+   var() langsung supaya tidak bertabrakan dengan namespace theme Tailwind. */
+@theme inline {
+  --color-evergreen: var(--evergreen);
+  --color-evergreen-700: var(--evergreen-700);
+  --color-orange: var(--orange);
+  --color-orange-100: var(--orange-100);
+  --color-leaf: var(--leaf);
+  --color-mint: var(--mint);
+  --color-stone: var(--stone);
+  --color-ash: var(--ash);
+  --color-sage: var(--sage);
+  --color-ink: var(--ink);
+}
+
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-body);
+  font-family: var(--font-body);
+  font-size: var(--type-body-md-size);
+  line-height: var(--type-body-md-line);
+  -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
+}
+
+::selection { background: var(--orange); color: #fff; }
+:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+img { max-width: 100%; display: block; }

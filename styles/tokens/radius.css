@@ -1,0 +1,8 @@
+:root{
+  --radius-none:0px;
+  --radius-sm:4px;   /* buttons, inputs */
+  --radius-md:8px;   /* cards */
+  --radius-lg:12px;
+  --radius-xl:16px;  /* hero panels, media */
+  --radius-full:9999px; /* chips, banners */
+}

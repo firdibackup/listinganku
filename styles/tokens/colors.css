@@ -1,0 +1,52 @@
+:root{
+  /* Base palette */
+  --evergreen:#233D2D;
+  --evergreen-700:#1B3024;
+  --evergreen-500:#3A5A46;
+  --orange:#D2421A;
+  --orange-700:#AE3413;
+  --orange-100:#FBE4DC;
+  --leaf:#00803A;          /* logo green — mark only */
+  --mint:#E5EDE7;
+  --white:#FFFFFF;
+  --stone:#F3F5F2;
+  --ash:#D3D8D5;
+  --sage:#66736B;
+  --ink:#121212;
+
+  /* Semantic — text */
+  --text-body:#233D2D;
+  --text-heading:#233D2D;
+  --text-muted:#66736B;
+  --text-inverse:#E5EDE7;
+  --text-inverse-strong:#FFFFFF;
+  --text-accent:#D2421A;
+  --text-link:#233D2D;
+  --text-link-hover:#D2421A;
+
+  /* Semantic — surfaces */
+  --surface-page:#FFFFFF;
+  --surface-muted:#F3F5F2;
+  --surface-card:#FFFFFF;
+  --surface-tint:#E5EDE7;
+  --surface-brand:#233D2D;
+  --surface-dark:#121212;
+  --surface-accent:#D2421A;
+
+  /* Semantic — lines & controls */
+  --border-default:#D3D8D5;
+  --border-subtle:#E5EDE7;
+  --border-strong:#233D2D;
+  --border-inverse:rgba(229,237,231,.24);
+  --focus-ring:#D2421A;
+
+  /* Semantic — status */
+  --status-error:#D2421A;
+  --status-error-surface:#FBE4DC;
+  --status-success:#00803A;
+  --status-info:#233D2D;
+
+  /* Overlays */
+  --overlay-scrim:rgba(18,18,18,.56);
+  --overlay-hero:linear-gradient(180deg,rgba(18,18,18,0) 34%,rgba(18,18,18,.72) 100%);
+}
