@@ -1,0 +1,41 @@
+.ui-overlay{position:fixed;inset:0;background:var(--overlay-scrim);
+  animation:ui-fade var(--dur-base) var(--ease-standard)}
+@keyframes ui-fade{from{opacity:0}to{opacity:1}}
+
+.ui-dialog{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:min(92vw,480px);background:var(--surface-card);border:1px solid var(--border-default);
+  border-radius:var(--radius-md);box-shadow:var(--shadow-menu);padding:var(--card-pad);
+  display:flex;flex-direction:column;gap:var(--space-sm)}
+
+.ui-sheet{position:fixed;right:0;top:0;bottom:0;width:min(96vw,460px);
+  background:var(--surface-card);border-left:1px solid var(--border-default);
+  box-shadow:var(--shadow-menu);display:flex;flex-direction:column;
+  animation:ui-slide var(--dur-slow) var(--ease-standard)}
+@keyframes ui-slide{from{transform:translateX(16px);opacity:0}to{transform:none;opacity:1}}
+.ui-sheet__head{padding:20px 24px;border-bottom:1px solid var(--border-subtle)}
+.ui-sheet__body{flex:1;overflow-y:auto;padding:24px;display:flex;flex-direction:column;gap:16px}
+.ui-sheet__foot{padding:16px 24px;border-top:1px solid var(--border-subtle);
+  display:flex;justify-content:flex-end;gap:8px}
+
+.ui-dialog__title,.ui-sheet__title{font-family:var(--font-text);font-size:var(--type-h3-size);
+  line-height:var(--type-h3-line);font-weight:600;color:var(--text-heading)}
+.ui-dialog__desc,.ui-sheet__desc{font-size:var(--type-body-sm-size);color:var(--text-muted);margin-top:6px}
+.ui-dialog__foot{display:flex;justify-content:flex-end;gap:8px;margin-top:var(--space-xs)}
+
+.ui-acc__item{border-bottom:1px solid var(--border-default)}
+.ui-acc__trigger{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:16px 0;background:none;border:0;cursor:pointer;text-align:left;
+  font-family:var(--font-text);font-size:var(--type-label-lg-size);font-weight:600;
+  color:var(--text-heading);transition:var(--transition-control)}
+.ui-acc__trigger:hover{color:var(--orange)}
+.ui-acc__mark{color:var(--orange);flex:0 0 auto}
+.ui-acc__panel{padding:0 0 16px;font-size:var(--type-body-sm-size);
+  line-height:var(--type-body-md-line);color:var(--text-muted)}
+
+.ui-progress{height:4px;border-radius:var(--radius-sm);background:var(--stone);overflow:hidden}
+.ui-progress__bar{height:100%;background:var(--evergreen);
+  transition:width var(--dur-slow) var(--ease-standard)}
+
+.ui-skeleton{height:12px;border-radius:var(--radius-sm);background:var(--stone);
+  animation:ui-pulse 1.4s ease-in-out infinite}
+@keyframes ui-pulse{0%,100%{opacity:1}50%{opacity:.45}}
