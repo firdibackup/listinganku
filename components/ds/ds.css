@@ -1,0 +1,63 @@
+/* Button — hover adalah pertukaran warna, bukan pemudaran. Press 1px, tanpa scale. */
+.ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border-radius:var(--radius-sm);border:1px solid transparent;cursor:pointer;
+  font-family:var(--font-text);font-weight:var(--type-label-weight);
+  white-space:nowrap;text-decoration:none;transition:var(--transition-control)}
+.ds-btn:active:not(:disabled){transform:translateY(1px)}
+.ds-btn:disabled{opacity:.4;cursor:not-allowed}
+.ds-btn--md{height:var(--control-height);padding:0 var(--control-pad-x);
+  font-size:var(--type-label-lg-size);line-height:var(--type-label-lg-line)}
+.ds-btn--sm{height:36px;padding:0 14px;
+  font-size:var(--type-label-md-size);line-height:var(--type-label-md-line)}
+.ds-btn--block{width:100%}
+
+.ds-btn--primary{background:var(--orange);color:var(--white)}
+.ds-btn--primary:hover:not(:disabled){background:var(--evergreen)}
+
+.ds-btn--secondary{background:var(--white);color:var(--evergreen);border-color:var(--ash)}
+.ds-btn--secondary:hover:not(:disabled){background:var(--mint);border-color:var(--evergreen)}
+
+.ds-btn--inverse{background:transparent;color:var(--white);border-color:var(--border-inverse)}
+.ds-btn--inverse:hover:not(:disabled){background:var(--white);color:var(--evergreen);border-color:var(--white)}
+
+.ds-btn--link{background:transparent;color:var(--evergreen);padding:0;height:auto}
+.ds-btn--link:hover:not(:disabled){color:var(--orange)}
+
+/* Card — kedalaman dari hairline, shadow praktis tak terlihat. */
+.ds-card{border-radius:var(--radius-md);border:1px solid transparent}
+.ds-card--padded{padding:var(--card-pad)}
+.ds-card--light{background:var(--surface-card);border-color:var(--border-default);box-shadow:var(--shadow-card)}
+.ds-card--tint{background:var(--surface-tint);border-color:var(--surface-tint)}
+.ds-card--brand{background:var(--surface-brand);color:var(--text-inverse);border-color:var(--surface-brand)}
+.ds-card--dark{background:var(--surface-dark);color:var(--text-inverse);border-color:var(--surface-dark)}
+
+/* Chip — pill, sentence case. UPPERCASE hanya untuk eyebrow .lw-label-sm. */
+.ds-chip{display:inline-flex;align-items:center;gap:6px;border-radius:var(--radius-full);
+  border:1px solid transparent;font-family:var(--font-text);font-weight:500;white-space:nowrap}
+.ds-chip--sm{height:24px;padding:0 10px;font-size:var(--type-caption-size)}
+.ds-chip--md{height:28px;padding:0 12px;font-size:var(--type-body-sm-size)}
+.ds-chip--tint{background:var(--mint);color:var(--evergreen);border-color:var(--mint)}
+.ds-chip--outline{background:transparent;color:var(--sage);border-color:var(--ash)}
+.ds-chip--accent{background:var(--mint);color:var(--evergreen);border-color:var(--evergreen)}
+.ds-chip--primary{background:var(--evergreen);color:var(--white);border-color:var(--evergreen)}
+
+/* Input — 46px, hairline, fokus menggelapkan border ke evergreen, error jadi oranye. */
+.ds-field{display:flex;flex-direction:column;gap:7px}
+.ds-field__label{font-family:var(--font-text);font-size:var(--type-label-md-size);
+  line-height:var(--type-label-md-line);font-weight:var(--type-label-weight);color:var(--text-heading)}
+.ds-field__required{color:var(--status-error);margin-left:3px}
+.ds-field__control{display:flex;align-items:stretch;border:1px solid var(--ash);
+  border-radius:var(--radius-sm);background:var(--white);overflow:hidden;
+  transition:border-color var(--dur-base) var(--ease-standard)}
+.ds-field__control:focus-within{border-color:var(--evergreen)}
+.ds-field--error .ds-field__control{border-color:var(--status-error)}
+.ds-field__input{flex:1;min-width:0;border:0;outline:0;background:transparent;
+  padding:var(--control-pad-y) 14px;font-family:var(--font-body);
+  font-size:var(--type-body-sm-size);line-height:var(--type-body-sm-line);color:var(--text-body)}
+input.ds-field__input{height:calc(var(--control-height) - 2px);padding-block:0}
+.ds-field__input::placeholder{color:var(--sage)}
+.ds-field__input:disabled{background:var(--stone);color:var(--sage);cursor:not-allowed}
+.ds-field__suffix{display:flex;align-items:center;padding:0 14px;background:var(--stone);
+  border-left:1px solid var(--ash);color:var(--sage);font-size:var(--type-body-sm-size)}
+.ds-field__hint{font-size:var(--type-caption-size);line-height:var(--type-caption-line);color:var(--sage)}
+.ds-field__error{font-size:var(--type-caption-size);line-height:var(--type-caption-line);color:var(--status-error)}

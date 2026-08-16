@@ -10,6 +10,7 @@
 @import "./tokens/elevation.css";
 @import "./tokens/motion.css";
 @import "./type-utils.css";
+@import "../components/ds/ds.css";
 
 /* Jembatan ke utility Tailwind. Hanya warna — spasi/radius/shadow dipakai lewat
    var() langsung supaya tidak bertabrakan dengan namespace theme Tailwind. */
