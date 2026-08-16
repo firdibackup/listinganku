@@ -19,7 +19,7 @@ export function Accordion({ items }: { items: AccordionItem[] }) {
               {item.question}
               <span className="ui-acc__mark" aria-hidden="true">
                 <Plus size={16} className="ui-acc__plus" />
-                <Minus size={16} className="ui-acc__minus" style={{ display: 'none' }} />
+                <Minus size={16} className="ui-acc__minus" />
               </span>
             </RadixAccordion.Trigger>
           </RadixAccordion.Header>

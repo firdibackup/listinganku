@@ -28,6 +28,9 @@
   font-family:var(--font-text);font-size:var(--type-label-lg-size);font-weight:600;
   color:var(--text-heading);transition:var(--transition-control)}
 .ui-acc__trigger:hover{color:var(--orange)}
+.ui-acc__trigger:active:not(:disabled){transform:translateY(1px)}
+.ui-acc__trigger[data-state="closed"] .ui-acc__minus{display:none}
+.ui-acc__trigger[data-state="open"] .ui-acc__plus{display:none}
 .ui-acc__mark{color:var(--orange);flex:0 0 auto}
 .ui-acc__panel{padding:0 0 16px;font-size:var(--type-body-sm-size);
   line-height:var(--type-body-md-line);color:var(--text-muted)}

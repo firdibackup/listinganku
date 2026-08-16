@@ -1,7 +1,11 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi } from 'vitest';
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { Dialog, Accordion, Progress } from '@/components/ui';
+
+const read = (p: string) => readFileSync(p, 'utf8');
 
 describe('Dialog', () => {
   it('menampilkan judul dan isi saat terbuka', () => {
@@ -28,6 +32,21 @@ describe('Accordion', () => {
     expect(screen.queryByText('Bisa, lewat bank rekanan.')).not.toBeInTheDocument();
     await userEvent.click(screen.getByRole('button', { name: 'Apakah bisa KPR?' }));
     expect(screen.getByText('Bisa, lewat bank rekanan.')).toBeVisible();
+  });
+
+  it('mengubah data-state dari closed ke open saat trigger diklik', async () => {
+    render(<Accordion items={[{ id: 'kpr', question: 'Apakah bisa KPR?', answer: 'Bisa, lewat bank rekanan.' }]} />);
+    const trigger = screen.getByRole('button', { name: 'Apakah bisa KPR?' });
+    expect(trigger.parentElement).toHaveAttribute('data-state', 'closed');
+    await userEvent.click(trigger);
+    expect(trigger.parentElement).toHaveAttribute('data-state', 'open');
+  });
+
+  it('CSS mengandung data-state swap dan active press state', () => {
+    const css = read(path.resolve(__dirname, '../../components/ui/ui.css'));
+    expect(css).toContain('.ui-acc__trigger[data-state="closed"] .ui-acc__minus{display:none}');
+    expect(css).toContain('.ui-acc__trigger[data-state="open"] .ui-acc__plus{display:none}');
+    expect(css).toContain('.ui-acc__trigger:active:not(:disabled){transform:translateY(1px)}');
   });
 });
 
