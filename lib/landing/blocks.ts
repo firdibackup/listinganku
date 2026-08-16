@@ -59,7 +59,14 @@ export const BLOCK_LABELS: Record<BlockType, string> = {
   contactForm: 'Form Kontak',
 };
 
-const DEFAULT_PROPS: Record<BlockType, Record<string, unknown>> = {
+/**
+ * Tiap entri diketik oleh props milik blok itu sendiri, bukan Record<string, unknown>.
+ * Tanpa ini salah ketik (`layuot`) atau field wajib yang hilang lolos dari tsc dan
+ * baru ketahuan sebagai blok rusak di halaman publik.
+ */
+type DefaultPropsMap = { [K in BlockType]: Extract<Block, { type: K }>['props'] };
+
+const DEFAULT_PROPS: DefaultPropsMap = {
   hero: {},
   gallery: { layout: 'carousel' },
   highlights: {},
