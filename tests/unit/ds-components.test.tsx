@@ -63,13 +63,12 @@ describe('Input', () => {
   it('aria-describedby hanya merujuk id yang ada di DOM', () => {
     render(<Input label="Harga" hint="Masukkan harga dalam Rp" error="Wajib diisi." />);
     const input = screen.getByLabelText(/Harga/);
+    // Tanpa assertion tanpa syarat, tes ini lulus diam-diam kalau atributnya hilang.
     const describedBy = input.getAttribute('aria-describedby');
+    expect(describedBy).toBeTruthy();
 
-    if (describedBy) {
-      const ids = describedBy.split(/\s+/);
-      for (const id of ids) {
-        expect(document.getElementById(id)).toBeInTheDocument();
-      }
+    for (const id of describedBy!.split(/\s+/)) {
+      expect(document.getElementById(id)).toBeInTheDocument();
     }
   });
 });
