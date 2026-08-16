@@ -1,0 +1,114 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"D:\\CODINGAN\\listinganku\\.wolf\\hooks\\session-start.js\"",
+            "timeout": 5,
+            "statusMessage": "OpenWolf session bootstrap"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"D:\\CODINGAN\\listinganku\\.wolf\\hooks\\pre-read.js\"",
+            "timeout": 5,
+            "statusMessage": "OpenWolf read precheck"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"D:\\CODINGAN\\listinganku\\.wolf\\hooks\\pre-write.js\"",
+            "timeout": 5,
+            "statusMessage": "OpenWolf write precheck"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"D:\\CODINGAN\\listinganku\\.wolf\\hooks\\post-read.js\"",
+            "timeout": 5,
+            "statusMessage": "OpenWolf read tracking"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"D:\\CODINGAN\\listinganku\\.wolf\\hooks\\post-write.js\"",
+            "timeout": 10,
+            "statusMessage": "OpenWolf anatomy update"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write|apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -f 'C:\\Users\\Administrator\\.agents\\skills\\impeccable\\scripts\\hook.mjs' ] || node 'C:\\Users\\Administrator\\.agents\\skills\\impeccable\\scripts\\hook.mjs'",
+            "timeout": 5,
+            "statusMessage": "Checking UI changes",
+            "commandWindows": "if exist \"C:\\\\Users\\\\Administrator\\\\.agents\\\\skills\\\\impeccable\\\\scripts\\\\hook.mjs\" (node \"C:\\\\Users\\\\Administrator\\\\.agents\\\\skills\\\\impeccable\\\\scripts\\\\hook.mjs\" & exit /b)"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"D:\\CODINGAN\\listinganku\\.wolf\\hooks\\precompact.js\"",
+            "timeout": 5,
+            "statusMessage": "OpenWolf compaction snapshot"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"D:\\CODINGAN\\listinganku\\.wolf\\hooks\\stop.js\"",
+            "timeout": 10,
+            "statusMessage": "OpenWolf session wrap-up"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ ! -f 'C:\\Users\\Administrator\\.agents\\skills\\impeccable\\scripts\\hook.mjs' ] || node 'C:\\Users\\Administrator\\.agents\\skills\\impeccable\\scripts\\hook.mjs'",
+            "timeout": 30,
+            "statusMessage": "Design deep pass",
+            "commandWindows": "if exist \"C:\\\\Users\\\\Administrator\\\\.agents\\\\skills\\\\impeccable\\\\scripts\\\\hook.mjs\" (node \"C:\\\\Users\\\\Administrator\\\\.agents\\\\skills\\\\impeccable\\\\scripts\\\\hook.mjs\" & exit /b)"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "version": 1,
+  "created_at": "2026-08-16T07:44:56.229Z",
+  "lifetime": {
+    "total_tokens_estimated": 1542,
+    "total_reads": 4,
+    "total_writes": 0,
+    "total_sessions": 8,
+    "anatomy_hits": 3,
+    "anatomy_misses": 1,
+    "repeated_reads_blocked": 2,
+    "estimated_savings_vs_bare_cli": 600,
+    "real_input_tokens": 76,
+    "real_output_tokens": 62501,
+    "real_cache_read_tokens": 4034062,
+    "real_cache_creation_tokens": 458841,
+    "real_api_calls": 39
+  },
+  "sessions": [
+    {
+      "id": "session-2026-08-16-1446",
+      "agent": "claude",
+      "started": "2026-08-16T07:46:54.454Z",
+      "ended": "2026-08-16T07:47:19.111Z",
+      "reads": [
+        {
+          "file": "C:/Users/Administrator/.claude/settings.json",
+          "tokens_estimated": 514,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 514,
+        "output_tokens_estimated": 0,
+        "reads_count": 1,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 2,
+        "output_tokens": 867,
+        "cache_read_input_tokens": 27566,
+        "cache_creation_input_tokens": 14755,
+        "api_calls": 1
+      }
+    },
+    {
+      "id": "session-2026-08-16-1446",
+      "agent": "claude",
+      "started": "2026-08-16T07:46:54.454Z",
+      "ended": "2026-08-16T07:47:56.166Z",
+      "reads": [
+        {
+          "file": "C:/Users/Administrator/.claude/settings.json",
+          "tokens_estimated": 514,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 514,
+        "output_tokens_estimated": 0,
+        "reads_count": 1,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 4,
+        "output_tokens": 1948,
+        "cache_read_input_tokens": 69887,
+        "cache_creation_input_tokens": 19195,
+        "api_calls": 2
+      }
+    },
+    {
+      "id": "session-2026-08-16-1446",
+      "agent": "claude",
+      "started": "2026-08-16T07:46:54.454Z",
+      "ended": "2026-08-16T07:48:51.804Z",
+      "reads": [
+        {
+          "file": "C:/Users/Administrator/.claude/settings.json",
+          "tokens_estimated": 514,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 514,
+        "output_tokens_estimated": 0,
+        "reads_count": 1,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 1
+      },
+      "real_usage": {
+        "input_tokens": 8,
+        "output_tokens": 2540,
+        "cache_read_input_tokens": 164534,
+        "cache_creation_input_tokens": 20709,
+        "api_calls": 4
+      }
+    },
+    {
+      "id": "session-2026-08-16-1517",
+      "agent": "claude",
+      "started": "2026-08-16T08:17:29.890Z",
+      "ended": "2026-08-16T08:37:40.785Z",
+      "reads": [
+        {
+          "file": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/D--CODINGAN-listinganku/f5af3d60-5439-4057-a78e-de2fb35dfe2a/scratchpad/listingku-app.dc.html",
+          "tokens_estimated": 0,
+          "was_repeated": true,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 0,
+        "output_tokens_estimated": 0,
+        "reads_count": 1,
+        "writes_count": 0,
+        "repeated_reads_blocked": 2,
+        "anatomy_lookups": 0
+      },
+      "real_usage": {
+        "input_tokens": 62,
+        "output_tokens": 57146,
+        "cache_read_input_tokens": 3772075,
+        "cache_creation_input_tokens": 404182,
+        "api_calls": 32
+      }
+    }
+  ],
+  "daemon_usage": [],
+  "waste_flags": [],
+  "optimization_report": {
+    "last_generated": null,
+    "patterns": []
+  }
+}

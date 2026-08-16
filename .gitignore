@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+.data/
+public/uploads/*
+!public/uploads/.gitkeep
+.env*.local
+/test-results/
+/playwright-report/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+graphify-out/
+.superpowers/
