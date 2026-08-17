@@ -46,14 +46,22 @@ export function CreateProjectWizard() {
 
       if (!result.ok) {
         setErrors(result.fieldErrors);
-        // Pesan spesifik per field (mis. nama kosong) sudah tampil inline di step 1
-        // lewat prop error Input. Kegagalan lain (sesi habis, project tidak
-        // ditemukan) tidak punya field terkait — tanpa toast ini pengguna hanya
-        // dilempar balik ke step 1 tanpa penjelasan apa pun, persis silent
-        // failure yang sama seperti bug-010 di uploader media.
-        const fallback = result.fieldErrors._?.[0] ?? result.fieldErrors.name?.[0];
-        if (fallback) toast.error(fallback);
-        setStep(1);
+        if (result.fieldErrors.name) {
+          // Nama cuma pernah diedit di step 1 — itu satu-satunya kegagalan yang
+          // perlu memindahkan step, supaya errornya kelihatan tepat di field-nya
+          // (prop error Input, bukan toast).
+          setStep(1);
+        } else {
+          // Kegagalan generik (sesi habis, project tidak ditemukan lagi saat
+          // update, exception tak terduga) tidak dimiliki field mana pun — TIDAK
+          // memindahkan step. Melompat ke step 1 di sini pernah jadi masalah:
+          // seseorang yang sudah di step 3 kehilangan progres tampilan gara-gara
+          // sesi blip sesaat, padahal projectId di state masih valid dan retry
+          // dari step yang sama akan berhasil. Tanpa toast ini juga silent
+          // failure yang sama seperti bug-010 di uploader media.
+          const fallback = result.fieldErrors._?.[0];
+          if (fallback) toast.error(fallback);
+        }
         return;
       }
 

@@ -141,26 +141,42 @@ describe('publishProjectAction', () => {
 });
 
 describe('deleteProjectAction', () => {
-  it('menghapus project milik sendiri', async () => {
+  it('menghapus project milik sendiri dan mengembalikan ActionResult ok', async () => {
     const created = await createProjectAction({ name: 'Cluster Hapus' });
     if (!created.ok) throw new Error('expected ok');
 
-    await deleteProjectAction(created.data.id);
+    const result = await deleteProjectAction(created.data.id);
+    expect(result).toEqual({ ok: true, data: null });
     expect(await db.projects.get(created.data.id)).toBeNull();
   });
 
-  it('tidak menghapus apa pun saat id milik user lain', async () => {
+  it('menolak hapus milik user lain, tanpa menghapus apa pun', async () => {
     session.userId = 'usr_bob';
     const bobsProject = await createProjectAction({ name: 'Punya Bob Hapus' });
     if (!bobsProject.ok) throw new Error('expected ok');
 
     session.userId = 'usr_mallory';
-    await deleteProjectAction(bobsProject.data.id);
+    const result = await deleteProjectAction(bobsProject.data.id);
 
+    expect(result).toEqual({ ok: false, fieldErrors: { _: ['Project tidak ditemukan.'] } });
     expect(await db.projects.get(bobsProject.data.id)).not.toBeNull();
   });
 
-  it('tidak melempar saat id tidak pernah ada', async () => {
-    await expect(deleteProjectAction('prj_tidak_pernah_ada')).resolves.toBeUndefined();
+  it('menolak hapus project yang tidak pernah ada, tanpa melempar', async () => {
+    const result = await deleteProjectAction('prj_tidak_pernah_ada');
+    expect(result).toEqual({ ok: false, fieldErrors: { _: ['Project tidak ditemukan.'] } });
+  });
+
+  it('kegagalan tak terduga saat menghapus mengembalikan ok:false, bukan melempar (unhandled rejection)', async () => {
+    const created = await createProjectAction({ name: 'Cluster Hapus Gagal' });
+    if (!created.ok) throw new Error('expected ok');
+
+    const removeSpy = vi.spyOn(db.projects, 'remove').mockRejectedValueOnce(new Error('DB down'));
+    const result = await deleteProjectAction(created.data.id);
+    removeSpy.mockRestore();
+
+    expect(result).toEqual({ ok: false, fieldErrors: { _: ['Gagal menghapus project. Coba lagi.'] } });
+    // Baris tidak sungguhan terhapus — remove() gagal sebelum sempat commit.
+    expect(await db.projects.get(created.data.id)).not.toBeNull();
   });
 });

@@ -86,14 +86,22 @@ export async function publishProjectAction(id: string): Promise<ActionResult<{ s
   }
 }
 
-export async function deleteProjectAction(id: string): Promise<void> {
-  const userId = await requireSessionUserId();
-  const owned = await requireOwnedProject(userId, id);
-  // Tidak ada cara melaporkan penolakan lewat tanda tangan Promise<void> ini
-  // (ditetapkan begitu di brief) — kalau bukan pemilik, keluar diam-diam
-  // tanpa menghapus apa pun, alih-alih melempar atau menghapus project orang lain.
-  if (!owned) return;
+export async function deleteProjectAction(id: string): Promise<ActionResult<null>> {
+  // Brief aslinya memberi fungsi ini tanda tangan Promise<void> tanpa
+  // try/catch. Belum ada caller yang memakainya di task ini, tapi begitu UI
+  // hapus-project dibuat, Promise<void> tanpa try/catch di sini akan jadi
+  // unhandled rejection yang didiamkan — persis pola silent-failure (bug-010)
+  // yang tiga action lain di file ini sudah dijaga. Disamakan ke ActionResult
+  // supaya konsisten sebelum ada yang bergantung padanya.
+  try {
+    const userId = await requireSessionUserId();
+    const owned = await requireOwnedProject(userId, id);
+    if (!owned) return { ok: false, fieldErrors: { _: ['Project tidak ditemukan.'] } };
 
-  await db.projects.remove(id);
-  revalidatePath('/dashboard');
+    await db.projects.remove(id);
+    revalidatePath('/dashboard');
+    return { ok: true, data: null };
+  } catch {
+    return { ok: false, fieldErrors: { _: ['Gagal menghapus project. Coba lagi.'] } };
+  }
 }

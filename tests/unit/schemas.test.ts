@@ -38,6 +38,34 @@ describe('HouseTypeSchema', () => {
       name: 'Villa', price: 1, landArea: 1, buildingArea: 1, bedrooms: 1, bathrooms: 1, carport: -1,
     }).success).toBe(false);
   });
+
+  it('menolak harga berupa teks bukan angka dengan pesan Bahasa Indonesia, bukan pesan bawaan Zod', () => {
+    const result = HouseTypeSchema.safeParse({
+      name: 'Villa', price: 'mahal-sekali', landArea: 90, buildingArea: 120, bedrooms: 3, bathrooms: 2, carport: 1,
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) expect(result.error.flatten().fieldErrors.price?.[0]).toBe('Harga harus berupa angka.');
+  });
+
+  it('menolak harga yang field-nya sama sekali tidak dikirim dengan pesan Bahasa Indonesia', () => {
+    const result = HouseTypeSchema.safeParse({
+      name: 'Villa', landArea: 90, buildingArea: 120, bedrooms: 3, bathrooms: 2, carport: 1,
+    });
+    expect(result.success).toBe(false);
+    if (!result.success) expect(result.error.flatten().fieldErrors.price?.[0]).toBe('Harga harus berupa angka.');
+  });
+
+  it('menolak harga string kosong dengan pesan Bahasa Indonesia (Number(\'\') adalah 0, bukan NaN)', () => {
+    const result = HouseTypeSchema.safeParse({
+      name: 'Villa', price: '', landArea: 90, buildingArea: 120, bedrooms: 3, bathrooms: 2, carport: 1,
+    });
+    expect(result.success).toBe(false);
+    // String kosong dikoersi jadi 0, bukan NaN — jadi lewat pemeriksaan tipe dan
+    // gagal di .positive() dengan pesan yang sama seperti test "harga nol", bukan
+    // pesan invalid_type_error. Exact message dipastikan di sini supaya perubahan
+    // yang tidak sengaja membuatnya lolos validasi (0 dianggap sah) tertangkap.
+    if (!result.success) expect(result.error.flatten().fieldErrors.price?.[0]).toBe('Harga harus lebih dari nol.');
+  });
 });
 
 describe('LeadSchema', () => {

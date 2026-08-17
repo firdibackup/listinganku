@@ -19,6 +19,10 @@ vi.mock('@/lib/session', () => ({ requireSessionUserId: async () => session.user
 vi.mock('next/cache', () => ({ revalidatePath: vi.fn() }));
 const pushMock = vi.hoisted(() => vi.fn());
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: pushMock }) }));
+// toast di-mock supaya kegagalan generik (tanpa field terkait) bisa diverifikasi
+// benar-benar memberi tahu pengguna, bukan cuma diam-diam ditelan.
+const toastMock = vi.hoisted(() => ({ error: vi.fn(), success: vi.fn() }));
+vi.mock('@/components/ui', () => ({ toast: toastMock }));
 
 import { db } from '@/lib/data';
 import { CreateProjectWizard } from '@/components/wizard/CreateProjectWizard';
@@ -31,6 +35,9 @@ afterAll(() => {
 
 afterEach(() => {
   pushMock.mockClear();
+  toastMock.error.mockClear();
+  toastMock.success.mockClear();
+  session.userId = 'usr_wizard';
 });
 
 describe('CreateProjectWizard — simpan otomatis per langkah', () => {
@@ -93,5 +100,28 @@ describe('CreateProjectWizard — simpan otomatis per langkah', () => {
     await screen.findByText('Wajib diisi.');
     expect(screen.queryByText('Fasilitas dan media')).not.toBeInTheDocument();
     expect(await db.projects.list('usr_wizard')).toHaveLength(before);
+  });
+
+  it('kegagalan generik (tanpa field terkait) di step 2 tidak melempar pengguna balik ke step 1', async () => {
+    const user = userEvent.setup();
+    render(<CreateProjectWizard />);
+
+    await user.type(screen.getByLabelText(/Nama project/), 'Cluster Sesi Blip');
+    await user.click(screen.getByRole('button', { name: 'Lanjut' }));
+    await screen.findByText('Fasilitas dan media');
+
+    // Simulasikan sesi yang tidak lagi memiliki project ini (mis. sesi berganti
+    // di tab lain) — projectId di state komponen masih sama, tapi
+    // updateProjectAction sekarang menolaknya lewat requireOwnedProject.
+    session.userId = 'usr_intruder';
+    await user.click(screen.getByRole('button', { name: 'Lanjut' }));
+
+    // Toast generik muncul...
+    await vi.waitFor(() => expect(toastMock.error).toHaveBeenCalledWith('Project tidak ditemukan.'));
+    // ...dan pengguna TETAP di step 2 — bukan dilempar ke step 1. Kegagalan ini
+    // sama sekali tidak terkait field "Nama project", jadi tidak ada alasan
+    // untuk membuang progres tampilan yang sudah dicapai.
+    expect(screen.getByText('Fasilitas dan media')).toBeInTheDocument();
+    expect(screen.queryByLabelText(/Nama project/)).not.toBeInTheDocument();
   });
 });
