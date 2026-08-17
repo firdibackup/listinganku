@@ -1,0 +1,20 @@
+.wz{max-width:640px;margin:0 auto}
+.wz__bar{margin-top:14px;display:flex;gap:6px}
+.wz__seg{flex:1;height:4px;border-radius:var(--radius-sm);background:var(--ash)}
+.wz__seg--done{background:var(--evergreen)}
+/* .wz__panel composes the DS Card for background/border/radius/padding —
+   only the layout bits Card doesn't provide (spacing above it, vertical
+   stack of fields) live here. Same pattern as components/dashboard/dashboard.css. */
+.wz__panel{margin-top:22px;display:flex;flex-direction:column;gap:16px}
+.wz__foot{margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.wz__chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.wz__chip{cursor:pointer;background:none;border:0;padding:0;border-radius:var(--radius-full);
+  transition:var(--transition-control)}
+.wz__chip:active{transform:translateY(1px)}
+/* Hover adalah pertukaran warna, sama seperti tombol DS — chip yang belum
+   dipilih menggelap ke evergreen; yang sudah dipilih (accent) menuju oranye
+   supaya jelas kalau diklik lagi akan melepas pilihan. */
+.wz__chip:hover .ds-chip--outline{border-color:var(--evergreen);color:var(--evergreen)}
+.wz__chip:hover .ds-chip--accent{border-color:var(--orange);color:var(--orange)}
+.wz__review{display:grid;grid-template-columns:150px 1fr;gap:12px;font-size:var(--type-body-sm-size)}
+@media (max-width:640px){.wz__review{grid-template-columns:1fr;gap:4px}}
