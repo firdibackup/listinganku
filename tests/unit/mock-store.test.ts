@@ -1,5 +1,5 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
-import { mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readdirSync, rmSync, utimesSync, writeFileSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createMockStore } from '@/lib/data/mock/repos';
@@ -408,13 +408,37 @@ describe('snapshot berkas — persist: true', () => {
     })).resolves.toBeUndefined();
   });
 
-  it('saveSnapshot membersihkan file .tmp sisa dari proses yang crash sebelumnya', () => {
+  it('saveSnapshot membersihkan .tmp basi (mtime lama), tapi tidak menyentuh .tmp yang baru saja ditulis', () => {
     mkdirSync(tmpDir, { recursive: true });
-    writeFileSync(path.join(tmpDir, 'store.json.99999.tmp'), '{}', 'utf8');
+    const staleTmp = path.join(tmpDir, 'store.json.11111.tmp');
+    const freshTmp = path.join(tmpDir, 'store.json.22222.tmp');
+    writeFileSync(staleTmp, '{}', 'utf8');
+    writeFileSync(freshTmp, '{}', 'utf8');
+
+    const fiveMinutesAgo = new Date(Date.now() - 5 * 60_000);
+    utimesSync(staleTmp, fiveMinutesAgo, fiveMinutesAgo);
+    // freshTmp dibiarkan bermtime "sekarang" — mensimulasikan proses lain yang sedang menulis.
 
     saveSnapshot(seedStore());
 
-    const leftoverTmp = readdirSync(tmpDir).filter((f) => f.endsWith('.tmp'));
-    expect(leftoverTmp).toEqual([]);
+    const remainingTmp = readdirSync(tmpDir).filter((f) => f.endsWith('.tmp'));
+    expect(remainingTmp).not.toContain(path.basename(staleTmp));
+    // Tanpa cek umur, sweep lama menghapus SEMUA .tmp tanpa pandang bulu — termasuk
+    // yang sedang ditulis proses lain. Baris ini adalah inti perbaikannya.
+    expect(remainingTmp).toContain(path.basename(freshTmp));
+  });
+
+  it('repairShape membuang elemen null dalam array; baris valid selamat dan projects.list() tidak crash', async () => {
+    mkdirSync(tmpDir, { recursive: true });
+    const validProject = seedStore().projects[0];
+    writeFileSync(snapshotFile(), JSON.stringify({ projects: [null, validProject] }), 'utf8');
+
+    const loaded = loadSnapshot();
+    expect(loaded?.projects).toHaveLength(1);
+    expect(loaded?.projects[0]?.id).toBe(validProject.id);
+
+    const store = createMockStore({ persist: true });
+    const listed = await store.projects.list(validProject.userId);
+    expect(listed.map((p) => p.id)).toContain(validProject.id);
   });
 });
