@@ -1,0 +1,214 @@
+import { newId } from '@/lib/ids';
+import { defaultBlocks } from '@/lib/landing/blocks';
+import { uniqueSlug } from '@/lib/slug';
+import type { DataStore, NewAiUsage, NewHouseType, NewLead, NewMedia, NewProject } from '../repo';
+import type { EventType, StoreShape } from '../types';
+import { createStoreHandle } from './store';
+
+const now = () => new Date().toISOString();
+const EMPTY_COUNTS: Record<EventType, number> = { visitor: 0, whatsapp_click: 0, form_submit: 0 };
+
+/**
+ * Setiap metode baca (dan hasil create/update) HARUS lewat clone() sebelum
+ * dikembalikan ke pemanggil. Tanpa ini caller yang memutasi objek hasil akan
+ * memutasi baris di dalam store secara diam-diam — bug yang baru kelihatan
+ * jauh setelah tempatnya, saat state tersimpan sudah rusak.
+ */
+const clone = <T>(value: T): T => structuredClone(value);
+
+export function createMockStore(opts: { persist: boolean; initial?: StoreShape }): DataStore {
+  const handle = createStoreHandle(opts);
+  const s = handle.state;
+  const save = () => handle.commit();
+
+  return {
+    agentProfile: {
+      async get(userId) {
+        return clone(s.agentProfiles.find((a) => a.userId === userId) ?? null);
+      },
+      async update(userId, patch) {
+        const found = s.agentProfiles.find((a) => a.userId === userId);
+        if (!found) throw new Error(`Profil agen ${userId} tidak ditemukan.`);
+        Object.assign(found, patch);
+        save();
+        return clone(found);
+      },
+    },
+
+    projects: {
+      async list(userId) {
+        return s.projects
+          .filter((p) => p.userId === userId)
+          .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+          .map(clone);
+      },
+      async get(id) {
+        return clone(s.projects.find((p) => p.id === id) ?? null);
+      },
+      async getBySlug(slug) {
+        return clone(s.projects.find((p) => p.slug === slug) ?? null);
+      },
+      async listPublished() {
+        return s.projects.filter((p) => p.status === 'published').map(clone);
+      },
+      async create(input: NewProject) {
+        const created = {
+          ...input,
+          id: newId('prj'),
+          slug: uniqueSlug(input.name, s.projects.map((p) => p.slug)),
+          status: 'draft' as const,
+          theme: 'modern' as const,
+          blocks: defaultBlocks(),
+          seo: {},
+          aiContent: null,
+          createdAt: now(),
+          updatedAt: now(),
+          publishedAt: null,
+        };
+        s.projects.push(created);
+        save();
+        return clone(created);
+      },
+      async update(id, patch) {
+        const found = s.projects.find((p) => p.id === id);
+        if (!found) throw new Error(`Project ${id} tidak ditemukan.`);
+        Object.assign(found, patch, { updatedAt: now() });
+        save();
+        return clone(found);
+      },
+      async remove(id) {
+        s.projects = s.projects.filter((p) => p.id !== id);
+        s.houseTypes = s.houseTypes.filter((h) => h.projectId !== id);
+        s.media = s.media.filter((m) => m.projectId !== id);
+        s.events = s.events.filter((e) => e.projectId !== id);
+        save();
+      },
+    },
+
+    houseTypes: {
+      async listByProject(projectId) {
+        return s.houseTypes
+          .filter((h) => h.projectId === projectId)
+          .sort((a, b) => a.sortOrder - b.sortOrder)
+          .map(clone);
+      },
+      async get(id) {
+        return clone(s.houseTypes.find((h) => h.id === id) ?? null);
+      },
+      async create(input: NewHouseType) {
+        const siblings = s.houseTypes.filter((h) => h.projectId === input.projectId);
+        const created = {
+          ...input,
+          id: newId('hts'),
+          slug: uniqueSlug(input.name, siblings.map((h) => h.slug)),
+          status: 'draft' as const,
+          aiContent: null,
+          sortOrder: siblings.length,
+          createdAt: now(),
+          updatedAt: now(),
+        };
+        s.houseTypes.push(created);
+        save();
+        return clone(created);
+      },
+      async update(id, patch) {
+        const found = s.houseTypes.find((h) => h.id === id);
+        if (!found) throw new Error(`Tipe rumah ${id} tidak ditemukan.`);
+        Object.assign(found, patch, { updatedAt: now() });
+        save();
+        return clone(found);
+      },
+      async remove(id) {
+        s.houseTypes = s.houseTypes.filter((h) => h.id !== id);
+        s.media = s.media.filter((m) => m.houseTypeId !== id);
+        save();
+      },
+    },
+
+    media: {
+      async listByProject(projectId) {
+        return s.media
+          .filter((m) => m.projectId === projectId)
+          .sort((a, b) => a.sortOrder - b.sortOrder)
+          .map(clone);
+      },
+      async create(input: NewMedia) {
+        const siblings = s.media.filter(
+          (m) => m.projectId === input.projectId && m.houseTypeId === input.houseTypeId,
+        );
+        const created = {
+          ...input,
+          id: newId('med'),
+          isPrimary: siblings.length === 0 && input.type === 'photo',
+          sortOrder: siblings.length,
+          createdAt: now(),
+        };
+        s.media.push(created);
+        save();
+        return clone(created);
+      },
+      async remove(id) {
+        s.media = s.media.filter((m) => m.id !== id);
+        save();
+      },
+      async setPrimary(id) {
+        const target = s.media.find((m) => m.id === id);
+        if (!target) return;
+        for (const m of s.media) {
+          if (m.projectId === target.projectId && m.houseTypeId === target.houseTypeId) m.isPrimary = m.id === id;
+        }
+        save();
+      },
+    },
+
+    leads: {
+      async create(input: NewLead) {
+        const created = { ...input, id: newId('lead'), status: 'new' as const, createdAt: now() };
+        s.leads.push(created);
+        save();
+        return clone(created);
+      },
+      async listByUser(userId) {
+        const owned = new Set(s.projects.filter((p) => p.userId === userId).map((p) => p.id));
+        return s.leads
+          .filter((l) => owned.has(l.projectId))
+          .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+          .map(clone);
+      },
+    },
+
+    events: {
+      async record({ projectId, houseTypeId = null, type }) {
+        const date = now().slice(0, 10);
+        const existing = s.events.find(
+          (e) => e.projectId === projectId && e.houseTypeId === houseTypeId && e.type === type && e.date === date,
+        );
+        if (existing) existing.count += 1;
+        else s.events.push({ id: newId('evt'), projectId, houseTypeId, type, date, count: 1 });
+        save();
+      },
+      async countsByProject(projectId) {
+        const counts = { ...EMPTY_COUNTS };
+        for (const e of s.events) if (e.projectId === projectId) counts[e.type] += e.count;
+        return counts;
+      },
+      async totalsByUser(userId) {
+        const owned = new Set(s.projects.filter((p) => p.userId === userId).map((p) => p.id));
+        const counts = { ...EMPTY_COUNTS };
+        for (const e of s.events) if (owned.has(e.projectId)) counts[e.type] += e.count;
+        return counts;
+      },
+    },
+
+    aiUsage: {
+      async record(input: NewAiUsage) {
+        s.aiUsage.push({ ...input, id: newId('aiu'), createdAt: now() });
+        save();
+      },
+    },
+
+    __dump() {
+      return structuredClone(s);
+    },
+  };
+}
