@@ -17,5 +17,9 @@ export function getDataStore(): DataStore {
   return globalThis.__listingkuStore;
 }
 
+// Kode Edge runtime TIDAK BOLEH mengimpor barrel ini: getDataStore() menyentuh
+// node:fs (lewat mock store) saat modul dimuat, yang gagal di Edge. Slice 1
+// tidak punya middleware Edge, jadi ini dibiarkan sampai subdomain middleware
+// benar-benar mendarat dan bentuknya jelas.
 export const db: DataStore = getDataStore();
 export type { DataStore } from './repo';

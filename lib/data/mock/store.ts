@@ -12,13 +12,17 @@ export function createStoreHandle(opts: { persist: boolean; initial?: StoreShape
     ? structuredClone(opts.initial)
     : ((opts.persist ? loadSnapshot() : null) ?? seedStore());
 
-  let timer: ReturnType<typeof setTimeout> | null = null;
   return {
     state,
+    /**
+     * Tulis sinkron, tanpa debounce. Ini mock single-user untuk dev lokal atas
+     * satu file kecil — beberapa milidetik per tulis jauh lebih murah daripada
+     * jendela hilangnya data antara commit dan restart, dan tidak ada exit hook
+     * yang bisa menyelamatkan write tertunda dari SIGKILL.
+     */
     commit() {
       if (!opts.persist) return;
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => saveSnapshot(state), 50);
+      saveSnapshot(state);
     },
   };
 }

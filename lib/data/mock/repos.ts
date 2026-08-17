@@ -10,9 +10,11 @@ const EMPTY_COUNTS: Record<EventType, number> = { visitor: 0, whatsapp_click: 0,
 
 /**
  * Setiap metode baca (dan hasil create/update) HARUS lewat clone() sebelum
- * dikembalikan ke pemanggil. Tanpa ini caller yang memutasi objek hasil akan
- * memutasi baris di dalam store secara diam-diam — bug yang baru kelihatan
- * jauh setelah tempatnya, saat state tersimpan sudah rusak.
+ * dikembalikan ke pemanggil, dan setiap masukan (input/patch) HARUS di-clone
+ * sebelum disimpan. Tanpa clone di sisi masuk, array/objek bersarang milik
+ * pemanggil (facilities, blocks, stats, services, ...) tetap teraliaskan ke
+ * dalam store — pemanggil yang lanjut mengubah array itu memutasi store
+ * secara diam-diam, tanpa lewat save() dan tanpa tersimpan ke snapshot.
  */
 const clone = <T>(value: T): T => structuredClone(value);
 
@@ -29,7 +31,7 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
       async update(userId, patch) {
         const found = s.agentProfiles.find((a) => a.userId === userId);
         if (!found) throw new Error(`Profil agen ${userId} tidak ditemukan.`);
-        Object.assign(found, patch);
+        Object.assign(found, clone(patch));
         save();
         return clone(found);
       },
@@ -53,7 +55,7 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
       },
       async create(input: NewProject) {
         const created = {
-          ...input,
+          ...clone(input),
           id: newId('prj'),
           slug: uniqueSlug(input.name, s.projects.map((p) => p.slug)),
           status: 'draft' as const,
@@ -72,7 +74,11 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
       async update(id, patch) {
         const found = s.projects.find((p) => p.id === id);
         if (!found) throw new Error(`Project ${id} tidak ditemukan.`);
-        Object.assign(found, patch, { updatedAt: now() });
+        // id adalah primary key dan tidak pernah bisa ditulis ulang; slug diturunkan
+        // sekali saat create karena mengubahnya mematahkan URL publik dan QR code
+        // yang sudah beredar. Keduanya dibuang dari patch, apa pun isinya.
+        const { id: _ignoredId, slug: _ignoredSlug, ...safePatch } = clone(patch);
+        Object.assign(found, safePatch, { updatedAt: now() });
         save();
         return clone(found);
       },
@@ -81,6 +87,8 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
         s.houseTypes = s.houseTypes.filter((h) => h.projectId !== id);
         s.media = s.media.filter((m) => m.projectId !== id);
         s.events = s.events.filter((e) => e.projectId !== id);
+        s.leads = s.leads.filter((l) => l.projectId !== id);
+        s.aiUsage = s.aiUsage.filter((u) => u.projectId !== id);
         save();
       },
     },
@@ -98,7 +106,7 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
       async create(input: NewHouseType) {
         const siblings = s.houseTypes.filter((h) => h.projectId === input.projectId);
         const created = {
-          ...input,
+          ...clone(input),
           id: newId('hts'),
           slug: uniqueSlug(input.name, siblings.map((h) => h.slug)),
           status: 'draft' as const,
@@ -114,13 +122,16 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
       async update(id, patch) {
         const found = s.houseTypes.find((h) => h.id === id);
         if (!found) throw new Error(`Tipe rumah ${id} tidak ditemukan.`);
-        Object.assign(found, patch, { updatedAt: now() });
+        const { id: _ignoredId, slug: _ignoredSlug, ...safePatch } = clone(patch);
+        Object.assign(found, safePatch, { updatedAt: now() });
         save();
         return clone(found);
       },
       async remove(id) {
         s.houseTypes = s.houseTypes.filter((h) => h.id !== id);
         s.media = s.media.filter((m) => m.houseTypeId !== id);
+        s.events = s.events.filter((e) => e.houseTypeId !== id);
+        s.leads = s.leads.filter((l) => l.houseTypeId !== id);
         save();
       },
     },
@@ -137,7 +148,7 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
           (m) => m.projectId === input.projectId && m.houseTypeId === input.houseTypeId,
         );
         const created = {
-          ...input,
+          ...clone(input),
           id: newId('med'),
           isPrimary: siblings.length === 0 && input.type === 'photo',
           sortOrder: siblings.length,
@@ -163,7 +174,7 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
 
     leads: {
       async create(input: NewLead) {
-        const created = { ...input, id: newId('lead'), status: 'new' as const, createdAt: now() };
+        const created = { ...clone(input), id: newId('lead'), status: 'new' as const, createdAt: now() };
         s.leads.push(created);
         save();
         return clone(created);
@@ -202,7 +213,7 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
 
     aiUsage: {
       async record(input: NewAiUsage) {
-        s.aiUsage.push({ ...input, id: newId('aiu'), createdAt: now() });
+        s.aiUsage.push({ ...clone(input), id: newId('aiu'), createdAt: now() });
         save();
       },
     },
