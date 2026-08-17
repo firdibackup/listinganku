@@ -39,9 +39,18 @@ export interface ResolveInput {
 }
 
 /** Rantai yang menopang tombol "Use AI suggestion": override, lalu AI, lalu fallback. */
-const pick = <T>(override: T | undefined, ai: T | undefined, fallback: T): T => {
-  if (override !== undefined && override !== '' && !(Array.isArray(override) && override.length === 0)) return override;
-  if (ai !== undefined && ai !== '' && !(Array.isArray(ai) && ai.length === 0)) return ai;
+export const pick = <T>(override: T | undefined, ai: T | undefined, fallback: T): T => {
+  const isAbsent = (v: T | undefined): boolean => {
+    if (v === undefined) return true;
+    if (v === '') return true; // empty string is absent
+    if (Array.isArray(v) && v.length === 0) return true; // empty array is absent
+    // Whitespace-only string is deliberately absent so fallback to AI / default occurs
+    if (typeof v === 'string' && v.trim() === '') return true;
+    return false;
+  };
+
+  if (!isAbsent(override)) return override as T;
+  if (!isAbsent(ai)) return ai as T;
   return fallback;
 };
 
@@ -97,12 +106,13 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
 
       case 'gallery': {
         const ids = p.mediaIds as string[] | undefined;
+        const resolved = ids?.length
+          ? ids.map((id) => media.find((m) => m.id === id)).filter((m): m is Media => Boolean(m))
+          : [];
         out.push({
           id: block.id, type: 'gallery',
           layout: (p.layout as 'carousel' | 'grid') ?? 'carousel',
-          images: ids?.length
-            ? ids.map((id) => media.find((m) => m.id === id)).filter((m): m is Media => Boolean(m))
-            : [...projectPhotos, ...houseTypes.flatMap((h) => h.photos)],
+          images: resolved.length > 0 ? resolved : [...projectPhotos, ...houseTypes.flatMap((h) => h.photos)],
         });
         break;
       }

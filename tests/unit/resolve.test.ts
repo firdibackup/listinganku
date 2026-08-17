@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { resolveBlocks } from '@/lib/landing/resolve';
+import { resolveBlocks, pick } from '@/lib/landing/resolve';
 import { defaultBlocks, toggleBlock, updateBlockProps } from '@/lib/landing/blocks';
 import { seedStore } from '@/fixtures/seed';
-import type { Project } from '@/lib/data/types';
+import type { Project, Media } from '@/lib/data/types';
 
 function fixture(overrides: Partial<Project> = {}) {
   const store = seedStore();
@@ -15,7 +15,7 @@ function fixture(overrides: Partial<Project> = {}) {
   };
 }
 
-const pick = <T extends { type: string }>(blocks: T[], type: string) => blocks.find((b) => b.type === type);
+const pickBlock = <T extends { type: string }>(blocks: T[], type: string) => blocks.find((b) => b.type === type);
 
 describe('resolveBlocks', () => {
   it('mempertahankan urutan blok dan membuang yang nonaktif', () => {
@@ -37,7 +37,7 @@ describe('resolveBlocks', () => {
         captions: { instagram: 'i', facebook: 'f', whatsapp: 'w' },
       },
     });
-    const hero = pick(resolveBlocks(input), 'hero') as { title: string };
+    const hero = pickBlock(resolveBlocks(input), 'hero') as { title: string };
     expect(hero.title).toBe('Parkspring Gading — Cluster tiga tipe');
   });
 
@@ -49,12 +49,12 @@ describe('resolveBlocks', () => {
       },
     });
     const blocks = updateBlockProps(base.project.blocks, 'blk_hero', { title: 'Judul manual' });
-    const hero = pick(resolveBlocks({ ...base, project: { ...base.project, blocks } }), 'hero') as { title: string };
+    const hero = pickBlock(resolveBlocks({ ...base, project: { ...base.project, blocks } }), 'hero') as { title: string };
     expect(hero.title).toBe('Judul manual');
   });
 
   it('jatuh ke nama project saat AI dan override sama-sama kosong', () => {
-    const hero = pick(resolveBlocks(fixture()), 'hero') as { title: string };
+    const hero = pickBlock(resolveBlocks(fixture()), 'hero') as { title: string };
     expect(hero.title).toBe('Parkspring Gading');
   });
 
@@ -64,47 +64,76 @@ describe('resolveBlocks', () => {
       order: ['hts_grand', 'hts_villa', 'hts_midea'],
       hidden: ['hts_midea'],
     });
-    const block = pick(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'houseTypes') as {
+    const block = pickBlock(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'houseTypes') as {
       houseTypes: { name: string }[];
     };
     expect(block.houseTypes.map((h) => h.name)).toEqual(['Grand', 'Villa']);
   });
 
   it('mengambil nomor WhatsApp dari profil agen bila CTA tidak dioverride', () => {
-    const cta = pick(resolveBlocks(fixture()), 'agentCta') as { waNumber: string; defaultMessage: string };
+    const cta = pickBlock(resolveBlocks(fixture()), 'agentCta') as { waNumber: string; defaultMessage: string };
     expect(cta.waNumber).toBe('081288994410');
     expect(cta.defaultMessage).toContain('Parkspring Gading');
   });
 
   it('menurunkan fasilitas dari project, bukan dari props blok', () => {
-    const facilities = pick(resolveBlocks(fixture()), 'facilities') as { items: string[] };
+    const facilities = pickBlock(resolveBlocks(fixture()), 'facilities') as { items: string[] };
     expect(facilities.items).toEqual(['Kolam renang', 'Security 24 jam', 'Jogging track']);
   });
 
-  // Edge cases
-  it('memperlakukan 0 sebagai nilai yang sah, bukan kekosongan', () => {
-    const input = fixture({
-      aiContent: {
-        headline: 'Dari AI', description: '', sellingPoints: [], faq: [],
-        seo: { title: '', description: '' }, captions: { instagram: '', facebook: '', whatsapp: '' },
-      },
+  // Edge cases for pick() function
+  describe('pick function — rantai override → AI → fallback', () => {
+    it('mengambil override bahkan saat nilainya 0', () => {
+      expect(pick(0, undefined, 99)).toBe(0);
     });
-    const blocks = updateBlockProps(input.project.blocks, 'blk_contactForm', { askHouseType: 0 as unknown as boolean });
-    const form = pick(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'contactForm') as { askHouseType: unknown };
-    // 0 is falsy but not undefined/empty, so it should be used
-    expect(form.askHouseType).toBe(0);
+
+    it('mengambil override bahkan saat nilainya false', () => {
+      expect(pick(false, undefined, true)).toBe(false);
+    });
+
+    it('mengambil AI saat override undefined dan nilainya 0', () => {
+      expect(pick(undefined, 0, 99)).toBe(0);
+    });
+
+    it('memperlakukan string kosong sebagai kekosongan dan jatuh ke AI', () => {
+      expect(pick('', 'ai', 'fallback')).toBe('ai');
+    });
+
+    it('memperlakukan array kosong sebagai kekosongan dan jatuh ke AI', () => {
+      expect(pick([], ['ai'], [])).toEqual(['ai']);
+    });
+
+    it('memperlakukan whitespace-only string sebagai kekosongan', () => {
+      expect(pick('   ', 'ai', 'fallback')).toBe('ai');
+    });
+
+    it('jatuh ke fallback saat override dan AI sama-sama kosong', () => {
+      expect(pick(undefined, undefined, 'fallback')).toBe('fallback');
+    });
   });
 
-  it('memperlakukan false sebagai nilai yang sah, bukan kekosongan', () => {
-    const input = fixture({
-      aiContent: {
-        headline: 'Dari AI', description: '', sellingPoints: [], faq: [],
-        seo: { title: '', description: '' }, captions: { instagram: '', facebook: '', whatsapp: '' },
-      },
+  it('menampilkan default foto saat semua mediaId galeri dangling', () => {
+    const input = fixture();
+    // Add a project photo to fall back to
+    input.media.push({
+      id: 'med_project_photo',
+      userId: 'usr_audi',
+      projectId: 'prj_parkspring',
+      houseTypeId: null,
+      type: 'photo',
+      url: 'https://example.com/photo.jpg',
+      size: 1024,
+      isPrimary: true,
+      sortOrder: 0,
+      createdAt: '2026-08-10T09:00:00.000Z',
     });
-    const blocks = updateBlockProps(input.project.blocks, 'blk_contactForm', { askHouseType: false });
-    const form = pick(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'contactForm') as { askHouseType: boolean };
-    expect(form.askHouseType).toBe(false);
+    const blocks = updateBlockProps(input.project.blocks, 'blk_gallery', {
+      mediaIds: ['med_nonexistent_1', 'med_nonexistent_2'],
+    });
+    const gallery = pickBlock(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'gallery') as { images: { id: string }[] };
+    // Dangling IDs should trigger fallback to project + house type photos
+    expect(gallery.images.length).toBe(1);
+    expect(gallery.images[0].id).toBe('med_project_photo');
   });
 
   it('memperlakukan string kosong sebagai kekosongan, bukan nilai', () => {
@@ -115,8 +144,7 @@ describe('resolveBlocks', () => {
       },
     });
     const blocks = updateBlockProps(input.project.blocks, 'blk_hero', { title: '' });
-    const hero = pick(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'hero') as { title: string };
-    // Empty string should fall through to AI
+    const hero = pickBlock(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'hero') as { title: string };
     expect(hero.title).toBe('Dari AI');
   });
 
@@ -128,8 +156,7 @@ describe('resolveBlocks', () => {
       },
     });
     const blocks = updateBlockProps(input.project.blocks, 'blk_highlights', { items: [] });
-    const highlights = pick(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'highlights') as { items: string[] };
-    // Empty array should fall through to AI
+    const highlights = pickBlock(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'highlights') as { items: string[] };
     expect(highlights.items).toEqual(['Dari AI']);
   });
 
@@ -137,8 +164,7 @@ describe('resolveBlocks', () => {
     const input = fixture();
     const blocks = updateBlockProps(input.project.blocks, 'blk_hero', { mediaId: 'med_nonexistent' });
     const resolved = resolveBlocks({ ...input, project: { ...input.project, blocks } });
-    const hero = pick(resolved, 'hero') as { image: unknown };
-    // Dangling reference should be skipped gracefully
+    const hero = pickBlock(resolved, 'hero') as { image: unknown };
     expect(hero).toBeDefined();
     expect(hero.image).toBeNull();
   });
@@ -150,15 +176,13 @@ describe('resolveBlocks', () => {
       hidden: [],
     });
     const resolved = resolveBlocks({ ...input, project: { ...input.project, blocks } });
-    const block = pick(resolved, 'houseTypes') as { houseTypes: { id: string }[] };
-    // Dangling reference should be filtered out
+    const block = pickBlock(resolved, 'houseTypes') as { houseTypes: { id: string }[] };
     expect(block.houseTypes.map((h) => h.id)).toEqual(['hts_villa']);
   });
 
   it('menangani block tanpa aiContent sama sekali', () => {
     const input = fixture({ aiContent: null });
-    const hero = pick(resolveBlocks(input), 'hero') as { title: string };
-    // Should fall back to project name
+    const hero = pickBlock(resolveBlocks(input), 'hero') as { title: string };
     expect(hero.title).toBe('Parkspring Gading');
   });
 
@@ -174,5 +198,11 @@ describe('resolveBlocks', () => {
     const original = JSON.stringify(input);
     resolveBlocks(input);
     expect(JSON.stringify(input)).toBe(original);
+  });
+
+  it('contactForm gunakan default true via ?? operator, bukan pick', () => {
+    const input = fixture();
+    const form = pickBlock(resolveBlocks(input), 'contactForm') as { askHouseType: boolean };
+    expect(form.askHouseType).toBe(true);
   });
 });
