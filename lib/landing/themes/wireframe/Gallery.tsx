@@ -8,9 +8,13 @@ export function Gallery({ block }: { block: Extract<ResolvedBlock, { type: 'gall
         <h2 className="lw-h2">Galeri</h2>
         <div className="lp__grid lp__grid--4" style={{ marginTop: 16 }}>
           {block.images.length > 0
-            ? block.images.map((m) => (
+            ? block.images.map((m, i) => (
+                // Foto galeri adalah KONTEN, bukan hiasan: alt="" membuat pembaca layar
+                // melewatinya sama sekali dan mesin pencari tidak dapat apa-apa. Model data
+                // media belum punya kolom caption, jadi penomoran ini yang terbaik yang bisa
+                // diturunkan sekarang — ganti begitu caption per foto tersedia.
                 // eslint-disable-next-line @next/next/no-img-element
-                <img key={m.id} src={m.url} alt="" style={{ height: 140, objectFit: 'cover', borderRadius: 'var(--radius-md)' }} />
+                <img key={m.id} src={m.url} alt={`Foto ${i + 1}`} style={{ height: 140, objectFit: 'cover', borderRadius: 'var(--radius-md)' }} />
               ))
             : Array.from({ length: 4 }, (_, i) => <PlaceholderBox key={i} label="Foto" height={140} />)}
         </div>
