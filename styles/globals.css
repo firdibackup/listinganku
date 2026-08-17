@@ -13,6 +13,7 @@
 @import "../components/ds/ds.css";
 @import "../components/ui/ui.css";
 @import "../components/dashboard/dashboard.css";
+@import "../components/media/media.css";
 
 /* Jembatan ke utility Tailwind. Hanya warna — spasi/radius/shadow dipakai lewat
    var() langsung supaya tidak bertabrakan dengan namespace theme Tailwind. */

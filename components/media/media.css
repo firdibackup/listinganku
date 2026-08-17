@@ -1,0 +1,19 @@
+.mu__drop{border:1px dashed var(--ash);border-radius:var(--radius-md);padding:34px;
+  text-align:center;background:var(--stone);cursor:pointer;transition:var(--transition-control)}
+.mu__drop:hover{border-color:var(--evergreen)}
+.mu__grid{margin-top:16px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.mu__tile{position:relative;height:82px;border-radius:var(--radius-sm);overflow:hidden;
+  border:1px solid var(--ash);background:var(--mint)}
+.mu__tile img{width:100%;height:100%;object-fit:cover}
+.mu__remove{position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;
+  border:1px solid var(--ash);background:var(--white);color:var(--sage);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;line-height:1}
+.mu__error{margin-top:8px;font-size:var(--type-caption-size);color:var(--status-error)}
+.mu__badge{position:absolute;bottom:4px;left:4px;display:flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:50%;background:var(--evergreen);color:var(--white)}
+.mu__primary{position:absolute;bottom:4px;left:4px;width:22px;height:22px;border-radius:50%;
+  border:1px solid var(--ash);background:var(--white);color:var(--sage);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;line-height:1;transition:var(--transition-control)}
+.mu__primary:hover{border-color:var(--evergreen);color:var(--evergreen)}
+.mu__primary:active{transform:translateY(1px)}
+@media (max-width:900px){.mu__grid{grid-template-columns:repeat(2,1fr)}}
