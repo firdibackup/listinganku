@@ -254,6 +254,71 @@ describe('houseTypes.remove — cascading', () => {
   });
 });
 
+// --- Fix round Task 8: dua bug di media.create/remove yang ditemukan lewat
+// review keamanan pipeline unggah (lib/media/actions.ts) tapi akar masalahnya
+// ada di sini. ---
+
+describe('media.create — "pertama otomatis utama" per tipe, bukan campur photo+floor_plan', () => {
+  it('mengunggah floor plan lebih dulu tidak mengunci foto pertama supaya tidak pernah jadi utama', async () => {
+    const project = (await db.projects.list(SEED_USER_ID))[0];
+    await db.media.create({
+      userId: SEED_USER_ID, projectId: project.id, houseTypeId: null,
+      type: 'floor_plan', url: '/uploads/denah.jpg', size: 1024,
+    });
+    const firstPhoto = await db.media.create({
+      userId: SEED_USER_ID, projectId: project.id, houseTypeId: null,
+      type: 'photo', url: '/uploads/foto1.jpg', size: 1024,
+    });
+
+    // Tanpa perbaikan, siblings dihitung campur tipe — floor plan yang sudah
+    // ada membuat siblings.length > 0 sehingga foto pertama ini TIDAK pernah
+    // ditandai utama, dan galeri tidak punya primary sama sekali.
+    expect(firstPhoto.isPrimary).toBe(true);
+  });
+
+  it('floor plan sendiri tidak pernah ditandai utama, apa pun urutan unggahnya', async () => {
+    const project = (await db.projects.list(SEED_USER_ID))[0];
+    const firstFloorPlan = await db.media.create({
+      userId: SEED_USER_ID, projectId: project.id, houseTypeId: null,
+      type: 'floor_plan', url: '/uploads/denah1.jpg', size: 1024,
+    });
+    expect(firstFloorPlan.isPrimary).toBe(false);
+  });
+});
+
+describe('media.remove — sortOrder dirapikan ulang, tidak bertabrakan', () => {
+  it('hapus baris di tengah lalu tambah baris baru tidak menghasilkan sortOrder ganda', async () => {
+    const project = (await db.projects.list(SEED_USER_ID))[0];
+    const a = await db.media.create({
+      userId: SEED_USER_ID, projectId: project.id, houseTypeId: null,
+      type: 'photo', url: '/uploads/a.jpg', size: 1024,
+    });
+    const b = await db.media.create({
+      userId: SEED_USER_ID, projectId: project.id, houseTypeId: null,
+      type: 'photo', url: '/uploads/b.jpg', size: 1024,
+    });
+    expect(a.sortOrder).toBe(0);
+    expect(b.sortOrder).toBe(1);
+
+    await db.media.remove(a.id);
+    const c = await db.media.create({
+      userId: SEED_USER_ID, projectId: project.id, houseTypeId: null,
+      type: 'photo', url: '/uploads/c.jpg', size: 1024,
+    });
+
+    const remaining = await db.media.listByProject(project.id);
+    const sortOrders = remaining
+      .filter((m) => m.id === b.id || m.id === c.id)
+      .map((m) => m.sortOrder);
+    // Tanpa perbaikan, b tetap membawa sortOrder:1 dari sebelum a dihapus, dan
+    // c yang baru juga dapat sortOrder:1 (dari siblings.length yang cuma
+    // menghitung b) — dua baris berbeda bertabrakan di nilai yang sama.
+    expect(new Set(sortOrders).size).toBe(sortOrders.length);
+    expect(remaining.find((m) => m.id === b.id)?.sortOrder).toBe(0);
+    expect(remaining.find((m) => m.id === c.id)?.sortOrder).toBe(1);
+  });
+});
+
 describe('update pada baris yang tidak ada', () => {
   it('projects.update menolak dengan error saat id tidak ditemukan', async () => {
     await expect(db.projects.update('prj_tidak_ada', { name: 'X' })).rejects.toThrow();

@@ -20,6 +20,9 @@ export function MediaUploader({
 }: MediaUploaderProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
+  // React 19: startTransition menerima callback async dan menjaga `pending`
+  // true sampai promise-nya selesai — tapi HANYA kalau callback itu
+  // MENGEMBALIKAN promise-nya (bukan "fire and forget" lewat `void`).
   const [pending, startTransition] = useTransition();
 
   async function handleFiles(fileList: FileList | null) {
@@ -47,6 +50,18 @@ export function MediaUploader({
     }
   }
 
+  async function handleDelete(mediaId: string) {
+    setError(null);
+    const result = await deleteMediaAction(mediaId, projectId);
+    if (!result.ok) setError(result.message ?? 'Gagal menghapus foto.');
+  }
+
+  async function handleSetPrimary(mediaId: string) {
+    setError(null);
+    const result = await setPrimaryMediaAction(mediaId, projectId);
+    if (!result.ok) setError(result.message ?? 'Gagal menjadikan foto utama.');
+  }
+
   return (
     <div>
       <button
@@ -66,7 +81,7 @@ export function MediaUploader({
         multiple
         accept={ACCEPTED_TYPES.join(',')}
         hidden
-        onChange={(e) => startTransition(() => void handleFiles(e.target.files))}
+        onChange={(e) => startTransition(() => handleFiles(e.target.files))}
       />
 
       {error ? <p className="mu__error">{error}</p> : null}
@@ -81,7 +96,8 @@ export function MediaUploader({
                 type="button"
                 className="mu__remove"
                 aria-label="Hapus foto"
-                onClick={() => startTransition(() => void deleteMediaAction(item.id, projectId))}
+                disabled={pending}
+                onClick={() => startTransition(() => handleDelete(item.id))}
               >
                 <X size={12} />
               </button>
@@ -95,7 +111,8 @@ export function MediaUploader({
                     type="button"
                     className="mu__primary"
                     aria-label="Jadikan foto utama"
-                    onClick={() => startTransition(() => void setPrimaryMediaAction(item.id, projectId))}
+                    disabled={pending}
+                    onClick={() => startTransition(() => handleSetPrimary(item.id))}
                   >
                     <Star size={12} />
                   </button>

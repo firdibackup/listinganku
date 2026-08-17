@@ -147,10 +147,16 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
         const siblings = s.media.filter(
           (m) => m.projectId === input.projectId && m.houseTypeId === input.houseTypeId,
         );
+        // "Foto pertama otomatis utama" harus dihitung per TIPE (photo vs
+        // floor_plan) — siblings di atas campur keduanya. Tanpa filter ini,
+        // mengunggah floor plan lebih dulu mengunci siblings.length di atas 0
+        // selamanya untuk grup itu, dan foto pertama yang menyusul tidak pernah
+        // dapat giliran jadi utama sama sekali.
+        const sameTypeSiblings = siblings.filter((m) => m.type === input.type);
         const created = {
           ...clone(input),
           id: newId('med'),
-          isPrimary: siblings.length === 0 && input.type === 'photo',
+          isPrimary: sameTypeSiblings.length === 0 && input.type === 'photo',
           sortOrder: siblings.length,
           createdAt: now(),
         };
@@ -159,7 +165,19 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
         return clone(created);
       },
       async remove(id) {
+        const target = s.media.find((m) => m.id === id);
         s.media = s.media.filter((m) => m.id !== id);
+        // sortOrder tidak pernah dirapikan ulang di atas — tanpa ini, hapus
+        // baris di tengah lalu tambah baris baru bisa membuat dua baris
+        // berbeda memegang sortOrder yang sama, dan urutan galeri (juga "foto
+        // berikutnya" yang dipromosikan jadi utama) jadi bergantung urutan
+        // penyisipan array, bukan sortOrder itu sendiri.
+        if (target) {
+          const siblings = s.media
+            .filter((m) => m.projectId === target.projectId && m.houseTypeId === target.houseTypeId)
+            .sort((a, b) => a.sortOrder - b.sortOrder);
+          siblings.forEach((m, index) => { m.sortOrder = index; });
+        }
         save();
       },
       async setPrimary(id) {
