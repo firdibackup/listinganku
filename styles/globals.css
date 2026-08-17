@@ -16,6 +16,7 @@
 @import "../components/media/media.css";
 @import "../components/wizard/wizard.css";
 @import "../components/project/project.css";
+@import "../lib/landing/landing.css";
 
 /* Jembatan ke utility Tailwind. Hanya warna — spasi/radius/shadow dipakai lewat
    var() langsung supaya tidak bertabrakan dengan namespace theme Tailwind. */
