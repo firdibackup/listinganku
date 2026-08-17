@@ -34,6 +34,8 @@ export function Sidebar({ active, agent }: { active: SidebarSection; agent: Agen
         </span>
         <div style={{ minWidth: 0 }}>
           <div className="lw-label">{agent.fullName}</div>
+          {/* Static plan-tier label — AgentProfile has no plan/tier field. Billing
+              and quota are explicitly out of MVP scope, so this isn't backed by data. */}
           <div className="lw-label-sm" style={{ color: 'var(--sage)' }}>Starter</div>
         </div>
       </div>
