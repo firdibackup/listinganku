@@ -79,7 +79,11 @@ export async function createHouseTypeAction(
     if (!parsed.success) return { ok: false, fieldErrors: parsed.error.flatten().fieldErrors };
 
     const created = await db.houseTypes.create({ projectId, ...parsed.data });
+    // dashboard/page.tsx menampilkan houseTypeCount per project lewat ProjectCard
+    // — jumlah itu berubah setiap create/delete di sini, jadi /dashboard ikut
+    // di-revalidate, sama seperti tiga action lain di app/(dashboard)/projects/actions.ts.
     revalidatePath(`/projects/${projectId}`);
+    revalidatePath('/dashboard');
     return { ok: true, data: { id: created.id } };
   } catch {
     return { ok: false, fieldErrors: { _: ['Gagal menyimpan tipe rumah. Coba lagi.'] } };
@@ -104,6 +108,7 @@ export async function updateHouseTypeAction(
 
     await db.houseTypes.update(id, parsed.data);
     revalidatePath(`/projects/${projectId}`);
+    revalidatePath('/dashboard');
     return { ok: true, data: null };
   } catch {
     return { ok: false, fieldErrors: { _: ['Gagal menyimpan tipe rumah. Coba lagi.'] } };
@@ -130,6 +135,7 @@ export async function deleteHouseTypeAction(id: string, projectId: string): Prom
     await db.projects.update(projectId, { blocks: cleaned });
 
     revalidatePath(`/projects/${projectId}`);
+    revalidatePath('/dashboard');
     return { ok: true, data: null };
   } catch {
     return { ok: false, fieldErrors: { _: ['Gagal menghapus tipe rumah. Coba lagi.'] } };

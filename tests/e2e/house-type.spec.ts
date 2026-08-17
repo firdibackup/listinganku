@@ -12,7 +12,11 @@ test('menambah tipe rumah ke project lalu memunculkan ajakan Generate AI', async
 
   await expect(page.getByRole('heading', { name: 'Uji Tipe Rumah' })).toBeVisible();
 
-  await page.getByRole('button', { name: 'Add house type' }).click();
+  // Fix round 1: CTA utama dan tile tambah di grid sengaja berlabel identik
+  // "Add house type" sekarang (dulu tile grid berkata "Tambah tipe" — dua
+  // label untuk satu aksi). .first() mengambil CTA utama di header;
+  // proyek baru selalu nol tipe rumah jadi keduanya sama-sama ada di DOM.
+  await page.getByRole('button', { name: 'Add house type' }).first().click();
   await page.getByLabel(/Nama tipe/).fill('Villa');
   await page.getByLabel(/Harga/).fill('2450000000');
   await page.getByLabel(/Luas tanah/).fill('90');
@@ -39,7 +43,7 @@ test('menolak harga nol dengan pesan inline', async ({ page }) => {
   await page.waitForURL(/\/dashboard$/);
   await page.goto('/projects/prj_parkspring');
 
-  await page.getByRole('button', { name: 'Add house type' }).click();
+  await page.getByRole('button', { name: 'Add house type' }).first().click();
   await page.getByLabel(/Nama tipe/).fill('Tipe Nol');
   await page.getByLabel(/Harga/).fill('0');
   await page.getByRole('button', { name: 'Simpan tipe' }).click();

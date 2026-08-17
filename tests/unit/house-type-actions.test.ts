@@ -16,6 +16,7 @@ const session = vi.hoisted(() => ({ userId: 'usr_owner' }));
 vi.mock('@/lib/session', () => ({ requireSessionUserId: async () => session.userId }));
 vi.mock('next/cache', () => ({ revalidatePath: vi.fn() }));
 
+import { revalidatePath } from 'next/cache';
 import { db } from '@/lib/data';
 import {
   createHouseTypeAction, updateHouseTypeAction, deleteHouseTypeAction,
@@ -34,6 +35,7 @@ afterAll(() => {
 
 afterEach(() => {
   session.userId = 'usr_owner';
+  vi.mocked(revalidatePath).mockClear();
 });
 
 async function makeProject(ownerId = 'usr_owner', name = 'Project Uji') {
@@ -71,6 +73,12 @@ describe('createHouseTypeAction', () => {
     expect(created?.projectId).toBe(project.id);
     expect(created?.name).toBe('Villa');
     expect(created?.price).toBe(2_450_000_000);
+
+    // dashboard/page.tsx menghitung houseTypeCount per project (ProjectCard) —
+    // tanpa revalidate ini, kartu project di dashboard tetap menampilkan
+    // jumlah tipe rumah yang lama sampai reload manual.
+    expect(revalidatePath).toHaveBeenCalledWith('/dashboard');
+    expect(revalidatePath).toHaveBeenCalledWith(`/projects/${project.id}`);
   });
 
   it('nama tipe yang sama dikirim dua kali pada project yang sama menghasilkan dua baris dengan slug berbeda, bukan error', async () => {
@@ -114,11 +122,13 @@ describe('updateHouseTypeAction', () => {
     const created = await createHouseTypeAction(project.id, VALID);
     if (!created.ok) throw new Error('expected ok');
 
+    vi.mocked(revalidatePath).mockClear();
     const result = await updateHouseTypeAction(created.data.id, project.id, { ...VALID, price: '3000000000' });
     expect(result).toEqual({ ok: true, data: null });
 
     const updated = await db.houseTypes.get(created.data.id);
     expect(updated?.price).toBe(3_000_000_000);
+    expect(revalidatePath).toHaveBeenCalledWith('/dashboard');
   });
 
   it('menolak update dengan harga nol, tidak mengubah baris', async () => {
@@ -180,9 +190,13 @@ describe('deleteHouseTypeAction', () => {
     const created = await createHouseTypeAction(project.id, VALID);
     if (!created.ok) throw new Error('expected ok');
 
+    vi.mocked(revalidatePath).mockClear();
     const result = await deleteHouseTypeAction(created.data.id, project.id);
     expect(result).toEqual({ ok: true, data: null });
     expect(await db.houseTypes.get(created.data.id)).toBeNull();
+    // Menghapus tipe rumah mengubah houseTypeCount yang ditampilkan ProjectCard
+    // di dashboard — path itu harus ikut di-revalidate, bukan cuma /projects/[id].
+    expect(revalidatePath).toHaveBeenCalledWith('/dashboard');
   });
 
   it('menolak hapus tipe rumah milik project user lain, tanpa menghapus apa pun', async () => {

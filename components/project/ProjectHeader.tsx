@@ -66,7 +66,7 @@ export function ProjectDetail({
         ))}
         <button type="button" className="pj__add" onClick={() => openSheet(null)}>
           <Plus size={18} />
-          <span style={{ fontSize: 14 }}>Tambah tipe</span>
+          <span style={{ fontSize: 14 }}>Add house type</span>
         </button>
       </div>
 

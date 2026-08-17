@@ -3,10 +3,14 @@
 .pj__back:hover{color:var(--orange)}
 .pj__head{margin-top:14px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .pj__types{margin-top:14px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
-.pj__type{background:var(--white);border:1px solid var(--ash);border-radius:var(--radius-md);
-  overflow:hidden;text-align:left;cursor:pointer;padding:0;transition:var(--transition-control)}
-.pj__type:hover{border-color:var(--orange)}
+/* .pj__type-card composes the DS Card for background/border/radius (see
+   components/dashboard/dashboard.css .dash__project-card) — only the reset for
+   the interactive <button> wrapper and the thumb clipping live here. */
+.pj__type{display:block;width:100%;background:none;border:0;padding:0;text-align:left;
+  cursor:pointer;transition:var(--transition-control)}
+.pj__type:hover .pj__type-card{border-color:var(--orange)}
 .pj__type:active{transform:translateY(1px)}
+.pj__type-card{overflow:hidden}
 .pj__typethumb{height:104px;background:var(--mint)}
 .pj__add{border:1px dashed var(--ash);border-radius:var(--radius-md);display:flex;
   flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--sage);

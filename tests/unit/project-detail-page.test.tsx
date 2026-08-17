@@ -70,7 +70,11 @@ describe('ProjectPage — rendering', () => {
 
     expect(screen.getByRole('heading', { name: 'Parkspring Gading' })).toBeInTheDocument();
     expect(screen.getByText(/0 tipe unit/)).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /Add house type/ })).toBeInTheDocument();
+    // Dua tombol memicu aksi yang sama (CTA utama + tile tambah di grid) dan
+    // keduanya sengaja berlabel identik "Add house type" (fix round 1 — bukan
+    // "Tambah tipe" di salah satunya seperti sebelumnya), jadi ada tepat dua,
+    // bukan satu.
+    expect(screen.getAllByRole('button', { name: /Add house type/ })).toHaveLength(2);
     expect(screen.queryByRole('link', { name: /Generate AI/ })).not.toBeInTheDocument();
   });
 
