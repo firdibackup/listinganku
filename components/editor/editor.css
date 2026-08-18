@@ -1,0 +1,30 @@
+.ed__grid{margin-top:18px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start}
+.ed__previewwrap{min-width:0;background:var(--white);border:1px solid var(--ash);
+  border-radius:var(--radius-md);padding:14px}
+.ed__previewhead{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 4px 12px}
+.ed__device{display:flex;gap:6px;font-family:var(--font-text);font-weight:600;font-size:12px}
+.ed__devicebtn{border:1px solid var(--ash);color:var(--sage);padding:4px 9px;
+  border-radius:var(--radius-sm);background:none;cursor:pointer;text-transform:uppercase;letter-spacing:.04em}
+.ed__devicebtn[aria-pressed="true"]{background:var(--evergreen);color:var(--white);border-color:var(--evergreen)}
+.ed__stage{background:var(--stone);border-radius:var(--radius-sm);padding:14px;max-height:640px;overflow:auto}
+.ed__preview{transform-origin:top left;background:var(--white)}
+.ed__frame{border:1px solid transparent;border-radius:var(--radius-sm);padding:2px;
+  cursor:pointer;display:block;width:100%;text-align:left;background:none}
+.ed__frame[aria-current="true"]{border-color:var(--evergreen);border-width:2px}
+.ed__panel{background:var(--white);border:1px solid var(--ash);border-radius:var(--radius-md);
+  padding:18px;position:sticky;top:24px}
+.ed__themes{margin-top:8px;display:flex;gap:6px}
+.ed__theme{flex:1;text-align:center;border:1px solid var(--ash);border-radius:var(--radius-sm);
+  padding:8px;font-size:12px;color:var(--sage);background:none;cursor:pointer}
+.ed__theme[aria-pressed="true"]{border-color:var(--evergreen);background:var(--mint);
+  color:var(--evergreen);font-weight:600}
+.ed__theme:disabled{opacity:.4;cursor:not-allowed}
+.ed__blocks{margin-top:8px;display:flex;flex-direction:column;gap:1px;max-height:280px;overflow-y:auto}
+.ed__row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px;
+  border-radius:var(--radius-sm);cursor:pointer;font-size:14px;color:var(--evergreen);background:none;border:0}
+.ed__row[aria-current="true"]{background:var(--mint);font-weight:600}
+.ed__row--off{color:var(--sage);text-decoration:line-through}
+.ed__rowbtns{display:flex;align-items:center;gap:4px;color:var(--sage)}
+.ed__settings{margin-top:18px;border-top:1px solid var(--stone);padding-top:16px;
+  display:flex;flex-direction:column;gap:12px}
+@media (max-width:1100px){.ed__grid{grid-template-columns:1fr}.ed__panel{position:static}}
