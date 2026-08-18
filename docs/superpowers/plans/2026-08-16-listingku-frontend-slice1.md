@@ -37,7 +37,8 @@ Setiap task tunduk pada seluruh isi bagian ini.
 
 **Penyimpangan YAGNI yang disengaja dari spec §3 dan §12** (dicatat agar reviewer tidak menganggapnya kelalaian):
 - `Banner` dan `NavLink` dari DS **tidak dibangun di slice 1** — tidak satu pun dari tujuh layar memakainya (sidebar dashboard adalah komponen sendiri, bukan NavLink). Menyusul di slice 2 saat situs profil membutuhkannya.
-- `Tabs`, `Switch`, `Table` **tidak dibangun di slice 1** — ketiganya hanya dipakai layar Settings dan Leads yang berada di slice 2–3.
+- `Tabs` dan `Table` **tidak dibangun di slice 1** — keduanya hanya dipakai layar Settings dan Leads yang berada di slice 2–3.
+- `Switch` **dibangun di Task 16**, bukan Task 3 — pemakaian pertamanya adalah toggle "Tampilkan blok" di panel editor (spec §7, US-E2). Task 16 yang memasang `@radix-ui/react-switch`.
 - `tokens/fonts.css` milik DS **tidak disalin** — isinya `@import` Google Fonts CDN, sedangkan spec §3 meminta `next/font/google` yang self-host.
 
 **Aturan Next.js 15 yang mudah keliru:**
@@ -641,9 +642,9 @@ describe('Card', () => {
 });
 
 describe('Chip', () => {
-  it('menampilkan teks apa adanya, bukan huruf besar semua', () => {
+  it('merender teks anak persis seperti yang diberikan', () => {
     render(<Chip tone="tint">Published</Chip>);
-    expect(screen.getByText('Published')).toBeInTheDocument();
+    expect(screen.getByText('Published').textContent).toBe('Published');
   });
 });
 
@@ -662,6 +663,14 @@ describe('Input', () => {
   it('merender textarea saat diminta', () => {
     render(<Input label="Deskripsi" textarea rows={3} />);
     expect(screen.getByLabelText(/Deskripsi/).tagName).toBe('TEXTAREA');
+  });
+
+  // Error menggantikan hint di render, jadi aria-describedby tidak boleh
+  // menyebut hintId saat keduanya diisi.
+  it('hanya menunjuk id yang benar-benar ada saat hint dan error diisi bersamaan', () => {
+    render(<Input label="Harga" hint="Angka saja." error="Wajib diisi." />);
+    const ids = screen.getByLabelText(/Harga/).getAttribute('aria-describedby')!.split(/\s+/);
+    for (const id of ids) expect(document.getElementById(id)).not.toBeNull();
   });
 });
 ```
@@ -874,7 +883,10 @@ export function Input({
   const fieldId = id ?? generated;
   const hintId = `${fieldId}-hint`;
   const errorId = `${fieldId}-error`;
-  const describedBy = [error ? errorId : null, hint ? hintId : null].filter(Boolean).join(' ') || undefined;
+  // Hanya id yang benar-benar dirender yang boleh masuk. Saat error diisi, hint
+  // tidak dirender — memasukkan hintId di situ membuat aria-describedby menunjuk
+  // elemen yang tidak ada.
+  const describedBy = [error ? errorId : null, hint && !error ? hintId : null].filter(Boolean).join(' ') || undefined;
 
   const shared = {
     id: fieldId,
@@ -934,7 +946,7 @@ export type { InputProps } from './Input';
 - [ ] **Step 5: Jalankan tes untuk memastikan lulus**
 
 Run: `npm test -- ds-components`
-Expected: 8 tes PASS.
+Expected: 10 tes PASS (Button 3, Card 2, Chip 1, Input 4).
 
 - [ ] **Step 6: Commit**
 
@@ -1048,6 +1060,11 @@ Expected: FAIL — `Cannot find module '@/components/ui'`
   font-family:var(--font-text);font-size:var(--type-label-lg-size);font-weight:600;
   color:var(--text-heading);transition:var(--transition-control)}
 .ui-acc__trigger:hover{color:var(--orange)}
+.ui-acc__trigger:active{transform:translateY(1px)}
+/* Radix menaruh data-state di trigger; penanda +/- ikut dari situ, bukan dari
+   inline style, supaya benar-benar berganti saat item dibuka. */
+.ui-acc__trigger[data-state="closed"] .ui-acc__minus{display:none}
+.ui-acc__trigger[data-state="open"] .ui-acc__plus{display:none}
 .ui-acc__mark{color:var(--orange);flex:0 0 auto}
 .ui-acc__panel{padding:0 0 16px;font-size:var(--type-body-sm-size);
   line-height:var(--type-body-md-line);color:var(--text-muted)}
@@ -1167,7 +1184,7 @@ export function Accordion({ items }: { items: AccordionItem[] }) {
               {item.question}
               <span className="ui-acc__mark" aria-hidden="true">
                 <Plus size={16} className="ui-acc__plus" />
-                <Minus size={16} className="ui-acc__minus" style={{ display: 'none' }} />
+                <Minus size={16} className="ui-acc__minus" />
               </span>
             </RadixAccordion.Trigger>
           </RadixAccordion.Header>
@@ -1281,14 +1298,23 @@ git commit -m "feat(ui): add Radix dialog, sheet, accordion, progress, skeleton 
 - Create: `lib/format.ts`, `lib/slug.ts`, `lib/ids.ts`
 - Test: `tests/unit/format.test.ts`, `tests/unit/slug.test.ts`
 
+> **Amandemen setelah review (2026-08-16).** Setiap formatter menerima nilai kosong
+> dan mengembalikan em dash `'—'` untuk `null` / `undefined` / `NaN` / angka non-finite /
+> Invalid Date. `0` tetap nilai nyata (`formatRupiah(0) === "Rp0"`), dikunci tesnya
+> sendiri supaya guard tidak pernah "disederhanakan" jadi cek falsy. `slugify` juga
+> menerima `null`/`undefined` dan memperlakukannya seperti string kosong. Alasannya:
+> tipe non-nullable di bawah ini hanya kontrak, bukan jaminan runtime — tipe rumah
+> bisa ada sebelum harganya diisi, dan tanpa guard halaman publik menampilkan
+> `"RpNaN"` atau `"1 Januari 1970"`. Tanda tangan di bawah dibaca dengan pelebaran itu.
+
 **Interfaces:**
 - Consumes: tidak ada
 - Produces:
-  - `formatRupiahShort(value: number): string` — `2450000000` → `"Rp 2,45 M"`
-  - `formatRupiah(value: number): string` — `150000` → `"Rp150.000"`
-  - `formatNumber(value: number): string` — `1842` → `"1.842"`
-  - `formatArea(m2: number): string` — `90` → `"90 m²"`
-  - `formatDateLong(iso: string): string` — → `"16 Agustus 2026"`
+  - `formatRupiahShort(value: number | null | undefined): string` — `2450000000` → `"Rp 2,45 M"`
+  - `formatRupiah(value: number | null | undefined): string` — `150000` → `"Rp150.000"`
+  - `formatNumber(value: number | null | undefined): string` — `1842` → `"1.842"`
+  - `formatArea(m2: number | null | undefined): string` — `90` → `"90 m²"`
+  - `formatDateLong(iso: string | Date | null | undefined): string` — → `"16 Agustus 2026"`
   - `formatDateShort(iso: string): string` — → `"16 Agu 2026"`
   - `RESERVED_SLUGS: readonly string[]`
   - `slugify(input: string): string`
@@ -6162,10 +6188,15 @@ test('mengedit judul hero dan melihatnya di pratinjau', async ({ page }) => {
     .toHaveText('Judul hasil edit manual');
 });
 
-test('menyembunyikan blok FAQ menghapusnya dari pratinjau', async ({ page }) => {
+test('panel blok FAQ menyediakan toggle tampil/sembunyi', async ({ page }) => {
+  // Seed belum punya konten AI, jadi blok FAQ kosong dan tidak dirender.
   await expect(page.locator('.ed__preview').getByRole('heading', { name: /Pertanyaan yang sering/ })).toHaveCount(0);
   await page.getByRole('button', { name: 'Blok FAQ' }).click();
-  await expect(page.getByRole('switch', { name: 'Tampilkan blok' })).toBeVisible();
+  const toggle = page.getByRole('switch', { name: 'Tampilkan blok' });
+  await expect(toggle).toBeVisible();
+  await expect(toggle).toBeChecked();
+  await toggle.click();
+  await expect(toggle).not.toBeChecked();
 });
 
 test('menaikkan urutan blok Galeri', async ({ page }) => {

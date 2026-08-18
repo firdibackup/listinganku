@@ -1,0 +1,37 @@
+{
+  "at": "2026-08-16T13:55:09.599Z",
+  "trigger": "manual",
+  "session": {
+    "session_id": "session-2026-08-16-2039",
+    "started": "2026-08-16T13:39:57.362Z",
+    "files_read": {
+      "D:/CODINGAN/listinganku/.superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-1-brief.md": {
+        "count": 2,
+        "tokens": 0,
+        "first_read": "2026-08-16T13:46:58.392Z"
+      },
+      "D:/CODINGAN/listinganku/.gitignore": {
+        "count": 1,
+        "tokens": 0,
+        "first_read": "2026-08-16T13:47:05.146Z"
+      },
+      "D:/CODINGAN/listinganku/.superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-1-report.md": {
+        "count": 1,
+        "tokens": 0,
+        "first_read": "2026-08-16T13:53:54.833Z"
+      },
+      "D:/CODINGAN/listinganku/.superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-cfd945e..4655f1f.diff": {
+        "count": 2,
+        "tokens": 0,
+        "first_read": "2026-08-16T13:54:06.021Z"
+      }
+    },
+    "files_written": [],
+    "edit_counts": {},
+    "anatomy_hits": 0,
+    "anatomy_misses": 4,
+    "repeated_reads_warned": 2,
+    "cerebrum_warnings": 0,
+    "stop_count": 2
+  }
+}

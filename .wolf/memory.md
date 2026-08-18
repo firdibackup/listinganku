@@ -39,3 +39,61 @@
 
 | Time | Action | File(s) | Outcome | ~Tokens |
 |------|--------|---------|---------|--------|
+
+## Session: 2026-08-16 20:55
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 21:30 | git init + baseline commit cfd945e, branch slice-1-frontend, workspace SDD + ledger + pre-flight scan (22 baris, 2 cacat plan diputuskan) | .superpowers/sdd/.../progress.md | siap eksekusi | ~8k |
+| 21:55 | Task 1 dieksekusi subagent: scaffold Next 15 + TS + Tailwind v4 + token DS + Vitest/RTL + Playwright | 21 file, commit 4655f1f | review bersih, test 4/4, build bersih | ~15k |
+| 22:05 | Task 2 dispatch: komponen DS Button/Card/Chip/Input | components/ds/* | berjalan | ~3k |
+
+## Session: 2026-08-16 21:32
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-16 21:32 (Task 5: Model blocks)
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 21:32 | Task 5: TDD blocks model — wrote 9-test file for defaultBlocks/moveBlock/toggleBlock/updateBlockProps, ran tests (FAIL expected), implemented 10 type exports + 4 pure functions, all 9 tests pass, full suite 52/52 green, build clean, commit 0465457 | lib/landing/blocks.ts, tests/unit/blocks.test.ts | complete | ~8000 |
+
+| 21:10 | Task 2 selesai + fix round (nama tes Chip, aria-describedby Input) | components/ds/*, tests | 14/14 hijau, commit e0be27e | ~12k |
+| 21:25 | Task 3 selesai + fix round (penanda accordion data-state, press state trigger) | components/ui/*, tests | 20/20 hijau, commit 1002fd6 | ~14k |
+| 21:35 | Task 4 selesai + fix round (formatter kembalikan em dash untuk nilai kosong, slugify tahan null) | lib/{format,slug,ids}.ts | 43/43 hijau, commit 01d0ffe | ~13k |
+| 21:42 | Task 5 selesai (model blocks) + tipe DEFAULT_PROPS diketatkan agar typo props tertangkap tsc | lib/landing/blocks.ts | 52/52 hijau, commit a7c8878 | ~12k |
+
+## Session: 2026-08-17 08:33
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 09:30 | Task 6 (lapisan data) + 2 ronde fix: snapshot tahan schema drift, cascade bersih ke leads/aiUsage, clone dua arah, invarian id/slug di update, persist sinkron, isolasi tes lewat LISTINGKU_DATA_DIR | lib/data/**, fixtures/seed.ts | 90/90 hijau, commit 5282b43 | ~55k |
+
+## Session: 2026-08-17 09:40 (Task 7: sesi + login + dashboard)
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 10:05 | Task 7 TDD: sesi cookie dummy (`lib/session.ts`, `middleware.ts`), login screen + Server Action, dashboard layout+page dari `db` mock, komponen Sidebar/MetricCard/ProjectCard/EmptyState. Tambah 5 tes unit di luar brief (redirect sesi tak dikenal, redirect userId tanpa agent profile, empty state 0 project, houseTypeCount 0). Sintesis 3 PNG placeholder brand (`public/brand/*`) via `sharp` karena tidak ada akses ke project Claude Design dari task ini. | lib/session.ts, middleware.ts, app/login/**, app/(dashboard)/**, components/dashboard/**, tests/unit/{session,dashboard}.test.ts(x), tests/e2e/login.spec.ts, public/brand/* | 98/98 unit hijau, 2/2 e2e hijau, build bersih | ~90k |
+
+## Session: 2026-08-17 15:26
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 15:45 | Task 7 (sesi + login + dashboard) + fix round: anotasi desain "Empty state" dibuang, komponen memakai Card, press state konsisten | app/(dashboard)/**, components/dashboard/**, lib/session.ts | 98/98 + e2e 2/2, commit 6fdecda | ~40k |
+| 15:52 | Ganti dua wordmark placeholder dengan aset asli lewat DesignSync dari sesi utama | public/brand/*.png | commit 612eed4 | ~8k |
+| 17:05 | Task 8 (pipeline media) + fix round: celah otorisasi ditutup, body limit 10MB ditegakkan, kegagalan tidak lagi diam, dua bug data layer Task 6 diperbaiki | lib/media/**, components/media/**, next.config.ts, lib/data/mock/repos.ts | 125/125 hijau, commit 80d9909 | ~60k |
+
+## Session: 2026-08-17 22:09
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 22:40 | Task 9 (skema Zod + wizard 3 langkah) + fix round: pesan angka jadi Bahasa Indonesia, wizard tidak melompat ke step 1, deleteProjectAction konsisten | lib/schemas/**, app/(dashboard)/projects/actions.ts, components/wizard/** | 153/153 hijau, commit 411f706 | ~45k |
+| 23:50 | Task 10 (detail project + sheet tipe rumah) + fix: gate kepemilikan ganda, HouseTypeCard pakai Card, revalidate dashboard | app/(dashboard)/projects/[id]/**, components/project/** | 206/206, commit e05283b | ~55k |
+| 23:55 | Task 11 (resolve.ts) + fix: galeri jatuh ke foto cadangan, pick diekspor dan diuji langsung | lib/landing/resolve.ts | 201/201, commit 725b119 | ~30k |
+
+## Session: 2026-08-18 05:20
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 06:15 | Task 13 (landing publik SSR + metadata + JSON-LD + sitemap + robots) — brief diimplementasi + 2 cacat nyata ditemukan & diperbaiki: (1) JSON-LD lewat dangerouslySetInnerHTML pakai JSON.stringify polos, nama project bermusuhan bisa memutus tag <script> — ditambal jsonLdScript() escape '<'; (2) sitemap.ts tanpa export const dynamic dibekukan statis oleh Next di build time — ditambal force-dynamic, dibuktikan lewat tabel rute next build (○→ƒ) sebelum/sesudah. cache() dari react dipakai menyatukan generateMetadata+page. Diverifikasi lewat production build sungguhan (next build && next start di data dir scratch): title/OG/canonical/JSON-LD terbukti di raw HTML, nama bermusuhan ter-escape sempurna (0 karakter '<' literal di span <script> JSON-LD, round-trip JSON.parse cocok persis), project zero-house-type dan blocks=[] render tanpa crash, /dashboard tidak dibajak [slug] (307 ke /login, bukan 404) | lib/landing/seo.ts, app/(public)/[slug]/page.tsx, app/sitemap.ts, app/robots.ts, tests/unit/seo.test.ts, tests/e2e/landing-ssr.spec.ts | 212/212 unit + 8/8 e2e hijau, build bersih, commit d57bd6a | ~95k |

@@ -1,4 +1,259 @@
 {
   "version": 1,
-  "bugs": []
+  "bugs": [
+    {
+      "id": "bug-001",
+      "timestamp": "2026-08-16T21:45:00+07:00",
+      "error_message": "Penanda accordion selalu menampilkan Plus, tidak pernah Minus saat item dibuka",
+      "file": "components/ui/accordion.tsx, components/ui/ui.css",
+      "root_cause": "Ikon Minus diberi inline style display:none dan tidak ada rule CSS yang berpegang pada atribut data-state milik Radix, jadi tidak ada yang pernah menukarnya",
+      "fix": "Hapus inline style, tambah .ui-acc__trigger[data-state=\"open\"] .ui-acc__plus{display:none} dan pasangannya; tambah tes perilaku + tes keberadaan rule CSS",
+      "tags": [
+        "radix",
+        "accordion",
+        "css",
+        "data-state",
+        "ui"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-16T21:45:00+07:00"
+    },
+    {
+      "id": "bug-002",
+      "timestamp": "2026-08-16T21:45:00+07:00",
+      "error_message": "formatRupiah(undefined) menghasilkan \"RpNaN\"; formatDateLong(undefined) menghasilkan \"NaN undefined NaN\"; formatRupiah(null) menghasilkan \"Rp0\"",
+      "file": "lib/format.ts",
+      "root_cause": "Tipe parameter non-nullable dianggap jaminan runtime, padahal field seperti harga tipe rumah bisa kosong sebelum diisi dan nilainya sampai ke formatter apa adanya",
+      "fix": "Guard isAbsent bersama: null/undefined/NaN/non-finite/Invalid Date mengembalikan em dash. 0 sengaja dikecualikan dan dikunci tes tersendiri supaya guard tidak disederhanakan jadi cek falsy",
+      "tags": [
+        "format",
+        "null-safety",
+        "indonesia",
+        "landing"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-16T21:45:00+07:00"
+    },
+    {
+      "id": "bug-003",
+      "timestamp": "2026-08-16T21:45:00+07:00",
+      "error_message": "aria-describedby menunjuk id yang tidak ada saat Input diberi hint dan error sekaligus",
+      "file": "components/ds/Input.tsx",
+      "root_cause": "Daftar id memasukkan hintId setiap kali hint terisi, padahal render hanya menampilkan salah satu (error menang), sehingga hint span tidak pernah ada di DOM",
+      "fix": "hintId hanya masuk saat ada hint DAN tidak ada error; tambah tes yang memeriksa setiap id di aria-describedby benar-benar ada di DOM",
+      "tags": [
+        "a11y",
+        "aria",
+        "form",
+        "ds"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-16T21:45:00+07:00"
+    },
+    {
+      "id": "bug-004",
+      "timestamp": "2026-08-17T09:40:00+07:00",
+      "error_message": "Cannot read properties of undefined (reading \"find\") saat .data/store.json valid JSON tapi bentuknya salah atau kurang tabel",
+      "file": "lib/data/mock/snapshot.ts",
+      "root_cause": "loadSnapshot hanya menjaga JSON.parse yang melempar; JSON valid bertipe salah atau snapshot dari commit lama yang belum punya tabel baru lolos apa adanya lalu crash di akses properti pertama",
+      "fix": "repairShape me-merge hasil parse di atas seedStore(): non-objek jatuh ke seed penuh, tabel hilang/bertipe salah pakai default seed, elemen array yang bukan objek dibuang. Cast tunggal ditandai sebagai trust boundary",
+      "tags": [
+        "data",
+        "snapshot",
+        "schema-drift",
+        "resilience"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-17T09:40:00+07:00"
+    },
+    {
+      "id": "bug-005",
+      "timestamp": "2026-08-17T09:40:00+07:00",
+      "error_message": "Hapus project menyisakan baris leads dan aiUsage yatim; hapus tipe rumah menyisakan events dan leads menggantung",
+      "file": "lib/data/mock/repos.ts",
+      "root_cause": "Cascade hanya memfilter sebagian tabel yang mereferensi baris terhapus; tesnya bernama cascading penuh tapi hanya memeriksa dua tabel",
+      "fix": "Cascade membersihkan setiap tabel yang mereferensi baris terhapus; tes memeriksa seluruh tabel lewat __dump()",
+      "tags": [
+        "data",
+        "cascade",
+        "orphan",
+        "leads"
+      ],
+      "related_bugs": [
+        "bug-004"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-17T09:40:00+07:00"
+    },
+    {
+      "id": "bug-006",
+      "timestamp": "2026-08-17T09:40:00+07:00",
+      "error_message": "Sweep file .tmp menghapus tulis yang sedang berjalan dari proses lain sehingga renameSync-nya melempar ENOENT",
+      "file": "lib/data/mock/snapshot.ts",
+      "root_cause": "sweepStaleTmp menghapus semua .tmp tanpa cek umur, jadi tidak bisa membedakan sisa crash dari tulis yang sedang berlangsung",
+      "fix": "Hanya hapus .tmp bermtime lebih tua dari 60 detik; tes memastikan yang basi hilang DAN yang baru selamat",
+      "tags": [
+        "data",
+        "snapshot",
+        "concurrency",
+        "atomic-write"
+      ],
+      "related_bugs": [
+        "bug-004"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-17T09:40:00+07:00"
+    },
+    {
+      "id": "bug-007",
+      "timestamp": "2026-08-17T09:40:00+07:00",
+      "error_message": "Pemanggil yang memutasi objek hasil baca atau objek yang dikirim ke create/update ikut mengubah isi store diam-diam",
+      "file": "lib/data/mock/repos.ts",
+      "root_cause": "Repo mengembalikan referensi hidup ke baris store dan menyimpan objek milik pemanggil apa adanya, jadi mutasi di sisi pemanggil menembus ke state tanpa lewat save()",
+      "fix": "structuredClone di setiap titik keluar (baca) dan di setiap create/update (tulis), simetris dua arah",
+      "tags": [
+        "data",
+        "aliasing",
+        "immutability"
+      ],
+      "related_bugs": [
+        "bug-005"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-17T09:40:00+07:00"
+    },
+    {
+      "id": "bug-008",
+      "timestamp": "2026-08-17T17:10:00+07:00",
+      "error_message": "User mana pun yang login bisa mengunggah ke, menjadikan foto utama, dan menghapus media milik project user lain — termasuk menghapus filenya dari disk",
+      "file": "lib/media/actions.ts",
+      "root_cause": "Ketiga Server Action memanggil requireSessionUserId() lalu tidak memakai hasilnya untuk otorisasi; projectId juga tidak pernah divalidasi, jadi upload ke project yang tidak ada pun sukses",
+      "fix": "Satu gate requireOwnedProject(userId, projectId) dipanggil paling awal di ketiga action; menolak kalau project tidak ada atau bukan milik user. Tes memeriksa dua arah: non-pemilik ditolak, pemilik sah tetap bisa",
+      "tags": [
+        "security",
+        "authorization",
+        "media",
+        "server-action",
+        "rls"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-17T17:10:00+07:00"
+    },
+    {
+      "id": "bug-009",
+      "timestamp": "2026-08-17T17:10:00+07:00",
+      "error_message": "Upload foto di atas 1MB gagal dengan 413 Body exceeded 1 MB limit padahal batas yang dijanjikan 10MB",
+      "file": "next.config.ts",
+      "root_cause": "Body limit default Server Action Next 15 adalah 1MB dan next.config.ts kosong, jadi MAX_UPLOAD_BYTES 10MB, pesan errornya, dan cabang validasi ukuran semuanya mati di atas 1MB",
+      "fix": "next.config.ts mengimpor MAX_UPLOAD_BYTES ke experimental.serverActions.bodySizeLimit supaya satu sumber kebenaran dan tidak bisa melenceng; diverifikasi lewat .next/required-server-files.json",
+      "tags": [
+        "nextjs",
+        "upload",
+        "config",
+        "limit"
+      ],
+      "related_bugs": [
+        "bug-008"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-17T17:10:00+07:00"
+    },
+    {
+      "id": "bug-010",
+      "timestamp": "2026-08-17T17:10:00+07:00",
+      "error_message": "Upload gagal tanpa pesan apa pun — user hanya melihat tidak terjadi apa-apa",
+      "file": "components/media/MediaUploader.tsx",
+      "root_cause": "Action dipanggil sebagai startTransition(() => void handleFiles(...)), jadi promise rejection dibuang jadi unhandled rejection; tidak ada error boundary yang menyala dan setError tidak pernah terpanggil. Try/catch di action juga hanya membungkus mkdir/writeFile, bukan requireSessionUserId atau db.media.create",
+      "fix": "Seluruh badan action dibungkus try/catch dan selalu mengembalikan {ok:false,message}; handler delete dan setPrimary sekarang menunggu hasilnya dan menampilkan error; startTransition mengembalikan promise (async transition React 19) sehingga pending benar-benar melacak kerja async",
+      "tags": [
+        "error-handling",
+        "react",
+        "server-action",
+        "silent-failure"
+      ],
+      "related_bugs": [
+        "bug-008"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-17T17:10:00+07:00"
+    },
+    {
+      "id": "bug-011",
+      "timestamp": "2026-08-17T17:10:00+07:00",
+      "error_message": "Galeri tidak punya foto utama sama sekali kalau denah diunggah lebih dulu; sortOrder bentrok setelah hapus lalu tambah",
+      "file": "lib/data/mock/repos.ts",
+      "root_cause": "Cek isPrimary memakai siblings yang difilter per project dan houseType tapi tidak per type, jadi denah pertama menghabiskan slot pertama; sortOrder diturunkan dari siblings.length dan remove tidak pernah menomori ulang",
+      "fix": "isPrimary hanya melihat sibling bertipe sama; media.remove menomori ulang sisa sibling 0..n-1",
+      "tags": [
+        "data",
+        "media",
+        "invariant",
+        "sort-order"
+      ],
+      "related_bugs": [
+        "bug-005"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-17T17:10:00+07:00"
+    },
+    {
+      "id": "bug-012",
+      "timestamp": "2026-08-17T23:58:00+07:00",
+      "error_message": "npm run build gagal: TypeError: Cannot read properties of undefined (reading 'length') at WasmHash._updateWithBuffer (webpack bundle5.js), 'Next.js build worker exited with code: 1'",
+      "file": "N/A — cache .next, bukan kode proyek",
+      "root_cause": "Cache webpack di .next korup/basi (Windows + Node 24.19), bukan disebabkan perubahan kode Task 12; error terjadi di internal webpack hashing, bukan di file proyek manapun",
+      "fix": "Hapus folder .next lalu jalankan npm run build lagi — build bersih pada percobaan kedua dengan source yang sama persis",
+      "tags": [
+        "build",
+        "webpack",
+        "cache",
+        "windows",
+        "next15"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-17T23:58:00+07:00"
+    },
+    {
+      "id": "bug-013",
+      "timestamp": "2026-08-18T05:45:00+07:00",
+      "error_message": "Brief Task 13 memasang JSON-LD lewat dangerouslySetInnerHTML pakai JSON.stringify(jsonLd) polos — nama project bermusuhan berisi \"</script><script>\" bisa memutus tag <script type=\"application/ld+json\"> di level parser HTML dan menyuntik markup/skrip baru, terlepas dari isi atau atribut type tag pembukanya",
+      "file": "lib/landing/seo.ts, app/(public)/[slug]/page.tsx",
+      "root_cause": "JSON.stringify tidak meng-escape karakter '<', jadi string apa pun yang mengalir ke JSON-LD (nama project, deskripsi, nama tipe rumah — semua diketik bebas pengguna di wizard) bisa membawa urutan \"</script>\" secara literal ke dalam dangerouslySetInnerHTML",
+      "fix": "Tambah lib/landing/seo.ts:jsonLdScript() yang me-replace(/</g, \"\\u003c\") pada hasil JSON.stringify sebelum dipasang ke __html; JSON.parse/consumer JSON-LD tetap membaca < sebagai \"<\", tapi parser HTML tidak pernah membacanya sebagai pembuka/penutup tag. Dibuktikan lewat tests/unit/seo.test.ts (round-trip nama bermusuhan) dan verifikasi manual di server produksi sungguhan (next build && next start): span <script> JSON-LD tidak mengandung satu pun karakter '<' literal",
+      "tags": [
+        "security",
+        "xss",
+        "json-ld",
+        "dangerouslySetInnerHTML",
+        "landing-publik"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-18T05:45:00+07:00"
+    },
+    {
+      "id": "bug-014",
+      "timestamp": "2026-08-18T05:50:00+07:00",
+      "error_message": "app/sitemap.ts brief Task 13 tidak punya export const dynamic — dibuktikan lewat next build bahwa Next.js membekukan /sitemap.xml sebagai rute STATIS (tanda ○, bukan ƒ), jadi publish/unpublish project setelah build tidak akan pernah muncul di sitemap sampai redeploy",
+      "file": "app/sitemap.ts",
+      "root_cause": "sitemap.ts membaca project published lewat panggilan fungsi biasa ke db (bukan fetch()), sehingga Next.js tidak melihat dependency dinamis apa pun dan mengoptimasi rute itu jadi statis di build time secara default — sama seperti /robots.txt (yang memang aman statis karena kontennya tidak bergantung data)",
+      "fix": "Tambah export const dynamic = \"force-dynamic\" di app/sitemap.ts. Dibuktikan dengan membandingkan output tabel rute next build sebelum/sesudah: tanpa baris ini /sitemap.xml tampil ○ (Static), dengan baris ini tampil ƒ (Dynamic). robots.ts sengaja DIBIARKAN statis karena kontennya tidak bergantung data runtime.",
+      "tags": [
+        "nextjs",
+        "sitemap",
+        "static-caching",
+        "stale-data",
+        "app-router"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-18T05:50:00+07:00"
+    }
+  ]
 }

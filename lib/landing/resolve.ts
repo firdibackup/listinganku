@@ -28,8 +28,8 @@ export type ResolvedBlock =
   | { id: string; type: 'floorPlans'; plans: { houseType: ResolvedHouseType; media: Media }[] }
   | { id: string; type: 'location'; address: string; mapUrl: string | null }
   | { id: string; type: 'faq'; items: { q: string; a: string }[] }
-  | { id: string; type: 'agentCta'; waNumber: string; defaultMessage: string; agentName: string }
-  | { id: string; type: 'contactForm'; askHouseType: boolean; houseTypes: ResolvedHouseType[] };
+  | { id: string; type: 'agentCta'; projectId: string; waNumber: string; defaultMessage: string; agentName: string }
+  | { id: string; type: 'contactForm'; projectId: string; askHouseType: boolean; houseTypes: ResolvedHouseType[] };
 
 export interface ResolveInput {
   project: Project;
@@ -165,6 +165,14 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
       case 'agentCta':
         out.push({
           id: block.id, type: 'agentCta',
+          // projectId: BlockRenderer hanya meneruskan { block } ke komponen tema
+          // (lihat lib/landing/BlockRenderer.tsx — bukan file task ini, tidak
+          // diubah), jadi AgentCta/ContactFormBlock tidak punya jalan lain untuk
+          // tahu project mana yang sedang dirender. ResolvedBlock sudah menjadi
+          // tempat SEMUA data siap-pakai lainnya (agentName, waNumber, dst.) di-
+          // resolve, jadi projectId ikut pola yang sama alih-alih menambah
+          // Context/prop-drilling baru hanya untuk satu field.
+          projectId: project.id,
           waNumber: pick(p.waNumber as string | undefined, undefined, agent.whatsapp),
           defaultMessage: pick(
             p.defaultMessage as string | undefined,
@@ -178,6 +186,7 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
       case 'contactForm':
         out.push({
           id: block.id, type: 'contactForm',
+          projectId: project.id, // lihat komentar projectId di kasus 'agentCta' di atas
           askHouseType: (p.askHouseType as boolean | undefined) ?? true,
           houseTypes,
         });
