@@ -2,7 +2,7 @@
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
 > Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
-> Last updated: 2026-08-18 (Task 1–14 selesai)
+> Last updated: 2026-08-18 (Task 1–18 SELESAI — slice 1 lengkap, belum di-push/PR)
 
 ---
 
@@ -18,7 +18,7 @@
 - Repo di-init git. Baseline `cfd945e` di `main`; kerja di branch **`slice-1-frontend`**.
 - Ledger eksekusi: `.superpowers/sdd/2026-08-16-listingku-frontend-slice1/progress.md` — **baca ini untuk tahu task mana yang sudah selesai.** Task dengan baris `Task <N>: complete` sudah beres, jangan diulang.
 - Pre-flight scan plan: 22 baris cek, 2 cacat ditemukan + diputuskan (Switch masuk slice 1 lewat Task 16; nama e2e test Task 16 diperbaiki).
-- **Task 1–14 selesai.** `npm test` **245/245 hijau**, Playwright **11/11 hijau** (dari cold), `npm run build` bersih. HEAD = commit Task 14 (tepat di atas `5a00ed8` "initial commit" dari device lain, yang sudah memuat test + `actions.ts` Task 14).
+- **Task 1–18 SELESAI — slice 1 lengkap.** `npm run verify` hijau: unit **256/256**, Playwright **21/21** (serial), `npm run build` bersih. HEAD = `e463538`. Semua commit di branch `slice-1-frontend`, **belum di-push, belum ada PR.** Basis Task 14 = `5a00ed8` "initial commit" dari device lain (Audi) yang sudah memuat test + `actions.ts` Task 14.
   - **1** scaffold Next 15 + TS + Tailwind v4 + token DS + Vitest/RTL + Playwright (`4655f1f`)
   - **2** komponen DS Button/Card/Chip/Input + `ds.css` (`e9e5272` → fix `e6d6543`, `e0be27e`)
   - **3** primitif Radix Dialog/Sheet/Accordion/Progress/Skeleton/Toaster (`457d822` → fix `0b87192`, `1002fd6`)
@@ -33,17 +33,32 @@
   - **12** tema wireframe + `BlockRenderer` (`fd37db3` → fix `0d91b8f`, alt text galeri)
   - **13** landing publik SSR di `/{slug}` + `generateMetadata` + JSON-LD + `sitemap.xml`/`robots.txt` (`d57bd6a`). **2 cacat nyata ditemukan & diperbaiki di luar teks brief:** (1) JSON-LD dipasang lewat `dangerouslySetInnerHTML` pakai `JSON.stringify` polos — nama project bermusuhan berisi `</script>` bisa memutus tag `<script>` dan menyuntik markup; ditambal `jsonLdScript()` di `lib/landing/seo.ts` (tiap karakter `<` diganti escape unicode enam-karakter setaranya), dibuktikan lewat unit test round-trip DAN verifikasi manual di production build sungguhan (0 karakter `<` literal di span JSON-LD). (2) `app/sitemap.ts` tanpa `export const dynamic` dibekukan **statis** oleh Next di build time (dibuktikan lewat tabel rute `next build`: `○` tanpa fix → `ƒ` dengan fix) — publish/unpublish project sesudah build tidak akan pernah muncul di sitemap tanpa redeploy; e2e Playwright tidak menangkap ini karena `webServer` jalan `next dev`, yang selalu re-eksekusi. `cache()` dari `react` dipakai menyatukan `generateMetadata`+halaman ke satu fetch. Kedua bug + fix ada di `.wolf/buglog.json` (`bug-013`, `bug-014`).
   - **14** landing interaktif — `WhatsAppLink` + `PageViewTracker` + `ContactForm` (baru di `components/landing/`), wiring `AgentCta`/`ContactFormBlock`, mount tracker di `[slug]/page.tsx`. `submitLeadAction`/`recordEventAction` sudah ada dari device lain (commit `5a00ed8`); sesi ini menuntaskan separuh UI-nya sampai 33 test Task 14 hijau. 1 cacat e2e ditemukan & ditambal: happy-path lead gagal dari cold karena kompilasi Server Action pertama di `next dev` >5s (default expect timeout Playwright) — dinaikkan ke 15s di `playwright.config.ts` (`bug-015`).
+  - **15** AI mock + layar Generate AI (`1c9baac`). `lib/ai/{schema,generator,mock,index}`, `generateContentAction` memecah respons (project→`ai_content`, tiap tipe→barisnya) + catat `ai_usage`, `GeneratePanel` 4-state (idle/loading/error/done). Disalin verbatim dari plan §15 setelah memverifikasi semua tipe/`db`/komponen cocok; 6 unit test hijau. `ProjectHeader` sudah menaut ke route ini sejak Task 10.
+  - **16** block editor terpimpin (`8db9e7c`). `EditorShell` + `BlockSettingsPanel` (Radix Switch), pratinjau memakai `BlockRenderer` live yang sama. 2 deviasi wajib dari plan (kode plan belum pernah jalan): buang prop `projectId` di `<BlockRenderer>` (compile error — projectId sudah lewat `resolveBlocks`); frame pratinjau `<div>` bukan `<button>` (blok berisi form/`<a>`, nesting DOM invalid). 2 fix e2e: `beforeEach` tunggu `/dashboard` (race sesi); `getByLabel('Judul',{exact:true})` (tanpa exact ikut cocok 'Subjudul'). 5 e2e hijau.
+  - **17** publish + QR + share (`e6d6003`). `PublishPanel` (Dialog konfirmasi, salin link, QR img SVG + unduh PNG/SVG, caption per platform), `app/api/qr` route (png/svg, 400 slug kosong, 404 draft) + helper murni diuji. **E2e dijadikan serial (`workers:1`)**: satu mock store bersama tanpa isolasi per-test → worker paralel berebut state (publish.spec publikasikan casa-verde vs landing-ssr.spec assert casa-verde draft). Serial + urutan file abjad = asersi selalu mendahului mutasi. 2 unit + 3 e2e hijau.
+  - **18** spine e2e tulang punggung (`dfac0c7`) + script `npm run verify`. Dua test alur penuh: North Star (login→wizard→2 tipe→Generate AI→editor→publish→landing dari HTML mentah) + publish-tanpa-AI. 3 fix e2e nav-timing: `waitForURL(/generate$/)` sebelum klik Generate (detail project punya `<Link>` DAN `<Button>` "Generate AI"); `waitForURL(/projects/prj_/)` sebelum baca `page.url()`; `.first()` pada "Add house type" (dua tombol identik).
+  - **fix** `snapshot.ts` `renameWithRetry` (`e463538`). `renameSync` di Windows sesekali EPERM saat `store.json` terkunci sejenak (antivirus/indexer); hanya muncul di bawah beban `verify` → 1 unit test flaky. Retry transien + test deterministik lewat seam DI (`bug-020`).
 - **5 dari 6 task butuh fix round** — mayoritas temuannya cacat di teks plan saya, bukan kesalahan implementer. Plan sudah diperbaiki di sumbernya supaya tidak menurun ke task berikutnya. Task 13 dikerjakan dari brief task-13-brief.md (bukan langsung dari plan), 2 cacat brief ditemukan & ditambal seperti tercatat di atas.
 
 ---
 
 ## 🚀 Next phase
 
-**Goal:** Lanjutkan eksekusi `docs/superpowers/plans/2026-08-16-listingku-frontend-slice1.md` dari **Task 15** (AI mock + layar Generate AI). Buat `lib/ai/{schema,generator,mock,index}.ts`, layar `app/(dashboard)/projects/[id]/generate/` (page + actions), dan `components/ai/GeneratePanel.tsx`. AI 100% mock — tanpa Gemini/API key. **Prinsip wajib:** AI opsional dan tidak pernah memblokir publish; mode gagal harus bisa dicapai (`forceFail` → `AiGenerationError`) dan publish tetap jalan dengan konten manual. Hasil AI **dipecah saat disimpan**: bagian project → `projects.ai_content`, tiap tipe → baris `house_types` masing-masing (jangan simpan utuh — lihat Decision Log cerebrum).
+**Slice 1 (thin end-to-end, 7 layar) SELESAI.** Semua 18 task plan + fix EPERM ter-commit di `slice-1-frontend`. Alur North Star penuh (login → create → tipe rumah → Generate AI mock → editor → publish → landing SSR live) jalan tanpa layanan eksternal apa pun, dibuktikan spine e2e.
 
-**Urutan 18 task:** ~~1 scaffold+token~~ ✅ · ~~2 komponen DS~~ ✅ · ~~3 primitif Radix~~ ✅ · ~~4 utilitas murni~~ ✅ · ~~5 model blocks~~ ✅ · ~~6 lapisan data+seed~~ ✅ · ~~7 sesi+login+dashboard~~ ✅ · ~~8 pipeline media~~ ✅ · ~~9 skema Zod+wizard~~ ✅ · ~~10 detail project+sheet tipe~~ ✅ · ~~11 `resolve.ts`~~ ✅ · ~~12 tema wireframe+renderer~~ ✅ · ~~13 landing SSR+SEO~~ ✅ · ~~14 interaktivitas landing~~ ✅ · **15 AI mock+layar generate** ← berikutnya · 16 block editor · 17 publish+QR · 18 spec Playwright tulang punggung.
+**Langkah berikut (pilihan user, tidak ada yang memblokir koding):**
+1. **Push + buka PR** `slice-1-frontend` untuk review. Belum dilakukan — git guideline: push/PR hanya bila user minta.
+2. **Verifikasi manual §14 (belum dijalankan):** (a) set `AI_MOCK_FAIL=1`, jalankan Generate AI, pastikan state error muncul dan publish tetap bisa; (b) bandingkan 7 layar dengan `Listingku App.dc.html` (warna/spasi/copy); (c) view-source landing yang dipublish.
+3. **Slice 2 / desain asli:** landing publik + situs profil agen masih **wireframe** — menunggu desain dari user (blocker eksternal, bukan kode). Situs profil `{subdomain}.listingku.app` belum dibangun (di luar scope slice 1).
+4. Aset `public/brand/listingku-mark.png` masih placeholder (butuh `DesignSync` dari sesi utama).
 
-**Catatan untuk Task 15:** kontrak lengkap ada di §15 plan. Ringkas: `AiContentSchema` (Zod) + `type AiContent` (bentuk output = `responseSchema` Gemini nanti), `interface ContentGenerator { generate(input): Promise<AiContent> }`, `class AiGenerationError`, `getGenerator()` (mock di slice 1), `generateContentAction(projectId)`. Mock menyusun teks dari data project sungguhan (bukan lorem), 1 entri per house type dengan nama cocok, deskripsi ≥120 kata, teks beda untuk project beda, patuh copy DS (tanpa `!`, tanpa `kamu`). Event `visitor`/`whatsapp_click`/`form_submit` **sudah** dicatat sejak Task 14 lewat `recordEventAction` — jangan diduplikasi.
+**Urutan 18 task:** ~~1 scaffold+token~~ ✅ · ~~2 komponen DS~~ ✅ · ~~3 primitif Radix~~ ✅ · ~~4 utilitas murni~~ ✅ · ~~5 model blocks~~ ✅ · ~~6 lapisan data+seed~~ ✅ · ~~7 sesi+login+dashboard~~ ✅ · ~~8 pipeline media~~ ✅ · ~~9 skema Zod+wizard~~ ✅ · ~~10 detail project+sheet tipe~~ ✅ · ~~11 `resolve.ts`~~ ✅ · ~~12 tema wireframe+renderer~~ ✅ · ~~13 landing SSR+SEO~~ ✅ · ~~14 interaktivitas landing~~ ✅ · ~~15 AI mock+layar generate~~ ✅ · ~~16 block editor~~ ✅ · ~~17 publish+QR~~ ✅ · ~~18 spec Playwright tulang punggung~~ ✅. **Semua 18 task selesai.**
+
+**Catatan penting untuk sesi berikut:**
+- E2e sekarang **serial** (`workers:1` di `playwright.config.ts`) karena satu mock store bersama tanpa isolasi per-test — jangan kembalikan ke paralel tanpa memberi isolasi. `expect.timeout` juga dinaikkan ke 15s (cold-compile Server Action `next dev`).
+- Semua e2e yang berpindah rute memakai `waitForURL(...)` sebelum aksi berikutnya (race sesi + race navigasi `next dev`) — pola wajib, jangan dihapus.
+- AI 100% **mock** lewat `getGenerator()` di `lib/ai/index.ts`; mengganti ke Gemini asli cukup di satu titik itu (bentuk `AiContentSchema` = `responseSchema`).
+- `npm run verify` = unit + build + e2e dalam satu perintah; jalankan `npm run seed:reset` lebih dulu supaya casa-verde kembali draft untuk publish/landing-ssr e2e.
 
 ### Acceptance criteria
 Lihat §14 "Definisi selesai" di spec. Ringkasnya:

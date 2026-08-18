@@ -117,3 +117,15 @@
 | 10:38 | Wiring block + mount tracker | wireframe/AgentCta.tsx, wireframe/ContactFormBlock.tsx, [slug]/page.tsx | Landing interaktif penuh | ~1k |
 | 10:42 | Fix e2e gagal (cold-compile) | playwright.config.ts (expect timeout 15s) | 11/11 e2e hijau dari cold; bug-015 | ~2k |
 | 10:45 | Verifikasi final | (suite) | Unit 245/245, e2e 11/11, build bersih | ~3k |
+
+## Session: 2026-08-18 11:55 (Task 15–18: slice 1 lengkap)
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 10:55 | Task 15 AI mock + layar Generate | lib/ai/*, generate/{page,actions}, GeneratePanel | 6 unit hijau; disalin plan §15 setelah verifikasi tipe cocok — commit 1c9baac | ~12k |
+| 11:15 | Task 16 block editor terpimpin | components/editor/*, editor/{page,actions}, globals.css | 5 e2e; 2 deviasi plan (BlockRenderer projectId, div frame) + 2 fix e2e — commit 8db9e7c | ~18k |
+| 11:30 | Task 17 publish + QR + share | publish/, app/api/qr/, PublishPanel | 2 unit + 3 e2e; e2e dijadikan serial workers:1 (race shared-store) — commit e6d6003 | ~14k |
+| 11:45 | Task 18 spine + script verify | spine.spec, package.json | 21/21 e2e; 3 fix nav-timing (waitForURL) — commit dfac0c7 | ~10k |
+| 11:52 | Fix EPERM renameSync (Windows) | snapshot.ts, snapshot-retry.test | verify flaky → renameWithRetry + test DI — commit e463538 (bug-020) | ~6k |
+| 11:58 | npm run verify DEFINITIF (exit 0) | (suite) | HIJAU: unit 256, build bersih, e2e 21/21 — SLICE 1 LENGKAP | ~4k |
+| 12:00 | Bookkeeping | STATUS/cerebrum/buglog/memory | anatomy.md pending (openwolf CLI tak terpasang di device ini) | ~5k |
