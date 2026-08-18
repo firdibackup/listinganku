@@ -1,5 +1,5 @@
-// Tombol WhatsApp asli dipasang di Task 14; di sini strukturnya saja.
 import type { ResolvedBlock } from '../../resolve';
+import { WhatsAppLink } from '@/components/landing/WhatsAppLink';
 
 export function AgentCta({ block }: { block: Extract<ResolvedBlock, { type: 'agentCta' }> }) {
   return (
@@ -9,6 +9,16 @@ export function AgentCta({ block }: { block: Extract<ResolvedBlock, { type: 'age
         <p className="lw-body" style={{ marginTop: 8, color: 'var(--sage)' }}>
           Hubungi {block.agentName} untuk jadwal survei dan simulasi KPR.
         </p>
+        <div style={{ marginTop: 16 }}>
+          <WhatsAppLink
+            projectId={block.projectId}
+            waNumber={block.waNumber}
+            message={block.defaultMessage}
+            className="ds-btn ds-btn--primary ds-btn--md"
+          >
+            Chat WhatsApp
+          </WhatsAppLink>
+        </div>
       </div>
     </section>
   );

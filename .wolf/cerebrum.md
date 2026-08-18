@@ -2,7 +2,7 @@
 
 > OpenWolf's learning memory. Updated automatically as the AI learns from interactions.
 > Do not edit manually unless correcting an error.
-> Last updated: 2026-08-16
+> Last updated: 2026-08-18
 
 ## User Preferences
 
@@ -28,6 +28,7 @@
 - **Next.js membekukan route file (`sitemap.ts`, `robots.ts`, route handler) jadi statis di build time secara default** kalau tidak ada API dinamis (cookies/headers) yang terlihat — baca data lewat panggilan fungsi biasa ke `db` (bukan `fetch()`) tidak dianggap dependency dinamis oleh Next. Untuk route yang datanya bisa berubah di runtime tanpa rebuild (mis. `sitemap.ts` di atas mock store), wajib `export const dynamic = 'force-dynamic'`. Cek lewat tabel rute `next build` (`○` statis vs `ƒ` dinamis) — dev mode (`next dev`) tidak akan pernah menampakkan bug ini karena dev selalu re-eksekusi tiap request.
 - **`next start` butuh `.next` yang valid dari `next build` TERAKHIR** — menjalankan `next dev` (termasuk lewat `npx playwright test`, yang men-start dev server via `webServer.command`) di antara `next build` dan `next start` merusak `.next` (BUILD_ID hilang). Selalu `npm run build` PERSIS sebelum `next start` untuk verifikasi produksi, tanpa `next dev` di antaranya.
 - Server Component dinamis (`[slug]/page.tsx` tanpa `generateStaticParams`) tetap `ƒ` (server-rendered per request) secara default — beda dengan file route statis di atas. `cache()` dari `'react'` aman dipakai untuk menyatukan panggilan data antara `generateMetadata` dan komponen halaman (dipanggil dua kali secara terpisah kalau tidak).
+- **Playwright e2e terhadap `next dev` webServer: panggilan PERTAMA ke sebuah Server Action membayar kompilasi on-demand (~10s+ terukur) yang melewati default `expect` timeout Playwright (5s).** Test submit pertama di sebuah file gagal dari cold; test submit tepat sesudahnya lolos karena action sudah warm. Test dalam satu file jalan serial (`fullyParallel` default `false`), jadi yang kena cold-compile selalu test PERTAMA yang memicu action itu. Fix: `expect: { timeout: 15_000 }` di `playwright.config.ts` — bukan menyentuh test, kondisi yang di-assert tidak berubah. Gejala khas di snapshot kegagalan: tombol submit masih `[disabled]` (pending tak pernah selesai), form utuh, tanpa pesan error — bedakan dari action yang benar-benar error (itu me-*re-enable* tombol dan menampilkan pesan).
 
 ## Do-Not-Repeat
 

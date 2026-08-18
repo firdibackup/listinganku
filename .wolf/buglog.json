@@ -254,6 +254,26 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-18T05:50:00+07:00"
+    },
+    {
+      "id": "bug-015",
+      "timestamp": "2026-08-18T10:45:00+07:00",
+      "error_message": "Playwright e2e 'form kontak menyimpan lead dan menampilkan konfirmasi datar' gagal dari cold: setelah klik 'Kirim pesan', getByText('Permintaan terkirim') tidak muncul dalam 5s. Snapshot kegagalan menunjukkan tombol masih [disabled] (pending belum selesai), form utuh, tanpa pesan error",
+      "file": "playwright.config.ts",
+      "root_cause": "webServer menjalankan next dev. Panggilan PERTAMA ke Server Action submitLeadAction membayar biaya kompilasi on-demand (~11s terukur) yang melewati default expect timeout Playwright (5s). Test dalam satu file jalan serial (fullyParallel default false), jadi happy-path (test submit pertama di landing-lead.spec) selalu yang kena cold-compile; test invalid-phone tepat setelahnya lolos karena action sudah warm dan jalur Zod-reject-nya sinkron/cepat",
+      "fix": "Tambah expect: { timeout: 15_000 } di playwright.config.ts — memberi headroom untuk cold-compile tanpa mengubah kondisi yang di-assert. Dibuktikan: run cold penuh 11/11 hijau, happy-path selesai di 11.3s",
+      "tags": [
+        "playwright",
+        "nextjs",
+        "server-action",
+        "cold-compile",
+        "e2e",
+        "timeout",
+        "flaky"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-18T10:45:00+07:00"
     }
   ]
 }

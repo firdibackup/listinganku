@@ -2,7 +2,7 @@
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
 > Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
-> Last updated: 2026-08-18 (Task 1–13 selesai)
+> Last updated: 2026-08-18 (Task 1–14 selesai)
 
 ---
 
@@ -18,7 +18,7 @@
 - Repo di-init git. Baseline `cfd945e` di `main`; kerja di branch **`slice-1-frontend`**.
 - Ledger eksekusi: `.superpowers/sdd/2026-08-16-listingku-frontend-slice1/progress.md` — **baca ini untuk tahu task mana yang sudah selesai.** Task dengan baris `Task <N>: complete` sudah beres, jangan diulang.
 - Pre-flight scan plan: 22 baris cek, 2 cacat ditemukan + diputuskan (Switch masuk slice 1 lewat Task 16; nama e2e test Task 16 diperbaiki).
-- **Task 1–13 selesai**, semua lolos review kecuali 13 (baru selesai, menunggu review). `npm test` **212/212 hijau**, Playwright **8/8 hijau**, `npm run build` bersih. HEAD = `d57bd6a`.
+- **Task 1–14 selesai.** `npm test` **245/245 hijau**, Playwright **11/11 hijau** (dari cold), `npm run build` bersih. HEAD = commit Task 14 (tepat di atas `5a00ed8` "initial commit" dari device lain, yang sudah memuat test + `actions.ts` Task 14).
   - **1** scaffold Next 15 + TS + Tailwind v4 + token DS + Vitest/RTL + Playwright (`4655f1f`)
   - **2** komponen DS Button/Card/Chip/Input + `ds.css` (`e9e5272` → fix `e6d6543`, `e0be27e`)
   - **3** primitif Radix Dialog/Sheet/Accordion/Progress/Skeleton/Toaster (`457d822` → fix `0b87192`, `1002fd6`)
@@ -32,17 +32,18 @@
   - **11** `lib/landing/resolve.ts` — rantai override → AI → kosong (`6753d1b` → `725b119`). `pick` diekspor dan diuji langsung; `0`/`false` terbukti bertahan
   - **12** tema wireframe + `BlockRenderer` (`fd37db3` → fix `0d91b8f`, alt text galeri)
   - **13** landing publik SSR di `/{slug}` + `generateMetadata` + JSON-LD + `sitemap.xml`/`robots.txt` (`d57bd6a`). **2 cacat nyata ditemukan & diperbaiki di luar teks brief:** (1) JSON-LD dipasang lewat `dangerouslySetInnerHTML` pakai `JSON.stringify` polos — nama project bermusuhan berisi `</script>` bisa memutus tag `<script>` dan menyuntik markup; ditambal `jsonLdScript()` di `lib/landing/seo.ts` (tiap karakter `<` diganti escape unicode enam-karakter setaranya), dibuktikan lewat unit test round-trip DAN verifikasi manual di production build sungguhan (0 karakter `<` literal di span JSON-LD). (2) `app/sitemap.ts` tanpa `export const dynamic` dibekukan **statis** oleh Next di build time (dibuktikan lewat tabel rute `next build`: `○` tanpa fix → `ƒ` dengan fix) — publish/unpublish project sesudah build tidak akan pernah muncul di sitemap tanpa redeploy; e2e Playwright tidak menangkap ini karena `webServer` jalan `next dev`, yang selalu re-eksekusi. `cache()` dari `react` dipakai menyatukan `generateMetadata`+halaman ke satu fetch. Kedua bug + fix ada di `.wolf/buglog.json` (`bug-013`, `bug-014`).
+  - **14** landing interaktif — `WhatsAppLink` + `PageViewTracker` + `ContactForm` (baru di `components/landing/`), wiring `AgentCta`/`ContactFormBlock`, mount tracker di `[slug]/page.tsx`. `submitLeadAction`/`recordEventAction` sudah ada dari device lain (commit `5a00ed8`); sesi ini menuntaskan separuh UI-nya sampai 33 test Task 14 hijau. 1 cacat e2e ditemukan & ditambal: happy-path lead gagal dari cold karena kompilasi Server Action pertama di `next dev` >5s (default expect timeout Playwright) — dinaikkan ke 15s di `playwright.config.ts` (`bug-015`).
 - **5 dari 6 task butuh fix round** — mayoritas temuannya cacat di teks plan saya, bukan kesalahan implementer. Plan sudah diperbaiki di sumbernya supaya tidak menurun ke task berikutnya. Task 13 dikerjakan dari brief task-13-brief.md (bukan langsung dari plan), 2 cacat brief ditemukan & ditambal seperti tercatat di atas.
 
 ---
 
 ## 🚀 Next phase
 
-**Goal:** Melanjutkan eksekusi `docs/superpowers/plans/2026-08-16-listingku-frontend-slice1.md` dari **Task 14** (interaktivitas landing publik — CTA WhatsApp dan form kontak sungguhan di block `agentCta`/`contactForm`, keduanya baru struktur kosong per komentar di `lib/landing/themes/wireframe/AgentCta.tsx`/`ContactFormBlock.tsx`), lewat `superpowers:subagent-driven-development` (satu subagent per task, review per task, review branch penuh di akhir).
+**Goal:** Lanjutkan eksekusi `docs/superpowers/plans/2026-08-16-listingku-frontend-slice1.md` dari **Task 15** (AI mock + layar Generate AI). Buat `lib/ai/{schema,generator,mock,index}.ts`, layar `app/(dashboard)/projects/[id]/generate/` (page + actions), dan `components/ai/GeneratePanel.tsx`. AI 100% mock — tanpa Gemini/API key. **Prinsip wajib:** AI opsional dan tidak pernah memblokir publish; mode gagal harus bisa dicapai (`forceFail` → `AiGenerationError`) dan publish tetap jalan dengan konten manual. Hasil AI **dipecah saat disimpan**: bagian project → `projects.ai_content`, tiap tipe → baris `house_types` masing-masing (jangan simpan utuh — lihat Decision Log cerebrum).
 
-**Urutan 18 task:** ~~1 scaffold+token~~ ✅ · ~~2 komponen DS~~ ✅ · ~~3 primitif Radix~~ ✅ · ~~4 utilitas murni~~ ✅ · ~~5 model blocks~~ ✅ · ~~6 lapisan data+seed~~ ✅ · ~~7 sesi+login+dashboard~~ ✅ · ~~8 pipeline media~~ ✅ · ~~9 skema Zod+wizard~~ ✅ · ~~10 detail project+sheet tipe~~ ✅ · ~~11 `resolve.ts`~~ ✅ · ~~12 tema wireframe+renderer~~ ✅ · ~~13 landing SSR+SEO~~ ✅ · **14 interaktivitas landing** ← berikutnya · 15 AI mock+layar generate · 16 block editor · 17 publish+QR · 18 spec Playwright tulang punggung.
+**Urutan 18 task:** ~~1 scaffold+token~~ ✅ · ~~2 komponen DS~~ ✅ · ~~3 primitif Radix~~ ✅ · ~~4 utilitas murni~~ ✅ · ~~5 model blocks~~ ✅ · ~~6 lapisan data+seed~~ ✅ · ~~7 sesi+login+dashboard~~ ✅ · ~~8 pipeline media~~ ✅ · ~~9 skema Zod+wizard~~ ✅ · ~~10 detail project+sheet tipe~~ ✅ · ~~11 `resolve.ts`~~ ✅ · ~~12 tema wireframe+renderer~~ ✅ · ~~13 landing SSR+SEO~~ ✅ · ~~14 interaktivitas landing~~ ✅ · **15 AI mock+layar generate** ← berikutnya · 16 block editor · 17 publish+QR · 18 spec Playwright tulang punggung.
 
-**Catatan untuk Task 14:** `db.events.record({projectId, houseTypeId?, type})` **belum dipanggil sama sekali** — Task 13 sengaja tidak mencatat event `visitor` di SSR page load (brief task-13 tidak memintanya, dan mencatat pageview di Server Component yang bisa dipanggil ulang oleh cache/prefetch berisiko dobel-hitung). Task 14 kemungkinan tempat wajarnya untuk `whatsapp_click`/`form_submit`, dan mungkin juga `visitor` — cek spec §14 sebelum mengasumsikan.
+**Catatan untuk Task 15:** kontrak lengkap ada di §15 plan. Ringkas: `AiContentSchema` (Zod) + `type AiContent` (bentuk output = `responseSchema` Gemini nanti), `interface ContentGenerator { generate(input): Promise<AiContent> }`, `class AiGenerationError`, `getGenerator()` (mock di slice 1), `generateContentAction(projectId)`. Mock menyusun teks dari data project sungguhan (bukan lorem), 1 entri per house type dengan nama cocok, deskripsi ≥120 kata, teks beda untuk project beda, patuh copy DS (tanpa `!`, tanpa `kamu`). Event `visitor`/`whatsapp_click`/`form_submit` **sudah** dicatat sejak Task 14 lewat `recordEventAction` — jangan diduplikasi.
 
 ### Acceptance criteria
 Lihat §14 "Definisi selesai" di spec. Ringkasnya:
