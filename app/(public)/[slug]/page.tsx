@@ -5,6 +5,7 @@ import { db } from '@/lib/data';
 import { resolveBlocks } from '@/lib/landing/resolve';
 import { BlockRenderer } from '@/lib/landing/BlockRenderer';
 import { buildJsonLd, buildMetadata, jsonLdScript } from '@/lib/landing/seo';
+import { PageViewTracker } from '@/components/landing/PageViewTracker';
 
 /**
  * cache() menyatukan panggilan load() dari generateMetadata dan dari komponen
@@ -57,6 +58,10 @@ export default async function LandingPage({ params }: { params: Promise<{ slug: 
           jsonLdScript() (escape '<') — bukan konten AI/markdown, jadi
           dangerouslySetInnerHTML di sini aman sesuai aturan proyek. */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(jsonLd) }} />
+
+      {/* Mencatat satu event visitor per project per sesi tab, di klien —
+          sengaja bukan di SSR untuk menghindari hitung ganda dari cache/prefetch. */}
+      <PageViewTracker projectId={data.project.id} />
 
       {typesBlock && typesBlock.type === 'houseTypes' && typesBlock.houseTypes.length > 1 ? (
         <nav className="lp__pills" aria-label="Lompat ke tipe rumah">

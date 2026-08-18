@@ -97,3 +97,35 @@
 | Time | Action | File(s) | Outcome | ~Tokens |
 |------|--------|---------|---------|--------|
 | 06:15 | Task 13 (landing publik SSR + metadata + JSON-LD + sitemap + robots) — brief diimplementasi + 2 cacat nyata ditemukan & diperbaiki: (1) JSON-LD lewat dangerouslySetInnerHTML pakai JSON.stringify polos, nama project bermusuhan bisa memutus tag <script> — ditambal jsonLdScript() escape '<'; (2) sitemap.ts tanpa export const dynamic dibekukan statis oleh Next di build time — ditambal force-dynamic, dibuktikan lewat tabel rute next build (○→ƒ) sebelum/sesudah. cache() dari react dipakai menyatukan generateMetadata+page. Diverifikasi lewat production build sungguhan (next build && next start di data dir scratch): title/OG/canonical/JSON-LD terbukti di raw HTML, nama bermusuhan ter-escape sempurna (0 karakter '<' literal di span <script> JSON-LD, round-trip JSON.parse cocok persis), project zero-house-type dan blocks=[] render tanpa crash, /dashboard tidak dibajak [slug] (307 ke /login, bukan 404) | lib/landing/seo.ts, app/(public)/[slug]/page.tsx, app/sitemap.ts, app/robots.ts, tests/unit/seo.test.ts, tests/e2e/landing-ssr.spec.ts | 212/212 unit + 8/8 e2e hijau, build bersih, commit d57bd6a | ~95k |
+
+## Session: 2026-08-18 10:11
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-18 10:16
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-18 10:18 (Task 14: landing interaktif)
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 10:25 | Diagnosa state device: fresh clone (node_modules kosong), .superpowers gitignored (ledger local-only), Task 14 setengah jadi — actions.ts + 5 test ter-commit oleh Audi di 5a00ed8, komponen UI belum ada | git log, actions.ts, resolve.ts | Peta status akurat: 1–13 selesai, 14 WIP | ~8k |
+| 10:35 | Implementasi 3 komponen klien Task 14 | components/landing/{WhatsAppLink,PageViewTracker,ContactForm}.tsx | Komponen yang di-import test kini ada | ~3k |
+| 10:38 | Wiring block + mount tracker | wireframe/AgentCta.tsx, wireframe/ContactFormBlock.tsx, [slug]/page.tsx | Landing interaktif penuh | ~1k |
+| 10:42 | Fix e2e gagal (cold-compile) | playwright.config.ts (expect timeout 15s) | 11/11 e2e hijau dari cold; bug-015 | ~2k |
+| 10:45 | Verifikasi final | (suite) | Unit 245/245, e2e 11/11, build bersih | ~3k |
+
+## Session: 2026-08-18 11:55 (Task 15–18: slice 1 lengkap)
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 10:55 | Task 15 AI mock + layar Generate | lib/ai/*, generate/{page,actions}, GeneratePanel | 6 unit hijau; disalin plan §15 setelah verifikasi tipe cocok — commit 1c9baac | ~12k |
+| 11:15 | Task 16 block editor terpimpin | components/editor/*, editor/{page,actions}, globals.css | 5 e2e; 2 deviasi plan (BlockRenderer projectId, div frame) + 2 fix e2e — commit 8db9e7c | ~18k |
+| 11:30 | Task 17 publish + QR + share | publish/, app/api/qr/, PublishPanel | 2 unit + 3 e2e; e2e dijadikan serial workers:1 (race shared-store) — commit e6d6003 | ~14k |
+| 11:45 | Task 18 spine + script verify | spine.spec, package.json | 21/21 e2e; 3 fix nav-timing (waitForURL) — commit dfac0c7 | ~10k |
+| 11:52 | Fix EPERM renameSync (Windows) | snapshot.ts, snapshot-retry.test | verify flaky → renameWithRetry + test DI — commit e463538 (bug-020) | ~6k |
+| 11:58 | npm run verify DEFINITIF (exit 0) | (suite) | HIJAU: unit 256, build bersih, e2e 21/21 — SLICE 1 LENGKAP | ~4k |
+| 12:00 | Bookkeeping | STATUS/cerebrum/buglog/memory | anatomy.md pending (openwolf CLI tak terpasang di device ini) | ~5k |

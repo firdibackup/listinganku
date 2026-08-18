@@ -254,6 +254,86 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-18T05:50:00+07:00"
+    },
+    {
+      "id": "bug-015",
+      "timestamp": "2026-08-18T10:45:00+07:00",
+      "error_message": "Playwright e2e 'form kontak menyimpan lead dan menampilkan konfirmasi datar' gagal dari cold: setelah klik 'Kirim pesan', getByText('Permintaan terkirim') tidak muncul dalam 5s. Snapshot kegagalan menunjukkan tombol masih [disabled] (pending belum selesai), form utuh, tanpa pesan error",
+      "file": "playwright.config.ts",
+      "root_cause": "webServer menjalankan next dev. Panggilan PERTAMA ke Server Action submitLeadAction membayar biaya kompilasi on-demand (~11s terukur) yang melewati default expect timeout Playwright (5s). Test dalam satu file jalan serial (fullyParallel default false), jadi happy-path (test submit pertama di landing-lead.spec) selalu yang kena cold-compile; test invalid-phone tepat setelahnya lolos karena action sudah warm dan jalur Zod-reject-nya sinkron/cepat",
+      "fix": "Tambah expect: { timeout: 15_000 } di playwright.config.ts — memberi headroom untuk cold-compile tanpa mengubah kondisi yang di-assert. Dibuktikan: run cold penuh 11/11 hijau, happy-path selesai di 11.3s",
+      "tags": [
+        "playwright",
+        "nextjs",
+        "server-action",
+        "cold-compile",
+        "e2e",
+        "timeout",
+        "flaky"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-18T10:45:00+07:00"
+    },
+    {
+      "id": "bug-016",
+      "timestamp": "2026-08-18T11:05:00+07:00",
+      "error_message": "Semua e2e editor gagal: halaman editor menampilkan /login, bukan EditorShell (getByRole('button', name:/^Blok /) → 0). Sama untuk publish.spec bila tanpa fix.",
+      "file": "tests/e2e/editor.spec.ts, tests/e2e/publish.spec.ts",
+      "root_cause": "beforeEach dari plan mengeklik 'Kirim magic link' lalu langsung page.goto(rute dashboard) TANPA menunggu signInAction menulis cookie sesi + redirect. page.goto berlomba mendahului cookie → middleware memantulkan ke /login. Test plan belum pernah dijalankan sehingga race ini tak terlihat.",
+      "fix": "Tambah await page.waitForURL(/\\/dashboard$/) sesudah klik magic link, sebelum goto rute dashboard — mirror pola login.spec.ts yang lolos.",
+      "tags": ["playwright", "e2e", "race", "session", "middleware", "next-dev"],
+      "related_bugs": ["bug-015"],
+      "occurrences": 1,
+      "last_seen": "2026-08-18T11:05:00+07:00"
+    },
+    {
+      "id": "bug-017",
+      "timestamp": "2026-08-18T11:10:00+07:00",
+      "error_message": "locator.fill: strict mode violation: getByLabel('Judul') resolved to 2 elements (input 'Judul' DAN input 'Subjudul').",
+      "file": "tests/e2e/editor.spec.ts, tests/e2e/spine.spec.ts",
+      "root_cause": "getByLabel memakai substring match secara default; 'Subjudul' memuat 'Judul'. Panel setelan Hero punya field Judul DAN Subjudul berdampingan.",
+      "fix": "getByLabel('Judul', { exact: true }).",
+      "tags": ["playwright", "e2e", "getByLabel", "strict-mode", "substring"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-18T11:10:00+07:00"
+    },
+    {
+      "id": "bug-018",
+      "timestamp": "2026-08-18T11:30:00+07:00",
+      "error_message": "Full e2e suite (paralel) flaky: landing-ssr.spec 'project draft tidak dapat diakses publik' kadang gagal (casa-verde 200 + muncul di sitemap) setelah publish.spec menambah 3 test.",
+      "file": "playwright.config.ts",
+      "root_cause": "Slice 1 memakai SATU mock store bersama (.data/store.json) tanpa isolasi per-test. publish.spec mempublikasikan casa-verde sementara landing-ssr.spec menegaskan casa-verde masih draft (404 + absen sitemap). Worker paralel berebut state yang sama — non-deterministik.",
+      "fix": "workers: 1 + fullyParallel: false di playwright.config.ts. Playwright menjalankan file berurutan abjad, jadi landing-ssr (assert draft) selalu sebelum publish (mutasi). Immunisasi seluruh suite dari race shared-store.",
+      "tags": ["playwright", "e2e", "shared-state", "flaky", "mock-store", "serial"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-18T11:30:00+07:00"
+    },
+    {
+      "id": "bug-019",
+      "timestamp": "2026-08-18T11:40:00+07:00",
+      "error_message": "spine North Star: panel Generate stuck idle, 'Lanjut ke editor' tak muncul (30s). spine publish-tanpa-AI: 'Publikasikan' tak ada (page.goto ke /projects/new/publish).",
+      "file": "tests/e2e/spine.spec.ts",
+      "root_cause": "Dua race navigasi. (1) Detail project punya <Link> DAN <Button> bernama 'Generate AI' (ProjectHeader membungkus Button di Link); getByRole('button',...) resolve ke tombol lama saat navigasi in-flight lalu mengekliknya, tombol generate sungguhan tak pernah terklik. (2) page.url() dibaca segera setelah 'Simpan project' padahal router.push wizard belum settle → menangkap /projects/new.",
+      "fix": "waitForURL(/\\/generate$/) sebelum klik tombol Generate; waitForURL(/\\/projects\\/prj_/) sebelum baca page.url(). Juga .first() pada 'Add house type' (dua tombol identik: CTA header + tile grid).",
+      "tags": ["playwright", "e2e", "race", "navigation", "next-dev", "nested-interactive"],
+      "related_bugs": ["bug-016"],
+      "occurrences": 1,
+      "last_seen": "2026-08-18T11:40:00+07:00"
+    },
+    {
+      "id": "bug-020",
+      "timestamp": "2026-08-18T11:52:00+07:00",
+      "error_message": "EPERM: operation not permitted, rename '...store.json.<pid>.tmp' -> '...store.json' di snapshot.ts:76. Muncul acak pada npm run verify (1 unit test flaky: landing-actions > houseTypeId dipertahankan), hijau saat isolasi.",
+      "file": "lib/data/mock/snapshot.ts",
+      "root_cause": "renameSync atomic di atas store.json yang sudah ada sesekali gagal EPERM di Windows saat file tujuan terkunci sejenak (antivirus/Windows Search indexer/pembaca bersamaan). Hanya terpicu di bawah beban suite penuh yang menulis snapshot bertubi-tubi, jadi run terisolasi selalu hijau dan menyembunyikannya.",
+      "fix": "renameWithRetry: ulang EPERM/EACCES/EBUSY transien hingga 10x dengan jeda sinkron Atomics.wait bertahap; error non-transien dilempar segera. Fungsi rename disuntikkan sebagai parameter (seam DI) untuk test deterministik gagal-lalu-sukses (tests/unit/snapshot-retry.test.ts).",
+      "tags": ["windows", "fs", "renameSync", "eperm", "flaky", "atomic-write", "mock-store"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-18T11:52:00+07:00"
     }
   ]
 }

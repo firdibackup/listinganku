@@ -253,6 +253,12 @@
   - section `InputProps` L6-14 (~59 tok)
   - fn `Input` L15-73 (~448 tok)
 
+## components/landing/
+
+- `ContactForm.tsx` — Form kontak publik (klien); submit ke submitLeadAction, validasi di server, konfirmasi datar "Permintaan terkirim". Select tipe rumah opsional. (~430 tok)
+- `PageViewTracker.tsx` — Komponen klien tak-merender; catat 1 event visitor per project per sesi tab via sessionStorage. (~180 tok)
+- `WhatsAppLink.tsx` — Klien; toWaHref() membangun URL wa.me (reuse normalizeIndonesianPhone), catat whatsapp_click saat klik. (~230 tok)
+
 ## components/media/
 
 - `media.css` — Styles: 14 rules, 1 media queries (~483 tok)
@@ -392,8 +398,8 @@
 
 ## lib/landing/themes/wireframe/
 
-- `AgentCta.tsx` — Tombol WhatsApp asli dipasang di Task 14; di sini strukturnya saja. (~170 tok)
-- `ContactFormBlock.tsx` — Form fungsional dipasang di Task 14. (~112 tok)
+- `AgentCta.tsx` — Server Component; merender WhatsAppLink (klien) dengan projectId/waNumber/defaultMessage dari block. (~210 tok)
+- `ContactFormBlock.tsx` — Server Component; merender ContactForm (klien) dengan projectId/houseTypes/askHouseType. (~150 tok)
 - `Facilities.tsx` — Facilities (~170 tok)
 - `Faq.tsx` — Faq (~168 tok)
 - `FloorPlans.tsx` — FloorPlans (~314 tok)

@@ -66,6 +66,37 @@ export function loadSnapshot(): StoreShape | null {
   }
 }
 
+/**
+ * renameSync di Windows bisa gagal sesaat dengan EPERM/EACCES/EBUSY saat file
+ * tujuan terkunci sementara oleh proses lain (antivirus, Windows Search indexer,
+ * atau pembaca store.json bersamaan) — bukan kegagalan permanen. Di bawah beban
+ * (suite penuh yang menulis snapshot bertubi-tubi) ini muncul acak dan membuat
+ * `npm run verify` flaky (bug-020). Coba ulang beberapa kali dengan jeda sinkron
+ * singkat; error non-transien (mis. ENOENT) dilempar apa adanya tanpa retry.
+ */
+export function renameWithRetry(
+  from: string,
+  to: string,
+  maxAttempts = 10,
+  // Seam untuk pengujian: default memakai renameSync sungguhan; tes menyuntikkan
+  // fungsi palsu yang bisa dipaksa gagal, tanpa perlu mem-mock node:fs.
+  rename: (from: string, to: string) => void = renameSync,
+): void {
+  for (let attempt = 1; ; attempt += 1) {
+    try {
+      rename(from, to);
+      return;
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException).code;
+      const transient = code === 'EPERM' || code === 'EACCES' || code === 'EBUSY';
+      if (!transient || attempt >= maxAttempts) throw err;
+      // saveSnapshot berjalan di jalur sinkron (tidak bisa await) — tidur sinkron
+      // singkat lewat Atomics.wait, naik bertahap, untuk melewati jendela kunci.
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, attempt * 10);
+    }
+  }
+}
+
 /** Tulis atomic: file sementara lalu rename, supaya tidak ada state setengah jadi di Windows. */
 export function saveSnapshot(state: StoreShape): void {
   const dir = dataDir();
@@ -73,7 +104,7 @@ export function saveSnapshot(state: StoreShape): void {
   mkdirSync(dir, { recursive: true });
   const tmp = `${file}.${process.pid}.tmp`;
   writeFileSync(tmp, JSON.stringify(state, null, 2), 'utf8');
-  renameSync(tmp, file);
+  renameWithRetry(tmp, file);
   sweepStaleTmp(dir, file);
 }
 
