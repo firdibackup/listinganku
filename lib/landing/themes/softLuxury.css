@@ -83,3 +83,7 @@
 .lp[data-lp-theme='softLuxury'] .lp-x-unitrow__specs { padding: 0 18px; grid-template-columns: 1fr 1fr; display: grid; gap: 10px 14px; }
 .lp[data-lp-theme='softLuxury'] .lp-x-unitrow__desc { padding: 0 18px; }
 .lp[data-lp-theme='softLuxury'] .lp-x-unitrow__link { margin: 0 18px 18px; border: 1px solid var(--lp-line); border-radius: 999px; padding: 12px; text-align: center; }
+/* Desktop: carousel unit boleh melebar keluar kolom baca */
+@media (min-width: 900px) {
+  .lp[data-lp-theme='softLuxury'] .lp-tw-section:has(.lp-x-unitlist) > .lp-tw-in { max-width: 1080px; }
+}

@@ -240,21 +240,70 @@
 .lp-tw-footer__links a { color: color-mix(in srgb, var(--lp-on-footer), var(--lp-on-accent) 40%); }
 .lp-tw-footer__copy { font-size: 11px; padding-top: 14px; }
 
-/* ── Responsive (spec §12). Mobile-first: nilai dasar = 390px. ── */
+/*
+ * ── Responsive: SHARED base untuk kesepuluh tema (kelas lp-tw-*). ──
+ * Mobile-first: nilai dasar = 390px (satu kolom, mengikuti file desain).
+ * Strategi desktop: kolom baca ~720px untuk section teks, bingkai lebar ~1080px
+ * untuk section media/grid (dipilih via :has), plus grid yang menambah kolom.
+ * Ini menghapus kesan "kolom 390px dipusatkan di layar lebar".
+ */
+.lp-tw-hero__title { text-wrap: balance; }
+.lp-tw-lead, .lp-tw-hero__sub, .lp-tw-unitcard__desc { text-wrap: pretty; }
+/* Anchor (#unit/#kontak) tidak tertutup header sticky saat dilompati */
+.lp[data-lp-theme] [id] { scroll-margin-top: 72px; }
+
+/* Target sentuh memadai di perangkat sentuh */
+@media (pointer: coarse) {
+  .lp-tw-tab, .lp-tw-faq__q, .lp-tw-agent__btn, .lp-tw-header__cta, .lp-tw-pricebar__cta { min-height: 44px; }
+}
+
+/* Tablet */
 @media (min-width: 640px) {
-  .lp-tw-hero { height: 560px; }
+  .lp-tw-hero { height: 520px; }
   .lp-tw-fac { grid-template-columns: repeat(3, 1fr); }
   .lp-tw-tst { display: grid; grid-template-columns: repeat(2, 1fr); }
-}
-@media (min-width: 900px) {
-  .lp-tw-in { max-width: 1120px; margin-inline: auto; }
-  .lp-tw-hero { height: 640px; }
-  .lp-tw-gallery { display: grid; grid-template-columns: repeat(3, 1fr); overflow: visible; }
+  .lp-tw-gallery { display: grid; grid-template-columns: repeat(2, 1fr); overflow: visible; }
   .lp-tw-gallery__item { min-width: 0; }
-  .lp-tw-unitcard { display: grid; grid-template-columns: 1fr 1fr; }
-  .lp-tw-unitcard__media { height: auto; min-height: 260px; }
+  .lp-tw-gallery__media { height: 200px; }
 }
-@media (min-width: 1200px) {
-  .lp-tw-section, .lp-tw-units, .lp-tw-promo, .lp-tw-agent, .lp-tw-contact { padding: 56px 20px; }
+
+/* Desktop: kolom baca + bingkai lebar untuk grid/media */
+@media (min-width: 900px) {
+  .lp-tw-in { max-width: 720px; margin-inline: auto; }
+  /* Section yang berisi grid/carousel/kartu memakai bingkai lebar */
+  .lp-tw-section:has(.lp-tw-fac) > .lp-tw-in,
+  .lp-tw-section:has(.lp-tw-gallery) > .lp-tw-in,
+  .lp-tw-section:has(.lp-tw-tst) > .lp-tw-in,
+  .lp-tw-section:has(.lp-tw-plans) > .lp-tw-in,
+  .lp-tw-units > .lp-tw-in,
+  .lp-tw-promo > .lp-tw-in,
+  .lp-tw-footer > .lp-tw-in { max-width: 1080px; }
+  /* Chrome full-bleed: latar tetap penuh, konten dibingkai ke 1080 terpusat */
+  .lp-tw-header,
+  .lp-tw-hero__body,
+  .lp-tw-pricebar { padding-inline: max(20px, calc((100% - 1080px) / 2)); }
+
+  .lp-tw-hero { height: 600px; }
+  .lp-tw-hero__title { max-width: 20ch; }
+  .lp-tw-hero__sub { max-width: 54ch; }
+
+  .lp-tw-gallery { grid-template-columns: repeat(4, 1fr); }
+  .lp-tw-gallery__media { height: 220px; }
+  .lp-tw-fac { grid-template-columns: repeat(3, 1fr); }
+  .lp-tw-tst { grid-template-columns: repeat(2, 1fr); }
+  .lp-tw-unitcard { display: grid; grid-template-columns: 1.05fr 1fr; }
+  .lp-tw-unitcard__media { height: auto; min-height: 300px; }
   .lp-tw-plans { grid-template-columns: 1fr 1fr; align-items: start; }
+}
+
+/* Layar lebar: napas ekstra, tanpa melar tak terkendali */
+@media (min-width: 1200px) {
+  .lp-tw-section { padding: 60px 24px; }
+  .lp-tw-units, .lp-tw-promo, .lp-tw-agent, .lp-tw-contact { padding: 60px 24px; }
+  .lp-tw-hero { height: 660px; }
+}
+
+/* Hormati preferensi gerak berkurang */
+@media (prefers-reduced-motion: reduce) {
+  .lp[data-lp-theme] * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
