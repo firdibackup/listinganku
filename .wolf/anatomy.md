@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-17T22:42:57.990Z
-> Files: 207 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-18T23:21:30.058Z
+> Files: 270 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -13,14 +13,14 @@
 - `middleware.ts` — Exports middleware, config (~179 tok)
 - `next-env.d.ts` — / <reference types="next" /> (~77 tok)
 - `next.config.ts` — Next.js configuration (~181 tok)
-- `package-lock.json` — npm lock file (~55236 tok)
-- `package.json` — Node.js package manifest (~355 tok)
-- `playwright.config.ts` — Playwright test configuration (~102 tok)
+- `package-lock.json` — npm lock file (~56856 tok)
+- `package.json` — Node.js package manifest (~398 tok)
+- `playwright.config.ts` — Playwright test configuration (~376 tok)
 - `postcss.config.mjs` (~16 tok)
 - `Product Requirements Document (PRD).md` — Product Requirements Document (PRD) (~10162 tok)
 - `skills-lock.json` (~86 tok)
 - `tsconfig.json` — TypeScript configuration (~161 tok)
-- `tsconfig.tsbuildinfo` (~44863 tok)
+- `tsconfig.tsbuildinfo` (~47948 tok)
 - `vitest.config.ts` — Vitest test configuration (~109 tok)
 
 ## .agents/skills/web-design-guidelines/
@@ -54,12 +54,12 @@
 
 ## .data/
 
-- `store.json` (~4873 tok)
+- `store.json` (~7446 tok)
 
 ## .impeccable/
 
 - `config.local.json` (~14 tok)
-- `hook.cache.json` (~3292 tok)
+- `hook.cache.json` (~3668 tok)
 
 ## .opencode/command/
 
@@ -137,8 +137,9 @@
 
 ## .superpowers/sdd/2026-08-16-listingku-frontend-slice1/
 
-- `progress.md` — SDD ledger — plan: docs/superpowers/plans/2026-08-16-listingku-frontend-slice1.md (~12046 tok)
+- `progress.md` — SDD ledger — plan: docs/superpowers/plans/2026-08-16-listingku-frontend-slice1.md (~13629 tok)
 - `review-01d0ffe..0465457.diff` — + * Model blok landing page. (~2074 tok)
+- `review-0d91b8f..d57bd6a.diff` — + * cache() menyatukan panggilan load() dari generateMetadata dan dari komponen (~3914 tok)
 - `review-1002fd6..6c510a3.diff` — Pemisah ribuan titik, desimal koma — konvensi Indonesia. (~1824 tok)
 - `review-168334a..8d0f781.diff` — Setiap metode baca (dan hasil create/update) HARUS lewat clone() sebelum (~8821 tok)
 - `review-3f46db1..6753d1b.diff` — Rantai yang menopang tombol "Use AI suggestion": override, lalu AI, lalu fallback. (~4131 tok)
@@ -161,6 +162,7 @@
 - `task-12-brief.md` — Task 12: Tema wireframe dan `BlockRenderer` (~4585 tok)
 - `task-12-report.md` — Task 12 report — Tema wireframe dan `BlockRenderer` (~2059 tok)
 - `task-13-brief.md` — Task 13: Landing publik SSR, metadata, JSON-LD, sitemap (~2404 tok)
+- `task-13-report.md` — Task 13 Report — Landing publik SSR, metadata, JSON-LD, sitemap (~3839 tok)
 - `task-14-brief.md` — Task 14: Landing interaktif — WhatsApp, form lead, event (~2762 tok)
 - `task-15-brief.md` — Task 15: AI mock dan layar Generate AI (~4909 tok)
 - `task-16-brief.md` — Task 16: Block editor terpimpin (~5552 tok)
@@ -192,12 +194,18 @@
 
 ## app/(dashboard)/
 
-- `layout.tsx` — DashboardLayout (~173 tok)
+- `layout.tsx` — DashboardLayout (~168 tok)
 
 ## app/(dashboard)/dashboard/
 
 - `page.tsx` — metadata (~863 tok)
   - fn `DashboardPage` L13-86 (~719 tok)
+
+## app/(dashboard)/leads/
+
+- `page.tsx` — metadata (~1051 tok)
+  - fn `deltaLabel` L12-15 (~27 tok)
+  - fn `LeadsPage` L16-88 (~874 tok)
 
 ## app/(dashboard)/projects/
 
@@ -219,28 +227,69 @@
   - fn `deleteHouseTypeAction` L118-144 (~348 tok)
 - `page.tsx` — ProjectPage (~302 tok)
 
+## app/(dashboard)/projects/[id]/editor/
+
+- `actions.ts` — Exports saveBlocksAction, setThemeAction (~244 tok)
+- `page.tsx` — EditorPage (~223 tok)
+
+## app/(dashboard)/projects/[id]/generate/
+
+- `actions.ts` — Exports generateContentAction (~666 tok)
+  - fn `generateContentAction` L8-64 (~589 tok)
+- `page.tsx` — GeneratePage (~361 tok)
+
+## app/(dashboard)/projects/[id]/publish/
+
+- `page.tsx` — PublishPage (~166 tok)
+
 ## app/(dashboard)/projects/new/
 
 - `page.tsx` — metadata (~64 tok)
 
+## app/(dashboard)/settings/
+
+- `actions.ts` — Tidak ada gate kepemilikan bergaya requireOwnedProject di sini: setiap action (~952 tok)
+  - fn `revalidate` L20-26 (~65 tok)
+  - fn `updateAppearanceAction` L27-40 (~128 tok)
+  - fn `updateProfileAction` L41-67 (~294 tok)
+  - fn `updateGeneralAction` L68-81 (~135 tok)
+  - fn `setProfilePublishedAction` L82-92 (~91 tok)
+- `page.tsx` — metadata (~775 tok)
+  - fn `SettingsPage` L13-74 (~604 tok)
+
 ## app/(public)/[slug]/
 
-- `page.tsx` — cache() menyatukan panggilan load() dari generateMetadata dan dari komponen (~883 tok)
-  - fn `generateMetadata` L30-38 (~110 tok)
-  - fn `LandingPage` L39-79 (~441 tok)
+- `actions.ts` — houseTypeId dianggap valid HANYA kalau baris itu benar-benar ada DAN milik (~2478 tok)
+  - fn `resolvedHouseTypeId` L26-60 (~568 tok)
+  - fn `submitLeadAction` L61-134 (~1089 tok)
+  - fn `recordEventAction` L135-169 (~501 tok)
+- `page.tsx` — cache() menyatukan panggilan load() dari generateMetadata dan dari komponen (~1163 tok)
+  - fn `generateMetadata` L32-40 (~110 tok)
+  - fn `LandingPage` L41-97 (~654 tok)
+
+## app/api/qr/
+
+- `helpers.ts` — Exports QR_FORMATS, QrFormat, qrTargetUrl, isValidQrFormat (~116 tok)
+- `route.ts` — Next.js API route: GET (~401 tok)
 
 ## app/login/
 
 - `actions.ts` — Sesi dummy slice 1: tidak ada auth sungguhan. Tombol mana pun menandatangani (~125 tok)
 - `page.tsx` — metadata — renders form (~484 tok)
 
+## components/ai/
+
+- `GeneratePanel.tsx` — STAGES — uses useRouter, useState (~1586 tok)
+  - fn `GeneratePanel` L15-140 (~1384 tok)
+
 ## components/dashboard/
 
-- `dashboard.css` — Styles: 22 rules, 1 media queries (~704 tok)
+- `dashboard.css` — Styles: 23 rules, 1 media queries (~856 tok)
 - `EmptyState.tsx` — EmptyState (~193 tok)
-- `MetricCard.tsx` — MetricCard (~75 tok)
+- `MetricCard.tsx` — `delta` opsional supaya pemakaian lama di /dashboard (tiga kartu tanpa (~161 tok)
+- `navItems.ts` — Peta aktif disalin dari `activeNav` di file design (Listingku App.dc.html): (~324 tok)
 - `ProjectCard.tsx` — ProjectCard (~396 tok)
-- `Sidebar.tsx` — ITEMS (~462 tok)
+- `Sidebar.tsx` — Client Component semata-mata supaya `usePathname()` bisa menurunkan item nav (~478 tok)
 
 ## components/ds/
 
@@ -253,11 +302,33 @@
   - section `InputProps` L6-14 (~59 tok)
   - fn `Input` L15-73 (~448 tok)
 
+## components/editor/
+
+- `BlockSettingsPanel.tsx` — BlockSettingsPanel (~2158 tok)
+  - fn `BlockSettingsPanel` L9-179 (~2031 tok)
+- `editor.css` — Styles: 22 rules, 1 media queries (~704 tok)
+- `EditorShell.tsx` — ALL_THEMES — uses useState, useMemo (~2072 tok)
+  - fn `EditorShell` L20-178 (~1740 tok)
+
 ## components/landing/
 
-- `ContactForm.tsx` — Form kontak publik (klien); submit ke submitLeadAction, validasi di server, konfirmasi datar "Permintaan terkirim". Select tipe rumah opsional. (~430 tok)
-- `PageViewTracker.tsx` — Komponen klien tak-merender; catat 1 event visitor per project per sesi tab via sessionStorage. (~180 tok)
-- `WhatsAppLink.tsx` — Klien; toWaHref() membangun URL wa.me (reuse normalizeIndonesianPhone), catat whatsapp_click saat klik. (~230 tok)
+- `ContactForm.tsx` — Form kontak publik (klien); submit ke submitLeadAction, validasi di server, konfirmasi datar "Permintaan terkirim". Select tipe rumah opsional. (~1040 tok)
+  - fn `ContactForm` L16-109 (~813 tok)
+- `PageViewTracker.tsx` — Komponen klien tak-merender; catat 1 event visitor per project per sesi tab via sessionStorage. (~377 tok)
+- `StickyCtaBar.tsx` — Klien; bar CTA melekat di bawah untuk layar <900px (kelas .lp__stickybar). WhatsApp + tautan #minta-info ke blok form. Dirender di app/(public)/[slug]/page.tsx dari blok agentCta yang sudah diresolve. (~304 tok)
+- `WhatsAppLink.tsx` — Klien; toWaHref() membangun URL wa.me (reuse normalizeIndonesianPhone), catat whatsapp_click saat klik. (~421 tok)
+
+## components/leads/
+
+- `LeadFilters.tsx` — Filter berbasis URL, bukan state klien: halaman tetap Server Component, hasil (~642 tok)
+  - section `LeadFilterState` L5-9 (~27 tok)
+  - fn `hrefWith` L10-26 (~214 tok)
+  - fn `LeadFilters` L27-60 (~357 tok)
+- `leads.css` — Styles: 34 rules, 1 media queries (~1091 tok)
+- `LeadsTable.tsx` — Nama tipe rumah sudah diselesaikan di server; null bila lead tidak menyebut tipe. (~606 tok)
+  - section `LeadRow` L7-16 (~108 tok)
+  - fn `LeadsTable` L17-54 (~425 tok)
+- `leadStatus.ts` — Label dan tone disalin dari `statusTone` di file design. Nilai tone-nya (~292 tok)
 
 ## components/media/
 
@@ -277,6 +348,24 @@
 - `project.css` — Styles: 15 rules, 2 media queries (~441 tok)
 - `ProjectHeader.tsx` — ProjectDetail — uses useState (~1134 tok)
   - fn `ProjectDetail` L11-105 (~1032 tok)
+
+## components/publish/
+
+- `PublishPanel.tsx` — PublishPanel — renders modal — uses useRouter, useState (~1794 tok)
+  - fn `PublishPanel` L13-147 (~1624 tok)
+
+## components/settings/
+
+- `AppearanceForm.tsx` — Titik warna sampel di chip aksen — hanya untuk pratinjau, bukan sumber kebenaran. (~1318 tok)
+  - fn `AppearanceForm` L17-110 (~1133 tok)
+- `GeneralForm.tsx` — GeneralForm — renders modal — uses useRouter, useState (~1205 tok)
+  - fn `GeneralForm` L10-111 (~1077 tok)
+- `ProfileForm.tsx` — ProfileForm — renders form — uses useState (~670 tok)
+  - fn `ProfileForm` L9-68 (~601 tok)
+- `ProfilePreview.tsx` — Pratinjau situs profil agen. Situsnya sendiri ({subdomain}.listingku.app) (~370 tok)
+- `SaveBar.tsx` — Baris simpan bersama untuk ketiga form Settings: status pending, pesan galat (~228 tok)
+- `settings.css` — Styles: 56 rules, 2 media queries (~1812 tok)
+- `SettingsTabs.tsx` — Tab sebagai navigasi URL, bukan panel klien: tiap tab adalah form berbeda, (~298 tok)
 
 ## components/ui/
 
@@ -298,7 +387,7 @@
 
 ## docs/superpowers/plans/
 
-- `2026-08-16-listingku-frontend-slice1.md` — Listingku Front-End Slice 1 — Implementation Plan (~64657 tok)
+- `2026-08-16-listingku-frontend-slice1.md` — Listingku Front-End Slice 1 — Implementation Plan (~66573 tok)
 
 ## docs/superpowers/specs/
 
@@ -306,8 +395,8 @@
 
 ## fixtures/
 
-- `seed.ts` — Exports SEED_USER_ID, seedStore (~1257 tok)
-  - fn `seedStore` L25-88 (~954 tok)
+- `seed.ts` — Exports SEED_USER_ID, seedStore (~1714 tok)
+  - fn `seedStore` L34-113 (~1278 tok)
 
 ## graphify-out/
 
@@ -321,50 +410,63 @@
 
 ## lib/
 
-- `format.ts` — Guard untuk nilai kosong atau tidak valid. Formatter adalah pertahanan terakhir (~696 tok)
+- `format.ts` — Guard untuk nilai kosong atau tidak valid. Formatter adalah pertahanan terakhir (~1032 tok)
   - fn `isAbsent` L14-21 (~97 tok)
   - fn `formatNumber` L22-26 (~49 tok)
   - fn `formatRupiah` L27-32 (~69 tok)
   - fn `formatRupiahShort` L33-43 (~126 tok)
   - fn `formatArea` L44-48 (~40 tok)
   - fn `formatDateLong` L49-55 (~84 tok)
-  - fn `formatDateShort` L56-62 (~84 tok)
+  - fn `formatDateShort` L56-66 (~128 tok)
+  - fn `formatPercent` L67-80 (~178 tok)
+  - fn `formatDateTimeShort` L81-89 (~115 tok)
 - `ids.ts` — Id berprefiks supaya mudah dibaca saat men-debug isi .data/store.json. (~59 tok)
+- `phone.ts` — Menormalkan nomor Indonesia yang sudah lolos phoneSchema (lib/schemas/lead.ts) (~394 tok)
 - `session.ts` — Sesi dummy slice 1: TIDAK ADA autentikasi sungguhan di sini. Ini hanyalah (~296 tok)
 - `slug.ts` — Landing publik hidup di `/{project-slug}`, satu ruang nama dengan rute aplikasi. (~354 tok)
+
+## lib/ai/
+
+- `generator.ts` — Diekspos supaya tes bisa menjalankan mock tanpa menunggu. (~171 tok)
+- `index.ts` — Saat Gemini asli masuk, cabang kedua ditambahkan di sini. Tidak ada tempat lain. (~136 tok)
+- `mock.ts` — Exports mockGenerator (~1316 tok)
+  - fn `wait` L6-7 (~20 tok)
+  - fn `paragraphs` L8-71 (~1213 tok)
+- `schema.ts` — Cermin persis `responseSchema` yang akan dikirim ke Gemini 2.5 Flash. (~254 tok)
 
 ## lib/data/
 
 - `index.ts` — Singleton disimpan di globalThis supaya HMR Next.js tidak me-reset store (~294 tok)
-- `repo.ts` — Satu-satunya kontrak yang dilihat UI. Slice 1 mengisinya dengan mock store; (~698 tok)
-  - section `DataStore` L17-61 (~455 tok)
-- `types.ts` — Exports Id, ProjectStatus, ThemeName, MediaType + 14 more (~835 tok)
+- `repo.ts` — Satu-satunya kontrak yang dilihat UI. Slice 1 mengisinya dengan mock store; (~776 tok)
+  - section `DataStore` L17-66 (~515 tok)
+- `types.ts` — Stat ke-3 pada tab Profil di file design ("Wilayah Spesialis"). Teks, jadi (~984 tok)
   - section `SeoContent` L11-15 (~22 tok)
   - section `ProjectAiContent` L16-24 (~75 tok)
   - section `HouseTypeAiContent` L25-29 (~28 tok)
-  - section `AgentProfile` L30-46 (~100 tok)
-  - section `Project` L47-65 (~105 tok)
-  - section `HouseType` L66-83 (~97 tok)
-  - section `Media` L84-96 (~60 tok)
-  - section `Lead` L97-109 (~63 tok)
-  - section `EventRow` L110-118 (~39 tok)
-  - section `AiUsage` L119-131 (~65 tok)
-  - section `StoreShape` L132-141 (~56 tok)
+  - section `AgentProfile` L30-54 (~206 tok)
+  - section `Project` L55-73 (~105 tok)
+  - section `HouseType` L74-91 (~97 tok)
+  - section `Media` L92-104 (~60 tok)
+  - section `Lead` L105-117 (~63 tok)
+  - section `EventRow` L118-126 (~39 tok)
+  - section `AiUsage` L127-139 (~65 tok)
+  - section `StoreShape` L140-149 (~56 tok)
 
 ## lib/data/mock/
 
-- `repos.ts` — Setiap metode baca (dan hasil create/update) HARUS lewat clone() sebelum (~2660 tok)
+- `repos.ts` — Setiap metode baca (dan hasil create/update) HARUS lewat clone() sebelum (~2791 tok)
   - fn `now` L8-20 (~190 tok)
-  - fn `createMockStore` L21-244 (~2376 tok)
-- `snapshot.ts` — Direktori data bisa dioverride lewat LISTINGKU_DATA_DIR — dibaca ulang setiap (~1202 tok)
+  - fn `createMockStore` L21-248 (~2436 tok)
+- `snapshot.ts` — Direktori data bisa dioverride lewat LISTINGKU_DATA_DIR — dibaca ulang setiap (~1632 tok)
   - fn `dataDir` L14-17 (~32 tok)
   - fn `storeFile` L18-23 (~55 tok)
   - fn `isPlainObject` L24-28 (~77 tok)
   - fn `isRowLike` L29-43 (~229 tok)
   - fn `repairShape` L44-58 (~174 tok)
-  - fn `loadSnapshot` L59-69 (~93 tok)
-  - fn `saveSnapshot` L70-90 (~254 tok)
-  - fn `sweepStaleTmp` L91-105 (~143 tok)
+  - fn `loadSnapshot` L59-76 (~205 tok)
+  - fn `renameWithRetry` L77-100 (~278 tok)
+  - fn `saveSnapshot` L101-121 (~256 tok)
+  - fn `sweepStaleTmp` L122-136 (~143 tok)
 - `store.ts` — Tulis sinkron, tanpa debounce. Ini mock single-user untuk dev lokal atas (~251 tok)
 
 ## lib/data/supabase/
@@ -381,11 +483,11 @@
   - fn `toggleBlock` L99-106 (~87 tok)
   - fn `updateBlockProps` L107-118 (~118 tok)
 - `landing.css` — Styles: 21 rules, 2 media queries (~576 tok)
-- `resolve.ts` — Rantai yang menopang tombol "Use AI suggestion": override, lalu AI, lalu fallback. (~1950 tok)
-  - section `ResolvedHouseType` L4-33 (~349 tok)
+- `resolve.ts` — Rantai yang menopang tombol "Use AI suggestion": override, lalu AI, lalu fallback. (~2152 tok)
+  - section `ResolvedHouseType` L4-33 (~360 tok)
   - section `ResolveInput` L34-56 (~233 tok)
   - fn `resolveHouseTypes` L57-83 (~335 tok)
-  - fn `resolveBlocks` L84-190 (~999 tok)
+  - fn `resolveBlocks` L84-199 (~1190 tok)
 - `seo.ts` — Serialisasi aman untuk dipasang lewat dangerouslySetInnerHTML di dalam (~935 tok)
   - fn `siteUrl` L4-7 (~31 tok)
   - fn `buildMetadata` L8-40 (~293 tok)
@@ -398,8 +500,8 @@
 
 ## lib/landing/themes/wireframe/
 
-- `AgentCta.tsx` — Server Component; merender WhatsAppLink (klien) dengan projectId/waNumber/defaultMessage dari block. (~210 tok)
-- `ContactFormBlock.tsx` — Server Component; merender ContactForm (klien) dengan projectId/houseTypes/askHouseType. (~150 tok)
+- `AgentCta.tsx` — Server Component; merender WhatsAppLink (klien) dengan projectId/waNumber/defaultMessage dari block. (~268 tok)
+- `ContactFormBlock.tsx` — Server Component; merender ContactForm (klien) dengan projectId/houseTypes/askHouseType. (~257 tok)
 - `Facilities.tsx` — Facilities (~170 tok)
 - `Faq.tsx` — Faq (~168 tok)
 - `FloorPlans.tsx` — FloorPlans (~314 tok)
@@ -411,6 +513,13 @@
 - `index.ts` — Exports wireframe (~232 tok)
 - `Location.tsx` — Location (~158 tok)
 - `Specs.tsx` — Specs — renders table (~338 tok)
+
+## lib/leads/
+
+- `metrics.ts` — Rasio 0..1 dari kartu "Conversion · VISITOR → LEAD". Pembilangnya adalah (~632 tok)
+  - section `LeadMetrics` L3-20 (~199 tok)
+  - fn `isoDate` L21-28 (~70 tok)
+  - fn `computeLeadMetrics` L29-60 (~333 tok)
 
 ## lib/media/
 
@@ -424,8 +533,9 @@
 
 ## lib/schemas/
 
+- `agentProfile.ts` — Lima tema situs profil agen, disalin dari file design. Sengaja BERBEDA dari (~602 tok)
 - `houseType.ts` — z.coerce.number() tanpa invalid_type_error membiarkan pesan bawaan Zod (~380 tok)
-- `index.ts` (~94 tok)
+- `index.ts` (~150 tok)
 - `lead.ts` — Nomor Indonesia: 08xx / +62 / 62, 9–15 digit setelah normalisasi. (~187 tok)
 - `project.ts` — Publish menuntut lebih dari draft: minimal deskripsi supaya halaman tidak kosong. (~268 tok)
 
@@ -435,7 +545,7 @@
 
 ## styles/
 
-- `globals.css` — Styles: 16 rules, 10 vars, 2 layers (~487 tok)
+- `globals.css` — Styles: 19 rules, 10 vars, 2 layers (~525 tok)
 - `type-utils.css` — Styles: 12 rules (~486 tok)
 
 ## styles/tokens/
@@ -453,41 +563,71 @@
 
 ## tests/e2e/
 
+- `editor.spec.ts` — Declares rows (~739 tok)
 - `house-type.spec.ts` (~770 tok)
+- `landing-lead.spec.ts` — Declares link (~590 tok)
 - `landing-ssr.spec.ts` — API routes: GET (5 endpoints) (~538 tok)
+- `leads.spec.ts` — Declares nama (~1164 tok)
 - `login.spec.ts` (~193 tok)
+- `publish.spec.ts` — API routes: GET (3 endpoints) (~457 tok)
+- `settings.spec.ts` (~928 tok)
+- `spine.spec.ts` — Satu tes yang menjaga seluruh slice: jalur North Star dari login sampai (~1464 tok)
+- `zz-ai-failure.spec.ts` — Verifikasi §14 #4: dengan AI_MOCK_FAIL=1 di server, Generate AI harus (~591 tok)
 
 ## tests/unit/
 
+- `agent-profile-schema.test.ts` — Declares parsed (~955 tok)
+- `ai-mock.test.ts` — Declares store (~680 tok)
 - `block-renderer.test.tsx` — blocks (~571 tok)
 - `blocks.test.ts` — Declares blocks (~773 tok)
+- `contact-form.test.tsx` — houseType (~585 tok)
+  - fn `houseType` L11-44 (~493 tok)
 - `create-project-wizard.test.tsx` — LISTINGKU_DATA_DIR harus di-set SEBELUM '@/lib/data' dievaluasi (singleton db (~1671 tok)
-- `dashboard.test.tsx` — AGENT (~1236 tok)
+- `dashboard.test.tsx` — AGENT (~1318 tok)
 - `ds-components.test.tsx` — btn (~838 tok)
-- `format.test.ts` (~880 tok)
+- `format.test.ts` (~1316 tok)
 - `house-type-actions.test.ts` — LISTINGKU_DATA_DIR harus di-set SEBELUM '@/lib/data' dievaluasi (singleton db (~3461 tok)
   - fn `makeProject` L41-273 (~3051 tok)
 - `house-type-sheet.test.tsx` — LISTINGKU_DATA_DIR harus di-set SEBELUM '@/lib/data' dievaluasi — sama seperti (~1718 tok)
   - fn `makeProject` L46-139 (~1210 tok)
+- `landing-actions.test.ts` — LISTINGKU_DATA_DIR harus di-set SEBELUM '@/lib/data' dievaluasi (singleton db (~2923 tok)
+  - fn `makeProject` L28-37 (~118 tok)
+  - fn `makeHouseType` L38-44 (~65 tok)
+  - fn `validInput` L45-251 (~2466 tok)
+- `leads-metrics.test.ts` — NOW: evt (~948 tok)
+  - fn `evt` L7-92 (~862 tok)
+- `leads-page.test.tsx` — PROJECT (~1561 tok)
+  - fn `lead` L28-49 (~272 tok)
+  - fn `renderPage` L50-132 (~981 tok)
 - `media-actions.test.ts` — @vitest-environment node (~4504 tok)
   - fn `makeProject` L55-66 (~78 tok)
   - fn `photoFile` L67-70 (~41 tok)
   - fn `formFor` L71-84 (~94 tok)
   - fn `listUploadFiles` L85-350 (~3604 tok)
 - `media-validation.test.ts` — Declares type (~345 tok)
-- `mock-store.test.ts` — API routes: GET (4 endpoints) (~6322 tok)
+- `mock-store.test.ts` — API routes: GET (4 endpoints) (~7037 tok)
+- `page-view-tracker.test.tsx` — recordEventActionMock (~473 tok)
+- `phone-display.test.ts` (~352 tok)
 - `project-actions.test.ts` — LISTINGKU_DATA_DIR harus di-set SEBELUM '@/lib/data' dievaluasi (singleton db (~2342 tok)
 - `project-detail-page.test.tsx` — PROJECT (~1334 tok)
   - fn `houseType` L30-102 (~972 tok)
+- `qr-route.test.ts` (~154 tok)
 - `resolve.test.ts` — fixture: describe (~2498 tok)
   - fn `fixture` L7-209 (~2414 tok)
 - `schemas.test.ts` — Declares result (~1144 tok)
 - `seo.test.ts` — Declares store (~898 tok)
 - `session.test.ts` — Declares store (~322 tok)
+- `settings-actions.test.ts` — Pola sama dengan house-type-actions.test.ts: LISTINGKU_DATA_DIR harus di-set (~1373 tok)
+- `settings-page.test.tsx` — AGENT — uses useRouter (~1374 tok)
+  - fn `renderPage` L33-109 (~984 tok)
 - `setup.ts` (~13 tok)
+- `sidebar-nav.test.tsx` — path (~733 tok)
 - `slug.test.ts` — Declares reserved (~476 tok)
+- `snapshot-retry.test.ts` — Declares errWithCode (~381 tok)
+- `sticky-cta-bar.test.tsx` — StickyCtaBar merender WhatsAppLink, yang memanggil recordEventAction (Server (~431 tok)
 - `tokens.test.ts` — STYLES: allCss (~536 tok)
   - fn `read` L6-7 (~21 tok)
   - fn `allCss` L8-50 (~462 tok)
 - `ui-primitives.test.tsx` — read — renders modal (~800 tok)
   - fn `read` L8-61 (~715 tok)
+- `whatsapp-link.test.tsx` — recordEventActionMock (~767 tok)

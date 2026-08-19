@@ -282,8 +282,17 @@
       "file": "tests/e2e/editor.spec.ts, tests/e2e/publish.spec.ts",
       "root_cause": "beforeEach dari plan mengeklik 'Kirim magic link' lalu langsung page.goto(rute dashboard) TANPA menunggu signInAction menulis cookie sesi + redirect. page.goto berlomba mendahului cookie → middleware memantulkan ke /login. Test plan belum pernah dijalankan sehingga race ini tak terlihat.",
       "fix": "Tambah await page.waitForURL(/\\/dashboard$/) sesudah klik magic link, sebelum goto rute dashboard — mirror pola login.spec.ts yang lolos.",
-      "tags": ["playwright", "e2e", "race", "session", "middleware", "next-dev"],
-      "related_bugs": ["bug-015"],
+      "tags": [
+        "playwright",
+        "e2e",
+        "race",
+        "session",
+        "middleware",
+        "next-dev"
+      ],
+      "related_bugs": [
+        "bug-015"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-18T11:05:00+07:00"
     },
@@ -294,7 +303,13 @@
       "file": "tests/e2e/editor.spec.ts, tests/e2e/spine.spec.ts",
       "root_cause": "getByLabel memakai substring match secara default; 'Subjudul' memuat 'Judul'. Panel setelan Hero punya field Judul DAN Subjudul berdampingan.",
       "fix": "getByLabel('Judul', { exact: true }).",
-      "tags": ["playwright", "e2e", "getByLabel", "strict-mode", "substring"],
+      "tags": [
+        "playwright",
+        "e2e",
+        "getByLabel",
+        "strict-mode",
+        "substring"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-18T11:10:00+07:00"
@@ -306,7 +321,14 @@
       "file": "playwright.config.ts",
       "root_cause": "Slice 1 memakai SATU mock store bersama (.data/store.json) tanpa isolasi per-test. publish.spec mempublikasikan casa-verde sementara landing-ssr.spec menegaskan casa-verde masih draft (404 + absen sitemap). Worker paralel berebut state yang sama — non-deterministik.",
       "fix": "workers: 1 + fullyParallel: false di playwright.config.ts. Playwright menjalankan file berurutan abjad, jadi landing-ssr (assert draft) selalu sebelum publish (mutasi). Immunisasi seluruh suite dari race shared-store.",
-      "tags": ["playwright", "e2e", "shared-state", "flaky", "mock-store", "serial"],
+      "tags": [
+        "playwright",
+        "e2e",
+        "shared-state",
+        "flaky",
+        "mock-store",
+        "serial"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-18T11:30:00+07:00"
@@ -318,8 +340,17 @@
       "file": "tests/e2e/spine.spec.ts",
       "root_cause": "Dua race navigasi. (1) Detail project punya <Link> DAN <Button> bernama 'Generate AI' (ProjectHeader membungkus Button di Link); getByRole('button',...) resolve ke tombol lama saat navigasi in-flight lalu mengekliknya, tombol generate sungguhan tak pernah terklik. (2) page.url() dibaca segera setelah 'Simpan project' padahal router.push wizard belum settle → menangkap /projects/new.",
       "fix": "waitForURL(/\\/generate$/) sebelum klik tombol Generate; waitForURL(/\\/projects\\/prj_/) sebelum baca page.url(). Juga .first() pada 'Add house type' (dua tombol identik: CTA header + tile grid).",
-      "tags": ["playwright", "e2e", "race", "navigation", "next-dev", "nested-interactive"],
-      "related_bugs": ["bug-016"],
+      "tags": [
+        "playwright",
+        "e2e",
+        "race",
+        "navigation",
+        "next-dev",
+        "nested-interactive"
+      ],
+      "related_bugs": [
+        "bug-016"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-18T11:40:00+07:00"
     },
@@ -330,10 +361,149 @@
       "file": "lib/data/mock/snapshot.ts",
       "root_cause": "renameSync atomic di atas store.json yang sudah ada sesekali gagal EPERM di Windows saat file tujuan terkunci sejenak (antivirus/Windows Search indexer/pembaca bersamaan). Hanya terpicu di bawah beban suite penuh yang menulis snapshot bertubi-tubi, jadi run terisolasi selalu hijau dan menyembunyikannya.",
       "fix": "renameWithRetry: ulang EPERM/EACCES/EBUSY transien hingga 10x dengan jeda sinkron Atomics.wait bertahap; error non-transien dilempar segera. Fungsi rename disuntikkan sebagai parameter (seam DI) untuk test deterministik gagal-lalu-sukses (tests/unit/snapshot-retry.test.ts).",
-      "tags": ["windows", "fs", "renameSync", "eperm", "flaky", "atomic-write", "mock-store"],
+      "tags": [
+        "windows",
+        "fs",
+        "renameSync",
+        "eperm",
+        "flaky",
+        "atomic-write",
+        "mock-store"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-18T11:52:00+07:00"
+    },
+    {
+      "id": "bug-021",
+      "timestamp": "2026-08-18T22:40:00+07:00",
+      "error_message": "npm run verify merah: tests/e2e/_aifail.spec.ts gagal — expect(getByText('AI sedang gangguan')).toBeVisible() timeout 30s (21 passed, 1 failed)",
+      "file": "tests/e2e/zz-ai-failure.spec.ts (rename dari tests/e2e/_aifail.spec.ts)",
+      "root_cause": "Verifikasi MANUAL spec §14 #4 (butuh server dijalankan dengan AI_MOCK_FAIL=1) dikomit sebagai spec Playwright biasa. webServer di playwright.config.ts menjalankan 'npm run dev' tanpa AI_MOCK_FAIL, jadi mock AI SUKSES dan state error tidak pernah muncul. Prefiks '_' juga membuat file ini terurut PALING AWAL, mendahului landing-ssr.spec.ts yang menuntut casa-verde masih draft — sumber flake bersama yang sama dengan bug store-tunggal sebelumnya.",
+      "fix": "Ditambah gate test.skip(process.env.AI_MOCK_FAIL !== '1', ...) di badan tes, dan file di-rename _aifail.spec.ts -> zz-ai-failure.spec.ts supaya terurut PALING AKHIR (tes ini mempublikasikan casa-verde; landing-ssr.spec.ts menuntut casa-verde masih draft). Cara menjalankannya didokumentasikan di header file. Terbukti dua arah: `npm run verify` EXIT_CODE=0 (259 unit, build bersih, 23 e2e passed + 1 skipped), dan `npm run seed:reset && AI_MOCK_FAIL=1 npx playwright test zz-ai-failure` -> 1 passed (18.8s), sekaligus menuntaskan verifikasi manual spec §14 #4.",
+      "tags": [
+        "e2e",
+        "playwright",
+        "ai-mock",
+        "env",
+        "verify",
+        "shared-state",
+        "test-ordering"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-18T23:05:00+07:00"
+    },
+    {
+      "id": "bug-022",
+      "timestamp": "2026-08-18T22:45:00+07:00",
+      "error_message": "Landing mobile tidak punya sticky CTA bar; .lp__stickybar di landing.css jadi CSS mati",
+      "file": "components/landing/StickyCtaBar.tsx (baru), app/(public)/[slug]/page.tsx, lib/landing/themes/wireframe/ContactFormBlock.tsx",
+      "root_cause": "Task 14 plan mewajibkan components/landing/StickyCtaBar.tsx (Files/Create + Produces, sumber lengkap di plan baris 5532, integrasi halaman baris 5630) dan spec §mobile baris 35/304 memintanya. Komponennya tidak pernah dibuat saat Task 14 dikerjakan; CSS-nya sudah lebih dulu ada dari Task 12/13 sehingga tidak ada yang gagal — tidak ada tes yang menutupi celah ini.",
+      "fix": "StickyCtaBar dibuat sesuai plan Task 14 (TDD: unit test merah dulu karena modul belum ada, lalu 3/3 hijau) dan dirender di page.tsx dari blok agentCta yang SUDAH diresolve, jadi override waNumber/defaultMessage dari editor ikut dan bar hilang bila blok agentCta dinonaktifkan. Cacat turunan yang ditemukan saat mengerjakan: plan menulis href=\"#minta-info\" tapi targetnya tidak pernah ada — ContactFormBlock.tsx kini membawa id=\"minta-info\" (di blok, bukan di halaman, supaya ikut berpindah lewat editor) dan plan diamandemen di baris 5534. Dikunci 2 e2e baru di landing-lead.spec.ts: tampil + melompat ke form di 390px, tersembunyi di 1280px.",
+      "tags": [
+        "landing",
+        "mobile",
+        "task-14",
+        "dead-css",
+        "spec-gap"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-18T23:05:00+07:00"
+    },
+    {
+      "id": "bug-023",
+      "timestamp": "2026-08-19T07:10:00+07:00",
+      "error_message": "Runtime Error: Cannot find module './611.js' — Require stack: .next/server/webpack-runtime.js, .next/server/app/(dashboard)/dashboard/page.js. Semua e2e gagal timeout; dev server menyajikan error alih-alih halaman.",
+      "file": ".next/ (artefak build)",
+      "root_cause": "`npm run build` dijalankan SELAGI sebuah `next dev` masih hidup memegang direktori .next yang sama. Build produksi menimpa chunk yang sudah dipetakan module graph dev server yang berjalan, jadi require chunk lama gagal. Varian dari gotcha `next start` sesudah `next dev` yang sudah tercatat di cerebrum — arah sebaliknya, akar sama: SATU direktori .next tidak boleh dipakai dua mode sekaligus.",
+      "fix": "Hentikan dev server yang berjalan, hapus direktori .next, jalankan ulang. Pencegahan: pastikan tidak ada `next dev` hidup sebelum `npm run build`/`npm run verify` (cek `Get-NetTCPConnection -LocalPort 3000`). Gejala khas: Playwright melaporkan 'Port 3000 is in use ... using 3001 instead' lalu webServer timeout.",
+      "tags": [
+        "nextjs",
+        "build",
+        ".next",
+        "playwright",
+        "dev-server",
+        "windows"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-19T07:10:00+07:00"
+    },
+    {
+      "id": "bug-024",
+      "timestamp": "2026-08-19T07:10:00+07:00",
+      "error_message": "tests/e2e/leads.spec.ts gagal 3 ronde berturut di suite penuh tapi hijau saat dijalankan sendiri: (1) getByRole('row') resolved to 7, expected 6; (2) strict mode violation: 'Rina Wijaya' resolved to 2 elements; (3) getByText('1.842') not found.",
+      "file": "tests/e2e/leads.spec.ts",
+      "root_cause": "Asersi bernilai ABSOLUT di atas satu mock store yang dipakai bersama seluruh suite e2e (serial, urut abjad). landing-lead.spec.ts berjalan lebih dulu dan MENAMBAH satu lead — dengan nama dan nomor persis sama dengan lead seed, karena keduanya diambil dari fixture file design yang sama. landing-ssr.spec/spine.spec menaikkan hitungan visitor lewat PageViewTracker. Semua nilai absolut karenanya hanya benar saat spec dijalankan terisolasi.",
+      "fix": "Ganti nilai absolut dengan asersi yang menyatakan maksud dan kebal urutan: nama lead seed di-assert ada dengan .first(); jumlah baris tanpa filter dibandingkan baseline yang dibaca di test yang sama; metrik visitor toBeGreaterThanOrEqual(1842) (seed = batas bawah, spec lain hanya menambah). Jumlah absolut hanya dipertahankan di tempat yang terbukti stabil (filter status=deal: spec lain selalu membuat lead 'new', dan status masih read-only), disertai komentar alasannya.",
+      "tags": [
+        "playwright",
+        "e2e",
+        "mock-store",
+        "shared-state",
+        "flaky",
+        "test-authoring"
+      ],
+      "related_bugs": [
+        "bug-019"
+      ],
+      "occurrences": 3,
+      "last_seen": "2026-08-19T07:10:00+07:00"
+    },
+    {
+      "id": "bug-025",
+      "timestamp": "2026-08-19T07:10:00+07:00",
+      "error_message": "Sub-baris tren kartu metrik ('+0 / 7 HARI', 'VISITOR -> LEAD') dirender sebesar angka utama (font display, ukuran h2) dan membungkus dua baris — ketahuan hanya lewat screenshot, semua tes hijau.",
+      "file": "components/dashboard/dashboard.css",
+      "root_cause": "Spesifisitas CSS. Aturan lama `.dash__metric dd` (0,1,1) mengalahkan kelas baru `.dash__metric-delta` (0,1,0), jadi font-family/font-size/margin dari aturan dd tetap menang. Tidak ada tes yang bisa menangkap ini: RTL memverifikasi teks dan struktur, bukan computed style.",
+      "fix": "Selektor dinaikkan jadi `.dash__metric dd.dash__metric-delta` (0,2,1). Pelajaran umum: saat menambah kelas modifier pada elemen yang SUDAH kena selektor descendant elemen, kelas saja tidak cukup — sertakan nama elemennya.",
+      "tags": [
+        "css",
+        "specificity",
+        "dashboard",
+        "visual-regression"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-19T07:10:00+07:00"
+    },
+    {
+      "id": "bug-026",
+      "timestamp": "2026-08-19T07:10:00+07:00",
+      "error_message": "Kartu 'Tema Situs Profil' dan 'Warna Aksen' tidak sebentuk dengan kartu lain: judulnya duduk menembus garis border (takik legend).",
+      "file": "components/settings/AppearanceForm.tsx",
+      "root_cause": "<fieldset> + <legend> dipakai mengelompokkan radio tema/aksen. Rendering bawaan legend memotong border fieldset (takik), tidak bisa dihilangkan lewat padding/margin biasa, sehingga kartunya berbeda dari kartu <div> di halaman yang sama.",
+      "fix": "Ganti ke <div role='group' aria-labelledby={id}> + <p id={id}> sebagai judul. Semantik pengelompokan untuk pembaca layar setara, tanpa kekhasan rendering fieldset.",
+      "tags": [
+        "css",
+        "html",
+        "fieldset",
+        "accessibility",
+        "settings"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-19T07:10:00+07:00"
+    },
+    {
+      "id": "bug-027",
+      "timestamp": "2026-08-19T07:10:00+07:00",
+      "error_message": "Playwright: locator.click timeout menunggu getByRole('link',{name:'Deal'}); lalu getByRole('group')...getByRole('button') juga timeout; lalu strict mode violation pada getByText('Semua status').",
+      "file": "tests/e2e/leads.spec.ts, components/leads/LeadFilters.tsx",
+      "root_cause": "Dropdown filter memakai <details>/<summary>. (a) Isi <details> yang tertutup TIDAK ADA di accessibility tree, jadi link opsi tak bisa di-target sebelum disclosure dibuka. (b) <summary> ber-list-style:none dipetakan Chromium sebagai role 'generic', bukan 'button' — getByRole('button') tak akan pernah cocok. (c) teks summary ('Semua status') juga muncul sebagai opsi reset di dalam menu, jadi getByText cocok dua elemen.",
+      "fix": "Buka disclosure dulu, dan target elemennya lewat page.locator('summary').filter({ hasText: ... }) — bukan lewat role, bukan getByText polos.",
+      "tags": [
+        "playwright",
+        "e2e",
+        "details-summary",
+        "aria",
+        "test-authoring"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-19T07:10:00+07:00"
     }
   ]
 }

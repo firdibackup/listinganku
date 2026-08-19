@@ -2,7 +2,7 @@
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
 > Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
-> Last updated: 2026-08-18 (Task 1–18 SELESAI — slice 1 lengkap, belum di-push/PR)
+> Last updated: 2026-08-19 (slice 2A: spec + plan sistem tema landing siap dieksekusi; Leads + Settings di-commit)
 
 ---
 
@@ -18,7 +18,9 @@
 - Repo di-init git. Baseline `cfd945e` di `main`; kerja di branch **`slice-1-frontend`**.
 - Ledger eksekusi: `.superpowers/sdd/2026-08-16-listingku-frontend-slice1/progress.md` — **baca ini untuk tahu task mana yang sudah selesai.** Task dengan baris `Task <N>: complete` sudah beres, jangan diulang.
 - Pre-flight scan plan: 22 baris cek, 2 cacat ditemukan + diputuskan (Switch masuk slice 1 lewat Task 16; nama e2e test Task 16 diperbaiki).
-- **Task 1–18 SELESAI — slice 1 lengkap.** `npm run verify` hijau: unit **256/256**, Playwright **21/21** (serial), `npm run build` bersih. HEAD = `e463538`. Semua commit di branch `slice-1-frontend`, **belum di-push, belum ada PR.** Basis Task 14 = `5a00ed8` "initial commit" dari device lain (Audi) yang sudah memuat test + `actions.ts` Task 14.
+- **Task 1–18 SELESAI — slice 1 lengkap.** Sudah di-push dan di-merge lewat PR #1; HEAD branch = `2e04fe9`, local = origin. Basis Task 14 = `5a00ed8` "initial commit" dari device lain (Audi).
+- **Audit merge PR #1 vs plan superpowers (2026-08-18).** Merge bersih (tidak ada yang hilang: `git diff 5478db3 2e04fe9` kosong, `5a00ed8` memang leluhur sisi fitur). Dua temuan, **keduanya sudah diperbaiki** (`bug-021`, `bug-022`): (a) `_aifail.spec.ts` dari commit terakhir membuat `npm run verify` merah — verifikasi manual §14 #4 dikomit sebagai spec biasa tanpa `AI_MOCK_FAIL=1` di webServer; (b) `components/landing/StickyCtaBar.tsx` yang diwajibkan plan Task 14 + spec §mobile tidak pernah dibuat, menyisakan `.lp__stickybar` sebagai CSS mati. Sesudah perbaikan: `npm run verify` **EXIT_CODE=0** — unit **259/259**, `npm run build` bersih, e2e **23 passed + 1 skipped** (spec AI-failure sengaja di-gate).
+- **Catatan proses:** ledger `.superpowers/.../progress.md` hanya menutup **Task 1–12**; Task 13 direview tapi tak ditutup, Task 14 hanya "dispatched", dan `task-14..18-report.md` tidak ada. Artinya Task 14–18 tidak melewati ronde review per-task seperti Task 1–13 — loop yang dulu menangkap bug Critical snapshot (T6), penanda accordion (T3), dan `RpNaN` (T4). `.superpowers/` gitignored, jadi device lain punya ledger sendiri.
   - **1** scaffold Next 15 + TS + Tailwind v4 + token DS + Vitest/RTL + Playwright (`4655f1f`)
   - **2** komponen DS Button/Card/Chip/Input + `ds.css` (`e9e5272` → fix `e6d6543`, `e0be27e`)
   - **3** primitif Radix Dialog/Sheet/Accordion/Progress/Skeleton/Toaster (`457d822` → fix `0b87192`, `1002fd6`)
@@ -40,61 +42,84 @@
   - **fix** `snapshot.ts` `renameWithRetry` (`e463538`). `renameSync` di Windows sesekali EPERM saat `store.json` terkunci sejenak (antivirus/indexer); hanya muncul di bawah beban `verify` → 1 unit test flaky. Retry transien + test deterministik lewat seam DI (`bug-020`).
 - **5 dari 6 task butuh fix round** — mayoritas temuannya cacat di teks plan saya, bukan kesalahan implementer. Plan sudah diperbaiki di sumbernya supaya tidak menurun ke task berikutnya. Task 13 dikerjakan dari brief task-13-brief.md (bukan langsung dari plan), 2 cacat brief ditemukan & ditambal seperti tercatat di atas.
 
+**Halaman Leads + Settings (2026-08-19) — SELESAI dan di-commit**
+- Dikerjakan lewat brainstorming (jalur *bounded*) → TDD penuh. Desain diambil dari layar `leads` (baris 697) dan `settings` (baris 736) di `Listingku App.dc.html`, bukan wireframe.
+- **Prasyarat yang diperbaiki:** `Sidebar` keempat item nav ber-`href="/dashboard"` (Leads & Pengaturan = link mati) dan prop `active` di-hardcode `"dashboard"` di layout. Sidebar kini Client Component memakai `usePathname()`; peta aktif di `components/dashboard/navItems.ts` menyalin `activeNav` file design (`/projects/new` milik Dashboard, bukan Projects).
+- **Leads** (`/leads`): 4 kartu metrik dari event sungguhan + delta 7 hari, tabel `<table>` semantik (bukan grid div), filter status/project **lewat URL** (Server Component, bisa dibagikan), empty state. Status **read-only** (keputusan user).
+- **Settings** (`/settings?tab=tampilan|profil|umum`): tab lewat URL dengan `<Link>` — `@radix-ui/react-tabs` tidak jadi dipasang. Ketiga tab menulis data asli lewat 4 Server Action. Panel pratinjau sticky ikut tema/aksen terpilih.
+- **Perubahan kontrak data:** `DataStore.events.listByUser()` ditambah (`totalsByUser` meratakan tanggal, delta 7 hari mustahil darinya). `AgentProfile` +`specialistArea: string` +`notifyOnLead: boolean`. Seed: 5 lead dari file design + `specialistArea`/`notifyOnLead`.
+- **Rumus konversi dikoreksi:** kartu "VISITOR → LEAD" = `(whatsapp_click + form_submit) / visitor`, bukan `leads.length / visitor`. Hanya submit form yang membuat baris `leads`; rumus events mereproduksi 6,7% file design **persis** dari angka seed.
+- **Tombol "Publikasikan situs profil" ditambah di luar desain** — desain hanya menggambar "Unpublish", yang tanpa jalan kembali mengunci agen keluar dari profilnya sendiri.
+- **5 bug dicatat** (`bug-023`..`bug-027`): `.next` rusak karena build selagi dev server hidup; asersi e2e absolut di atas mock store bersama (3 ronde); spesifisitas CSS delta metrik; takik `<legend>` fieldset; `<details>`/`<summary>` di Playwright.
+- Verifikasi: `npm run verify` **EXIT_CODE=0** — unit **322/322**, `npm run build` bersih, e2e **31 passed + 1 skipped**. Screenshot keempat layar diperiksa mata terhadap file design.
+
 ---
 
 ## 🚀 Next phase
 
-**Slice 1 (thin end-to-end, 7 layar) SELESAI.** Semua 18 task plan + fix EPERM ter-commit di `slice-1-frontend`. Alur North Star penuh (login → create → tipe rumah → Generate AI mock → editor → publish → landing SSR live) jalan tanpa layanan eksternal apa pun, dibuktikan spine e2e.
+**Slice 2A — sistem tema landing + tema Tropis Hangat.** Blocker eksternal "menunggu desain dari user" SUDAH TERBUKA: user menyerahkan 10 file desain landing page. Brainstorming selesai, spec disetujui dan ditulis, implementation plan siap dieksekusi.
 
-**Langkah berikut (pilihan user, tidak ada yang memblokir koding):**
-1. **Push + buka PR** `slice-1-frontend` untuk review. Belum dilakukan — git guideline: push/PR hanya bila user minta.
-2. **Verifikasi manual §14 (belum dijalankan):** (a) set `AI_MOCK_FAIL=1`, jalankan Generate AI, pastikan state error muncul dan publish tetap bisa; (b) bandingkan 7 layar dengan `Listingku App.dc.html` (warna/spasi/copy); (c) view-source landing yang dipublish.
-3. **Slice 2 / desain asli:** landing publik + situs profil agen masih **wireframe** — menunggu desain dari user (blocker eksternal, bukan kode). Situs profil `{subdomain}.listingku.app` belum dibangun (di luar scope slice 1).
-4. Aset `public/brand/listingku-mark.png` masih placeholder (butuh `DesignSync` dari sesi utama).
+### Cara melanjutkan (termasuk di device lain)
 
-**Urutan 18 task:** ~~1 scaffold+token~~ ✅ · ~~2 komponen DS~~ ✅ · ~~3 primitif Radix~~ ✅ · ~~4 utilitas murni~~ ✅ · ~~5 model blocks~~ ✅ · ~~6 lapisan data+seed~~ ✅ · ~~7 sesi+login+dashboard~~ ✅ · ~~8 pipeline media~~ ✅ · ~~9 skema Zod+wizard~~ ✅ · ~~10 detail project+sheet tipe~~ ✅ · ~~11 `resolve.ts`~~ ✅ · ~~12 tema wireframe+renderer~~ ✅ · ~~13 landing SSR+SEO~~ ✅ · ~~14 interaktivitas landing~~ ✅ · ~~15 AI mock+layar generate~~ ✅ · ~~16 block editor~~ ✅ · ~~17 publish+QR~~ ✅ · ~~18 spec Playwright tulang punggung~~ ✅. **Semua 18 task selesai.**
+```
+Baca .wolf/STATUS.md dulu, lalu jalankan
+docs/superpowers/plans/2026-08-19-listingku-landing-tema-tropis.md
+mulai dari task yang belum selesai.
+```
 
-**Catatan penting untuk sesi berikut:**
-- E2e sekarang **serial** (`workers:1` di `playwright.config.ts`) karena satu mock store bersama tanpa isolasi per-test — jangan kembalikan ke paralel tanpa memberi isolasi. `expect.timeout` juga dinaikkan ke 15s (cold-compile Server Action `next dev`).
-- Semua e2e yang berpindah rute memakai `waitForURL(...)` sebelum aksi berikutnya (race sesi + race navigasi `next dev`) — pola wajib, jangan dihapus.
-- AI 100% **mock** lewat `getGenerator()` di `lib/ai/index.ts`; mengganti ke Gemini asli cukup di satu titik itu (bentuk `AiContentSchema` = `responseSchema`).
-- `npm run verify` = unit + build + e2e dalam satu perintah; jalankan `npm run seed:reset` lebih dulu supaya casa-verde kembali draft untuk publish/landing-ssr e2e.
+Di device baru: `npm install` lalu `npm run seed:reset` dulu. `/design-login` HANYA perlu kalau ingin membuka ulang file desain — plan sudah memuat kesepuluh palet lengkap dengan nilai hex-nya, jadi eksekusi tidak memerlukannya.
 
-### Acceptance criteria
-Lihat §14 "Definisi selesai" di spec. Ringkasnya:
-1. `npm run dev` jalan tanpa layanan eksternal apa pun (tanpa Supabase, tanpa API key).
-2. Alur penuh Login → Create Project → Add House Type → Generate AI → Block Editor → Publish → landing live bisa diselesaikan di browser dengan data yang diketik sendiri, dan bertahan setelah dev server restart.
-3. `/{slug}` benar-benar server-rendered — dibuktikan lewat View Source — lengkap meta/OG/JSON-LD/canonical + `sitemap.xml` + `robots.txt`.
-4. Jalur gagal AI bisa dicapai dan publish tetap berhasil dengan konten manual.
-5. Tujuh layar cocok dengan `Listingku App.dc.html`.
-6. Playwright hijau, unit test hijau, `npm run build` bersih.
+- **Spec:** `docs/superpowers/specs/2026-08-19-listingku-landing-tema-tropis-design.md` — 21 bagian, berdiri sendiri.
+- **Plan:** `docs/superpowers/plans/2026-08-19-listingku-landing-tema-tropis.md` — 14 task TDD, tiap task berakhir commit.
+- **Sumber desain:** Claude Design project `b83ace24-6494-4409-9908-45979e7de301` ("10 Design Landing Page Variatif"), file `00 Index` + `01`–`10` + `support.js`.
 
-### Files to create / edit
-Struktur lengkap ada di §12 spec. Titik masuk yang paling menentukan:
+### Empat keputusan user (2026-08-19) — TERTUTUP, jangan dibuka ulang
 
-| Type | File | Content |
-|---|---|---|
-| new | `lib/data/repo.ts` | Interface `DataStore` — satu-satunya kontrak yang dilihat UI |
-| new | `lib/data/mock/` | Store singleton + snapshot ke `.data/store.json` + seed |
-| new | `lib/landing/resolve.ts` | Fungsi murni: rantai override → AI → kosong |
-| new | `lib/landing/themes/` | Registry `(tema, tipe blok) → komponen`; slice 1 hanya `wireframe/` |
-| new | `components/ds/` | Port 1:1 Button, Card, Chip, Banner, Input, NavLink dari `_ds_bundle.js` |
-| new | `app/(public)/[slug]/page.tsx` | Landing SSR wireframe |
-| new | `styles/tokens/` | Salinan verbatim token DS |
+1. **Cakupan isi = Hybrid.** Enam bagian desain tanpa sumber data ditangani selektif: tambah `pricePromo`, `testimonials`, `developer` sebagai blok baru; `location.access` dilebur ke blok Lokasi; masterplan memakai media `floor_plan` yang sudah ada; tim marketing = 1 agen; form kontak DIPERTAHANKAN.
+2. **10 layout DAN palet yang bisa ditukar** (user: "dikombine opsi 1 dan opsi 3"). Dieksekusi bertahap — slice 2A = fondasi + Tropis Hangat; slice 2B–2J = 9 layout sisanya, satu slice masing-masing.
+3. **Tema membawa urutan blok bawaannya.** Ganti tema memunculkan konfirmasi "Terapkan urutan bawaan tema ini?" — susunan manual agen tidak pernah hilang diam-diam.
+4. **Mobile-first, desktop responsive** (user: "fokus ke mobile first, untuk desktop kamu buat responsive aja"). Kesepuluh file desain hanya 390px; perilaku desktop dirancang di spec §12.
 
-**Env override yang sudah ada:** `LISTINGKU_DATA_DIR` (snapshot store) dan `LISTINGKU_UPLOAD_DIR` (folder upload) — pakai di tes supaya `.data/` dan `public/uploads/` asli tidak tersentuh.
+### Inti arsitekturnya
 
-### Closed decisions
-- Fondasi produksi, bukan prototype — repository seam + Server Actions.
-- Slice 1 = thin slice end-to-end, 7 dari 11 layar, semuanya terwiring.
-- `blocks`/`seo`/`theme`/`ai_content` ada di `projects`, **bukan** `house_types` (koreksi terhadap skema PRD).
-- Komponen hybrid: port DS 1:1 + Radix untuk Dialog/Sheet/Tabs/Switch/Accordion/Toast/Table.
-- Landing publik & situs profil = wireframe berstruktur; desain aslinya menyusul dari user.
-- Pratinjau editor memakai `BlockRenderer` sungguhan, bukan frame skematik.
-- Palette: evergreen `#233D2D` + oranye `#D2421A`. Dokumen pen.dev (biru `#2563EB`) **usang, jangan dipakai**.
+Tiga lapis: **konten** (1×) → **palet** (1×, 20 token peran × 10 palet) → **layout** (10×). Token dinamai per PERAN (`--lp-contrast`, bukan `--lp-dark`) supaya palet gelap bisa dipasang ke layout terang. Komponen tema **tidak boleh** menulis warna literal — ditegakkan tes lint. Palet dikirim sebagai `style` custom property di root landing (hanya palet aktif, ~600 byte, nol duplikasi TS↔CSS).
 
-### Open decisions
-- Tidak ada yang memblokir. Empat item terbuka yang tidak menghambat ada di §16 spec (hijau logo, font berlisensi, set ikon, URL scoped).
+**`AiContentSchema` tidak berubah sama sekali.** Garisnya: AI menulis prosa pemasaran, manusia memasok fakta dan klaim. Akses lokasi, syarat promo, statistik developer, dan **terutama testimoni** semuanya klaim faktual — testimoni fabrikasi yang tampil seolah asli adalah penipuan terhadap pembeli.
+
+### Dua cacat kontras yang sudah ditemukan di file desain aslinya
+
+Kesepuluh palet sudah diekstrak dan dimasukkan ke plan Task 1. Dua di antaranya gagal WCAG AA di file aslinya dan sudah dikoreksi di plan, dengan alasannya tercatat:
+- `boldRetail`: teks putih di atas oranye `#ff6a13` hanya **3,2:1** → `on-feature` jadi `#111111`.
+- `softLuxury`: `#f6f1e9` di atas `#8a6b45` hanya **4,2:1** → `on-accent` jadi `#ffffff`.
+
+Gate kontras 4.5:1 ada di Task 1 Step 1. **Jangan longgarkan ambangnya** kalau palet baru gagal — perbaiki tokennya.
+
+### Yang juga berubah di slice ini
+- Tema `wireframe` **DIHAPUS**. `AVAILABLE_THEMES` jadi `['tropicalWarm']`; 9 tema lain disabled di picker.
+- `ThemeName` `'modern'|'showcase'|'luxury'` → 10 id desain, lewat `normalizeTheme()`. **Bukan pemetaan menyeluruh** — nilai sah dilewatkan apa adanya supaya `editorialWhite` tetap bertahan begitu dibangun.
+- `repairShape()` kini memperbaiki **BARIS**, bukan cuma tabel yang hilang — menutup jebakan yang selama ini tercatat di file ini.
+- `Project.palette: PaletteName` baru.
+
+### Catatan penting untuk sesi berikut
+- **Jangan jalankan `npm run build`/`npm run verify` selagi `next dev` masih hidup** — `.next` rusak (`Cannot find module './611.js'`) dan SELURUH e2e gagal timeout. Cek port 3000 dulu (`bug-023`).
+- **`npm run seed:reset` WAJIB sesudah mengubah `fixtures/seed.ts`.**
+- **Jangan menulis asersi e2e bernilai absolut.** Suite berbagi satu mock store secara serial (`workers:1`). Pakai `.first()`, baseline yang dibaca di test itu sendiri, atau `toBeGreaterThanOrEqual` (`bug-024`). Semua e2e yang berpindah rute memakai `waitForURL(...)`; `expect.timeout` 15s.
+- AI 100% **mock** lewat `getGenerator()` di `lib/ai/index.ts`.
+- **`openwolf designqc` tidak ada di CLI 2.0.1** walau OPENWOLF.md menyebutnya. Untuk screenshot: spec Playwright sementara, lalu hapus specnya.
+- `lib/data/index.ts` menyentuh `node:fs` saat modul dimuat — **jangan impor barrel `@/lib/data` dari Edge runtime.**
+
+### Definisi selesai slice 2A
+
+Spec §18. Ringkasnya: `npm run verify` EXIT_CODE=0 · landing tetap server-rendered (bukti View Source) · tukar palet mengubah halaman tanpa reload/flash · kesepuluh palet lolos gate kontras · nol hex literal di komponen tema · proporsional di 390/768/1440px dengan screenshot · alur slice 1 termasuk kirim lead masih lolos · ganti tema menghormati penolakan agen.
+
+### Pekerjaan lain yang menunggu (tidak memblokir slice 2A)
+
+1. **Verifikasi manual §14 spec slice 1 — sisa 2 butir:** bandingkan 7 layar slice 1 dengan `Listingku App.dc.html` (Leads & Settings sudah); view-source landing yang dipublish.
+2. `leads.updateStatus` + dropdown status di tabel (ditunda oleh keputusan user; `LeadStatus` punya 6 nilai, belum ada kode yang menulisnya).
+3. Situs profil `{subdomain}.listingku.app` — Settings sudah MENGISI datanya, belum ada yang membacanya. Butuh middleware subdomain.
+4. Unggah logo di tab Tampilan masih placeholder — pipeline media selalu mengikat aset ke `projectId`, jadi aset milik profil belum punya tempat.
+5. Pengiriman email notifikasi lead (`notifyOnLead` tersimpan, belum ada yang mengirim).
+6. Aset `public/brand/listingku-mark.png` masih placeholder.
 
 ---
 
@@ -116,7 +141,7 @@ Struktur lengkap ada di §12 spec. Titik masuk yang paling menentukan:
 
 ## ⚠️ External blockers (don't block coding)
 
-- Desain landing publik + situs profil belum ada — user akan menyediakan. Sampai itu datang, keduanya wireframe.
+- ~~Desain landing publik~~ **TERSELESAIKAN 2026-08-19** — user menyerahkan 10 file desain (Claude Design `b83ace24-6494-4409-9908-45979e7de301`). Lihat 🚀 Next phase. Desain **situs profil agen** masih belum ada; sampai itu datang situs profil tetap wireframe.
 - Webfont Neue Haas Grotesk berlisensi dan belum tersedia; Archivo dipakai sebagai pengganti.
 - `public/brand/listingku-mark.png` masih placeholder. Aset asli ada di project Claude Design (`assets/listingku-mark.png`); ambil lewat `DesignSync` dari sesi utama, bukan subagent.
 - Supabase, Gemini API key, dan domain `listingku.app` belum diperlukan sama sekali di slice 1.

@@ -5531,6 +5531,14 @@ export function ContactForm({
 
 `components/landing/StickyCtaBar.tsx`:
 
+> **Amandemen setelah audit (2026-08-18).** `href="#minta-info"` di bawah tidak
+> punya target: `ContactFormBlock.tsx` merender `<section className="lp__section"
+> data-form-block={block.id}>` tanpa `id`, jadi tombolnya melompat ke mana-mana.
+> Perbaikannya masuk task ini juga (ContactFormBlock sudah terdaftar di *Modify*):
+> tambahkan `id="minta-info"` pada `<section>` milik blok form. Anchor diletakkan
+> di blok, bukan di halaman, supaya ikut berpindah saat urutan blok diubah editor.
+
+
 ```tsx
 'use client';
 

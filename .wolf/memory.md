@@ -129,3 +129,35 @@
 | 11:52 | Fix EPERM renameSync (Windows) | snapshot.ts, snapshot-retry.test | verify flaky → renameWithRetry + test DI — commit e463538 (bug-020) | ~6k |
 | 11:58 | npm run verify DEFINITIF (exit 0) | (suite) | HIJAU: unit 256, build bersih, e2e 21/21 — SLICE 1 LENGKAP | ~4k |
 | 12:00 | Bookkeeping | STATUS/cerebrum/buglog/memory | anatomy.md pending (openwolf CLI tak terpasang di device ini) | ~5k |
+
+## Session: 2026-08-18 22:00
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 22:45 | audit merge PR#1 vs plan superpowers: verify 21/22, StickyCtaBar hilang, ledger SDD mandek di Task 13 | .wolf/buglog.json | 2 bug dicatat (belum diperbaiki) | ~55k |
+| 23:05 | perbaiki 2 temuan audit: gate+rename spec AI-failure, bangun StickyCtaBar (TDD) + anchor #minta-info | tests/e2e/zz-ai-failure.spec.ts, components/landing/StickyCtaBar.tsx, app/(public)/[slug]/page.tsx, ContactFormBlock.tsx, landing-lead.spec.ts | npm run verify EXIT_CODE=0 — 259 unit, build bersih, 23 e2e + 1 skipped | ~35k |
+
+## Session: 2026-08-18 05:15
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-19 05:30
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 05:35 | brainstorming (bounded) + baca layar `leads`/`settings` dari Listingku App.dc.html lewat DesignSync | — | 3 keputusan user: status read-only, 3 tab Settings tulis data asli, seed 5 lead | ~25k |
+| 05:45 | TDD fungsi murni: computeLeadMetrics, formatPercent, formatDateTimeShort, formatPhoneDisplay | lib/leads/metrics.ts, lib/format.ts, lib/phone.ts | 4 siklus RED→GREEN, 14 unit test | ~18k |
+| 05:55 | perbaiki rumus konversi: (klik WA + submit form)/visitor, bukan leads.length/visitor | lib/leads/metrics.ts | reproduksi 6,7% file design persis; leads.length beri 0,3% (bug-024 terkait) | ~8k |
+| 06:00 | Sidebar jadi Client Component + navItems.ts; 4 link mati (semua ke /dashboard) diperbaiki | components/dashboard/{Sidebar,navItems}.tsx, app/(dashboard)/layout.tsx | 7 unit test; e2e buktikan aria-current | ~10k |
+| 06:10 | halaman Leads: tabel semantik, filter URL, 4 kartu metrik, empty state | app/(dashboard)/leads/page.tsx, components/leads/* | 7 unit test hijau | ~15k |
+| 06:20 | events.listByUser ditambah ke DataStore; 5 lead seed | lib/data/repo.ts, lib/data/mock/repos.ts, fixtures/seed.ts | 45 test mock-store hijau; 2 asersi snapshot lama diperkuat | ~10k |
+| 06:35 | Settings: skema Zod 3 tab, 4 Server Action, halaman + 5 komponen | lib/schemas/agentProfile.ts, app/(dashboard)/settings/*, components/settings/* | 10 + 8 + 9 unit test hijau | ~30k |
+| 06:50 | e2e leads + settings; 3 ronde perbaikan asersi absolut di atas store bersama | tests/e2e/{leads,settings}.spec.ts | bug-024, bug-027 dicatat | ~20k |
+| 07:00 | screenshot QC → 2 cacat CSS diperbaiki (spesifisitas delta, takik legend fieldset) | components/dashboard/dashboard.css, components/settings/AppearanceForm.tsx | bug-025, bug-026 dicatat | ~12k |
+| 07:10 | verifikasi final | — | npm run verify EXIT_CODE=0 — 322 unit, build bersih, 31 e2e + 1 skipped | ~5k |
+
+## Session: 2026-08-19 07:00
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
