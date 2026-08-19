@@ -1,0 +1,77 @@
+/*
+ * 01 Premium Gelap — override tema di atas komponen bersama (lp-tw-*), di-scope
+ * ke [data-lp-theme='premiumDark']. Cocok verbatim ke design/project/01 Premium
+ * Gelap.dc.html: latar gelap, aksen emas, serif Cormorant, sudut tajam 2px,
+ * badge pil beroutline. NOL warna literal — semua lewat var(--lp-*).
+ */
+.lp[data-lp-theme='premiumDark'] {
+  --lp-font-display: var(--font-cormorant), Georgia, 'Times New Roman', serif;
+  --lp-font-text: var(--font-jost), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--lp-bg);
+  color: var(--lp-ink);
+  font-family: var(--lp-font-text);
+}
+
+.lp[data-lp-theme='premiumDark'] .lp-tw-eyebrow { letter-spacing: 0.24em; }
+.lp[data-lp-theme='premiumDark'] .lp-tw-h2,
+.lp[data-lp-theme='premiumDark'] .lp-tw-hero__title,
+.lp[data-lp-theme='premiumDark'] .lp-tw-unitcard__name { font-weight: 300; }
+.lp[data-lp-theme='premiumDark'] .lp-tw-hero__title { font-size: 44px; letter-spacing: -0.01em; }
+
+/* Sudut tajam & CTA huruf-besar */
+.lp[data-lp-theme='premiumDark'] .lp-tw-btn { border-radius: 2px; text-transform: uppercase; letter-spacing: 0.14em; }
+.lp[data-lp-theme='premiumDark'] .lp-tw-btn--feature { background: transparent; color: var(--lp-accent); border-color: var(--lp-accent); }
+.lp[data-lp-theme='premiumDark'] .lp-tw-pricebar__cta,
+.lp[data-lp-theme='premiumDark'] .lp-tw-header__cta,
+.lp[data-lp-theme='premiumDark'] .lp-tw-agent__btn,
+.lp[data-lp-theme='premiumDark'] .lp-tw-unitcard,
+.lp[data-lp-theme='premiumDark'] .lp-tw-tab,
+.lp[data-lp-theme='premiumDark'] .lp-tw-access__item,
+.lp[data-lp-theme='premiumDark'] .lp-tw-fac__item,
+.lp[data-lp-theme='premiumDark'] .lp-tw-promo__card,
+.lp[data-lp-theme='premiumDark'] .lp-tw-promo__li { border-radius: 2px; }
+
+/* Badge = pil beroutline emas, bukan blur */
+.lp[data-lp-theme='premiumDark'] .lp-tw-badge {
+  background: transparent; backdrop-filter: none; border: 1px solid color-mix(in srgb, var(--lp-ink) 28%, transparent);
+  border-radius: 999px; color: var(--lp-accent); text-transform: uppercase; letter-spacing: 0.12em; font-size: 10px;
+}
+
+/* USP = baris border-top, bukan kartu tergabung */
+.lp[data-lp-theme='premiumDark'] .lp-tw-usp { background: transparent; border-radius: 0; gap: 0; }
+.lp[data-lp-theme='premiumDark'] .lp-tw-usp__item { background: transparent; border-top: 1px solid var(--lp-line); padding: 18px 0; }
+
+/* Blok tipe unit = panel gelap, tab aktif emas */
+.lp[data-lp-theme='premiumDark'] .lp-tw-tab { color: var(--lp-on-feature-soft); border-color: color-mix(in srgb, var(--lp-on-feature) 28%, transparent); }
+.lp[data-lp-theme='premiumDark'] .lp-tw-tab[aria-selected='true'] { background: var(--lp-accent); color: var(--lp-on-accent); border-color: var(--lp-accent); }
+.lp[data-lp-theme='premiumDark'] .lp-tw-unitcard { border: 1px solid var(--lp-line); }
+
+/* Fasilitas = strip horizontal (desain premium) */
+.lp[data-lp-theme='premiumDark'] .lp-tw-fac { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 6px; }
+.lp[data-lp-theme='premiumDark'] .lp-tw-fac__item { min-width: 230px; flex: none; background: transparent; }
+.lp[data-lp-theme='premiumDark'] .lp-tw-fac__ph { height: 240px; border-radius: 2px; }
+
+/* Galeri = mozaik grid */
+.lp[data-lp-theme='premiumDark'] .lp-tw-gallery { display: grid; grid-template-columns: 1fr 1fr; overflow: visible; gap: 8px; }
+.lp[data-lp-theme='premiumDark'] .lp-tw-gallery__item { min-width: 0; }
+.lp[data-lp-theme='premiumDark'] .lp-tw-gallery__media { height: 150px; border-radius: 2px; }
+
+/* Harga & promo = kotak gelap beroutline, bukan blok emas terang */
+.lp[data-lp-theme='premiumDark'] .lp-tw-promo { background: var(--lp-surface); color: var(--lp-ink); border: 1px solid var(--lp-line); margin: 0 20px 30px; }
+.lp[data-lp-theme='premiumDark'] .lp-tw-promo .lp-tw-eyebrow { color: var(--lp-accent); }
+.lp[data-lp-theme='premiumDark'] .lp-tw-promo .lp-tw-h2 { color: var(--lp-ink); }
+.lp[data-lp-theme='premiumDark'] .lp-tw-promo__price { color: var(--lp-accent); }
+.lp[data-lp-theme='premiumDark'] .lp-tw-promo__cards { background: transparent; }
+.lp[data-lp-theme='premiumDark'] .lp-tw-promo__card { background: transparent; border: 1px solid var(--lp-line); }
+.lp[data-lp-theme='premiumDark'] .lp-tw-promo__card-label { color: var(--lp-ink-faint); }
+.lp[data-lp-theme='premiumDark'] .lp-tw-promo__li { background: transparent; border: 1px solid var(--lp-line); color: var(--lp-ink-soft); }
+.lp[data-lp-theme='premiumDark'] .lp-tw-promo__note { color: var(--lp-ink-faint); }
+
+/* Header beroutline halus, bukan bar emas penuh */
+.lp[data-lp-theme='premiumDark'] .lp-tw-header { background: var(--lp-surface); color: var(--lp-ink); border-bottom: 1px solid var(--lp-line); }
+.lp[data-lp-theme='premiumDark'] .lp-tw-header__name { letter-spacing: 0.14em; text-transform: uppercase; }
+.lp[data-lp-theme='premiumDark'] .lp-tw-header__loc { color: var(--lp-ink-faint); }
+
+/* Agen: kartu beroutline, tombol WA jadi emas beroutline */
+.lp[data-lp-theme='premiumDark'] .lp-tw-agent__card { border: 1px solid var(--lp-line); }
+.lp[data-lp-theme='premiumDark'] .lp-tw-agent__btn--wa { background: transparent; border: 1px solid var(--lp-accent); color: var(--lp-accent); }

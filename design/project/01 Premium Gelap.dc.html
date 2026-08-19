@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#08090a;-webkit-font-smoothing:antialiased}
+a{color:#c9a227;text-decoration:none}
+a:hover{color:#e6c14e}
+::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+
+<div style="width:390px;margin:0 auto;background:#0b0c0d;color:#e8e6e1;font-family:Jost,sans-serif;overflow-x:hidden;padding-bottom:76px">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #1c1e20;position:sticky;top:0;background:rgba(11,12,13,.92);backdrop-filter:blur(8px);z-index:30">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:19px;letter-spacing:.14em;text-transform:uppercase">Parkspring</div>
+    <div style="font-size:10px;letter-spacing:.18em;color:#8b8781;text-transform:uppercase">Kelapa Gading</div>
+  </div>
+
+  <div style="position:relative;height:520px;background:repeating-linear-gradient(135deg,#17191b 0 10px,#131517 10px 20px);display:flex;flex-direction:column;justify-content:flex-end">
+    <div style="position:absolute;inset:0;display:grid;place-items:center"><span style="font:10px ui-monospace,monospace;letter-spacing:.22em;color:#4c4f52">FOTO FASADE MALAM · 390×520</span></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,12,13,.2) 0%,rgba(11,12,13,.55) 55%,#0b0c0d 100%)"></div>
+    <div style="position:relative;padding:0 20px 30px">
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+        <span style="border:1px solid #3a3d40;border-radius:999px;padding:5px 11px;font-size:10px;letter-spacing:.12em;color:#c9a227;text-transform:uppercase;white-space:nowrap">Lokasi Strategis</span>
+        <span style="border:1px solid #3a3d40;border-radius:999px;padding:5px 11px;font-size:10px;letter-spacing:.12em;color:#c9a227;text-transform:uppercase;white-space:nowrap">Dekat Tol</span>
+        <span style="border:1px solid #3a3d40;border-radius:999px;padding:5px 11px;font-size:10px;letter-spacing:.12em;color:#c9a227;text-transform:uppercase;white-space:nowrap">DP Ringan</span>
+      </div>
+      <h1 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:44px;line-height:1.06;margin:0 0 14px;letter-spacing:-.01em;text-wrap:pretty">Hunian modern di jantung Kelapa Gading</h1>
+      <p style="margin:0 0 22px;font-size:14px;line-height:1.65;color:#a5a19b;max-width:300px">Tiga tipe rumah dengan fasilitas kawasan lengkap dan akses langsung ke tol dalam kota.</p>
+      <div style="display:flex;align-items:baseline;gap:8px;padding-top:18px;border-top:1px solid #24272a">
+        <span style="font-size:11px;letter-spacing:.14em;color:#8b8781;text-transform:uppercase">Harga mulai</span>
+        <span style="font-family:'Cormorant Garamond',serif;font-size:30px;color:#c9a227">Rp 2,6 M</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 44px;display:flex;flex-direction:column;gap:10px">
+    <a href="#kontak" style="display:block;text-align:center;background:#c9a227;color:#0b0c0d;padding:16px;border-radius:2px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500">Hubungi Marketing</a>
+    <a href="#unit" style="display:block;text-align:center;border:1px solid #34383b;color:#e8e6e1;padding:16px;border-radius:2px;font-size:13px;letter-spacing:.16em;text-transform:uppercase">Lihat Unit</a>
+  </div>
+
+  <div style="padding:0 20px 52px">
+    <div style="font-size:10px;letter-spacing:.24em;color:#c9a227;text-transform:uppercase;margin-bottom:22px">01 — Kenapa Parkspring</div>
+    <sc-for list="{{ usp }}" as="u" hint-placeholder-count="6">
+      <div style="display:flex;gap:16px;padding:18px 0;border-top:1px solid #1c1e20">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:22px;color:#c9a227;min-width:34px">{{ u.no }}</div>
+        <div>
+          <div style="font-size:15px;margin-bottom:5px;letter-spacing:.01em">{{ u.title }}</div>
+          <div style="font-size:12.5px;line-height:1.6;color:#8b8781">{{ u.desc }}</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div id="unit" style="padding:0 20px 52px">
+    <div style="font-size:10px;letter-spacing:.24em;color:#c9a227;text-transform:uppercase;margin-bottom:8px">02 — Tipe Unit</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;margin:0 0 20px">Tiga tipe, satu standar</h2>
+    <div style="display:flex;gap:8px;margin-bottom:20px">
+      <sc-for list="{{ units }}" as="u" hint-placeholder-count="3">
+        <button onClick="{{ u.select }}" style="flex:1;background:{{ u.bg }};color:{{ u.fg }};border:1px solid {{ u.bd }};padding:11px 0;border-radius:2px;font-family:Jost,sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer">{{ u.name }}</button>
+      </sc-for>
+    </div>
+    <div style="border:1px solid #1c1e20;border-radius:2px;overflow:hidden">
+      <div style="height:200px;background:repeating-linear-gradient(135deg,#17191b 0 10px,#131517 10px 20px);display:grid;place-items:center">
+        <span style="font:10px ui-monospace,monospace;letter-spacing:.2em;color:#4c4f52">RENDER 3D — {{ active.name }}</span>
+      </div>
+      <div style="padding:20px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:26px">Type {{ active.name }}</div>
+          <div style="font-size:13px;color:#c9a227">{{ active.price }}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#1c1e20">
+          <sc-for list="{{ active.specs }}" as="s" hint-placeholder-count="6">
+            <div style="background:#0b0c0d;padding:13px 14px">
+              <div style="font-size:10px;letter-spacing:.14em;color:#78746e;text-transform:uppercase;margin-bottom:4px">{{ s.k }}</div>
+              <div style="font-size:15px">{{ s.v }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top:16px;font-size:12.5px;line-height:1.6;color:#8b8781">{{ active.note }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:0 0 52px">
+    <div style="padding:0 20px">
+      <div style="font-size:10px;letter-spacing:.24em;color:#c9a227;text-transform:uppercase;margin-bottom:8px">03 — Fasilitas</div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;margin:0 0 20px">Kawasan yang hidup</h2>
+    </div>
+    <div style="display:flex;gap:12px;overflow-x:auto;padding:0 20px 6px;scroll-snap-type:x mandatory">
+      <sc-for list="{{ facilities }}" as="f" hint-placeholder-count="4">
+        <div style="min-width:230px;scroll-snap-align:start">
+          <div style="height:270px;background:repeating-linear-gradient(135deg,#17191b 0 10px,#131517 10px 20px);display:grid;place-items:center;margin-bottom:12px">
+            <span style="font:10px ui-monospace,monospace;letter-spacing:.18em;color:#4c4f52">{{ f.ph }}</span>
+          </div>
+          <div style="font-size:15px;margin-bottom:4px">{{ f.name }}</div>
+          <div style="font-size:12px;line-height:1.55;color:#8b8781">{{ f.desc }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 52px">
+    <div style="font-size:10px;letter-spacing:.24em;color:#c9a227;text-transform:uppercase;margin-bottom:8px">04 — Galeri</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;margin:0 0 18px">Lihat lebih dekat</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="6">
+        <div style="aspect-ratio:{{ g.ratio }};grid-column:span {{ g.span }};background:repeating-linear-gradient(135deg,#17191b 0 10px,#131517 10px 20px);display:grid;place-items:center">
+          <span style="font:9.5px ui-monospace,monospace;letter-spacing:.16em;color:#4c4f52">{{ g.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 52px">
+    <div style="font-size:10px;letter-spacing:.24em;color:#c9a227;text-transform:uppercase;margin-bottom:8px">05 — Lokasi</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;margin:0 0 6px">Terhubung ke mana saja</h2>
+    <p style="margin:0 0 18px;font-size:13px;line-height:1.65;color:#8b8781">Jl. Boulevard Raya, Kelapa Gading, Jakarta Utara 14240</p>
+    <div style="height:200px;background:#101214;border:1px solid #1c1e20;display:grid;place-items:center;margin-bottom:16px;position:relative">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(#191c1e 1px,transparent 1px),linear-gradient(90deg,#191c1e 1px,transparent 1px);background-size:34px 34px"></div>
+      <div style="position:relative;text-align:center">
+        <div style="width:12px;height:12px;background:#c9a227;border-radius:50%;margin:0 auto 10px;box-shadow:0 0 0 8px rgba(201,162,39,.15)"></div>
+        <span style="font:10px ui-monospace,monospace;letter-spacing:.18em;color:#5c5f62">PETA LOKASI · EMBED</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#1c1e20;border:1px solid #1c1e20">
+      <sc-for list="{{ access }}" as="a" hint-placeholder-count="6">
+        <div style="background:#0b0c0d;padding:15px 14px">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#c9a227;line-height:1">{{ a.time }}</div>
+          <div style="font-size:12px;color:#8b8781;margin-top:5px">{{ a.place }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 52px">
+    <div style="font-size:10px;letter-spacing:.24em;color:#c9a227;text-transform:uppercase;margin-bottom:8px">06 — Masterplan</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;margin:0 0 18px">Tata kawasan 8,4 hektar</h2>
+    <div style="aspect-ratio:1/1;background:repeating-linear-gradient(135deg,#17191b 0 10px,#131517 10px 20px);display:grid;place-items:center;border:1px solid #1c1e20">
+      <span style="font:10px ui-monospace,monospace;letter-spacing:.2em;color:#4c4f52">SITE PLAN KAWASAN</span>
+    </div>
+    <div style="display:flex;gap:18px;flex-wrap:wrap;margin-top:16px">
+      <sc-for list="{{ legend }}" as="l" hint-placeholder-count="4">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12px;color:#8b8781">
+          <span style="width:9px;height:9px;background:{{ l.color }};display:block"></span>{{ l.name }}
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="margin:0 20px 52px;border:1px solid #2b2519;background:linear-gradient(180deg,#141210 0%,#0b0c0d 100%);padding:30px 22px">
+    <div style="font-size:10px;letter-spacing:.24em;color:#c9a227;text-transform:uppercase;margin-bottom:14px">07 — Harga & Promo</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:32px;margin:0 0 6px;line-height:1.15">Miliki hunian impian Anda</h2>
+    <div style="font-family:'Cormorant Garamond',serif;font-size:38px;color:#c9a227;margin-bottom:20px">Mulai Rp 2,6 M</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;padding-bottom:20px;border-bottom:1px solid #24272a;margin-bottom:20px">
+      <div><div style="font-size:10px;letter-spacing:.14em;color:#78746e;text-transform:uppercase">DP mulai</div><div style="font-size:18px;margin-top:4px">10%</div></div>
+      <div><div style="font-size:10px;letter-spacing:.14em;color:#78746e;text-transform:uppercase">Cicilan mulai</div><div style="font-size:18px;margin-top:4px">Rp 18 jt/bln</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ promos }}" as="p" hint-placeholder-count="4">
+        <div style="display:flex;gap:10px;align-items:center;font-size:13.5px"><span style="color:#c9a227">—</span>{{ p }}</div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 52px">
+    <div style="font-size:10px;letter-spacing:.24em;color:#c9a227;text-transform:uppercase;margin-bottom:8px">08 — Testimoni</div>
+    <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="2">
+      <div style="border-top:1px solid #1c1e20;padding:22px 0">
+        <p style="font-family:'Cormorant Garamond',serif;font-size:21px;line-height:1.45;margin:0 0 16px;color:#ddd9d2">“{{ t.quote }}”</p>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="width:40px;height:40px;border-radius:50%;background:repeating-linear-gradient(135deg,#1d2022 0 6px,#17191b 6px 12px)"></div>
+          <div>
+            <div style="font-size:13.5px">{{ t.name }}</div>
+            <div style="font-size:11px;color:#78746e;letter-spacing:.06em">{{ t.unit }}</div>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="padding:0 20px 52px">
+    <div style="font-size:10px;letter-spacing:.24em;color:#c9a227;text-transform:uppercase;margin-bottom:8px">09 — Developer</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;margin:0 0 12px;line-height:1.2">Dikembangkan oleh developer berpengalaman</h2>
+    <p style="margin:0 0 22px;font-size:13px;line-height:1.7;color:#8b8781">Sejak 1998 membangun kawasan hunian di Jabodetabek dengan legalitas SHM dan PBG lengkap pada setiap unit.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#1c1e20;border:1px solid #1c1e20">
+      <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
+        <div style="background:#0b0c0d;padding:16px 12px;text-align:center">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:26px;color:#c9a227">{{ s.v }}</div>
+          <div style="font-size:10px;letter-spacing:.1em;color:#78746e;text-transform:uppercase;margin-top:4px">{{ s.k }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:0 20px 52px">
+    <div style="font-size:10px;letter-spacing:.24em;color:#c9a227;text-transform:uppercase;margin-bottom:18px">10 — FAQ</div>
+    <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+      <div style="border-top:1px solid #1c1e20">
+        <button onClick="{{ f.toggle }}" style="width:100%;display:flex;justify-content:space-between;gap:14px;align-items:center;background:none;border:0;color:#e8e6e1;padding:17px 0;text-align:left;font-family:Jost,sans-serif;font-size:14px;cursor:pointer">
+          {{ f.q }}<span style="color:#c9a227;font-size:18px;flex-shrink:0">{{ f.mark }}</span>
+        </button>
+        <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:13px;line-height:1.7;color:#8b8781;padding:0 0 18px">{{ f.a }}</div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+
+  <div id="kontak" style="padding:0 20px 52px">
+    <div style="font-size:10px;letter-spacing:.24em;color:#c9a227;text-transform:uppercase;margin-bottom:8px">11 — Tim Marketing</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:30px;margin:0 0 6px">Butuh informasi lebih lanjut?</h2>
+    <p style="margin:0 0 20px;font-size:13px;line-height:1.65;color:#8b8781">Hubungi property consultant kami untuk ketersediaan unit dan simulasi KPR.</p>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ agents }}" as="a" hint-placeholder-count="3">
+        <div style="border:1px solid #1c1e20;padding:14px;display:flex;gap:14px;align-items:center">
+          <div style="width:56px;height:56px;flex-shrink:0;background:repeating-linear-gradient(135deg,#1d2022 0 6px,#17191b 6px 12px)"></div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:14.5px">{{ a.name }}</div>
+            <div style="font-size:11px;color:#78746e;letter-spacing:.06em;margin-bottom:8px">{{ a.role }}</div>
+            <div style="display:flex;gap:6px">
+              <a href="#" style="border:1px solid #c9a227;color:#c9a227;padding:6px 12px;font-size:11px;letter-spacing:.1em;text-transform:uppercase">WhatsApp</a>
+              <a href="#" style="border:1px solid #34383b;color:#a5a19b;padding:6px 12px;font-size:11px;letter-spacing:.1em;text-transform:uppercase">Telepon</a>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="background:repeating-linear-gradient(135deg,#17191b 0 10px,#131517 10px 20px);padding:52px 20px;text-align:center;position:relative">
+    <div style="position:absolute;inset:0;background:rgba(11,12,13,.72)"></div>
+    <div style="position:relative">
+      <h2 style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:34px;line-height:1.15;margin:0 0 12px">Siap menemukan hunian impian Anda?</h2>
+      <p style="margin:0 0 24px;font-size:13.5px;line-height:1.65;color:#a5a19b">Jadwalkan survey lokasi dan dapatkan informasi unit terbaru dari tim marketing kami.</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <a href="#" style="background:#c9a227;color:#0b0c0d;padding:16px;font-size:13px;letter-spacing:.16em;text-transform:uppercase;font-weight:500">WhatsApp Marketing</a>
+        <a href="#" style="border:1px solid #34383b;color:#e8e6e1;padding:16px;font-size:13px;letter-spacing:.16em;text-transform:uppercase">Jadwalkan Survey</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:36px 20px 30px;border-top:1px solid #1c1e20">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:20px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px">Parkspring</div>
+    <div style="font-size:12px;line-height:1.7;color:#78746e;margin-bottom:20px">Jl. Boulevard Raya, Kelapa Gading<br>Jakarta Utara 14240<br>+62 812 0000 0000 · info@parkspring.id</div>
+    <div style="display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:#8b8781;padding-bottom:20px;border-bottom:1px solid #1c1e20">
+      <a href="#unit">Tipe Unit</a><a href="#kontak">Kontak</a><a href="#">Privacy Policy</a><a href="#">Terms</a>
+    </div>
+    <div style="font-size:10.5px;color:#5c5f62;letter-spacing:.08em;padding-top:18px">© 2026 Parkspring Kelapa Gading</div>
+  </div>
+
+  <sc-if value="{{ sticky }}" hint-placeholder-val="{{ true }}">
+    <div style="position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:390px;background:rgba(11,12,13,.94);backdrop-filter:blur(10px);border-top:1px solid #1c1e20;padding:12px 16px;display:flex;gap:10px;align-items:center;z-index:40">
+      <div style="flex:1;min-width:0">
+        <div style="font-size:10px;letter-spacing:.12em;color:#78746e;text-transform:uppercase">Mulai</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:#c9a227">Rp 2,6 M</div>
+      </div>
+      <a href="#kontak" style="background:#c9a227;color:#0b0c0d;padding:13px 20px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:500">Chat Marketing</a>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#c9a227&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#c9a227&quot;,&quot;#1b4d3e&quot;,&quot;#b4763a&quot;,&quot;#c0c4c8&quot;]},&quot;showStickyCta&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 1, open: 0 };
+  renderVals() {
+    const gold = this.props.accent ?? '#c9a227';
+    const U = [
+      { name: 'Villa', price: 'Rp 3,2 M', note: 'Rumah dua lantai dengan void ruang tamu dan taman belakang.',
+        specs: [{k:'Luas tanah',v:'90 m²'},{k:'Luas bangunan',v:'120 m²'},{k:'Kamar tidur',v:'3'},{k:'Kamar mandi',v:'3'},{k:'Carport',v:'2 mobil'},{k:'Status',v:'SHM'}] },
+      { name: 'Medea', price: 'Rp 2,6 M', note: 'Tipe paling terjangkau, tetap dengan tinggi plafon 3,2 meter.',
+        specs: [{k:'Luas tanah',v:'72 m²'},{k:'Luas bangunan',v:'96 m²'},{k:'Kamar tidur',v:'3'},{k:'Kamar mandi',v:'2'},{k:'Carport',v:'1 mobil'},{k:'Status',v:'SHM'}] },
+      { name: 'Grand', price: 'Rp 4,5 M', note: 'Unit sudut dengan kamar utama en-suite dan ruang keluarga lantai dua.',
+        specs: [{k:'Luas tanah',v:'120 m²'},{k:'Luas bangunan',v:'165 m²'},{k:'Kamar tidur',v:'4'},{k:'Kamar mandi',v:'4'},{k:'Carport',v:'2 mobil'},{k:'Status',v:'SHM'}] }
+    ];
+    const units = U.map((u, i) => ({
+      ...u,
+      select: () => this.setState({ tab: i }),
+      bg: i === this.state.tab ? gold : 'transparent',
+      fg: i === this.state.tab ? '#0b0c0d' : '#a5a19b',
+      bd: i === this.state.tab ? gold : '#34383b'
+    }));
+    const faqSrc = [
+      ['Berapa harga unit di Parkspring?', 'Tipe Medea mulai Rp 2,6 miliar, Villa Rp 3,2 miliar, dan Grand Rp 4,5 miliar. Harga dapat berubah mengikuti tahap penjualan.'],
+      ['Apakah bisa KPR?', 'Bisa. Kami bekerja sama dengan lima bank nasional dengan proses pengajuan dibantu tim marketing.'],
+      ['Berapa DP yang harus disiapkan?', 'DP mulai 10% dan dapat dicicil hingga 12 kali tanpa bunga.'],
+      ['Bagaimana legalitasnya?', 'Seluruh unit bersertifikat SHM dengan PBG dan izin kawasan yang sudah terbit.'],
+      ['Kapan serah terima unit?', 'Serah terima bertahap mulai kuartal keempat 2027 sesuai cluster.'],
+      ['Apakah bisa survey lokasi?', 'Bisa setiap hari pukul 09.00–17.00 WIB. Jadwal dapat diatur lewat WhatsApp marketing.']
+    ];
+    return {
+      sticky: this.props.showStickyCta ?? true,
+      units, active: units[this.state.tab],
+      usp: [
+        { no:'01', title:'Lokasi strategis', desc:'Berada di koridor Boulevard Kelapa Gading dengan akses dua arah.' },
+        { no:'02', title:'Developer terpercaya', desc:'28 tahun pengalaman dan 40 kawasan hunian yang sudah serah terima.' },
+        { no:'03', title:'Desain modern', desc:'Fasad kontemporer, plafon tinggi, dan bukaan besar di setiap tipe.' },
+        { no:'04', title:'Fasilitas lengkap', desc:'Clubhouse, kolam renang, dan jogging track di dalam kawasan.' },
+        { no:'05', title:'Potensi investasi', desc:'Kenaikan harga rata-rata 11% per tahun di kawasan sekitar.' },
+        { no:'06', title:'Legalitas jelas', desc:'SHM per unit, PBG lengkap, dan bebas sengketa.' }
+      ],
+      facilities: [
+        { name:'Clubhouse', desc:'Ruang serbaguna, lounge, dan area kerja bersama.', ph:'FOTO CLUBHOUSE' },
+        { name:'Swimming Pool', desc:'Kolam dewasa 25 meter dan kolam anak terpisah.', ph:'FOTO KOLAM RENANG' },
+        { name:'Jogging Track', desc:'Lintasan 800 meter mengelilingi taman tematik.', ph:'FOTO JOGGING TRACK' },
+        { name:'One Gate System', desc:'Satu akses keluar masuk dengan CCTV dan security 24 jam.', ph:'FOTO GERBANG' },
+        { name:'Commercial Area', desc:'Ruko dan retail harian di pintu utama kawasan.', ph:'FOTO KOMERSIAL' }
+      ],
+      gallery: [
+        { label:'EKSTERIOR', ratio:'4/3', span:'2' }, { label:'INTERIOR', ratio:'1/1', span:'1' },
+        { label:'SHOW UNIT', ratio:'1/1', span:'1' }, { label:'FASILITAS', ratio:'1/1', span:'1' },
+        { label:'LINGKUNGAN', ratio:'1/1', span:'1' }, { label:'MASTERPLAN', ratio:'16/9', span:'2' }
+      ],
+      access: [
+        { time:'3 mnt', place:'Gerbang Tol Kelapa Gading' }, { time:'8 mnt', place:'Mall Kelapa Gading' },
+        { time:'10 mnt', place:'LRT Boulevard Utara' }, { time:'12 mnt', place:'RS Mitra Keluarga' },
+        { time:'15 mnt', place:'Sekolah & universitas' }, { time:'35 mnt', place:'Bandara Soekarno-Hatta' }
+      ],
+      legend: [
+        { name:'Cluster Villa', color:gold }, { name:'Cluster Medea', color:'#6b6f73' },
+        { name:'Cluster Grand', color:'#3f4346' }, { name:'Fasilitas & taman', color:'#1b4d3e' }
+      ],
+      promos: ['Free BPHTB dan AJB', 'Cashback 5% untuk pembelian tunai bertahap', 'Free smart door lock dan CCTV', 'Free biaya balik nama sertifikat'],
+      testimonials: [
+        { quote:'Prosesnya rapi, dari booking sampai akad semua didampingi. Kawasannya juga tenang.', name:'Andreas Halim', unit:'Pemilik Type Villa' },
+        { quote:'Kami pilih karena dekat sekolah anak dan akses tol. Bangunannya sesuai spesifikasi.', name:'Ratna Kusuma', unit:'Pemilik Type Medea' }
+      ],
+      stats: [ {v:'28', k:'Tahun'}, {v:'40+', k:'Kawasan'}, {v:'12.000', k:'Unit'} ],
+      agents: [
+        { name:'Dina Prameswari', role:'Senior Property Advisor' },
+        { name:'Rangga Wijaya', role:'Property Consultant' },
+        { name:'Sari Utami', role:'Property Consultant' }
+      ],
+      faqs: faqSrc.map(([q, a], i) => ({
+        q, a, open: this.state.open === i, mark: this.state.open === i ? '−' : '+',
+        toggle: () => this.setState(s => ({ open: s.open === i ? -1 : i }))
+      }))
+    };
+  }
+}
+</script>
+</body>
+</html>

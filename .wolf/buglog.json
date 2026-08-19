@@ -504,6 +504,42 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-19T07:10:00+07:00"
+    },
+    {
+      "id": "bug-028",
+      "timestamp": "2026-08-19T11:00:00+07:00",
+      "error_message": "theme-no-literal-colors.test gagal: 'lib/landing/themes/tropicalWarm/theme.css:5 -> ... bukan rgba().' — komentar CSS ikut ditangkap lint warna literal.",
+      "file": "lib/landing/themes/tropicalWarm/theme.css",
+      "root_cause": "Regex lint /#[0-9a-fA-F]{3,8}|rgba?\\(|hsla?\\(/ memindai SETIAP baris termasuk komentar. Kata 'rgba(' di dalam komentar penjelas ikut cocok.",
+      "fix": "Hindari menulis literal warna (termasuk 'rgba('/'hex') di komentar file di bawah lib/landing/themes. Ganti frasa jadi 'fungsi warna beralfa'. Alternatif: tambahkan penanda 'lp-lint-allow' pada baris itu.",
+      "tags": ["lint", "theme", "css", "no-literal-colors", "false-positive"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-19T11:00:00+07:00"
+    },
+    {
+      "id": "bug-029",
+      "timestamp": "2026-08-19T11:20:00+07:00",
+      "error_message": "Playwright strict mode: getByRole('button',{name:'Tropis Hangat'}) resolved to 2 elements — tombol tema DAN swatch palet.",
+      "file": "tests/e2e/editor.spec.ts",
+      "root_cause": "PALETTE_LABELS identik dengan THEME_LABELS (mis. 'Tropis Hangat', 'Premium Gelap'). PalettePicker memberi swatch aria-label dari PALETTE_LABELS, jadi accessible name-nya bertabrakan dengan tombol tema.",
+      "fix": "Scope locator ke kontainer: page.locator('.ed__themes').getByRole('button', ...) untuk tema, page.locator('.ed__palettes').getByRole('button', ...) untuk swatch.",
+      "tags": ["playwright", "e2e", "strict-mode", "editor", "palette", "test-authoring"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-19T11:20:00+07:00"
+    },
+    {
+      "id": "bug-030",
+      "timestamp": "2026-08-19T12:40:00+07:00",
+      "error_message": "9/11 e2e gagal — SEMUA tes interaksi klien (edit hero, tab unit, akordeon FAQ, palet, spine) gagal, tapi tes SSR/request (landing server-rendered, hitung blok) LULUS.",
+      "file": "playwright.config.ts (reuseExistingServer)",
+      "root_cause": "Dev server `next dev` dari run e2e sebelumnya BOCOR (tidak ter-teardown), tetap listen di port 3000 dengan bundle klien LAMA (dari sebelum perubahan tema). `reuseExistingServer: !process.env.CI` = true lokal, jadi Playwright memakai ulang server basi itu alih-alih start ulang. SSR meregenerasi (lulus), tapi hidrasi/interaksi memakai chunk klien basi (mati). Terlihat seperti bug kode padahal build + unit hijau.",
+      "fix": "Sebelum e2e lokal: cek & bunuh proses port 3000 (Get-NetTCPConnection -LocalPort 3000 → Stop-Process), lalu `rm -rf .next`, lalu jalankan. Pola diagnosa: kalau SSR lulus tapi SEMUA interaksi klien gagal, curigai server basi, bukan kode.",
+      "tags": ["playwright", "e2e", "next-dev", "port-3000", "reuseExistingServer", "stale-bundle", "hydration"],
+      "related_bugs": ["bug-023"],
+      "occurrences": 1,
+      "last_seen": "2026-08-19T12:40:00+07:00"
     }
   ]
 }

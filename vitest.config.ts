@@ -10,5 +10,10 @@ export default defineConfig({
     include: ['tests/unit/**/*.test.{ts,tsx}'],
     setupFiles: ['tests/unit/setup.ts'],
   },
-  resolve: { alias: { '@': path.resolve(__dirname) } },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname),
+      'next/font/google': path.resolve(__dirname, 'tests/mocks/next-font.ts'),
+    },
+  },
 });

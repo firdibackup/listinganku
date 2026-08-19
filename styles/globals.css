@@ -19,6 +19,16 @@
 @import "../components/wizard/wizard.css";
 @import "../components/project/project.css";
 @import "../lib/landing/landing.css";
+@import "../lib/landing/themes/tropicalWarm/theme.css";
+@import "../lib/landing/themes/premiumDark.css";
+@import "../lib/landing/themes/editorialWhite.css";
+@import "../lib/landing/themes/softLuxury.css";
+@import "../lib/landing/themes/boldRetail.css";
+@import "../lib/landing/themes/corporateBlue.css";
+@import "../lib/landing/themes/architectural.css";
+@import "../lib/landing/themes/natureCalm.css";
+@import "../lib/landing/themes/classicNavy.css";
+@import "../lib/landing/themes/playfulPastel.css";
 @import "../components/editor/editor.css";
 
 /* Jembatan ke utility Tailwind. Hanya warna — spasi/radius/shadow dipakai lewat

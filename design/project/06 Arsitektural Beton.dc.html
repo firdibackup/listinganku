@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#c9c7c2;-webkit-font-smoothing:antialiased}
+a{color:#1a1a18;text-decoration:none}
+a:hover{opacity:.7}
+</style>
+</helmet>
+
+<div style="width:390px;margin:0 auto;background:#d9d7d2;color:#1a1a18;font-family:'Space Grotesk',sans-serif;overflow-x:hidden">
+
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 20px;border-bottom:1px solid #1a1a18">
+    <div style="font-weight:700;font-size:16px;letter-spacing:.02em">PARKSPRING</div>
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.06em">06°09'S 106°54'E</div>
+  </div>
+
+  <div style="padding:28px 20px 0">
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:#5c5a55;margin-bottom:18px">PROJECT / KELAPA GADING / JAKARTA UTARA / 2026</div>
+    <h1 style="font-size:38px;line-height:1.02;font-weight:500;letter-spacing:-.02em;margin:0 0 16px;text-wrap:pretty">Hunian modern dengan struktur yang jujur</h1>
+    <p style="margin:0 0 24px;font-size:14px;line-height:1.65;color:#4a4844;max-width:310px">Tiga tipe rumah pada kawasan 8,4 hektar. Fasad beton ekspos, plafon 3,2 meter, bukaan penuh di sisi selatan.</p>
+  </div>
+
+  <div style="height:400px;background:repeating-linear-gradient(135deg,#c4c2bd 0 10px,#bcbab5 10px 20px);display:grid;place-items:center;border-top:1px solid #1a1a18;border-bottom:1px solid #1a1a18">
+    <span style="font:10px 'Space Mono',monospace;letter-spacing:.2em;color:#7d7b76">FOTO FASADE UTAMA · 390×400</span>
+  </div>
+
+  <div style="border-bottom:1px solid #1a1a18">
+    <sc-for list="{{ heroSpecs }}" as="h" hint-placeholder-count="3">
+      <div style="display:flex;justify-content:space-between;padding:13px 20px;border-bottom:1px solid #b6b4af;font-family:'Space Mono',monospace;font-size:12px">
+        <span style="color:#5c5a55">{{ h.k }}</span><span style="font-weight:700">{{ h.v }}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="padding:20px;display:flex;flex-direction:column;gap:8px;border-bottom:1px solid #1a1a18">
+    <a href="#kontak" style="background:#1a1a18;color:#d9d7d2;text-align:center;padding:16px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em">[ HUBUNGI MARKETING ]</a>
+    <a href="#unit" style="border:1px solid #1a1a18;text-align:center;padding:16px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em">[ LIHAT UNIT ]</a>
+  </div>
+
+  <div style="padding:30px 20px;border-bottom:1px solid #1a1a18">
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#5c5a55;margin-bottom:16px">01 / KENAPA PARKSPRING</div>
+    <sc-for list="{{ usp }}" as="u" hint-placeholder-count="6">
+      <div style="display:grid;grid-template-columns:44px 1fr;gap:12px;padding:14px 0;border-top:1px solid #b6b4af">
+        <div style="font-family:'Space Mono',monospace;font-size:11px;color:#5c5a55;padding-top:3px">{{ u.no }}</div>
+        <div>
+          <div style="font-size:15px;font-weight:600;margin-bottom:4px">{{ u.title }}</div>
+          <div style="font-size:12.5px;line-height:1.6;color:#4a4844">{{ u.desc }}</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div id="unit" style="padding:30px 20px;border-bottom:1px solid #1a1a18">
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#5c5a55;margin-bottom:8px">02 / TIPE UNIT</div>
+    <h2 style="font-size:28px;font-weight:500;line-height:1.1;margin:0 0 18px">Lembar spesifikasi</h2>
+    <div style="display:flex;border:1px solid #1a1a18;margin-bottom:0">
+      <sc-for list="{{ units }}" as="u" hint-placeholder-count="3">
+        <button onClick="{{ u.select }}" style="flex:1;background:{{ u.bg }};color:{{ u.fg }};border:0;border-right:1px solid #1a1a18;padding:12px 0;font-family:'Space Mono',monospace;font-size:11.5px;letter-spacing:.08em;cursor:pointer">{{ u.name }}</button>
+      </sc-for>
+    </div>
+    <div style="border:1px solid #1a1a18;border-top:0">
+      <div style="height:210px;background:repeating-linear-gradient(135deg,#c4c2bd 0 10px,#bcbab5 10px 20px);display:grid;place-items:center;border-bottom:1px solid #1a1a18">
+        <span style="font:10px 'Space Mono',monospace;letter-spacing:.16em;color:#7d7b76">DENAH 2D · TYPE {{ active.name }}</span>
+      </div>
+      <sc-for list="{{ active.specs }}" as="s" hint-placeholder-count="7">
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #b6b4af;font-family:'Space Mono',monospace;font-size:12px">
+          <span style="color:#5c5a55">{{ s.k }}</span><span style="font-weight:700">{{ s.v }}</span>
+        </div>
+      </sc-for>
+      <div style="padding:14px 16px;font-size:12.5px;line-height:1.6;color:#4a4844">{{ active.note }}</div>
+    </div>
+  </div>
+
+  <div style="padding:30px 20px;border-bottom:1px solid #1a1a18">
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#5c5a55;margin-bottom:8px">03 / MASTERPLAN</div>
+    <h2 style="font-size:28px;font-weight:500;line-height:1.1;margin:0 0 16px">Tata kawasan 8,4 ha</h2>
+    <div style="aspect-ratio:1/1;border:1px solid #1a1a18;background:repeating-linear-gradient(135deg,#c4c2bd 0 10px,#bcbab5 10px 20px);display:grid;place-items:center;position:relative">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(26,26,24,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(26,26,24,.09) 1px,transparent 1px);background-size:26px 26px"></div>
+      <span style="position:relative;font:10px 'Space Mono',monospace;letter-spacing:.16em;color:#7d7b76">SITE PLAN · SKALA 1:1000</span>
+    </div>
+    <div style="margin-top:14px">
+      <sc-for list="{{ legend }}" as="l" hint-placeholder-count="4">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid #b6b4af;font-family:'Space Mono',monospace;font-size:11.5px">
+          <span style="display:flex;align-items:center;gap:9px"><span style="width:11px;height:11px;background:{{ l.color }};display:block"></span>{{ l.name }}</span>
+          <span style="color:#5c5a55">{{ l.qty }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:30px 20px;border-bottom:1px solid #1a1a18">
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#5c5a55;margin-bottom:8px">04 / LOKASI</div>
+    <h2 style="font-size:28px;font-weight:500;line-height:1.1;margin:0 0 6px">Jarak tempuh</h2>
+    <p style="margin:0 0 16px;font-family:'Space Mono',monospace;font-size:11.5px;line-height:1.7;color:#4a4844">JL. BOULEVARD RAYA, KELAPA GADING<br>JAKARTA UTARA 14240</p>
+    <div style="height:200px;border:1px solid #1a1a18;position:relative;display:grid;place-items:center;margin-bottom:14px;background:#cfcdc8">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(#c2c0bb 1px,transparent 1px),linear-gradient(90deg,#c2c0bb 1px,transparent 1px);background-size:28px 28px"></div>
+      <div style="position:relative;text-align:center">
+        <div style="width:11px;height:11px;background:#1a1a18;margin:0 auto 10px"></div>
+        <span style="font:10px 'Space Mono',monospace;letter-spacing:.16em;color:#7d7b76">PETA LOKASI</span>
+      </div>
+    </div>
+    <sc-for list="{{ access }}" as="a" hint-placeholder-count="6">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-top:1px solid #b6b4af">
+        <span style="font-size:13px">{{ a.place }}</span>
+        <span style="font-family:'Space Mono',monospace;font-size:13px;font-weight:700">{{ a.time }}</span>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="padding:30px 20px;border-bottom:1px solid #1a1a18">
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#5c5a55;margin-bottom:8px">05 / FASILITAS</div>
+    <h2 style="font-size:28px;font-weight:500;line-height:1.1;margin:0 0 16px">Sembilan fasilitas kawasan</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#1a1a18;border:1px solid #1a1a18">
+      <sc-for list="{{ facilities }}" as="f" hint-placeholder-count="6">
+        <div style="background:#d9d7d2">
+          <div style="height:92px;background:repeating-linear-gradient(135deg,#c4c2bd 0 10px,#bcbab5 10px 20px);display:grid;place-items:center">
+            <span style="font:8.5px 'Space Mono',monospace;letter-spacing:.1em;color:#7d7b76">{{ f.ph }}</span>
+          </div>
+          <div style="padding:10px 11px">
+            <div style="font-size:13px;font-weight:600">{{ f.name }}</div>
+            <div style="font-family:'Space Mono',monospace;font-size:10px;color:#5c5a55;margin-top:3px">{{ f.meta }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:30px 20px;border-bottom:1px solid #1a1a18">
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#5c5a55;margin-bottom:16px">06 / GALERI</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#1a1a18;border:1px solid #1a1a18">
+      <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="6">
+        <div style="aspect-ratio:{{ g.ratio }};grid-column:span {{ g.span }};background:repeating-linear-gradient(135deg,#c4c2bd 0 10px,#bcbab5 10px 20px);display:grid;place-items:center">
+          <span style="font:9px 'Space Mono',monospace;letter-spacing:.12em;color:#7d7b76">{{ g.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="background:#1a1a18;color:#d9d7d2;padding:30px 20px">
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#8c8a85;margin-bottom:10px">07 / HARGA & PROMO</div>
+    <h2 style="font-size:30px;font-weight:500;line-height:1.1;margin:0 0 4px">Miliki hunian impian Anda</h2>
+    <div style="font-family:'Space Mono',monospace;font-size:30px;font-weight:700;margin:14px 0 20px">MULAI RP 2,6 M</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#3a3936;border:1px solid #3a3936;margin-bottom:18px">
+      <div style="background:#1a1a18;padding:14px"><div style="font-family:'Space Mono',monospace;font-size:10px;color:#8c8a85">DP MULAI</div><div style="font-size:19px;margin-top:4px">10%</div></div>
+      <div style="background:#1a1a18;padding:14px"><div style="font-family:'Space Mono',monospace;font-size:10px;color:#8c8a85">CICILAN MULAI</div><div style="font-size:19px;margin-top:4px">Rp 18 jt</div></div>
+    </div>
+    <sc-for list="{{ promos }}" as="p" hint-placeholder-count="4">
+      <div style="display:flex;justify-content:space-between;padding:11px 0;border-top:1px solid #3a3936;font-size:13px"><span>{{ p }}</span><span style="font-family:'Space Mono',monospace;color:#8c8a85">INCL</span></div>
+    </sc-for>
+  </div>
+
+  <div style="padding:30px 20px;border-bottom:1px solid #1a1a18">
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#5c5a55;margin-bottom:8px">08 / DEVELOPER</div>
+    <h2 style="font-size:26px;font-weight:500;line-height:1.15;margin:0 0 12px">Dikembangkan oleh developer berpengalaman</h2>
+    <p style="margin:0 0 18px;font-size:13px;line-height:1.7;color:#4a4844">Sejak 1998 membangun kawasan hunian di Jabodetabek dengan legalitas SHM dan PBG lengkap pada setiap unit.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#1a1a18;border:1px solid #1a1a18">
+      <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
+        <div style="background:#d9d7d2;padding:14px 8px;text-align:center">
+          <div style="font-family:'Space Mono',monospace;font-size:19px;font-weight:700">{{ s.v }}</div>
+          <div style="font-size:10.5px;color:#5c5a55;margin-top:3px">{{ s.k }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:30px 20px;border-bottom:1px solid #1a1a18">
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#5c5a55;margin-bottom:16px">09 / TESTIMONI</div>
+    <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="2">
+      <div style="border-top:1px solid #b6b4af;padding:18px 0">
+        <p style="margin:0 0 14px;font-size:15px;line-height:1.6">“{{ t.quote }}”</p>
+        <div style="font-family:'Space Mono',monospace;font-size:11px;color:#5c5a55">{{ t.name }} — {{ t.unit }}</div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="padding:30px 20px;border-bottom:1px solid #1a1a18">
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#5c5a55;margin-bottom:16px">10 / FAQ</div>
+    <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+      <div style="border-top:1px solid #b6b4af">
+        <button onClick="{{ f.toggle }}" style="width:100%;display:flex;justify-content:space-between;gap:12px;align-items:center;background:none;border:0;color:#1a1a18;padding:15px 0;text-align:left;font-family:'Space Grotesk',sans-serif;font-size:13.5px;cursor:pointer">
+          {{ f.q }}<span style="font-family:'Space Mono',monospace;font-size:13px;flex-shrink:0">{{ f.mark }}</span>
+        </button>
+        <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:12.5px;line-height:1.7;color:#4a4844;padding:0 0 16px">{{ f.a }}</div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+
+  <div id="kontak" style="padding:30px 20px;border-bottom:1px solid #1a1a18">
+    <div style="font-family:'Space Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:#5c5a55;margin-bottom:8px">11 / TIM MARKETING</div>
+    <h2 style="font-size:26px;font-weight:500;line-height:1.15;margin:0 0 18px">Butuh informasi lebih lanjut?</h2>
+    <sc-for list="{{ agents }}" as="a" hint-placeholder-count="3">
+      <div style="border:1px solid #1a1a18;margin-bottom:8px;display:flex">
+        <div style="width:78px;flex-shrink:0;background:repeating-linear-gradient(135deg,#c4c2bd 0 8px,#bcbab5 8px 16px);border-right:1px solid #1a1a18"></div>
+        <div style="padding:13px 14px;flex:1;min-width:0">
+          <div style="font-size:14.5px;font-weight:600">{{ a.name }}</div>
+          <div style="font-family:'Space Mono',monospace;font-size:10.5px;color:#5c5a55;margin-bottom:9px">{{ a.role }}</div>
+          <div style="display:flex;gap:7px">
+            <a href="#" style="background:#1a1a18;color:#d9d7d2;padding:6px 12px;font-family:'Space Mono',monospace;font-size:10.5px">WHATSAPP</a>
+            <a href="#" style="border:1px solid #1a1a18;padding:6px 12px;font-family:'Space Mono',monospace;font-size:10.5px">TELEPON</a>
+          </div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="padding:38px 20px;text-align:left;border-bottom:1px solid #1a1a18">
+    <h2 style="font-size:34px;font-weight:500;line-height:1.05;margin:0 0 12px;letter-spacing:-.01em">Siap menemukan hunian impian Anda?</h2>
+    <p style="margin:0 0 22px;font-size:13.5px;line-height:1.7;color:#4a4844">Jadwalkan survey lokasi dan dapatkan informasi unit terbaru dari tim marketing kami.</p>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <a href="#" style="background:#1a1a18;color:#d9d7d2;text-align:center;padding:16px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em">[ WHATSAPP MARKETING ]</a>
+      <a href="#" style="border:1px solid #1a1a18;text-align:center;padding:16px;font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em">[ JADWALKAN SURVEY ]</a>
+    </div>
+  </div>
+
+  <div style="padding:28px 20px">
+    <div style="font-weight:700;font-size:15px;margin-bottom:8px">PARKSPRING</div>
+    <div style="font-family:'Space Mono',monospace;font-size:11px;line-height:1.85;color:#4a4844;margin-bottom:16px">JL. BOULEVARD RAYA, KELAPA GADING<br>JAKARTA UTARA 14240<br>+62 812 0000 0000<br>INFO@PARKSPRING.ID</div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;font-family:'Space Mono',monospace;font-size:11px;padding-bottom:14px;border-bottom:1px solid #b6b4af">
+      <a href="#unit">TIPE UNIT</a><a href="#kontak">KONTAK</a><a href="#">PRIVACY</a><a href="#">TERMS</a>
+    </div>
+    <div style="font-family:'Space Mono',monospace;font-size:10px;color:#7d7b76;padding-top:14px">© 2026 PARKSPRING KELAPA GADING</div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1a1a18&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#1a1a18&quot;,&quot;#1b4d3e&quot;,&quot;#7a3b2e&quot;,&quot;#2c3e50&quot;]}}">
+class Component extends DCLogic {
+  state = { tab: 0, open: 0 };
+  renderVals() {
+    const U = [
+      { name:'VILLA', price:'Rp 3,2 M', note:'Dua lantai dengan void ruang tamu dan taman belakang 12 m².',
+        specs:[{k:'HARGA MULAI',v:'Rp 3,2 M'},{k:'LUAS TANAH',v:'90 m²'},{k:'LUAS BANGUNAN',v:'120 m²'},{k:'KAMAR TIDUR',v:'3'},{k:'KAMAR MANDI',v:'3'},{k:'CARPORT',v:'2 mobil'},{k:'LEGALITAS',v:'SHM'}] },
+      { name:'MEDEA', price:'Rp 2,6 M', note:'Tipe entry dengan plafon 3,2 meter dan bukaan penuh sisi selatan.',
+        specs:[{k:'HARGA MULAI',v:'Rp 2,6 M'},{k:'LUAS TANAH',v:'72 m²'},{k:'LUAS BANGUNAN',v:'96 m²'},{k:'KAMAR TIDUR',v:'3'},{k:'KAMAR MANDI',v:'2'},{k:'CARPORT',v:'1 mobil'},{k:'LEGALITAS',v:'SHM'}] },
+      { name:'GRAND', price:'Rp 4,5 M', note:'Unit sudut dengan kamar utama en-suite dan ruang keluarga lantai dua.',
+        specs:[{k:'HARGA MULAI',v:'Rp 4,5 M'},{k:'LUAS TANAH',v:'120 m²'},{k:'LUAS BANGUNAN',v:'165 m²'},{k:'KAMAR TIDUR',v:'4'},{k:'KAMAR MANDI',v:'4'},{k:'CARPORT',v:'2 mobil'},{k:'LEGALITAS',v:'SHM'}] }
+    ];
+    const units = U.map((u,i)=>({ ...u, select:()=>this.setState({tab:i}),
+      bg: i===this.state.tab ? '#1a1a18' : 'transparent',
+      fg: i===this.state.tab ? '#d9d7d2' : '#1a1a18' }));
+    const faqSrc = [
+      ['Berapa harga unit di Parkspring?','Tipe Medea mulai Rp 2,6 miliar, Villa Rp 3,2 miliar, dan Grand Rp 4,5 miliar.'],
+      ['Apakah bisa KPR?','Bisa, dengan lima bank rekanan dan pendampingan penuh dari tim marketing.'],
+      ['Berapa DP yang harus disiapkan?','DP mulai 10% dan dapat dicicil hingga 12 kali tanpa bunga.'],
+      ['Bagaimana legalitasnya?','Seluruh unit bersertifikat SHM dengan PBG dan izin kawasan yang sudah terbit.'],
+      ['Kapan serah terima unit?','Serah terima bertahap mulai kuartal keempat 2027 sesuai cluster.'],
+      ['Apakah bisa survey lokasi?','Bisa setiap hari pukul 09.00–17.00 WIB lewat janji temu dengan marketing.']
+    ];
+    return {
+      units, active: units[this.state.tab],
+      heroSpecs: [{k:'HARGA MULAI',v:'Rp 2,6 M'},{k:'LUAS KAWASAN',v:'8,4 hektar'},{k:'JUMLAH UNIT',v:'286 unit'},{k:'SERAH TERIMA',v:'Q4 2027'}],
+      usp: [
+        { no:'01', title:'Lokasi strategis', desc:'Koridor Boulevard Kelapa Gading dengan akses dua arah.' },
+        { no:'02', title:'Developer terpercaya', desc:'28 tahun dan 40 kawasan yang sudah serah terima.' },
+        { no:'03', title:'Desain modern', desc:'Beton ekspos, plafon 3,2 meter, bukaan penuh sisi selatan.' },
+        { no:'04', title:'Fasilitas lengkap', desc:'Clubhouse, kolam renang, dan jogging track di dalam kawasan.' },
+        { no:'05', title:'Potensi investasi', desc:'Kenaikan harga rata-rata 11% per tahun di kawasan sekitar.' },
+        { no:'06', title:'Legalitas jelas', desc:'SHM per unit, PBG lengkap, bebas sengketa.' }
+      ],
+      legend: [{name:'Cluster Villa',color:'#8a8880',qty:'96 unit'},{name:'Cluster Medea',color:'#b6b4af',qty:'128 unit'},{name:'Cluster Grand',color:'#1a1a18',qty:'62 unit'},{name:'Fasilitas & taman',color:'#1b4d3e',qty:'1,8 ha'}],
+      access: [
+        { time:'3 mnt', place:'Gerbang Tol Kelapa Gading' }, { time:'8 mnt', place:'Mall Kelapa Gading' },
+        { time:'10 mnt', place:'LRT Boulevard Utara' }, { time:'12 mnt', place:'RS Mitra Keluarga' },
+        { time:'15 mnt', place:'Sekolah & universitas' }, { time:'35 mnt', place:'Bandara Soekarno-Hatta' }
+      ],
+      facilities: [
+        { name:'Clubhouse', meta:'480 M²', ph:'FOTO CLUBHOUSE' },
+        { name:'Swimming Pool', meta:'25 M', ph:'FOTO KOLAM' },
+        { name:'Fitness Center', meta:'120 M²', ph:'FOTO GYM' },
+        { name:'Jogging Track', meta:'800 M', ph:'FOTO TRACK' },
+        { name:'Playground', meta:'2 TITIK', ph:'FOTO PLAYGROUND' },
+        { name:'One Gate System', meta:'24 JAM', ph:'FOTO GERBANG' }
+      ],
+      gallery: [
+        { label:'EKSTERIOR', ratio:'16/10', span:'2' }, { label:'INTERIOR', ratio:'1/1', span:'1' },
+        { label:'SHOW UNIT', ratio:'1/1', span:'1' }, { label:'FASILITAS', ratio:'1/1', span:'1' },
+        { label:'LINGKUNGAN', ratio:'1/1', span:'1' }, { label:'PROGRES KONSTRUKSI', ratio:'16/10', span:'2' }
+      ],
+      promos: ['Free BPHTB dan AJB','Cashback 5% pembelian tunai bertahap','Free smart door lock dan CCTV','Free biaya balik nama sertifikat'],
+      stats: [{v:'28',k:'Tahun'},{v:'40+',k:'Kawasan'},{v:'12.000',k:'Unit'}],
+      testimonials: [
+        { quote:'Prosesnya rapi, dari booking sampai akad semua didampingi. Kawasannya juga tenang.', name:'ANDREAS HALIM', unit:'TYPE VILLA' },
+        { quote:'Kami pilih karena dekat sekolah anak dan akses tol. Bangunannya sesuai spesifikasi.', name:'RATNA KUSUMA', unit:'TYPE MEDEA' }
+      ],
+      agents: [
+        { name:'Dina Prameswari', role:'SENIOR PROPERTY ADVISOR' },
+        { name:'Rangga Wijaya', role:'PROPERTY CONSULTANT' },
+        { name:'Sari Utami', role:'PROPERTY CONSULTANT' }
+      ],
+      faqs: faqSrc.map(([q,a],i)=>({ q, a, open:this.state.open===i, mark:this.state.open===i?'[ − ]':'[ + ]',
+        toggle:()=>this.setState(s=>({open:s.open===i?-1:i})) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

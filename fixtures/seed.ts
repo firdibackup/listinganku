@@ -1,16 +1,84 @@
-import { defaultBlocks } from '@/lib/landing/blocks';
+import { defaultBlocksForTheme } from '@/lib/landing/blocks';
+import type { Block, BlockType } from '@/lib/landing/blocks';
+import { DEFAULT_THEME } from '@/lib/landing/themeNames';
 import type { StoreShape } from '@/lib/data/types';
 
 export const SEED_USER_ID = 'usr_audi';
 const NOW = '2026-08-10T09:00:00.000Z';
 
+/** Menyalin blok bawaan tema lalu menambal props blok tertentu dengan konten seed. */
+function withContent(patches: Partial<Record<BlockType, Record<string, unknown>>>): Block[] {
+  return defaultBlocksForTheme(DEFAULT_THEME).map((b) =>
+    patches[b.type] ? ({ ...b, props: { ...b.props, ...patches[b.type] } } as Block) : b,
+  );
+}
+
 const project = (
   id: string, name: string, slug: string, location: string, developer: string,
   description: string, facilities: string[], status: 'draft' | 'published', updatedAt: string,
+  blocks: Block[] = defaultBlocksForTheme(DEFAULT_THEME),
 ) => ({
   id, userId: SEED_USER_ID, name, slug, location, developer, description, facilities,
-  status, theme: 'modern' as const, blocks: defaultBlocks(), seo: {}, aiContent: null,
+  status, theme: DEFAULT_THEME, palette: 'tropicalWarm' as const, blocks,
+  seo: {}, aiContent: null,
   createdAt: NOW, updatedAt, publishedAt: status === 'published' ? updatedAt : null,
+});
+
+/**
+ * Konten 14 blok untuk Parkspring — diambil dari `10 Tropis Hangat.dc.html`
+ * (Parkspring Kelapa Gading) supaya hasil render bisa dibandingkan mata langsung
+ * dengan file desain. Testimoni & harga/promo tidak pernah diisi AI, jadi hanya
+ * hidup kalau di-seed di sini.
+ */
+const PARKSPRING_BLOCKS = withContent({
+  hero: { badges: ['Akses tol 5 menit', 'Cluster baru', 'Security 24 jam', 'Dekat CBD'] },
+  highlights: {
+    items: [
+      'Lima menit ke Gading Serpong CBD lewat akses tol langsung',
+      'Cluster baru dengan one gate system dan security 24 jam',
+      'Tiga tipe unit siap huni dengan spesifikasi bata ringan',
+      'Kolam renang, jogging track, dan taman di dalam cluster',
+    ],
+  },
+  location: {
+    address: 'Jl. Gading Serpong Boulevard, Tangerang',
+    access: [
+      { time: '5 mnt', place: 'Gerbang Tol' },
+      { time: '7 mnt', place: 'Gading Serpong CBD' },
+      { time: '10 mnt', place: 'Sekolah & Kampus' },
+      { time: '12 mnt', place: 'RS Mitra Keluarga' },
+      { time: '15 mnt', place: 'Summarecon Mall' },
+      { time: '25 mnt', place: 'Bandara Soekarno-Hatta' },
+    ],
+  },
+  pricePromo: {
+    dpText: '10%',
+    installmentText: 'Rp 18 jt/bln',
+    promos: ['Free BPHTB', 'Free biaya KPR', 'Voucher furnitur Rp 25 jt', 'Subsidi DP bertahap'],
+    note: 'Promo berlaku untuk pemesanan bulan ini, selama unit tersedia.',
+  },
+  developer: {
+    about:
+      'Paramount Land adalah pengembang kawasan Gading Serpong dengan rekam jejak cluster hunian dan komersial yang matang serta serah terima tepat waktu.',
+    stats: [
+      { value: '28', label: 'Tahun' },
+      { value: '40+', label: 'Cluster' },
+      { value: '12.000', label: 'Unit diserahkan' },
+    ],
+  },
+  testimonials: {
+    items: [
+      { quote: 'Prosesnya cepat dan transparan. Serah terima unit tepat waktu dan kualitas bangunannya rapi.', name: 'Rina Wijaya', unit: 'Tipe Midea' },
+      { quote: 'Lokasinya strategis, lima menit ke CBD. Anak-anak juga senang ada kolam renang di cluster.', name: 'Bayu Prakoso', unit: 'Tipe Villa' },
+    ],
+  },
+  faq: {
+    items: [
+      { q: 'Apakah bisa KPR?', a: 'Bisa. Kami bekerja sama dengan beberapa bank untuk KPR dengan bunga kompetitif.' },
+      { q: 'Kapan serah terima unit?', a: 'Unit ready stock dapat diserahterimakan setelah proses administrasi selesai.' },
+      { q: 'Apakah harga sudah termasuk pajak?', a: 'Promo bulan ini mencakup Free BPHTB dan biaya KPR. Detail dijelaskan saat survei.' },
+    ],
+  },
 });
 
 const houseType = (
@@ -59,6 +127,7 @@ export function seedStore(): StoreShape {
         'Gading Serpong, Tangerang', 'Paramount Land',
         'Cluster baru dengan tiga tipe unit, akses lima menit ke Gading Serpong CBD. Fasilitas kolam renang, jogging track, dan security 24 jam.',
         ['Kolam renang', 'Security 24 jam', 'Jogging track'], 'published', '2026-08-10T09:00:00.000Z',
+        PARKSPRING_BLOCKS,
       ),
       project(
         'prj_casaverde', 'Casa Verde Alam Sutera', 'casa-verde-alam-sutera',

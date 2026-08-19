@@ -1,6 +1,5 @@
 .lp{background:var(--surface-page)}
 .lp__section{padding:var(--space-lg) 0}
-.lp__section:nth-child(even){background:var(--stone)}
 .lp__inner{max-width:var(--container-max);margin:0 auto;padding-inline:var(--container-pad)}
 .lp__eyebrow{color:var(--sage)}
 .lp__hero{padding:var(--space-lg) 0}

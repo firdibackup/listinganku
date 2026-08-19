@@ -1,0 +1,51 @@
+/*
+ * 03 Korporat Biru — override komponen bersama, di-scope [data-lp-theme='corporateBlue'].
+ * Dari design/project/03 Korporat Biru.dc.html: biru korporat bersih, Archivo
+ * Narrow untuk heading, sudut 6-10px, blok fitur biru. (Form-in-hero desain
+ * dijalankan lewat blok form kontak penutup.) NOL warna literal.
+ */
+.lp[data-lp-theme='corporateBlue'] {
+  --lp-font-display: var(--font-archivo-narrow), 'Arial Narrow', system-ui, sans-serif;
+  --lp-font-text: var(--font-archivo), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--lp-bg);
+  color: var(--lp-ink);
+  font-family: var(--lp-font-text);
+}
+.lp[data-lp-theme='corporateBlue'] .lp-tw-eyebrow { font-weight: 600; letter-spacing: 0.14em; }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-h2,
+.lp[data-lp-theme='corporateBlue'] .lp-tw-hero__title { font-weight: 600; }
+/* Sudut korporat 6-10px */
+.lp[data-lp-theme='corporateBlue'] .lp-tw-btn { border-radius: 6px; }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-badge { border-radius: 4px; background: color-mix(in srgb, var(--lp-on-accent) 14%, transparent); border: 1px solid color-mix(in srgb, var(--lp-on-accent) 24%, transparent); }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-unitcard,
+.lp[data-lp-theme='corporateBlue'] .lp-tw-access,
+.lp[data-lp-theme='corporateBlue'] .lp-tw-map,
+.lp[data-lp-theme='corporateBlue'] .lp-tw-fac__item,
+.lp[data-lp-theme='corporateBlue'] .lp-tw-tst__card,
+.lp[data-lp-theme='corporateBlue'] .lp-tw-agent__card,
+.lp[data-lp-theme='corporateBlue'] .lp-tw-faq__item,
+.lp[data-lp-theme='corporateBlue'] .lp-tw-promo__card,
+.lp[data-lp-theme='corporateBlue'] .lp-tw-dev__stat { border-radius: 8px; }
+/* Header biru */
+.lp[data-lp-theme='corporateBlue'] .lp-tw-header__name { font-family: var(--lp-font-display); }
+/* USP kartu bersih */
+.lp[data-lp-theme='corporateBlue'] .lp-tw-usp { background: transparent; border-radius: 0; gap: 10px; }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-usp__item { background: var(--lp-surface); border: 1px solid var(--lp-line); border-radius: 8px; padding: 16px 17px; }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-usp__num { color: var(--lp-accent); font-family: var(--lp-font-display); }
+/* Unit block biru, tab biru aktif */
+.lp[data-lp-theme='corporateBlue'] .lp-tw-units { background: var(--lp-feature); color: var(--lp-on-feature); }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-units .lp-tw-eyebrow { color: var(--lp-on-feature-soft); }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-tab { color: var(--lp-on-feature-soft); border-color: color-mix(in srgb, var(--lp-on-feature) 30%, transparent); border-radius: 6px; }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-tab[aria-selected='true'] { background: var(--lp-bg); color: var(--lp-feature); border-color: var(--lp-bg); }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-unitcard__name { font-family: var(--lp-font-display); }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-unitcard__price { color: var(--lp-accent); }
+/* Harga & promo blok biru */
+.lp[data-lp-theme='corporateBlue'] .lp-tw-promo { background: var(--lp-feature); color: var(--lp-on-feature); }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-promo .lp-tw-eyebrow { color: var(--lp-on-feature-soft); }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-promo .lp-tw-h2 { color: var(--lp-on-feature); }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-promo__price { color: var(--lp-on-feature); }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-promo__card { background: color-mix(in srgb, var(--lp-on-feature) 12%, transparent); }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-promo__li { background: color-mix(in srgb, var(--lp-on-feature) 10%, transparent); }
+/* Developer stats bergaris */
+.lp[data-lp-theme='corporateBlue'] .lp-tw-dev__stat { background: var(--lp-surface); border: 1px solid var(--lp-line); }
+.lp[data-lp-theme='corporateBlue'] .lp-tw-dev__val { font-family: var(--lp-font-display); }

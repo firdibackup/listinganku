@@ -1,0 +1,58 @@
+/*
+ * 07 Nature Calm — override komponen bersama, di-scope [data-lp-theme='natureCalm'].
+ * Dari design/project/07 Nature Calm.dc.html: tenang & organik, serif Lora, hijau,
+ * hero melengkung, sudut membulat lembut. Fasilitas sebelum tipe unit (urutan).
+ * NOL warna literal.
+ */
+.lp[data-lp-theme='natureCalm'] {
+  --lp-font-display: var(--font-lora), Georgia, 'Times New Roman', serif;
+  --lp-font-text: var(--font-nunito-sans), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--lp-bg);
+  color: var(--lp-ink);
+  font-family: var(--lp-font-text);
+}
+.lp[data-lp-theme='natureCalm'] .lp-tw-eyebrow { letter-spacing: 0.2em; }
+/* Hero melengkung di bawah */
+.lp[data-lp-theme='natureCalm'] .lp-tw-hero { border-bottom-left-radius: 36px; border-bottom-right-radius: 36px; overflow: hidden; }
+/* Sudut membulat organik */
+.lp[data-lp-theme='natureCalm'] .lp-tw-btn,
+.lp[data-lp-theme='natureCalm'] .lp-tw-header__cta,
+.lp[data-lp-theme='natureCalm'] .lp-tw-tab,
+.lp[data-lp-theme='natureCalm'] .lp-tw-agent__btn { border-radius: 999px; }
+.lp[data-lp-theme='natureCalm'] .lp-tw-unitcard,
+.lp[data-lp-theme='natureCalm'] .lp-tw-access,
+.lp[data-lp-theme='natureCalm'] .lp-tw-map,
+.lp[data-lp-theme='natureCalm'] .lp-tw-fac__item,
+.lp[data-lp-theme='natureCalm'] .lp-tw-gallery__media,
+.lp[data-lp-theme='natureCalm'] .lp-tw-master,
+.lp[data-lp-theme='natureCalm'] .lp-tw-tst__card,
+.lp[data-lp-theme='natureCalm'] .lp-tw-agent__card,
+.lp[data-lp-theme='natureCalm'] .lp-tw-faq__item,
+.lp[data-lp-theme='natureCalm'] .lp-tw-promo,
+.lp[data-lp-theme='natureCalm'] .lp-tw-promo__card,
+.lp[data-lp-theme='natureCalm'] .lp-tw-dev__stat { border-radius: 20px; }
+.lp[data-lp-theme='natureCalm'] .lp-tw-badge { border-radius: 999px; }
+/* Header hijau lembut */
+.lp[data-lp-theme='natureCalm'] .lp-tw-header { background: var(--lp-feature); color: var(--lp-on-feature); }
+.lp[data-lp-theme='natureCalm'] .lp-tw-header__loc { color: var(--lp-on-feature-soft); }
+/* USP kartu lembut */
+.lp[data-lp-theme='natureCalm'] .lp-tw-usp { background: transparent; border-radius: 0; gap: 10px; }
+.lp[data-lp-theme='natureCalm'] .lp-tw-usp__item { background: var(--lp-surface); border-radius: 18px; padding: 16px 18px; }
+.lp[data-lp-theme='natureCalm'] .lp-tw-usp__num { font-family: var(--lp-font-display); color: var(--lp-accent); }
+/* Unit block hijau */
+.lp[data-lp-theme='natureCalm'] .lp-tw-units .lp-tw-eyebrow { color: var(--lp-on-feature-soft); }
+.lp[data-lp-theme='natureCalm'] .lp-tw-tab { color: var(--lp-on-feature-soft); border-color: color-mix(in srgb, var(--lp-on-feature) 30%, transparent); }
+.lp[data-lp-theme='natureCalm'] .lp-tw-tab[aria-selected='true'] { background: var(--lp-bg); color: var(--lp-feature); border-color: var(--lp-bg); }
+.lp[data-lp-theme='natureCalm'] .lp-tw-unitcard__name,
+.lp[data-lp-theme='natureCalm'] .lp-tw-access__time { font-family: var(--lp-font-display); }
+/* Harga & promo hijau membulat */
+.lp[data-lp-theme='natureCalm'] .lp-tw-promo { background: var(--lp-feature); color: var(--lp-on-feature); margin: 0 20px 30px; }
+.lp[data-lp-theme='natureCalm'] .lp-tw-promo .lp-tw-eyebrow { color: var(--lp-on-feature-soft); }
+.lp[data-lp-theme='natureCalm'] .lp-tw-promo .lp-tw-h2,
+.lp[data-lp-theme='natureCalm'] .lp-tw-promo__price { color: var(--lp-on-feature); }
+.lp[data-lp-theme='natureCalm'] .lp-tw-promo__card { background: color-mix(in srgb, var(--lp-on-feature) 12%, transparent); }
+.lp[data-lp-theme='natureCalm'] .lp-tw-promo__li { background: color-mix(in srgb, var(--lp-on-feature) 10%, transparent); }
+/* Fasilitas & FAQ lembut */
+.lp[data-lp-theme='natureCalm'] .lp-tw-fac__item { background: var(--lp-surface); }
+.lp[data-lp-theme='natureCalm'] .lp-tw-faq { background: transparent; gap: 8px; }
+.lp[data-lp-theme='natureCalm'] .lp-tw-faq__item { background: var(--lp-surface); }

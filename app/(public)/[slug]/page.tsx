@@ -4,6 +4,8 @@ import type { Metadata } from 'next';
 import { db } from '@/lib/data';
 import { resolveBlocks } from '@/lib/landing/resolve';
 import { BlockRenderer } from '@/lib/landing/BlockRenderer';
+import { THEMES } from '@/lib/landing/themes';
+import { paletteStyle } from '@/lib/landing/palettes';
 import { buildJsonLd, buildMetadata, jsonLdScript } from '@/lib/landing/seo';
 import { PageViewTracker } from '@/components/landing/PageViewTracker';
 import { StickyCtaBar } from '@/components/landing/StickyCtaBar';
@@ -53,9 +55,18 @@ export default async function LandingPage({ params }: { params: Promise<{ slug: 
 
   const typesBlock = blocks.find((b) => b.type === 'houseTypes');
   const ctaBlock = blocks.find((b) => b.type === 'agentCta');
+  const types = typesBlock && typesBlock.type === 'houseTypes' ? typesBlock.houseTypes : [];
+
+  const theme = THEMES[data.project.theme] ?? THEMES.tropicalWarm;
+  const { Header, Footer } = theme.Chrome;
 
   return (
-    <div className="lp">
+    <div
+      className={`lp ${theme.fonts.className}`}
+      data-lp-theme={data.project.theme}
+      data-lp-palette={data.project.palette}
+      style={paletteStyle(data.project.palette)}
+    >
       {/* JSON-LD dibentuk dari data kita sendiri lalu diserialisasi lewat
           jsonLdScript() (escape '<') — bukan konten AI/markdown, jadi
           dangerouslySetInnerHTML di sini aman sesuai aturan proyek. */}
@@ -65,9 +76,11 @@ export default async function LandingPage({ params }: { params: Promise<{ slug: 
           sengaja bukan di SSR untuk menghindari hitung ganda dari cache/prefetch. */}
       <PageViewTracker projectId={data.project.id} />
 
-      {typesBlock && typesBlock.type === 'houseTypes' && typesBlock.houseTypes.length > 1 ? (
+      <Header project={data.project} agent={data.agent} houseTypes={types} />
+
+      {types.length > 1 ? (
         <nav className="lp__pills" aria-label="Lompat ke tipe rumah">
-          {typesBlock.houseTypes.map((h) => (
+          {types.map((h) => (
             <a key={h.id} href={`#${h.slug}`} className="lp__pill">{h.name}</a>
           ))}
         </nav>
@@ -75,11 +88,7 @@ export default async function LandingPage({ params }: { params: Promise<{ slug: 
 
       <BlockRenderer blocks={blocks} theme={data.project.theme} />
 
-      <footer className="lp__section">
-        <div className="lp__inner" style={{ fontSize: 14, color: 'var(--sage)' }}>
-          Dibuat oleh {data.agent.fullName} — <a href={`https://${data.agent.subdomain}.listingku.app`}>lihat profil</a>
-        </div>
-      </footer>
+      <Footer project={data.project} agent={data.agent} houseTypes={types} />
 
       {/* Nomor dan pesan diambil dari blok agentCta yang sudah diresolve, bukan
           dari agent mentah — kalau agen menimpanya di editor, bar ini ikut. Blok

@@ -148,6 +148,79 @@ export function BlockSettingsPanel({
         <>
           <Input label="Alamat" value={(p.address as string) ?? ''} onChange={(e) => onPatch({ address: e.target.value || undefined })} />
           <Input label="URL peta" value={(p.mapUrl as string) ?? ''} onChange={(e) => onPatch({ mapUrl: e.target.value || undefined })} />
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <span className="lw-caption" style={{ color: 'var(--evergreen)' }}>Akses lokasi</span>
+            {(((p.access as { time: string; place: string }[]) ?? [])).map((row, i) => {
+              const access = () => [...((p.access as { time: string; place: string }[]) ?? [])];
+              return (
+                <div key={i} className="ed__fieldrow">
+                  <Input label="Waktu" value={row.time} onChange={(e) => { const a = access(); a[i] = { ...a[i], time: e.target.value }; onPatch({ access: a }); }} />
+                  <Input label="Tempat" value={row.place} onChange={(e) => { const a = access(); a[i] = { ...a[i], place: e.target.value }; onPatch({ access: a }); }} />
+                  <button type="button" className="ds-btn ds-btn--link ds-btn--sm" aria-label={`Hapus akses ${i + 1}`} onClick={() => onPatch({ access: access().filter((_, j) => j !== i) })}>Hapus</button>
+                </div>
+              );
+            })}
+            <button type="button" className="ds-btn ds-btn--link ds-btn--sm" onClick={() => onPatch({ access: [...(((p.access as { time: string; place: string }[]) ?? [])), { time: '', place: '' }] })}>
+              Tambah akses
+            </button>
+          </div>
+        </>
+      ) : null}
+
+      {block.type === 'pricePromo' ? (
+        <>
+          <Input label="DP" value={(p.dpText as string) ?? ''} hint="Contoh: 10% atau Rp 200 jt." onChange={(e) => onPatch({ dpText: e.target.value || undefined })} />
+          <Input label="Cicilan" value={(p.installmentText as string) ?? ''} hint="Contoh: Rp 18 jt/bln." onChange={(e) => onPatch({ installmentText: e.target.value || undefined })} />
+          <Input
+            label="Promo" textarea rows={4} hint="Satu promo per baris."
+            value={(((p.promos as string[]) ?? []).join('\n'))}
+            onChange={(e) => { const promos = e.target.value.split('\n').map((s) => s.trim()).filter(Boolean); onPatch({ promos: promos.length ? promos : undefined }); }}
+          />
+          <Input label="Catatan" value={(p.note as string) ?? ''} onChange={(e) => onPatch({ note: e.target.value || undefined })} />
+        </>
+      ) : null}
+
+      {block.type === 'developer' ? (
+        <>
+          <Input label="Tentang developer" textarea rows={3} value={(p.about as string) ?? ''} onChange={(e) => onPatch({ about: e.target.value || undefined })} />
+          <span className="lw-caption" style={{ color: 'var(--evergreen)' }}>Statistik</span>
+          {(((p.stats as { value: string; label: string }[]) ?? [])).map((row, i) => {
+            const stats = () => [...((p.stats as { value: string; label: string }[]) ?? [])];
+            return (
+              <div key={i} className="ed__fieldrow">
+                <Input label="Angka" value={row.value} onChange={(e) => { const s = stats(); s[i] = { ...s[i], value: e.target.value }; onPatch({ stats: s }); }} />
+                <Input label="Label" value={row.label} onChange={(e) => { const s = stats(); s[i] = { ...s[i], label: e.target.value }; onPatch({ stats: s }); }} />
+                <button type="button" className="ds-btn ds-btn--link ds-btn--sm" aria-label={`Hapus statistik ${i + 1}`} onClick={() => onPatch({ stats: stats().filter((_, j) => j !== i) })}>Hapus</button>
+              </div>
+            );
+          })}
+          <button type="button" className="ds-btn ds-btn--link ds-btn--sm" onClick={() => onPatch({ stats: [...(((p.stats as { value: string; label: string }[]) ?? [])), { value: '', label: '' }] })}>
+            Tambah statistik
+          </button>
+        </>
+      ) : null}
+
+      {block.type === 'testimonials' ? (
+        <>
+          <p className="lw-caption" style={{ color: 'var(--sage)' }}>
+            Testimoni tidak pernah diisi AI — ketik kutipan nyata dari penghuni.
+          </p>
+          {(((p.items as { quote: string; name: string; unit: string }[]) ?? [])).map((row, i) => {
+            const items = () => [...((p.items as { quote: string; name: string; unit: string }[]) ?? [])];
+            return (
+              <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: 6, borderTop: i ? '1px solid var(--stone)' : undefined, paddingTop: i ? 10 : 0 }}>
+                <Input label={`Kutipan ${i + 1}`} textarea rows={2} value={row.quote} onChange={(e) => { const it = items(); it[i] = { ...it[i], quote: e.target.value }; onPatch({ items: it }); }} />
+                <div className="ed__fieldrow">
+                  <Input label="Nama" value={row.name} onChange={(e) => { const it = items(); it[i] = { ...it[i], name: e.target.value }; onPatch({ items: it }); }} />
+                  <Input label="Tipe unit" value={row.unit} onChange={(e) => { const it = items(); it[i] = { ...it[i], unit: e.target.value }; onPatch({ items: it }); }} />
+                </div>
+                <button type="button" className="ds-btn ds-btn--link ds-btn--sm" style={{ alignSelf: 'flex-start' }} aria-label={`Hapus testimoni ${i + 1}`} onClick={() => onPatch({ items: items().filter((_, j) => j !== i) })}>Hapus</button>
+              </div>
+            );
+          })}
+          <button type="button" className="ds-btn ds-btn--link ds-btn--sm" onClick={() => onPatch({ items: [...(((p.items as { quote: string; name: string; unit: string }[]) ?? [])), { quote: '', name: '', unit: '' }] })}>
+            Tambah testimoni
+          </button>
         </>
       ) : null}
 

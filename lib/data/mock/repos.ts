@@ -1,5 +1,6 @@
 import { newId } from '@/lib/ids';
-import { defaultBlocks } from '@/lib/landing/blocks';
+import { defaultBlocksForTheme } from '@/lib/landing/blocks';
+import { DEFAULT_THEME, THEME_DEFAULT_PALETTE } from '@/lib/landing/themeNames';
 import { uniqueSlug } from '@/lib/slug';
 import type { DataStore, NewAiUsage, NewHouseType, NewLead, NewMedia, NewProject } from '../repo';
 import type { EventType, StoreShape } from '../types';
@@ -59,8 +60,9 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
           id: newId('prj'),
           slug: uniqueSlug(input.name, s.projects.map((p) => p.slug)),
           status: 'draft' as const,
-          theme: 'modern' as const,
-          blocks: defaultBlocks(),
+          theme: DEFAULT_THEME,
+          palette: THEME_DEFAULT_PALETTE[DEFAULT_THEME],
+          blocks: defaultBlocksForTheme(DEFAULT_THEME),
           seo: {},
           aiContent: null,
           createdAt: now(),

@@ -1,0 +1,317 @@
+/*
+ * Tema "Tropis Hangat" — layout & tipografi, dicocokkan verbatim ke
+ * `design/project/10 Tropis Hangat.dc.html`. NOL nilai warna literal: setiap
+ * warna lewat var(--lp-*) yang dipasang paletteStyle() di root landing. Warna
+ * semi-transparan pakai color-mix, bukan fungsi warna beralfa.
+ * Diverifikasi tests/unit/theme-no-literal-colors.test.ts.
+ */
+
+.lp[data-lp-theme='tropicalWarm'] {
+  --lp-font-display: var(--font-dm-serif), Georgia, 'Times New Roman', serif;
+  --lp-font-text: var(--font-dm-sans), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--lp-bg);
+  color: var(--lp-ink);
+  font-family: var(--lp-font-text);
+}
+
+.lp[data-lp-theme='tropicalWarm'] a { color: inherit; }
+
+/* Fokus keyboard yang jelas & sesuai tema (a11y) — berlaku untuk kesepuluh tema */
+.lp[data-lp-theme] :focus-visible { outline: 2px solid var(--lp-accent); outline-offset: 2px; border-radius: 3px; }
+/* Hover halus hanya di perangkat berpointer (bukan sentuh) */
+@media (hover: hover) {
+  .lp-tw-tab:not([aria-selected='true']):hover { border-color: currentColor; }
+  .lp-tw-faq__q:hover { color: var(--lp-accent); }
+}
+
+.lp-tw-section { padding: 30px 20px; }
+.lp-tw-in { width: 100%; }
+
+.lp-tw-eyebrow {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lp-accent); font-weight: 500; margin: 0 0 8px;
+}
+.lp-tw-h2 {
+  font-family: var(--lp-font-display); font-size: 29px; line-height: 1.2;
+  color: var(--lp-ink); font-weight: 400; margin: 0 0 6px;
+}
+.lp-tw-lead { color: var(--lp-ink-soft); max-width: 68ch; margin: 0 0 16px; line-height: 1.65; font-size: 13.5px; }
+
+.lp-tw-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lp-tw-ph {
+  width: 100%; height: 100%; min-height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  background: repeating-linear-gradient(135deg, var(--lp-ph-a) 0 10px, var(--lp-ph-b) 10px 20px);
+  color: var(--lp-ink-faint); font: 10px ui-monospace, monospace; letter-spacing: 0.16em;
+  text-transform: uppercase; text-align: center; padding: 8px;
+}
+
+/* Buttons — desain memakai sudut 8px, bukan pil */
+.lp-tw-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 13px 18px; border-radius: 8px; font-weight: 500; font-size: 13px;
+  text-decoration: none; cursor: pointer; border: 1px solid transparent;
+  font-family: var(--lp-font-text); transition: opacity 0.12s ease;
+}
+.lp-tw-btn:hover { opacity: 0.9; }
+.lp-tw-btn--primary { background: var(--lp-accent); color: var(--lp-on-accent); }
+.lp-tw-btn--feature { background: var(--lp-feature); color: var(--lp-on-feature); }
+.lp-tw-btn--ghost { background: transparent; color: var(--lp-ink-soft); border-color: var(--lp-line); }
+.lp-tw-btn--block { width: 100%; }
+
+/* Header */
+.lp-tw-header {
+  background: var(--lp-accent); color: var(--lp-on-accent);
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 13px 20px;
+}
+.lp-tw-header__name { font-family: var(--lp-font-display); font-size: 20px; line-height: 1; }
+.lp-tw-header__loc { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* Hero */
+.lp-tw-hero {
+  position: relative; height: 500px; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  color: var(--lp-on-contrast);
+}
+.lp-tw-hero__media { position: absolute; inset: 0; }
+.lp-tw-hero__overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 30%, color-mix(in srgb, var(--lp-contrast) 78%, transparent) 100%);
+}
+.lp-tw-hero__body { position: relative; padding: 22px 20px 24px; }
+.lp-tw-hero__badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+.lp-tw-badge {
+  background: color-mix(in srgb, var(--lp-on-accent) 16%, transparent);
+  backdrop-filter: blur(6px); color: var(--lp-on-contrast);
+  padding: 6px 11px; border-radius: 6px; font-size: 11px; white-space: nowrap;
+}
+.lp-tw-hero__title { font-family: var(--lp-font-display); font-size: 40px; line-height: 1.08; margin: 0 0 10px; }
+.lp-tw-hero__sub { color: var(--lp-on-contrast-soft); margin: 0; font-size: 14px; line-height: 1.6; }
+
+/* Price bar — blok gelap (contrast), nilai memakai contrast-accent */
+.lp-tw-pricebar {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  background: var(--lp-contrast); color: var(--lp-on-contrast); padding: 20px;
+}
+.lp-tw-pricebar__label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-on-contrast-soft); margin: 0; }
+.lp-tw-pricebar__value { font-family: var(--lp-font-display); font-size: 30px; color: var(--lp-contrast-accent); margin: 2px 0 0; }
+.lp-tw-pricebar__cta {
+  background: var(--lp-accent); color: var(--lp-on-accent);
+  padding: 14px 18px; border-radius: 8px; font-weight: 500; font-size: 13px; text-decoration: none; white-space: nowrap;
+}
+
+/* Location — peta lebih dulu, lalu strip akses horizontal */
+.lp-tw-map {
+  height: 210px; border-radius: 14px; overflow: hidden; position: relative;
+  background: var(--lp-surface); margin-bottom: 14px; display: grid; place-items: center;
+}
+.lp-tw-map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.lp-tw-map__grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(var(--lp-line) 1px, transparent 1px), linear-gradient(90deg, var(--lp-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.lp-tw-map__pin {
+  position: relative; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--lp-accent); box-shadow: 0 0 0 8px color-mix(in srgb, var(--lp-accent) 16%, transparent);
+}
+.lp-tw-access { display: flex; gap: 9px; overflow-x: auto; padding-bottom: 6px; }
+.lp-tw-access__item { min-width: 126px; background: var(--lp-surface); border-radius: 12px; padding: 14px; }
+.lp-tw-access__time { font-family: var(--lp-font-display); font-size: 22px; color: var(--lp-accent); }
+.lp-tw-access__place { font-size: 11.5px; color: var(--lp-ink-soft); margin-top: 4px; line-height: 1.4; }
+
+/* Highlights / USP — kartu tergabung, nomor serif */
+.lp-tw-usp { display: flex; flex-direction: column; gap: 1px; background: var(--lp-line); border-radius: 14px; overflow: hidden; }
+.lp-tw-usp__item { background: var(--lp-bg); padding: 16px 17px; display: flex; gap: 14px; }
+.lp-tw-usp__num { font-family: var(--lp-font-display); font-size: 20px; color: var(--lp-accent); min-width: 26px; }
+.lp-tw-usp__text { font-size: 15px; font-weight: 500; line-height: 1.4; }
+
+/* House types — blok fitur (hijau) */
+.lp-tw-units { background: var(--lp-feature); color: var(--lp-on-feature); padding: 30px 20px; }
+.lp-tw-units .lp-tw-eyebrow { color: var(--lp-on-feature-soft); }
+.lp-tw-units .lp-tw-h2 { color: var(--lp-on-feature); }
+.lp-tw-tabs { display: flex; gap: 7px; margin-bottom: 16px; }
+.lp-tw-tab {
+  flex: 1; padding: 11px 0; border-radius: 8px; font-size: 12.5px; font-weight: 500; cursor: pointer;
+  background: transparent; color: var(--lp-on-feature-soft); font-family: var(--lp-font-text);
+  border: 1px solid color-mix(in srgb, var(--lp-on-feature) 35%, transparent);
+}
+.lp-tw-tab[aria-selected='true'] { background: var(--lp-bg); color: var(--lp-feature); border-color: var(--lp-bg); }
+.lp-tw-unitcard { background: var(--lp-bg); color: var(--lp-ink); border-radius: 14px; overflow: hidden; }
+.lp-tw-unitcard__media { height: 180px; }
+.lp-tw-unitcard__body { padding: 18px; }
+.lp-tw-unitcard__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+.lp-tw-unitcard__name { font-family: var(--lp-font-display); font-size: 24px; margin: 0; }
+.lp-tw-unitcard__price { font-size: 14px; color: var(--lp-accent); font-weight: 500; }
+.lp-tw-specgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--lp-line); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+.lp-tw-spec { background: var(--lp-bg); padding: 12px 13px; }
+.lp-tw-spec__label { font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--lp-ink-faint); }
+.lp-tw-spec__value { font-size: 15px; font-weight: 500; margin-top: 2px; }
+.lp-tw-unitcard__desc { color: var(--lp-ink-soft); line-height: 1.6; margin: 0 0 14px; font-size: 13px; }
+
+/* Specs comparison table (mati by default) */
+.lp-tw-table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 13px; }
+.lp-tw-table th, .lp-tw-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--lp-line); }
+.lp-tw-table th { color: var(--lp-ink-faint); font-weight: 500; }
+
+/* Facilities */
+.lp-tw-fac { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.lp-tw-fac__item { border-radius: 14px; overflow: hidden; background: var(--lp-surface); }
+.lp-tw-fac__ph { height: 104px; }
+.lp-tw-fac__name { padding: 11px 12px 12px; font-size: 13.5px; font-weight: 500; }
+
+/* Masterplan / floor plans */
+.lp-tw-master { aspect-ratio: 1 / 1; border-radius: 16px; overflow: hidden; }
+.lp-tw-plans { display: grid; gap: 16px; margin-top: 14px; }
+.lp-tw-plan { border-radius: 14px; overflow: hidden; background: var(--lp-surface); }
+.lp-tw-plan__media { aspect-ratio: 4 / 3; }
+.lp-tw-plan__name { padding: 11px 12px; font-weight: 500; font-size: 13.5px; }
+
+/* Gallery */
+.lp-tw-gallery { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 6px; scroll-snap-type: x mandatory; }
+.lp-tw-gallery__item { min-width: 230px; scroll-snap-align: start; }
+.lp-tw-gallery__media { height: 250px; border-radius: 14px; overflow: hidden; margin-bottom: 9px; }
+.lp-tw-gallery__cap { font-size: 12.5px; color: var(--lp-ink-soft); }
+
+/* Price & promo (accent) */
+.lp-tw-promo { background: var(--lp-accent); color: var(--lp-on-accent); padding: 32px 20px; }
+.lp-tw-promo .lp-tw-eyebrow { color: color-mix(in srgb, var(--lp-on-accent) 86%, transparent); }
+.lp-tw-promo .lp-tw-h2 { color: var(--lp-on-accent); }
+.lp-tw-promo__price { font-family: var(--lp-font-display); font-size: 38px; margin: 10px 0 20px; }
+.lp-tw-promo__cards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+.lp-tw-promo__card { background: color-mix(in srgb, var(--lp-contrast) 15%, transparent); border-radius: 10px; padding: 14px; }
+.lp-tw-promo__card-label { font-size: 11px; color: color-mix(in srgb, var(--lp-on-accent) 86%, transparent); }
+.lp-tw-promo__card-value { font-weight: 500; font-size: 20px; margin-top: 3px; }
+.lp-tw-promo__list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.lp-tw-promo__li { background: color-mix(in srgb, var(--lp-contrast) 13%, transparent); border-radius: 8px; padding: 12px 14px; font-size: 13.5px; }
+.lp-tw-promo__note { margin-top: 12px; font-size: 12px; color: color-mix(in srgb, var(--lp-on-accent) 86%, transparent); }
+
+/* Developer */
+.lp-tw-dev__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+.lp-tw-dev__stat { background: var(--lp-surface); border-radius: 12px; padding: 16px 8px; text-align: center; }
+.lp-tw-dev__val { font-family: var(--lp-font-display); font-size: 23px; color: var(--lp-accent); }
+.lp-tw-dev__lbl { font-size: 10.5px; color: var(--lp-ink-faint); margin-top: 3px; }
+
+/* Testimonials */
+.lp-tw-tst { display: flex; flex-direction: column; gap: 10px; }
+.lp-tw-tst__card { background: var(--lp-surface); border-radius: 14px; padding: 18px; }
+.lp-tw-tst__quote { font-family: var(--lp-font-display); font-size: 19px; line-height: 1.45; margin: 0 0 14px; }
+.lp-tw-tst__who { display: flex; gap: 11px; align-items: center; }
+.lp-tw-tst__avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex: none;
+  background: repeating-linear-gradient(135deg, var(--lp-ph-a) 0 6px, var(--lp-ph-b) 6px 12px);
+}
+.lp-tw-tst__name { font-size: 13px; font-weight: 500; }
+.lp-tw-tst__unit { font-size: 11.5px; color: var(--lp-ink-faint); }
+
+/* FAQ — kartu tergabung */
+.lp-tw-faq { border-radius: 14px; overflow: hidden; background: var(--lp-line); display: flex; flex-direction: column; gap: 1px; }
+.lp-tw-faq__item { background: var(--lp-bg); }
+.lp-tw-faq__item[data-open='true'] { background: var(--lp-surface); }
+.lp-tw-faq__q {
+  width: 100%; display: flex; justify-content: space-between; gap: 12px; align-items: center;
+  padding: 15px 16px; background: none; border: 0; text-align: left;
+  color: var(--lp-ink); cursor: pointer; font-size: 13.5px; font-family: var(--lp-font-text);
+}
+.lp-tw-faq__mark { color: var(--lp-accent); flex: none; font-size: 17px; }
+.lp-tw-faq__a { padding: 0 16px 15px; color: var(--lp-ink-soft); line-height: 1.7; font-size: 12.5px; }
+
+/* Tim marketing / agent CTA */
+.lp-tw-agent { background: var(--lp-surface); padding: 30px 20px; }
+.lp-tw-agent__card { background: var(--lp-bg); border-radius: 14px; padding: 15px; display: flex; gap: 13px; align-items: center; }
+.lp-tw-agent__avatar {
+  width: 56px; height: 56px; flex: none; border-radius: 10px;
+  background: repeating-linear-gradient(135deg, var(--lp-ph-a) 0 6px, var(--lp-ph-b) 6px 12px);
+  display: grid; place-items: center; font-family: var(--lp-font-display); font-size: 20px; color: var(--lp-ink-soft);
+}
+.lp-tw-agent__info { flex: 1; min-width: 0; }
+.lp-tw-agent__name { font-size: 15px; font-weight: 500; }
+.lp-tw-agent__role { font-size: 11.5px; color: var(--lp-ink-faint); margin-bottom: 9px; }
+.lp-tw-agent__actions { display: flex; gap: 7px; }
+.lp-tw-agent__btn { border-radius: 6px; padding: 7px 13px; font-size: 11.5px; text-decoration: none; }
+.lp-tw-agent__btn--wa { background: var(--lp-feature); color: var(--lp-on-feature); }
+.lp-tw-agent__btn--call { border: 1px solid var(--lp-line); color: var(--lp-ink-soft); }
+
+/* Contact (closing, on contrast) — dipertahankan untuk pipeline lead */
+.lp-tw-contact { background: var(--lp-contrast); color: var(--lp-on-contrast); padding: 32px 20px; }
+.lp-tw-contact .lp-tw-eyebrow { color: var(--lp-contrast-accent); }
+.lp-tw-contact .lp-tw-h2 { color: var(--lp-on-contrast); }
+.lp-tw-contact__lead { color: var(--lp-on-contrast-soft); font-size: 13.5px; line-height: 1.7; margin: 0 0 18px; }
+.lp-tw-contact__card { background: var(--lp-surface); color: var(--lp-ink); border-radius: 14px; padding: 18px; }
+
+/* Footer */
+.lp-tw-footer { background: var(--lp-footer); color: var(--lp-on-footer); padding: 28px 20px; }
+.lp-tw-footer__name { font-family: var(--lp-font-display); font-size: 19px; color: var(--lp-on-accent); margin-bottom: 8px; }
+.lp-tw-footer__addr { font-size: 12.5px; line-height: 1.8; margin-bottom: 18px; }
+.lp-tw-footer__links { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12.5px; padding-bottom: 16px; border-bottom: 1px solid color-mix(in srgb, var(--lp-on-footer) 25%, transparent); }
+.lp-tw-footer__links a { color: color-mix(in srgb, var(--lp-on-footer), var(--lp-on-accent) 40%); }
+.lp-tw-footer__copy { font-size: 11px; padding-top: 14px; }
+
+/*
+ * ── Responsive: SHARED base untuk kesepuluh tema (kelas lp-tw-*). ──
+ * Mobile-first: nilai dasar = 390px (satu kolom, mengikuti file desain).
+ * Strategi desktop: kolom baca ~720px untuk section teks, bingkai lebar ~1080px
+ * untuk section media/grid (dipilih via :has), plus grid yang menambah kolom.
+ * Ini menghapus kesan "kolom 390px dipusatkan di layar lebar".
+ */
+.lp-tw-hero__title { text-wrap: balance; }
+.lp-tw-lead, .lp-tw-hero__sub, .lp-tw-unitcard__desc { text-wrap: pretty; }
+/* Anchor (#unit/#kontak) tidak tertutup header sticky saat dilompati */
+.lp[data-lp-theme] [id] { scroll-margin-top: 72px; }
+
+/* Target sentuh memadai di perangkat sentuh */
+@media (pointer: coarse) {
+  .lp-tw-tab, .lp-tw-faq__q, .lp-tw-agent__btn, .lp-tw-header__cta, .lp-tw-pricebar__cta { min-height: 44px; }
+}
+
+/* Tablet */
+@media (min-width: 640px) {
+  .lp-tw-hero { height: 520px; }
+  .lp-tw-fac { grid-template-columns: repeat(3, 1fr); }
+  .lp-tw-tst { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .lp-tw-gallery { display: grid; grid-template-columns: repeat(2, 1fr); overflow: visible; }
+  .lp-tw-gallery__item { min-width: 0; }
+  .lp-tw-gallery__media { height: 200px; }
+}
+
+/* Desktop: kolom baca + bingkai lebar untuk grid/media */
+@media (min-width: 900px) {
+  .lp-tw-in { max-width: 720px; margin-inline: auto; }
+  /* Section yang berisi grid/carousel/kartu memakai bingkai lebar */
+  .lp-tw-section:has(.lp-tw-fac) > .lp-tw-in,
+  .lp-tw-section:has(.lp-tw-gallery) > .lp-tw-in,
+  .lp-tw-section:has(.lp-tw-tst) > .lp-tw-in,
+  .lp-tw-section:has(.lp-tw-plans) > .lp-tw-in,
+  .lp-tw-units > .lp-tw-in,
+  .lp-tw-promo > .lp-tw-in,
+  .lp-tw-footer > .lp-tw-in { max-width: 1080px; }
+  /* Chrome full-bleed: latar tetap penuh, konten dibingkai ke 1080 terpusat */
+  .lp-tw-header,
+  .lp-tw-hero__body,
+  .lp-tw-pricebar { padding-inline: max(20px, calc((100% - 1080px) / 2)); }
+
+  .lp-tw-hero { height: 600px; }
+  .lp-tw-hero__title { max-width: 20ch; }
+  .lp-tw-hero__sub { max-width: 54ch; }
+
+  .lp-tw-gallery { grid-template-columns: repeat(4, 1fr); }
+  .lp-tw-gallery__media { height: 220px; }
+  .lp-tw-fac { grid-template-columns: repeat(3, 1fr); }
+  .lp-tw-tst { grid-template-columns: repeat(2, 1fr); }
+  .lp-tw-unitcard { display: grid; grid-template-columns: 1.05fr 1fr; }
+  .lp-tw-unitcard__media { height: auto; min-height: 300px; }
+  .lp-tw-plans { grid-template-columns: 1fr 1fr; align-items: start; }
+}
+
+/* Layar lebar: napas ekstra, tanpa melar tak terkendali */
+@media (min-width: 1200px) {
+  .lp-tw-section { padding: 60px 24px; }
+  .lp-tw-units, .lp-tw-promo, .lp-tw-agent, .lp-tw-contact { padding: 60px 24px; }
+  .lp-tw-hero { height: 660px; }
+}
+
+/* Hormati preferensi gerak berkurang */
+@media (prefers-reduced-motion: reduce) {
+  .lp[data-lp-theme] * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}

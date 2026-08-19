@@ -2,7 +2,15 @@
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
 > Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
-> Last updated: 2026-08-19 (slice 2A: spec + plan sistem tema landing siap dieksekusi; Leads + Settings di-commit)
+> Last updated: 2026-08-19 (10 tema landing SELESAI + pass /impeccable adapt (responsif mobile-first, bingkai desktop) + polish (fokus keyboard, kontras). AVAILABLE_THEMES = 10.)
+>
+> **Responsif (lapisan bersама, `themes/tropicalWarm/theme.css`, kelas lp-tw-*):** kolom baca ~720px utk section teks, bingkai lebar ~1080px utk section grid/media (via `:has`), chrome full-bleed dibingkai lewat `padding-inline: max(...)`; grid nambah kolom; target sentuh ≥44px; `prefers-reduced-motion`; `:focus-visible` outline var(--lp-accent). Verifikasi visual: screenshot 390/768/1440 (mobile tak berubah). Jangan kembalikan `.lp-tw-in` ke 1120px satu-kolom.
+>
+> **10 tema:** tropicalWarm (bespoke, `themes/tropicalWarm/`), 9 lain = komponen bersama + CSS di-scope `[data-lp-theme=...]` (`themes/<name>.css`) + font + urutan. Override struktural: editorialWhite & softLuxury pakai `HouseTypesList` (unit sebagai daftar/carousel). Simplifikasi sadar: 03 corporateBlue pakai hero foto bersama (form-in-hero desain dijalankan lewat blok form penutup); 06 architectural pakai kartu unit bertab (sudah mirip lembar spesifikasi). Kalau mau lebih presisi ke desain, tambah varian Hero/Unit di `themes/shared/` + daftarkan di `THEME_OVERRIDES`.
+>
+> **Tema landing (design/project/*.dc.html):** file desain 01–10 SUDAH ada di repo `design/project/`. DesignSync/`/design-login` GAGAL di device ini (400 "could not add design scopes") — baca file langsung dari `design/project/`, jangan pakai DesignSync.
+> **Pola membangun tema baru (terbukti):** (1) baca `design/project/NN ....dc.html`; (2) tambah font di `lib/landing/fonts.ts` + `tests/mocks/next-font.ts`; (3) tambah urutan di `BLOCK_ORDER_BY_THEME` (blocks.ts); (4) tulis `lib/landing/themes/<name>.css` — override kelas `lp-tw-*` di-scope `[data-lp-theme='<name>']`, NOL warna literal (semua var(--lp-*)); (5) untuk beda struktural (unit daftar/spec-sheet, form di hero) tambah komponen di `themes/shared/` + daftarkan di `THEME_OVERRIDES` (themes/index.ts); (6) import CSS di globals.css; (7) `AVAILABLE_THEMES` += nama; (8) update tes `block-renderer` (AVAILABLE_THEMES) + `editor.spec` (tema enabled/disabled); (9) verify. Palet 10 warna SUDAH ada — tema = font+urutan+CSS+enable saja. **7 sisa:** 03 Korporat Biru (form di hero), 04 Soft Luxury Beige, 05 Bold Retail, 06 Arsitektural Beton (unit spec-sheet), 07 Nature Calm (fasilitas dulu), 08 Klasik Navy, 09 Playful Pastel.
+> **PENTING e2e:** bunuh dev server bocor di port 3000 + `rm -rf .next` SEBELUM e2e (`bug-030`), kalau tidak `reuseExistingServer` pakai bundle basi → semua tes interaksi klien gagal walau kode benar.
 
 ---
 
@@ -57,17 +65,19 @@
 
 ## 🚀 Next phase
 
-**Slice 2A — sistem tema landing + tema Tropis Hangat.** Blocker eksternal "menunggu desain dari user" SUDAH TERBUKA: user menyerahkan 10 file desain landing page. Brainstorming selesai, spec disetujui dan ditulis, implementation plan siap dieksekusi.
+**Slice 2A — sistem tema landing + tema Tropis Hangat: SELESAI & terverifikasi (2026-08-19).**
+`npm run verify` hijau: **365 unit test**, `next build` bersih, **35 e2e passed + 1 skipped** (AI_MOCK_FAIL di-gate). Belum di-commit (menunggu keputusan user; branch = default `slice-1-frontend`, jadi buat branch baru dulu bila commit).
+
+Yang dibangun (Task 1–14 plan tema): `lib/landing/palettes.ts` (10×20 token, gate WCAG AA), `themeNames.ts`, `fonts.ts`, 3 blok baru (`pricePromo`/`developer`/`testimonials`) + perluasan `hero`(badges,priceFrom,projectId,waNumber,defaultMessage)/`location`(access)/`floorPlans`(masterplan), `BLOCK_ORDER_BY_THEME`+`defaultBlocksForTheme`, registry `THEMES` objek (label/fonts/defaultPalette/components/Chrome), 14 komponen `themes/tropicalWarm/` + Header/Footer + `theme.css` (nol warna literal), migrasi store row-level (`Project.palette`), editor: `PalettePicker` + konfirmasi urutan + 4 panel blok, `page.tsx` root `data-lp-theme`/`data-lp-palette`+`paletteStyle`, seed Parkspring mengisi 14 blok. Tema `wireframe` DIHAPUS.
+- Vitest: alias `next/font/google` → `tests/mocks/next-font.ts` (next/font tak jalan di jsdom).
+- Deviasi kontras tercatat: `tropicalWarm['on-accent']='#ffffff'` (krem gagal 4,46:1) — sama pola softLuxury/boldRetail.
+- Gotcha baru: `bug-028` (komentar 'rgba(' kena lint), `bug-029` (label palet == label tema → strict-mode e2e).
+
+**Slice 2B–2J — 9 layout sisanya (01–09).** Semua 10 tema SUDAH terdaftar di `THEMES` dengan palet masing-masing, tapi 9 dipetakan sementara ke komponen tropicalWarm dan DISABLED di picker (`AVAILABLE_THEMES=['tropicalWarm']`). Membangun layout DISTINCT tiap tema butuh file `.dc.html` 01–09 di Claude Design `b83ace24-6494-4409-9908-45979e7de301` — **butuh `/design-login` per-device (hanya user yang bisa jalankan)**. Tanpa file itu, 9 tema hanya bisa dibuat sebagai interpretasi dari brief satu-baris spec §2. **Keputusan user tertunda:** (a) user `/design-login` → agen pull DesignSync → bangun faithful; atau (b) izinkan bangun interpretasi tanpa file.
 
 ### Cara melanjutkan (termasuk di device lain)
 
-```
-Baca .wolf/STATUS.md dulu, lalu jalankan
-docs/superpowers/plans/2026-08-19-listingku-landing-tema-tropis.md
-mulai dari task yang belum selesai.
-```
-
-Di device baru: `npm install` lalu `npm run seed:reset` dulu. `/design-login` HANYA perlu kalau ingin membuka ulang file desain — plan sudah memuat kesepuluh palet lengkap dengan nilai hex-nya, jadi eksekusi tidak memerlukannya.
+Di device baru: `npm install` lalu `npm run seed:reset` dulu. `/design-login` HANYA perlu untuk membuka file desain 01–09 (slice 2B+).
 
 - **Spec:** `docs/superpowers/specs/2026-08-19-listingku-landing-tema-tropis-design.md` — 21 bagian, berdiri sendiri.
 - **Plan:** `docs/superpowers/plans/2026-08-19-listingku-landing-tema-tropis.md` — 14 task TDD, tiap task berakhir commit.

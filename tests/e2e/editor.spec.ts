@@ -10,9 +10,9 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/projects/prj_parkspring/editor');
 });
 
-test('menampilkan seluruh sebelas blok dalam urutan default', async ({ page }) => {
+test('menampilkan seluruh empat belas blok dalam urutan default tema', async ({ page }) => {
   const rows = page.getByRole('button', { name: /^Blok / });
-  await expect(rows).toHaveCount(11);
+  await expect(rows).toHaveCount(14);
   await expect(rows.first()).toHaveAccessibleName('Blok Hero');
 });
 
@@ -29,23 +29,38 @@ test('mengedit judul hero dan melihatnya di pratinjau', async ({ page }) => {
 });
 
 test('panel blok FAQ menyediakan toggle tampil/sembunyi', async ({ page }) => {
-  // Seed belum punya konten AI, jadi blok FAQ kosong dan tidak dirender.
-  await expect(page.locator('.ed__preview').getByRole('heading', { name: /Pertanyaan yang sering/ })).toHaveCount(0);
+  // Seed Parkspring mengisi FAQ, jadi blok ini dirender di pratinjau.
+  const faqItem = page.locator('.ed__preview').getByText('Apakah bisa KPR?');
+  await expect(faqItem).toBeVisible();
+
   await page.getByRole('button', { name: 'Blok FAQ' }).click();
   const toggle = page.getByRole('switch', { name: 'Tampilkan blok' });
   await expect(toggle).toBeVisible();
   await expect(toggle).toBeChecked();
   await toggle.click();
   await expect(toggle).not.toBeChecked();
+  // Menonaktifkan blok mengeluarkannya dari pratinjau (resolveBlocks melewati disabled).
+  await expect(faqItem).toHaveCount(0);
 });
 
-test('menaikkan urutan blok Galeri', async ({ page }) => {
-  await page.getByRole('button', { name: 'Naikkan Galeri' }).click();
-  await expect(page.getByRole('button', { name: /^Blok / }).first()).toHaveAccessibleName('Blok Galeri');
+test('menaikkan urutan blok Lokasi ke atas Hero', async ({ page }) => {
+  await page.getByRole('button', { name: 'Naikkan Lokasi' }).click();
+  await expect(page.getByRole('button', { name: /^Blok / }).first()).toHaveAccessibleName('Blok Lokasi');
 });
 
-test('tema Showcase dan Luxury tampil nonaktif sampai desainnya masuk', async ({ page }) => {
-  await expect(page.getByRole('button', { name: 'Showcase' })).toBeDisabled();
-  await expect(page.getByRole('button', { name: 'Luxury' })).toBeDisabled();
-  await expect(page.getByRole('button', { name: 'Modern' })).toBeEnabled();
+test('kesepuluh tema aktif dan bisa dipilih', async ({ page }) => {
+  // Label palet sama dengan label tema, jadi scope ke .ed__themes agar tidak
+  // bentrok dengan swatch di .ed__palettes.
+  const themeButtons = page.locator('.ed__themes').getByRole('button');
+  await expect(themeButtons).toHaveCount(10);
+  for (const name of ['Tropis Hangat', 'Premium Gelap', 'Korporat Biru', 'Nature Calm', 'Playful Pastel']) {
+    await expect(page.locator('.ed__themes').getByRole('button', { name })).toBeEnabled();
+  }
+});
+
+test('memilih swatch palet mengubah pratinjau tanpa reload', async ({ page }) => {
+  const preview = page.locator('.ed__preview');
+  await expect(preview).toHaveAttribute('data-lp-palette', 'tropicalWarm');
+  await page.locator('.ed__palettes').getByRole('button', { name: 'Premium Gelap' }).click();
+  await expect(preview).toHaveAttribute('data-lp-palette', 'premiumDark');
 });
