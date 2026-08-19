@@ -1,6 +1,7 @@
 import {
   DM_Serif_Display, DM_Sans, Cormorant_Garamond, Jost, Instrument_Serif, IBM_Plex_Sans,
   Marcellus, Karla, Anton, Figtree,
+  Playfair_Display, Lato, Fredoka, Outfit, Archivo, Archivo_Narrow, Space_Grotesk, Lora, Nunito_Sans,
 } from 'next/font/google';
 
 /**
@@ -40,6 +41,33 @@ const anton = Anton({
 const figtree = Figtree({
   subsets: ['latin'], weight: ['400', '500', '700', '800'], variable: '--font-figtree', display: 'swap',
 });
+const playfair = Playfair_Display({
+  subsets: ['latin'], weight: ['400', '500', '600'], style: ['normal', 'italic'], variable: '--font-playfair', display: 'swap',
+});
+const lato = Lato({
+  subsets: ['latin'], weight: ['300', '400', '700'], variable: '--font-lato', display: 'swap',
+});
+const fredoka = Fredoka({
+  subsets: ['latin'], weight: ['500', '600'], variable: '--font-fredoka', display: 'swap',
+});
+const outfit = Outfit({
+  subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-outfit', display: 'swap',
+});
+const archivo = Archivo({
+  subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-archivo', display: 'swap',
+});
+const archivoNarrow = Archivo_Narrow({
+  subsets: ['latin'], weight: ['400', '600'], variable: '--font-archivo-narrow', display: 'swap',
+});
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-space-grotesk', display: 'swap',
+});
+const lora = Lora({
+  subsets: ['latin'], weight: ['400', '500'], style: ['normal', 'italic'], variable: '--font-lora', display: 'swap',
+});
+const nunitoSans = Nunito_Sans({
+  subsets: ['latin'], weight: ['300', '400', '600'], variable: '--font-nunito-sans', display: 'swap',
+});
 
 export type ThemeFontDecl = { className: string; display: string; text: string };
 
@@ -68,5 +96,30 @@ export const THEME_FONTS: Record<string, ThemeFontDecl> = {
     className: `${anton.variable} ${figtree.variable}`,
     display: 'var(--font-anton), "Arial Black", system-ui, sans-serif',
     text: 'var(--font-figtree), system-ui, -apple-system, "Segoe UI", sans-serif',
+  },
+  classicNavy: {
+    className: `${playfair.variable} ${lato.variable}`,
+    display: 'var(--font-playfair), Georgia, "Times New Roman", serif',
+    text: 'var(--font-lato), system-ui, -apple-system, "Segoe UI", sans-serif',
+  },
+  playfulPastel: {
+    className: `${fredoka.variable} ${outfit.variable}`,
+    display: 'var(--font-fredoka), "Trebuchet MS", system-ui, sans-serif',
+    text: 'var(--font-outfit), system-ui, -apple-system, "Segoe UI", sans-serif',
+  },
+  corporateBlue: {
+    className: `${archivoNarrow.variable} ${archivo.variable}`,
+    display: 'var(--font-archivo-narrow), "Arial Narrow", system-ui, sans-serif',
+    text: 'var(--font-archivo), system-ui, -apple-system, "Segoe UI", sans-serif',
+  },
+  architectural: {
+    className: `${spaceGrotesk.variable}`,
+    display: 'var(--font-space-grotesk), system-ui, sans-serif',
+    text: 'var(--font-space-grotesk), system-ui, -apple-system, "Segoe UI", sans-serif',
+  },
+  natureCalm: {
+    className: `${lora.variable} ${nunitoSans.variable}`,
+    display: 'var(--font-lora), Georgia, "Times New Roman", serif',
+    text: 'var(--font-nunito-sans), system-ui, -apple-system, "Segoe UI", sans-serif',
   },
 };

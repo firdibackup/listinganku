@@ -137,6 +137,36 @@ export const BLOCK_ORDER_BY_THEME: Partial<Record<ThemeName, BlockType[]>> = {
     'location', 'facilities', 'floorPlans', 'gallery', 'testimonials', 'faq',
     'agentCta', 'contactForm',
   ],
+  // 03 Korporat Biru: statistik trust di atas, promo dekat unit.
+  corporateBlue: [
+    'hero', 'developer', 'highlights', 'houseTypes', 'specs', 'pricePromo',
+    'location', 'facilities', 'floorPlans', 'gallery', 'testimonials', 'agentCta',
+    'faq', 'contactForm',
+  ],
+  // 06 Arsitektural Beton: masterplan menonjol lebih awal, unit sebagai lembar spesifikasi.
+  architectural: [
+    'hero', 'highlights', 'houseTypes', 'specs', 'floorPlans', 'facilities',
+    'location', 'gallery', 'pricePromo', 'developer', 'testimonials', 'faq',
+    'agentCta', 'contactForm',
+  ],
+  // 07 Nature Calm: fasilitas & ruang hijau lebih dulu dari tipe unit.
+  natureCalm: [
+    'hero', 'highlights', 'facilities', 'houseTypes', 'specs', 'location',
+    'floorPlans', 'gallery', 'pricePromo', 'testimonials', 'developer', 'faq',
+    'agentCta', 'contactForm',
+  ],
+  // 08 Klasik Navy: komposisi terpusat, testimoni & trust ditonjolkan.
+  classicNavy: [
+    'hero', 'highlights', 'houseTypes', 'specs', 'facilities', 'location',
+    'floorPlans', 'gallery', 'pricePromo', 'testimonials', 'developer', 'faq',
+    'agentCta', 'contactForm',
+  ],
+  // 09 Playful Pastel: santai, blok pastel.
+  playfulPastel: [
+    'hero', 'highlights', 'houseTypes', 'specs', 'facilities', 'location',
+    'floorPlans', 'gallery', 'pricePromo', 'testimonials', 'developer', 'faq',
+    'agentCta', 'contactForm',
+  ],
 };
 
 const DISABLED_BY_DEFAULT: Partial<Record<ThemeName, BlockType[]>> = {
@@ -145,6 +175,11 @@ const DISABLED_BY_DEFAULT: Partial<Record<ThemeName, BlockType[]>> = {
   editorialWhite: ['specs'],
   softLuxury: ['specs'],
   boldRetail: ['specs'],
+  corporateBlue: ['specs'],
+  architectural: ['specs'],
+  natureCalm: ['specs'],
+  classicNavy: ['specs'],
+  playfulPastel: ['specs'],
 };
 
 export function defaultBlocksForTheme(theme: ThemeName): Block[] {

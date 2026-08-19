@@ -56,4 +56,5 @@ export const THEMES: Record<ThemeName, Theme> = Object.fromEntries(
 /** Tema yang benar-benar sudah punya layout. Sisanya tampil disabled di editor. */
 export const AVAILABLE_THEMES: ThemeName[] = [
   'tropicalWarm', 'premiumDark', 'editorialWhite', 'softLuxury', 'boldRetail',
+  'corporateBlue', 'architectural', 'natureCalm', 'classicNavy', 'playfulPastel',
 ];

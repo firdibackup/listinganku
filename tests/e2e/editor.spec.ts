@@ -48,13 +48,14 @@ test('menaikkan urutan blok Lokasi ke atas Hero', async ({ page }) => {
   await expect(page.getByRole('button', { name: /^Blok / }).first()).toHaveAccessibleName('Blok Lokasi');
 });
 
-test('tema yang layoutnya sudah dibangun aktif; sisanya nonaktif sampai masuk', async ({ page }) => {
+test('kesepuluh tema aktif dan bisa dipilih', async ({ page }) => {
   // Label palet sama dengan label tema, jadi scope ke .ed__themes agar tidak
   // bentrok dengan swatch di .ed__palettes.
-  const themes = page.locator('.ed__themes');
-  await expect(themes.getByRole('button', { name: 'Tropis Hangat' })).toBeEnabled();
-  await expect(themes.getByRole('button', { name: 'Editorial Putih' })).toBeEnabled();
-  await expect(themes.getByRole('button', { name: 'Korporat Biru' })).toBeDisabled();
+  const themeButtons = page.locator('.ed__themes').getByRole('button');
+  await expect(themeButtons).toHaveCount(10);
+  for (const name of ['Tropis Hangat', 'Premium Gelap', 'Korporat Biru', 'Nature Calm', 'Playful Pastel']) {
+    await expect(page.locator('.ed__themes').getByRole('button', { name })).toBeEnabled();
+  }
 });
 
 test('memilih swatch palet mengubah pratinjau tanpa reload', async ({ page }) => {
