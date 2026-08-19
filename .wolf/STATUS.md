@@ -2,7 +2,11 @@
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
 > Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
-> Last updated: 2026-08-19 (slice 2A SELESAI & verify hijau: sistem tema + Tropis Hangat; 9 layout sisanya menunggu keputusan user)
+> Last updated: 2026-08-19 (3/10 tema landing SELESAI: Tropis Hangat (dikoreksi ke .dc.html), Premium Gelap, Editorial Putih. 7 tema sisa pakai pola sama.)
+>
+> **Tema landing (design/project/*.dc.html):** file desain 01–10 SUDAH ada di repo `design/project/`. DesignSync/`/design-login` GAGAL di device ini (400 "could not add design scopes") — baca file langsung dari `design/project/`, jangan pakai DesignSync.
+> **Pola membangun tema baru (terbukti):** (1) baca `design/project/NN ....dc.html`; (2) tambah font di `lib/landing/fonts.ts` + `tests/mocks/next-font.ts`; (3) tambah urutan di `BLOCK_ORDER_BY_THEME` (blocks.ts); (4) tulis `lib/landing/themes/<name>.css` — override kelas `lp-tw-*` di-scope `[data-lp-theme='<name>']`, NOL warna literal (semua var(--lp-*)); (5) untuk beda struktural (unit daftar/spec-sheet, form di hero) tambah komponen di `themes/shared/` + daftarkan di `THEME_OVERRIDES` (themes/index.ts); (6) import CSS di globals.css; (7) `AVAILABLE_THEMES` += nama; (8) update tes `block-renderer` (AVAILABLE_THEMES) + `editor.spec` (tema enabled/disabled); (9) verify. Palet 10 warna SUDAH ada — tema = font+urutan+CSS+enable saja. **7 sisa:** 03 Korporat Biru (form di hero), 04 Soft Luxury Beige, 05 Bold Retail, 06 Arsitektural Beton (unit spec-sheet), 07 Nature Calm (fasilitas dulu), 08 Klasik Navy, 09 Playful Pastel.
+> **PENTING e2e:** bunuh dev server bocor di port 3000 + `rm -rf .next` SEBELUM e2e (`bug-030`), kalau tidak `reuseExistingServer` pakai bundle basi → semua tes interaksi klien gagal walau kode benar.
 
 ---
 
