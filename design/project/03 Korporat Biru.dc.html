@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Narrow:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#eef1f5;-webkit-font-smoothing:antialiased}
+a{color:#0f3d6e;text-decoration:none}
+a:hover{color:#155596}
+</style>
+</helmet>
+
+<div style="width:390px;margin:0 auto;background:#fff;color:#122031;font-family:Archivo,sans-serif;overflow-x:hidden">
+
+  <div style="background:#0f3d6e;color:#fff;padding:12px 18px;display:flex;align-items:center;justify-content:space-between">
+    <div style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:18px;letter-spacing:.02em">PARKSPRING</div>
+    <a href="#form" style="background:#fff;color:#0f3d6e;font-size:11px;font-weight:600;padding:7px 12px;border-radius:4px">Konsultasi Gratis</a>
+  </div>
+
+  <div style="background:linear-gradient(180deg,#0f3d6e 0%,#0c3159 100%);color:#fff;padding:26px 18px 32px">
+    <div style="display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:4px;padding:5px 10px;font-size:10.5px;font-weight:600;letter-spacing:.08em;margin-bottom:16px">PROMO AGUSTUS · FREE BPHTB</div>
+    <h1 style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:36px;line-height:1.1;margin:0 0 12px;text-wrap:pretty">Hunian modern minimalis di pusat Kelapa Gading</h1>
+    <p style="margin:0 0 18px;font-size:14px;line-height:1.6;color:#b9cbdd">Cicilan mulai Rp 18 jutaan, DP 10%, gratis biaya KPR untuk 50 pembeli pertama.</p>
+    <div style="height:180px;border-radius:8px;background:repeating-linear-gradient(135deg,#1b4d7e 0 9px,#164468 9px 18px);display:grid;place-items:center;margin-bottom:20px">
+      <span style="font:10px ui-monospace,monospace;letter-spacing:.18em;color:#7c9ec0">FOTO HERO KAWASAN</span>
+    </div>
+    <div id="form" style="background:#fff;color:#122031;border-radius:10px;padding:18px">
+      <div style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:19px;margin-bottom:4px">Dapatkan brosur & price list</div>
+      <div style="font-size:12.5px;color:#5d6b7d;margin-bottom:16px">Dikirim langsung via WhatsApp dalam 5 menit.</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <input placeholder="Nama lengkap" style="border:1px solid #d3dae3;border-radius:6px;padding:12px;font-family:Archivo,sans-serif;font-size:13.5px;outline:none;width:100%">
+        <input placeholder="Nomor WhatsApp" style="border:1px solid #d3dae3;border-radius:6px;padding:12px;font-family:Archivo,sans-serif;font-size:13.5px;outline:none;width:100%">
+        <div style="display:flex;gap:8px">
+          <sc-for list="{{ unitChips }}" as="c" hint-placeholder-count="3">
+            <button onClick="{{ c.select }}" style="flex:1;border:1px solid {{ c.bd }};background:{{ c.bg }};color:{{ c.fg }};border-radius:6px;padding:10px 0;font-family:Archivo,sans-serif;font-size:12.5px;font-weight:500;cursor:pointer">{{ c.name }}</button>
+          </sc-for>
+        </div>
+        <button style="background:#0f3d6e;color:#fff;border:0;border-radius:6px;padding:14px;font-family:Archivo,sans-serif;font-size:14px;font-weight:600;cursor:pointer">Kirim & Dapatkan Brosur</button>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);background:#f4f7fa;border-bottom:1px solid #e2e8ef">
+    <sc-for list="{{ stats }}" as="s" hint-placeholder-count="3">
+      <div style="padding:16px 8px;text-align:center;border-right:1px solid #e2e8ef">
+        <div style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:23px;color:#0f3d6e">{{ s.v }}</div>
+        <div style="font-size:10.5px;color:#5d6b7d;margin-top:2px">{{ s.k }}</div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="padding:34px 18px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.14em;color:#0f3d6e;margin-bottom:6px">MENGAPA MEMILIH KAMI</div>
+    <h2 style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:27px;line-height:1.15;margin:0 0 20px">Keunggulan yang bisa diukur</h2>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ usp }}" as="u" hint-placeholder-count="4">
+        <div style="border:1px solid #e2e8ef;border-radius:8px;padding:16px;display:flex;gap:14px">
+          <div style="width:34px;height:34px;flex-shrink:0;border-radius:6px;background:#eaf1f8;color:#0f3d6e;display:grid;place-items:center;font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:15px">{{ u.no }}</div>
+          <div>
+            <div style="font-size:15px;font-weight:600;margin-bottom:4px">{{ u.title }}</div>
+            <div style="font-size:12.5px;line-height:1.6;color:#5d6b7d">{{ u.desc }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:0 18px 34px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.14em;color:#0f3d6e;margin-bottom:6px">TIPE UNIT</div>
+    <h2 style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:27px;line-height:1.15;margin:0 0 16px">Tiga tipe, satu kawasan</h2>
+    <div style="display:flex;background:#f4f7fa;border-radius:8px;padding:4px;margin-bottom:16px">
+      <sc-for list="{{ units }}" as="u" hint-placeholder-count="3">
+        <button onClick="{{ u.select }}" style="flex:1;background:{{ u.bg }};color:{{ u.fg }};border:0;border-radius:6px;padding:11px 0;font-family:Archivo,sans-serif;font-size:13px;font-weight:600;cursor:pointer;box-shadow:{{ u.sh }}">{{ u.name }}</button>
+      </sc-for>
+    </div>
+    <div style="border:1px solid #e2e8ef;border-radius:10px;overflow:hidden">
+      <div style="height:180px;background:repeating-linear-gradient(135deg,#e7edf3 0 9px,#dfe6ee 9px 18px);display:grid;place-items:center">
+        <span style="font:10px ui-monospace,monospace;letter-spacing:.18em;color:#93a3b5">RENDER 3D + DENAH · {{ active.name }}</span>
+      </div>
+      <div style="padding:18px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+          <div>
+            <div style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:23px">Type {{ active.name }}</div>
+            <div style="font-size:12.5px;color:#5d6b7d">{{ active.note }}</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0;margin-left:12px">
+            <div style="font-size:10.5px;color:#93a3b5">Mulai</div>
+            <div style="font-size:17px;font-weight:600;color:#0f3d6e">{{ active.price }}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <sc-for list="{{ active.specs }}" as="s" hint-placeholder-count="6">
+            <div style="background:#f4f7fa;border-radius:6px;padding:11px 12px">
+              <div style="font-size:10.5px;color:#7b8b9e">{{ s.k }}</div>
+              <div style="font-size:15px;font-weight:600;margin-top:2px">{{ s.v }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:16px">
+          <a href="#form" style="flex:1;text-align:center;background:#0f3d6e;color:#fff;border-radius:6px;padding:13px;font-size:13px;font-weight:600">Cek Ketersediaan</a>
+          <a href="#" style="flex:1;text-align:center;border:1px solid #0f3d6e;color:#0f3d6e;border-radius:6px;padding:13px;font-size:13px;font-weight:600">Lihat Denah 3D</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:#f4f7fa;padding:34px 18px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.14em;color:#0f3d6e;margin-bottom:6px">LOKASI & AKSESIBILITAS</div>
+    <h2 style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:27px;line-height:1.15;margin:0 0 6px">Terhubung ke semua arah</h2>
+    <p style="margin:0 0 16px;font-size:13px;line-height:1.65;color:#5d6b7d">Jl. Boulevard Raya, Kelapa Gading, Jakarta Utara 14240</p>
+    <div style="height:200px;border-radius:10px;overflow:hidden;position:relative;background:#e7edf3;display:grid;place-items:center;margin-bottom:14px">
+      <div style="position:absolute;inset:0;background-image:linear-gradient(#dae2ea 1px,transparent 1px),linear-gradient(90deg,#dae2ea 1px,transparent 1px);background-size:32px 32px"></div>
+      <div style="position:relative;text-align:center">
+        <div style="width:12px;height:12px;background:#0f3d6e;border-radius:50%;margin:0 auto 10px;box-shadow:0 0 0 8px rgba(15,61,110,.14)"></div>
+        <span style="font:10px ui-monospace,monospace;letter-spacing:.18em;color:#93a3b5">GOOGLE MAPS EMBED</span>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <sc-for list="{{ access }}" as="a" hint-placeholder-count="6">
+        <div style="background:#fff;border-radius:8px;padding:13px;border:1px solid #e2e8ef">
+          <div style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:19px;color:#0f3d6e">{{ a.time }}</div>
+          <div style="font-size:11.5px;color:#5d6b7d;margin-top:3px;line-height:1.4">{{ a.place }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:34px 18px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.14em;color:#0f3d6e;margin-bottom:6px">FASILITAS</div>
+    <h2 style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:27px;line-height:1.15;margin:0 0 16px">Fasilitas unggulan kawasan</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <sc-for list="{{ facilities }}" as="f" hint-placeholder-count="6">
+        <div style="border:1px solid #e2e8ef;border-radius:8px;overflow:hidden">
+          <div style="height:100px;background:repeating-linear-gradient(135deg,#e7edf3 0 9px,#dfe6ee 9px 18px);display:grid;place-items:center">
+            <span style="font:9px ui-monospace,monospace;letter-spacing:.14em;color:#93a3b5">{{ f.ph }}</span>
+          </div>
+          <div style="padding:11px 12px">
+            <div style="font-size:13.5px;font-weight:600">{{ f.name }}</div>
+            <div style="font-size:11.5px;line-height:1.5;color:#5d6b7d;margin-top:3px">{{ f.desc }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:0 18px 34px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.14em;color:#0f3d6e;margin-bottom:6px">MASTERPLAN</div>
+    <h2 style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:27px;line-height:1.15;margin:0 0 14px">Tata kawasan 8,4 hektar</h2>
+    <div style="aspect-ratio:1/1;border:1px solid #e2e8ef;border-radius:10px;background:repeating-linear-gradient(135deg,#e7edf3 0 9px,#dfe6ee 9px 18px);display:grid;place-items:center">
+      <span style="font:10px ui-monospace,monospace;letter-spacing:.18em;color:#93a3b5">SITE PLAN INTERAKTIF</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+      <sc-for list="{{ legend }}" as="l" hint-placeholder-count="4">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#5d6b7d">
+          <span style="width:10px;height:10px;border-radius:2px;background:{{ l.color }};display:block;flex-shrink:0"></span>{{ l.name }}
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:0 18px 34px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.14em;color:#0f3d6e;margin-bottom:6px">GALERI</div>
+    <h2 style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:27px;line-height:1.15;margin:0 0 14px">Show unit & lingkungan</h2>
+    <div style="display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory">
+      <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="5">
+        <div style="min-width:250px;scroll-snap-align:start">
+          <div style="height:170px;border-radius:8px;background:repeating-linear-gradient(135deg,#e7edf3 0 9px,#dfe6ee 9px 18px);display:grid;place-items:center;margin-bottom:8px">
+            <span style="font:9.5px ui-monospace,monospace;letter-spacing:.16em;color:#93a3b5">{{ g.label }}</span>
+          </div>
+          <div style="font-size:12.5px;color:#5d6b7d">{{ g.cap }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="background:#0f3d6e;color:#fff;padding:34px 18px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.14em;color:#8fb2d4;margin-bottom:6px">PROMO TERBATAS</div>
+    <h2 style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:29px;line-height:1.1;margin:0 0 4px">Miliki hunian impian Anda</h2>
+    <div style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:40px;margin:10px 0 18px">Mulai Rp 2,6 M</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px">
+      <div style="background:rgba(255,255,255,.09);border-radius:8px;padding:13px"><div style="font-size:10.5px;color:#a8c2da">DP mulai</div><div style="font-size:19px;font-weight:600;margin-top:3px">10%</div></div>
+      <div style="background:rgba(255,255,255,.09);border-radius:8px;padding:13px"><div style="font-size:10.5px;color:#a8c2da">Cicilan mulai</div><div style="font-size:19px;font-weight:600;margin-top:3px">Rp 18 jt</div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px">
+      <sc-for list="{{ promos }}" as="p" hint-placeholder-count="4">
+        <div style="display:flex;gap:10px;align-items:center;font-size:13.5px;background:rgba(255,255,255,.06);border-radius:6px;padding:11px 13px">{{ p }}</div>
+      </sc-for>
+    </div>
+    <div style="border:1px dashed rgba(255,255,255,.3);border-radius:8px;padding:13px;text-align:center;font-size:12.5px;color:#b9cbdd">Promo berlaku hingga 31 Agustus 2026</div>
+  </div>
+
+  <div style="padding:34px 18px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.14em;color:#0f3d6e;margin-bottom:14px">TESTIMONI</div>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="2">
+        <div style="border:1px solid #e2e8ef;border-radius:10px;padding:16px">
+          <p style="margin:0 0 14px;font-size:14px;line-height:1.65;color:#2b3b4d">“{{ t.quote }}”</p>
+          <div style="display:flex;gap:11px;align-items:center">
+            <div style="width:38px;height:38px;border-radius:50%;background:repeating-linear-gradient(135deg,#e7edf3 0 6px,#dfe6ee 6px 12px)"></div>
+            <div><div style="font-size:13px;font-weight:600">{{ t.name }}</div><div style="font-size:11px;color:#7b8b9e">{{ t.unit }}</div></div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div id="kontak" style="background:#f4f7fa;padding:34px 18px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.14em;color:#0f3d6e;margin-bottom:6px">TIM MARKETING</div>
+    <h2 style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:27px;line-height:1.15;margin:0 0 6px">Butuh informasi lebih lanjut?</h2>
+    <p style="margin:0 0 18px;font-size:13px;line-height:1.65;color:#5d6b7d">Siap membantu proses KPR hingga serah terima kunci.</p>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <sc-for list="{{ agents }}" as="a" hint-placeholder-count="3">
+        <div style="background:#fff;border:1px solid #e2e8ef;border-radius:10px;padding:14px;display:flex;gap:13px;align-items:center">
+          <div style="width:56px;height:56px;flex-shrink:0;border-radius:8px;background:repeating-linear-gradient(135deg,#e7edf3 0 6px,#dfe6ee 6px 12px)"></div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:14.5px;font-weight:600">{{ a.name }}</div>
+            <div style="font-size:11.5px;color:#7b8b9e;margin-bottom:9px">{{ a.role }}</div>
+            <div style="display:flex;gap:7px">
+              <a href="#" style="background:#0f3d6e;color:#fff;border-radius:5px;padding:7px 13px;font-size:11.5px;font-weight:600">WhatsApp</a>
+              <a href="#" style="border:1px solid #d3dae3;color:#5d6b7d;border-radius:5px;padding:7px 13px;font-size:11.5px;font-weight:600">Telepon</a>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="padding:34px 18px">
+    <div style="font-size:11px;font-weight:600;letter-spacing:.14em;color:#0f3d6e;margin-bottom:14px">FAQ</div>
+    <div style="border:1px solid #e2e8ef;border-radius:10px;overflow:hidden">
+      <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="6">
+        <div style="border-bottom:1px solid #e2e8ef">
+          <button onClick="{{ f.toggle }}" style="width:100%;display:flex;justify-content:space-between;gap:12px;align-items:center;background:{{ f.bg }};border:0;color:#122031;padding:15px 14px;text-align:left;font-family:Archivo,sans-serif;font-size:13.5px;font-weight:500;cursor:pointer">
+            {{ f.q }}<span style="color:#0f3d6e;font-size:17px;flex-shrink:0">{{ f.mark }}</span>
+          </button>
+          <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:12.5px;line-height:1.7;color:#5d6b7d;padding:0 14px 15px">{{ f.a }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="background:#122031;color:#fff;padding:38px 18px;text-align:center">
+    <h2 style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:30px;line-height:1.12;margin:0 0 12px">Siap menemukan hunian impian Anda?</h2>
+    <p style="margin:0 0 22px;font-size:13.5px;line-height:1.65;color:#9fb2c6">Jadwalkan survey lokasi dan dapatkan informasi unit terbaru dari tim marketing kami.</p>
+    <div style="display:flex;flex-direction:column;gap:9px">
+      <a href="#" style="background:#25d366;color:#0b2a13;border-radius:6px;padding:15px;font-size:14px;font-weight:600">WhatsApp Marketing</a>
+      <a href="#form" style="border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:6px;padding:15px;font-size:14px;font-weight:600">Jadwalkan Survey</a>
+    </div>
+  </div>
+
+  <div style="background:#0b1725;color:#8fa3b8;padding:28px 18px">
+    <div style="font-family:'Archivo Narrow',sans-serif;font-weight:600;font-size:17px;color:#fff;margin-bottom:8px">PARKSPRING KELAPA GADING</div>
+    <div style="font-size:12px;line-height:1.75;margin-bottom:18px">Jl. Boulevard Raya, Kelapa Gading<br>Jakarta Utara 14240<br>Senin–Minggu, 09.00–17.00 WIB<br>+62 812 0000 0000 · info@parkspring.id</div>
+    <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px;padding-bottom:16px;border-bottom:1px solid #1b2b3d">
+      <a href="#unit" style="color:#8fa3b8">Tipe Unit</a><a href="#kontak" style="color:#8fa3b8">Kontak</a><a href="#" style="color:#8fa3b8">Privacy Policy</a><a href="#" style="color:#8fa3b8">Terms</a>
+    </div>
+    <div style="font-size:11px;color:#5d7086;padding-top:14px">© 2026 Parkspring Kelapa Gading</div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844},&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#1b4d3e&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#0f3d6e&quot;,&quot;#1b4d3e&quot;,&quot;#7a2e2e&quot;,&quot;#2b3b4d&quot;]}}">
+class Component extends DCLogic {
+  state = { tab: 0, chip: 0, open: 0 };
+  renderVals() {
+    const blue = this.props.accent ?? '#0f3d6e';
+    const U = [
+      { name:'Villa', price:'Rp 3,2 M', note:'2 lantai, void ruang tamu',
+        specs:[{k:'Luas tanah',v:'90 m²'},{k:'Luas bangunan',v:'120 m²'},{k:'Kamar tidur',v:'3'},{k:'Kamar mandi',v:'3'},{k:'Carport',v:'2 mobil'},{k:'Legalitas',v:'SHM'}] },
+      { name:'Medea', price:'Rp 2,6 M', note:'Tipe entry, plafon 3,2 m',
+        specs:[{k:'Luas tanah',v:'72 m²'},{k:'Luas bangunan',v:'96 m²'},{k:'Kamar tidur',v:'3'},{k:'Kamar mandi',v:'2'},{k:'Carport',v:'1 mobil'},{k:'Legalitas',v:'SHM'}] },
+      { name:'Grand', price:'Rp 4,5 M', note:'Unit sudut, master en-suite',
+        specs:[{k:'Luas tanah',v:'120 m²'},{k:'Luas bangunan',v:'165 m²'},{k:'Kamar tidur',v:'4'},{k:'Kamar mandi',v:'4'},{k:'Carport',v:'2 mobil'},{k:'Legalitas',v:'SHM'}] }
+    ];
+    const units = U.map((u,i)=>({ ...u, select:()=>this.setState({tab:i}),
+      bg: i===this.state.tab ? '#fff' : 'transparent',
+      fg: i===this.state.tab ? blue : '#6d7b8c',
+      sh: i===this.state.tab ? '0 1px 3px rgba(18,32,49,.14)' : 'none' }));
+    const unitChips = U.map((u,i)=>({ name:u.name, select:()=>this.setState({chip:i}),
+      bg: i===this.state.chip ? '#eaf1f8' : '#fff',
+      bd: i===this.state.chip ? blue : '#d3dae3',
+      fg: i===this.state.chip ? blue : '#5d6b7d' }));
+    const faqSrc = [
+      ['Berapa harga unit di Parkspring?','Tipe Medea mulai Rp 2,6 miliar, Villa Rp 3,2 miliar, dan Grand Rp 4,5 miliar.'],
+      ['Apakah bisa KPR?','Bisa. Kami bekerja sama dengan lima bank nasional dengan proses pengajuan dibantu tim marketing.'],
+      ['Berapa DP yang harus disiapkan?','DP mulai 10% dan dapat dicicil hingga 12 kali tanpa bunga.'],
+      ['Bagaimana legalitasnya?','Seluruh unit bersertifikat SHM dengan PBG dan izin kawasan yang sudah terbit.'],
+      ['Kapan serah terima unit?','Serah terima bertahap mulai kuartal keempat 2027 sesuai cluster.'],
+      ['Apakah bisa survey lokasi?','Bisa setiap hari pukul 09.00–17.00 WIB lewat janji temu dengan marketing.']
+    ];
+    return {
+      units, unitChips, active: units[this.state.tab],
+      stats: [{v:'28 th',k:'Pengalaman'},{v:'40+',k:'Kawasan'},{v:'12.000',k:'Unit terbangun'}],
+      usp: [
+        { no:'01', title:'Developer terpercaya', desc:'Track record 28 tahun dengan 40 kawasan hunian yang sudah serah terima.' },
+        { no:'02', title:'Nilai investasi tinggi', desc:'Kenaikan harga rata-rata 11% per tahun di koridor Kelapa Gading.' },
+        { no:'03', title:'Desain & konstruksi', desc:'Smart home system, pencahayaan alami, dan struktur tahan gempa.' },
+        { no:'04', title:'Keamanan legalitas', desc:'Sertifikat SHM per unit dengan PBG dan izin kawasan lengkap.' }
+      ],
+      access: [
+        { time:'3 mnt', place:'Gerbang Tol Kelapa Gading' }, { time:'8 mnt', place:'Mall Kelapa Gading' },
+        { time:'10 mnt', place:'LRT Boulevard Utara' }, { time:'12 mnt', place:'RS Mitra Keluarga' },
+        { time:'15 mnt', place:'Sekolah & universitas' }, { time:'35 mnt', place:'Bandara Soekarno-Hatta' }
+      ],
+      facilities: [
+        { name:'Clubhouse', desc:'Lounge & ruang serbaguna', ph:'FOTO CLUBHOUSE' },
+        { name:'Swimming Pool', desc:'Kolam 25 m & kolam anak', ph:'FOTO KOLAM' },
+        { name:'Fitness Center', desc:'Peralatan lengkap', ph:'FOTO GYM' },
+        { name:'Jogging Track', desc:'Lintasan 800 meter', ph:'FOTO TRACK' },
+        { name:'Playground', desc:'Area bermain anak', ph:'FOTO PLAYGROUND' },
+        { name:'One Gate System', desc:'CCTV & security 24 jam', ph:'FOTO GERBANG' }
+      ],
+      legend: [{name:'Cluster Villa',color:blue},{name:'Cluster Medea',color:'#5b8fc4'},{name:'Cluster Grand',color:'#122031'},{name:'Fasilitas & taman',color:'#1b4d3e'}],
+      gallery: [
+        { label:'FOTO SHOW UNIT', cap:'Show unit Type Villa' },
+        { label:'FOTO INTERIOR', cap:'Interior ruang keluarga' },
+        { label:'FOTO FASILITAS', cap:'Clubhouse & kolam renang' },
+        { label:'FOTO LINGKUNGAN', cap:'Boulevard kawasan' },
+        { label:'VIDEO DRONE', cap:'Virtual tour 360°' }
+      ],
+      promos: ['Free BPHTB dan AJB','Free biaya KPR untuk 50 pembeli pertama','Cashback 5% pembelian tunai bertahap','Free smart door lock & CCTV'],
+      testimonials: [
+        { quote:'Prosesnya rapi, dari booking sampai akad semua didampingi. Kawasannya juga tenang.', name:'Andreas Halim', unit:'Pemilik Type Villa' },
+        { quote:'Kami pilih karena dekat sekolah anak dan akses tol. Bangunannya sesuai spesifikasi.', name:'Ratna Kusuma', unit:'Pemilik Type Medea' }
+      ],
+      agents: [
+        { name:'Dina Prameswari', role:'Senior Property Advisor' },
+        { name:'Rangga Wijaya', role:'Property Consultant' },
+        { name:'Sari Utami', role:'Property Consultant' }
+      ],
+      faqs: faqSrc.map(([q,a],i)=>({ q, a, open:this.state.open===i, mark:this.state.open===i?'−':'+',
+        bg: this.state.open===i ? '#f4f7fa' : '#fff',
+        toggle:()=>this.setState(s=>({open:s.open===i?-1:i})) }))
+    };
+  }
+}
+</script>
+</body>
+</html>

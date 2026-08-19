@@ -12,7 +12,7 @@ export function ContactFormBlock({ block }: { block: Extract<ResolvedBlock, { ty
       <div className="lp-tw-in">
         <p className="lp-tw-eyebrow">Minta info</p>
         <h2 className="lp-tw-h2">Tinggalkan kontak Anda</h2>
-        <p className="lp-tw-lead">Isi form ini — kami balas lewat WhatsApp secepatnya.</p>
+        <p className="lp-tw-contact__lead">Isi form ini — kami balas lewat WhatsApp secepatnya.</p>
         <div className="lp-tw-contact__card">
           <ContactForm
             projectId={block.projectId}

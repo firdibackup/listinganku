@@ -30,8 +30,8 @@ test('mengedit judul hero dan melihatnya di pratinjau', async ({ page }) => {
 
 test('panel blok FAQ menyediakan toggle tampil/sembunyi', async ({ page }) => {
   // Seed Parkspring mengisi FAQ, jadi blok ini dirender di pratinjau.
-  const heading = page.locator('.ed__preview').getByRole('heading', { name: /Pertanyaan yang sering/ });
-  await expect(heading).toBeVisible();
+  const faqItem = page.locator('.ed__preview').getByText('Apakah bisa KPR?');
+  await expect(faqItem).toBeVisible();
 
   await page.getByRole('button', { name: 'Blok FAQ' }).click();
   const toggle = page.getByRole('switch', { name: 'Tampilkan blok' });
@@ -40,7 +40,7 @@ test('panel blok FAQ menyediakan toggle tampil/sembunyi', async ({ page }) => {
   await toggle.click();
   await expect(toggle).not.toBeChecked();
   // Menonaktifkan blok mengeluarkannya dari pratinjau (resolveBlocks melewati disabled).
-  await expect(heading).toHaveCount(0);
+  await expect(faqItem).toHaveCount(0);
 });
 
 test('menaikkan urutan blok Lokasi ke atas Hero', async ({ page }) => {

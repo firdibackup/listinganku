@@ -11,12 +11,11 @@ export function Faq({ block }: { block: Extract<ResolvedBlock, { type: 'faq' }> 
     <section className="lp-tw-section">
       <div className="lp-tw-in">
         <p className="lp-tw-eyebrow">FAQ</p>
-        <h2 className="lp-tw-h2">Pertanyaan yang sering diajukan</h2>
         <div className="lp-tw-faq">
           {block.items.map((item, i) => {
             const isOpen = i === open;
             return (
-              <div key={item.q} className="lp-tw-faq__item">
+              <div key={item.q} className="lp-tw-faq__item" data-open={isOpen}>
                 <button
                   type="button"
                   className="lp-tw-faq__q"

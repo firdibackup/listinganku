@@ -7,7 +7,7 @@ export function Facilities({ block }: { block: Extract<ResolvedBlock, { type: 'f
     <section className="lp-tw-section">
       <div className="lp-tw-in">
         <p className="lp-tw-eyebrow">Fasilitas</p>
-        <h2 className="lp-tw-h2">Ruang bersama di dalam cluster</h2>
+        <h2 className="lp-tw-h2">Fasilitas kawasan</h2>
         <div className="lp-tw-fac">
           {block.items.map((name) => (
             <div key={name} className="lp-tw-fac__item">

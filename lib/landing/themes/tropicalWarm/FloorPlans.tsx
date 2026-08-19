@@ -7,8 +7,8 @@ export function FloorPlans({ block }: { block: Extract<ResolvedBlock, { type: 'f
   return (
     <section className="lp-tw-section">
       <div className="lp-tw-in">
-        <p className="lp-tw-eyebrow">Denah</p>
-        <h2 className="lp-tw-h2">Masterplan & denah unit</h2>
+        <p className="lp-tw-eyebrow">Masterplan</p>
+        <h2 className="lp-tw-h2">Denah kawasan</h2>
         <div className="lp-tw-plans">
           {block.masterplan ? (
             <div className="lp-tw-master">

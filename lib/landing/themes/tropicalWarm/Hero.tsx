@@ -41,7 +41,7 @@ export function Hero({ block }: { block: Extract<ResolvedBlock, { type: 'hero' }
             message={block.defaultMessage}
             className="lp-tw-pricebar__cta"
           >
-            Chat sekarang
+            Hubungi Marketing
           </WhatsAppLink>
         </div>
       ) : null}

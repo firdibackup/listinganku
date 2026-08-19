@@ -6,9 +6,9 @@ import { formatArea, formatRupiahShort } from '@/lib/format';
 import { Img } from './parts';
 
 /**
- * Blok tipe unit bertab (spec §11). Ganti tab menukar kartu tanpa reload.
- * Legalitas "SHM" dari desain SENGAJA tidak disalin — tidak ada di skema, dan
- * mengklaimnya untuk unit yang belum tentu SHM adalah klaim hukum palsu.
+ * Blok tipe unit bertab (desain #10, blok hijau). Ganti tab menukar kartu tanpa
+ * reload. Baris "Legalitas: SHM" dari desain SENGAJA tidak disalin — tidak ada
+ * di skema, dan mengklaimnya untuk unit yang belum tentu SHM = klaim hukum palsu.
  */
 export function HouseTypes({ block }: { block: Extract<ResolvedBlock, { type: 'houseTypes' }> }) {
   const [active, setActive] = useState(0);
@@ -17,7 +17,7 @@ export function HouseTypes({ block }: { block: Extract<ResolvedBlock, { type: 'h
   const current = block.houseTypes[Math.min(active, block.houseTypes.length - 1)];
   const specs: { label: string; value: string }[] = [
     { label: 'Luas tanah', value: formatArea(current.landArea) },
-    { label: 'Luas bangunan', value: formatArea(current.buildingArea) },
+    { label: 'Bangunan', value: formatArea(current.buildingArea) },
     { label: 'Kamar tidur', value: String(current.bedrooms) },
     { label: 'Kamar mandi', value: String(current.bathrooms) },
     { label: 'Carport', value: String(current.carport) },
@@ -47,11 +47,13 @@ export function HouseTypes({ block }: { block: Extract<ResolvedBlock, { type: 'h
 
         <article className="lp-tw-unitcard" id={current.slug}>
           <div className="lp-tw-unitcard__media">
-            <Img media={current.primaryPhoto} alt={`Tipe ${current.name}`} />
+            <Img media={current.primaryPhoto} alt={`Render & denah ${current.name}`} />
           </div>
           <div className="lp-tw-unitcard__body">
-            <h3 className="lp-tw-unitcard__name">{current.name}</h3>
-            <p className="lp-tw-unitcard__price">{formatRupiahShort(current.price)}</p>
+            <div className="lp-tw-unitcard__head">
+              <h3 className="lp-tw-unitcard__name">Tipe {current.name}</h3>
+              <span className="lp-tw-unitcard__price">{formatRupiahShort(current.price)}</span>
+            </div>
             <div className="lp-tw-specgrid">
               {specs.map((s) => (
                 <div key={s.label} className="lp-tw-spec">
@@ -63,6 +65,7 @@ export function HouseTypes({ block }: { block: Extract<ResolvedBlock, { type: 'h
             {current.shortDescription ? (
               <p className="lp-tw-unitcard__desc">{current.shortDescription}</p>
             ) : null}
+            <a href="#kontak" className="lp-tw-btn lp-tw-btn--feature lp-tw-btn--block">Lihat detail unit</a>
           </div>
         </article>
       </div>

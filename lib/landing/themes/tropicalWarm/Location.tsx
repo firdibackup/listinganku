@@ -5,8 +5,19 @@ export function Location({ block }: { block: Extract<ResolvedBlock, { type: 'loc
     <section className="lp-tw-section" id="lokasi">
       <div className="lp-tw-in">
         <p className="lp-tw-eyebrow">Lokasi</p>
-        <h2 className="lp-tw-h2">Akses ke mana-mana</h2>
+        <h2 className="lp-tw-h2">Semua dekat dari sini</h2>
         {block.address ? <p className="lp-tw-lead">{block.address}</p> : null}
+
+        <div className="lp-tw-map">
+          {block.mapUrl ? (
+            <iframe src={block.mapUrl} title={`Peta ${block.address || 'lokasi'}`} loading="lazy" />
+          ) : (
+            <>
+              <div className="lp-tw-map__grid" />
+              <div className="lp-tw-map__pin" aria-hidden />
+            </>
+          )}
+        </div>
 
         {block.access.length ? (
           <div className="lp-tw-access">
@@ -16,12 +27,6 @@ export function Location({ block }: { block: Extract<ResolvedBlock, { type: 'loc
                 <div className="lp-tw-access__place">{a.place}</div>
               </div>
             ))}
-          </div>
-        ) : null}
-
-        {block.mapUrl ? (
-          <div className="lp-tw-map">
-            <iframe src={block.mapUrl} title={`Peta ${block.address || 'lokasi'}`} loading="lazy" />
           </div>
         ) : null}
       </div>
