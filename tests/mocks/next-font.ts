@@ -16,6 +16,7 @@ const factory = (opts?: FontOpts) => ({
 
 export const DM_Serif_Display = factory;
 export const DM_Sans = factory;
+export const Jost = factory;
 export const Playfair_Display = factory;
 export const Inter = factory;
 export const Manrope = factory;

@@ -3,18 +3,18 @@
   "created_at": "2026-08-16T07:44:56.229Z",
   "lifetime": {
     "total_tokens_estimated": 646981,
-    "total_reads": 1544,
+    "total_reads": 1549,
     "total_writes": 0,
     "total_sessions": 25,
     "anatomy_hits": 730,
-    "anatomy_misses": 773,
+    "anatomy_misses": 778,
     "repeated_reads_blocked": 1100,
     "estimated_savings_vs_bare_cli": 906269,
-    "real_input_tokens": 48956,
-    "real_output_tokens": 20137056,
-    "real_cache_read_tokens": 2230173248,
-    "real_cache_creation_tokens": 79539158,
-    "real_api_calls": 9343
+    "real_input_tokens": 76562,
+    "real_output_tokens": 20394785,
+    "real_cache_read_tokens": 2284173925,
+    "real_cache_creation_tokens": 80701052,
+    "real_api_calls": 9556
   },
   "sessions": [
     {
@@ -10479,6 +10479,60 @@
         "cache_read_input_tokens": 538597,
         "cache_creation_input_tokens": 36561,
         "api_calls": 15
+      }
+    },
+    {
+      "id": "session-2026-08-19-1153",
+      "agent": "claude",
+      "started": "2026-08-19T04:53:06.042Z",
+      "ended": "2026-08-19T05:20:49.300Z",
+      "reads": [
+        {
+          "file": "C:/Users/jayac/Documents/listinganku/design/README.md",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "C:/Users/jayac/Documents/listinganku/design/project/00 Index.dc.html",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "C:/Users/jayac/Documents/listinganku/design/project/10 Tropis Hangat.dc.html",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "C:/Users/jayac/Documents/listinganku/design/project/01 Premium Gelap.dc.html",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        },
+        {
+          "file": "C:/Users/jayac/Documents/listinganku/design/project/02 Editorial Putih.dc.html",
+          "tokens_estimated": 0,
+          "was_repeated": false,
+          "anatomy_had_description": false
+        }
+      ],
+      "writes": [],
+      "totals": {
+        "input_tokens_estimated": 0,
+        "output_tokens_estimated": 0,
+        "reads_count": 5,
+        "writes_count": 0,
+        "repeated_reads_blocked": 0,
+        "anatomy_lookups": 0
+      },
+      "real_usage": {
+        "input_tokens": 27606,
+        "output_tokens": 257729,
+        "cache_read_input_tokens": 54000677,
+        "cache_creation_input_tokens": 1161894,
+        "api_calls": 213
       }
     }
   ],

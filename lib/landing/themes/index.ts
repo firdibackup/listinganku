@@ -43,4 +43,4 @@ export const THEMES: Record<ThemeName, Theme> = Object.fromEntries(
 ) as Record<ThemeName, Theme>;
 
 /** Tema yang benar-benar sudah punya layout. Sisanya tampil disabled di editor. */
-export const AVAILABLE_THEMES: ThemeName[] = ['tropicalWarm'];
+export const AVAILABLE_THEMES: ThemeName[] = ['tropicalWarm', 'premiumDark'];

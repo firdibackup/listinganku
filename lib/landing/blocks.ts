@@ -112,10 +112,17 @@ export const BLOCK_ORDER_BY_THEME: Partial<Record<ThemeName, BlockType[]>> = {
     'floorPlans', 'gallery', 'pricePromo', 'developer', 'testimonials', 'faq',
     'agentCta', 'contactForm',
   ],
+  // 01 Premium Gelap: USP dulu, lokasi & masterplan setelah galeri.
+  premiumDark: [
+    'hero', 'highlights', 'houseTypes', 'specs', 'facilities', 'gallery',
+    'location', 'floorPlans', 'pricePromo', 'testimonials', 'developer', 'faq',
+    'agentCta', 'contactForm',
+  ],
 };
 
 const DISABLED_BY_DEFAULT: Partial<Record<ThemeName, BlockType[]>> = {
   tropicalWarm: ['specs'],
+  premiumDark: ['specs'],
 };
 
 export function defaultBlocksForTheme(theme: ThemeName): Block[] {

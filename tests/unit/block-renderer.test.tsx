@@ -44,9 +44,9 @@ describe('BlockRenderer', () => {
     expect(container.querySelector('#villa')).toBeTruthy();
   });
 
-  it('mendaftarkan kesepuluh tema tapi baru satu yang bisa dipilih', () => {
+  it('mendaftarkan kesepuluh tema; yang bisa dipilih bertambah saat layoutnya dibangun', () => {
     expect(Object.keys(THEMES)).toHaveLength(10);
-    expect(AVAILABLE_THEMES).toEqual(['tropicalWarm']);
+    expect(AVAILABLE_THEMES).toEqual(['tropicalWarm', 'premiumDark']);
   });
 
   it('setiap tema mengimplementasi keempat belas blok', () => {

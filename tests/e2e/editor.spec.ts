@@ -48,12 +48,12 @@ test('menaikkan urutan blok Lokasi ke atas Hero', async ({ page }) => {
   await expect(page.getByRole('button', { name: /^Blok / }).first()).toHaveAccessibleName('Blok Lokasi');
 });
 
-test('hanya Tropis Hangat yang aktif; sembilan tema lain nonaktif sampai layoutnya masuk', async ({ page }) => {
+test('tema yang layoutnya sudah dibangun aktif; sisanya nonaktif sampai masuk', async ({ page }) => {
   // Label palet sama dengan label tema, jadi scope ke .ed__themes agar tidak
   // bentrok dengan swatch di .ed__palettes.
   const themes = page.locator('.ed__themes');
   await expect(themes.getByRole('button', { name: 'Tropis Hangat' })).toBeEnabled();
-  await expect(themes.getByRole('button', { name: 'Premium Gelap' })).toBeDisabled();
+  await expect(themes.getByRole('button', { name: 'Premium Gelap' })).toBeEnabled();
   await expect(themes.getByRole('button', { name: 'Editorial Putih' })).toBeDisabled();
 });
 
