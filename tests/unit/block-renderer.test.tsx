@@ -2,10 +2,14 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { BlockRenderer } from '@/lib/landing/BlockRenderer';
 import { AVAILABLE_THEMES, THEMES } from '@/lib/landing/themes';
+import type { ThemeName } from '@/lib/data/types';
 import type { ResolvedBlock } from '@/lib/landing/resolve';
 
 const blocks: ResolvedBlock[] = [
-  { id: 'b1', type: 'hero', title: 'Parkspring Gading', subtitle: 'Gading Serpong', image: null },
+  {
+    id: 'b1', type: 'hero', projectId: 'p1', title: 'Parkspring Gading', subtitle: 'Gading Serpong',
+    image: null, badges: [], priceFrom: null, waNumber: '0812', defaultMessage: 'Halo',
+  },
   {
     id: 'b2', type: 'houseTypes',
     houseTypes: [{
@@ -19,29 +23,43 @@ const blocks: ResolvedBlock[] = [
 
 describe('BlockRenderer', () => {
   it('merender satu section per blok, sesuai urutannya', () => {
-    const { container } = render(<BlockRenderer blocks={blocks} theme="modern" />);
+    const { container } = render(<BlockRenderer blocks={blocks} theme="tropicalWarm" />);
     expect(container.querySelectorAll('section')).toHaveLength(3);
   });
 
   it('menempatkan judul hero sebagai satu-satunya h1', () => {
-    render(<BlockRenderer blocks={blocks} theme="modern" />);
+    render(<BlockRenderer blocks={blocks} theme="tropicalWarm" />);
     const h1 = screen.getAllByRole('heading', { level: 1 });
     expect(h1).toHaveLength(1);
     expect(h1[0]).toHaveTextContent('Parkspring Gading');
   });
 
   it('memformat harga tipe rumah dengan konvensi Indonesia', () => {
-    render(<BlockRenderer blocks={blocks} theme="modern" />);
-    expect(screen.getByText('Rp 2,45 M')).toBeInTheDocument();
+    render(<BlockRenderer blocks={blocks} theme="tropicalWarm" />);
+    expect(screen.getAllByText('Rp 2,45 M').length).toBeGreaterThanOrEqual(1);
   });
 
   it('memberi anchor per tipe rumah untuk deep link dari iklan', () => {
-    const { container } = render(<BlockRenderer blocks={blocks} theme="modern" />);
+    const { container } = render(<BlockRenderer blocks={blocks} theme="tropicalWarm" />);
     expect(container.querySelector('#villa')).toBeTruthy();
   });
 
-  it('memetakan ketiga nama tema ke set komponen, tapi baru satu yang tersedia', () => {
-    expect(Object.keys(THEMES).sort()).toEqual(['luxury', 'modern', 'showcase']);
-    expect(AVAILABLE_THEMES).toEqual(['modern']);
+  it('mendaftarkan kesepuluh tema tapi baru satu yang bisa dipilih', () => {
+    expect(Object.keys(THEMES)).toHaveLength(10);
+    expect(AVAILABLE_THEMES).toEqual(['tropicalWarm']);
+  });
+
+  it('setiap tema mengimplementasi keempat belas blok', () => {
+    for (const name of Object.keys(THEMES) as ThemeName[]) {
+      expect(Object.keys(THEMES[name].components).sort()).toEqual([
+        'agentCta', 'contactForm', 'developer', 'facilities', 'faq', 'floorPlans',
+        'gallery', 'hero', 'highlights', 'houseTypes', 'location', 'pricePromo',
+        'specs', 'testimonials',
+      ]);
+    }
+  });
+
+  it('tema yang belum dibangun tetap punya entri agar picker tidak meledak', () => {
+    expect(THEMES.editorialWhite.label).toBe('Editorial Putih');
   });
 });

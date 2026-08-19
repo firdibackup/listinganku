@@ -504,6 +504,30 @@
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-19T07:10:00+07:00"
+    },
+    {
+      "id": "bug-028",
+      "timestamp": "2026-08-19T11:00:00+07:00",
+      "error_message": "theme-no-literal-colors.test gagal: 'lib/landing/themes/tropicalWarm/theme.css:5 -> ... bukan rgba().' — komentar CSS ikut ditangkap lint warna literal.",
+      "file": "lib/landing/themes/tropicalWarm/theme.css",
+      "root_cause": "Regex lint /#[0-9a-fA-F]{3,8}|rgba?\\(|hsla?\\(/ memindai SETIAP baris termasuk komentar. Kata 'rgba(' di dalam komentar penjelas ikut cocok.",
+      "fix": "Hindari menulis literal warna (termasuk 'rgba('/'hex') di komentar file di bawah lib/landing/themes. Ganti frasa jadi 'fungsi warna beralfa'. Alternatif: tambahkan penanda 'lp-lint-allow' pada baris itu.",
+      "tags": ["lint", "theme", "css", "no-literal-colors", "false-positive"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-19T11:00:00+07:00"
+    },
+    {
+      "id": "bug-029",
+      "timestamp": "2026-08-19T11:20:00+07:00",
+      "error_message": "Playwright strict mode: getByRole('button',{name:'Tropis Hangat'}) resolved to 2 elements — tombol tema DAN swatch palet.",
+      "file": "tests/e2e/editor.spec.ts",
+      "root_cause": "PALETTE_LABELS identik dengan THEME_LABELS (mis. 'Tropis Hangat', 'Premium Gelap'). PalettePicker memberi swatch aria-label dari PALETTE_LABELS, jadi accessible name-nya bertabrakan dengan tombol tema.",
+      "fix": "Scope locator ke kontainer: page.locator('.ed__themes').getByRole('button', ...) untuk tema, page.locator('.ed__palettes').getByRole('button', ...) untuk swatch.",
+      "tags": ["playwright", "e2e", "strict-mode", "editor", "palette", "test-authoring"],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-19T11:20:00+07:00"
     }
   ]
 }

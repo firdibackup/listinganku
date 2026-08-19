@@ -12,7 +12,7 @@ import { THEMES } from './themes';
  * diam-diam, bukan meledakkan seluruh halaman publik karena satu blok asing.
  */
 export function BlockRenderer({ blocks, theme }: { blocks: ResolvedBlock[]; theme: ThemeName }) {
-  const set = THEMES[theme] ?? THEMES.modern;
+  const set = (THEMES[theme] ?? THEMES.tropicalWarm).components;
   return (
     <>
       {blocks.map((block) => {

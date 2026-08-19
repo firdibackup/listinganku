@@ -7,12 +7,16 @@
  *  2. Field teks OPSIONAL. Kosong = pakai default AI, terisi = override.
  *     Karena itu "Use AI suggestion" cukup menghapus field, bukan fitur tersendiri.
  *
- * Modul ini sengaja tanpa import apa pun supaya lib/data/types.ts bisa memakainya.
+ * Modul ini hanya mengimpor `type ThemeName` (erased saat kompilasi) supaya
+ * lib/data/types.ts tetap bisa memakainya tanpa menarik runtime apa pun.
  */
+
+import type { ThemeName } from './themeNames';
 
 export type BlockType =
   | 'hero' | 'gallery' | 'highlights' | 'houseTypes' | 'specs'
-  | 'facilities' | 'floorPlans' | 'location' | 'faq' | 'agentCta' | 'contactForm';
+  | 'facilities' | 'floorPlans' | 'location' | 'faq' | 'agentCta' | 'contactForm'
+  | 'pricePromo' | 'developer' | 'testimonials';
 
 export interface BlockBase<T extends BlockType, P> {
   id: string;
@@ -23,27 +27,39 @@ export interface BlockBase<T extends BlockType, P> {
   props: P;
 }
 
-export type HeroBlock = BlockBase<'hero', { title?: string; subtitle?: string; mediaId?: string }>;
+export type HeroBlock = BlockBase<'hero', { title?: string; subtitle?: string; mediaId?: string; badges?: string[] }>;
 export type GalleryBlock = BlockBase<'gallery', { layout: 'carousel' | 'grid'; mediaIds?: string[] }>;
 export type HighlightsBlock = BlockBase<'highlights', { items?: string[] }>;
 export type HouseTypesBlock = BlockBase<'houseTypes', { order?: string[]; hidden?: string[] }>;
 export type SpecsBlock = BlockBase<'specs', Record<string, never>>;
 export type FacilitiesBlock = BlockBase<'facilities', Record<string, never>>;
 export type FloorPlansBlock = BlockBase<'floorPlans', { mediaIds?: string[] }>;
-export type LocationBlock = BlockBase<'location', { address?: string; mapUrl?: string }>;
+export type LocationBlock = BlockBase<'location', { address?: string; mapUrl?: string; access?: { time: string; place: string }[] }>;
 export type FaqBlock = BlockBase<'faq', { items?: { q: string; a: string }[] }>;
 export type AgentCtaBlock = BlockBase<'agentCta', { waNumber?: string; defaultMessage?: string }>;
 export type ContactFormBlock = BlockBase<'contactForm', { askHouseType?: boolean }>;
 
+export type PricePromoBlock = BlockBase<'pricePromo', {
+  dpText?: string;
+  installmentText?: string;
+  promos?: string[];
+  note?: string;
+}>;
+
+export type TestimonialsBlock = BlockBase<'testimonials', {
+  items?: { quote: string; name: string; unit: string }[];
+}>;
+
+/** value bertipe string, bukan number — desain menampilkan "40+" dan "12.000". */
+export type DeveloperBlock = BlockBase<'developer', {
+  about?: string;
+  stats?: { value: string; label: string }[];
+}>;
+
 export type Block =
   | HeroBlock | GalleryBlock | HighlightsBlock | HouseTypesBlock | SpecsBlock
-  | FacilitiesBlock | FloorPlansBlock | LocationBlock | FaqBlock | AgentCtaBlock | ContactFormBlock;
-
-/** Urutan default sesuai PRD dan blockDefs di Listingku App.dc.html. */
-export const BLOCK_ORDER: BlockType[] = [
-  'hero', 'gallery', 'highlights', 'houseTypes', 'specs',
-  'facilities', 'floorPlans', 'location', 'faq', 'agentCta', 'contactForm',
-];
+  | FacilitiesBlock | FloorPlansBlock | LocationBlock | FaqBlock | AgentCtaBlock | ContactFormBlock
+  | PricePromoBlock | TestimonialsBlock | DeveloperBlock;
 
 export const BLOCK_LABELS: Record<BlockType, string> = {
   hero: 'Hero',
@@ -57,6 +73,9 @@ export const BLOCK_LABELS: Record<BlockType, string> = {
   faq: 'FAQ',
   agentCta: 'CTA WhatsApp',
   contactForm: 'Form Kontak',
+  pricePromo: 'Harga & Promo',
+  developer: 'Developer',
+  testimonials: 'Testimoni',
 };
 
 /**
@@ -78,11 +97,32 @@ const DEFAULT_PROPS: DefaultPropsMap = {
   faq: {},
   agentCta: {},
   contactForm: { askHouseType: true },
+  pricePromo: {},
+  developer: {},
+  testimonials: {},
 };
 
-export function defaultBlocks(): Block[] {
-  return BLOCK_ORDER.map(
-    (type) => ({ id: `blk_${type}`, type, enabled: true, props: { ...DEFAULT_PROPS[type] } }) as Block,
+/**
+ * Urutan bawaan MILIK TEMA (spec §10). Ganti tema di editor menawarkan urutan
+ * ini lewat konfirmasi — susunan manual agen tidak pernah ditimpa diam-diam.
+ */
+export const BLOCK_ORDER_BY_THEME: Partial<Record<ThemeName, BlockType[]>> = {
+  tropicalWarm: [
+    'hero', 'location', 'highlights', 'houseTypes', 'specs', 'facilities',
+    'floorPlans', 'gallery', 'pricePromo', 'developer', 'testimonials', 'faq',
+    'agentCta', 'contactForm',
+  ],
+};
+
+const DISABLED_BY_DEFAULT: Partial<Record<ThemeName, BlockType[]>> = {
+  tropicalWarm: ['specs'],
+};
+
+export function defaultBlocksForTheme(theme: ThemeName): Block[] {
+  const order = BLOCK_ORDER_BY_THEME[theme] ?? BLOCK_ORDER_BY_THEME.tropicalWarm!;
+  const off = new Set(DISABLED_BY_DEFAULT[theme] ?? DISABLED_BY_DEFAULT.tropicalWarm ?? []);
+  return order.map(
+    (type) => ({ id: `blk_${type}`, type, enabled: !off.has(type), props: { ...DEFAULT_PROPS[type] } }) as Block,
   );
 }
 

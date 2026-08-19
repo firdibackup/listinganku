@@ -2,7 +2,7 @@
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
 > Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
-> Last updated: 2026-08-19 (slice 2A: spec + plan sistem tema landing siap dieksekusi; Leads + Settings di-commit)
+> Last updated: 2026-08-19 (slice 2A SELESAI & verify hijau: sistem tema + Tropis Hangat; 9 layout sisanya menunggu keputusan user)
 
 ---
 
@@ -57,17 +57,19 @@
 
 ## 🚀 Next phase
 
-**Slice 2A — sistem tema landing + tema Tropis Hangat.** Blocker eksternal "menunggu desain dari user" SUDAH TERBUKA: user menyerahkan 10 file desain landing page. Brainstorming selesai, spec disetujui dan ditulis, implementation plan siap dieksekusi.
+**Slice 2A — sistem tema landing + tema Tropis Hangat: SELESAI & terverifikasi (2026-08-19).**
+`npm run verify` hijau: **365 unit test**, `next build` bersih, **35 e2e passed + 1 skipped** (AI_MOCK_FAIL di-gate). Belum di-commit (menunggu keputusan user; branch = default `slice-1-frontend`, jadi buat branch baru dulu bila commit).
+
+Yang dibangun (Task 1–14 plan tema): `lib/landing/palettes.ts` (10×20 token, gate WCAG AA), `themeNames.ts`, `fonts.ts`, 3 blok baru (`pricePromo`/`developer`/`testimonials`) + perluasan `hero`(badges,priceFrom,projectId,waNumber,defaultMessage)/`location`(access)/`floorPlans`(masterplan), `BLOCK_ORDER_BY_THEME`+`defaultBlocksForTheme`, registry `THEMES` objek (label/fonts/defaultPalette/components/Chrome), 14 komponen `themes/tropicalWarm/` + Header/Footer + `theme.css` (nol warna literal), migrasi store row-level (`Project.palette`), editor: `PalettePicker` + konfirmasi urutan + 4 panel blok, `page.tsx` root `data-lp-theme`/`data-lp-palette`+`paletteStyle`, seed Parkspring mengisi 14 blok. Tema `wireframe` DIHAPUS.
+- Vitest: alias `next/font/google` → `tests/mocks/next-font.ts` (next/font tak jalan di jsdom).
+- Deviasi kontras tercatat: `tropicalWarm['on-accent']='#ffffff'` (krem gagal 4,46:1) — sama pola softLuxury/boldRetail.
+- Gotcha baru: `bug-028` (komentar 'rgba(' kena lint), `bug-029` (label palet == label tema → strict-mode e2e).
+
+**Slice 2B–2J — 9 layout sisanya (01–09).** Semua 10 tema SUDAH terdaftar di `THEMES` dengan palet masing-masing, tapi 9 dipetakan sementara ke komponen tropicalWarm dan DISABLED di picker (`AVAILABLE_THEMES=['tropicalWarm']`). Membangun layout DISTINCT tiap tema butuh file `.dc.html` 01–09 di Claude Design `b83ace24-6494-4409-9908-45979e7de301` — **butuh `/design-login` per-device (hanya user yang bisa jalankan)**. Tanpa file itu, 9 tema hanya bisa dibuat sebagai interpretasi dari brief satu-baris spec §2. **Keputusan user tertunda:** (a) user `/design-login` → agen pull DesignSync → bangun faithful; atau (b) izinkan bangun interpretasi tanpa file.
 
 ### Cara melanjutkan (termasuk di device lain)
 
-```
-Baca .wolf/STATUS.md dulu, lalu jalankan
-docs/superpowers/plans/2026-08-19-listingku-landing-tema-tropis.md
-mulai dari task yang belum selesai.
-```
-
-Di device baru: `npm install` lalu `npm run seed:reset` dulu. `/design-login` HANYA perlu kalau ingin membuka ulang file desain — plan sudah memuat kesepuluh palet lengkap dengan nilai hex-nya, jadi eksekusi tidak memerlukannya.
+Di device baru: `npm install` lalu `npm run seed:reset` dulu. `/design-login` HANYA perlu untuk membuka file desain 01–09 (slice 2B+).
 
 - **Spec:** `docs/superpowers/specs/2026-08-19-listingku-landing-tema-tropis-design.md` — 21 bagian, berdiri sendiri.
 - **Plan:** `docs/superpowers/plans/2026-08-19-listingku-landing-tema-tropis.md` — 14 task TDD, tiap task berakhir commit.

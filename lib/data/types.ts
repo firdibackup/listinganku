@@ -1,8 +1,12 @@
 import type { Block } from '@/lib/landing/blocks';
 
+export type { ThemeName } from '@/lib/landing/themeNames';
+export type { PaletteName } from '@/lib/landing/palettes';
+import type { ThemeName } from '@/lib/landing/themeNames';
+import type { PaletteName } from '@/lib/landing/palettes';
+
 export type Id = string;
 export type ProjectStatus = 'draft' | 'published';
-export type ThemeName = 'modern' | 'showcase' | 'luxury';
 export type MediaType = 'photo' | 'floor_plan';
 export type LeadSource = 'form' | 'whatsapp';
 export type LeadStatus = 'new' | 'contacted' | 'interested' | 'negotiation' | 'deal' | 'lost';
@@ -63,6 +67,7 @@ export interface Project {
   facilities: string[];
   status: ProjectStatus;
   theme: ThemeName;
+  palette: PaletteName;
   blocks: Block[];
   seo: SeoContent;
   aiContent: ProjectAiContent | null;

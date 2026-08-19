@@ -23,7 +23,7 @@ test('menolak nomor telepon yang tidak valid', async ({ page }) => {
 
 test('tautan WhatsApp mengarah ke wa.me dengan pesan awal', async ({ page }) => {
   await page.goto('/parkspring-gading');
-  const link = page.getByRole('link', { name: 'Chat WhatsApp' }).first();
+  const link = page.getByRole('link', { name: 'WhatsApp' }).first();
   const href = await link.getAttribute('href');
   expect(href).toContain('wa.me/6281288994410');
   expect(decodeURIComponent(href ?? '')).toContain('Parkspring Gading');

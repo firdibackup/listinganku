@@ -59,8 +59,9 @@ describe('projects', () => {
     });
     expect(created.status).toBe('draft');
     expect(created.slug).toBe('parkspring-gading-2');
-    expect(created.blocks).toHaveLength(11);
-    expect(created.theme).toBe('modern');
+    expect(created.blocks).toHaveLength(14);
+    expect(created.theme).toBe('tropicalWarm');
+    expect(created.palette).toBe('tropicalWarm');
   });
 
   it('menemukan project lewat slug', async () => {

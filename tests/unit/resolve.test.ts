@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import { resolveBlocks, pick } from '@/lib/landing/resolve';
-import { defaultBlocks, toggleBlock, updateBlockProps } from '@/lib/landing/blocks';
+import { defaultBlocksForTheme, toggleBlock, updateBlockProps } from '@/lib/landing/blocks';
 import { seedStore } from '@/fixtures/seed';
 import type { Project, Media } from '@/lib/data/types';
 
 function fixture(overrides: Partial<Project> = {}) {
   const store = seedStore();
-  const project = { ...store.projects[0], blocks: defaultBlocks(), ...overrides };
+  const project = { ...store.projects[0], blocks: defaultBlocksForTheme('tropicalWarm'), ...overrides };
   return {
     project,
     houseTypes: store.houseTypes.filter((h) => h.projectId === 'prj_parkspring'),
@@ -204,5 +204,66 @@ describe('resolveBlocks', () => {
     const input = fixture();
     const form = pickBlock(resolveBlocks(input), 'contactForm') as { askHouseType: boolean };
     expect(form.askHouseType).toBe(true);
+  });
+
+  describe('blok baru — pricePromo, testimonials, developer, akses, masterplan, badge', () => {
+    it('meneruskan promo yang diisi agen apa adanya', () => {
+      const input = fixture();
+      const blocks = updateBlockProps(input.project.blocks, 'blk_pricePromo', { dpText: '10%', promos: ['Free BPHTB'] });
+      const out = pickBlock(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'pricePromo');
+      expect(out).toMatchObject({ dpText: '10%', promos: ['Free BPHTB'] });
+    });
+
+    it('menurunkan priceFrom dari harga tipe termurah', () => {
+      const input = fixture();
+      const cheapest = Math.min(...input.houseTypes.map((h) => h.price));
+      const out = resolveBlocks(input);
+      expect(pickBlock(out, 'pricePromo')).toMatchObject({ priceFrom: cheapest });
+      expect(pickBlock(out, 'hero')).toMatchObject({ priceFrom: cheapest });
+    });
+
+    it('priceFrom null ketika project belum punya tipe rumah', () => {
+      const input = { ...fixture(), houseTypes: [] };
+      expect(pickBlock(resolveBlocks(input), 'hero')).toMatchObject({ priceFrom: null });
+    });
+
+    it('TIDAK mengisi testimoni dari AI walau aiContent tersedia', () => {
+      const input = fixture({
+        aiContent: {
+          headline: 'x', description: '', sellingPoints: ['x'], faq: [],
+          seo: { title: '', description: '' }, captions: { instagram: '', facebook: '', whatsapp: '' },
+        },
+      });
+      expect(pickBlock(resolveBlocks(input), 'testimonials')).toMatchObject({ items: [] });
+    });
+
+    it('memakai project.developer sebagai nama blok developer', () => {
+      const input = fixture();
+      expect(pickBlock(resolveBlocks(input), 'developer')).toMatchObject({ name: input.project.developer });
+    });
+
+    it('mempertahankan daftar akses lokasi', () => {
+      const input = fixture();
+      const blocks = updateBlockProps(input.project.blocks, 'blk_location', { access: [{ time: '3 mnt', place: 'Tol' }] });
+      const out = pickBlock(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'location');
+      expect(out).toMatchObject({ access: [{ time: '3 mnt', place: 'Tol' }] });
+    });
+
+    it('masterplan memilih floor_plan milik project, bukan denah per tipe', () => {
+      const input = fixture();
+      const media: Media[] = [
+        { id: 'm1', userId: 'u', projectId: 'prj_parkspring', houseTypeId: null, type: 'floor_plan', url: 'a', size: 1, isPrimary: false, sortOrder: 0, createdAt: 'x' },
+        { id: 'm2', userId: 'u', projectId: 'prj_parkspring', houseTypeId: 'hts_villa', type: 'floor_plan', url: 'b', size: 1, isPrimary: false, sortOrder: 0, createdAt: 'x' },
+      ];
+      const b = pickBlock(resolveBlocks({ ...input, media }), 'floorPlans') as { masterplan: Media | null };
+      expect(b.masterplan?.id).toBe('m1');
+    });
+
+    it('badge hero jatuh ke highlights lalu facilities, maksimal 4', () => {
+      const input = fixture();
+      const withHl = updateBlockProps(input.project.blocks, 'blk_highlights', { items: ['a', 'b', 'c', 'd', 'e'] });
+      const heroA = pickBlock(resolveBlocks({ ...input, project: { ...input.project, blocks: withHl } }), 'hero');
+      expect(heroA).toMatchObject({ badges: ['a', 'b', 'c', 'd'] });
+    });
   });
 });

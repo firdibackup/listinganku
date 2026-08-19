@@ -3,7 +3,10 @@ import {
 } from 'node:fs';
 import path from 'node:path';
 import { seedStore } from '@/fixtures/seed';
-import type { StoreShape } from '../types';
+import type { Project, StoreShape } from '../types';
+import { normalizeTheme, THEME_DEFAULT_PALETTE } from '@/lib/landing/themeNames';
+import { PALETTE_NAMES, type PaletteName } from '@/lib/landing/palettes';
+import { defaultBlocksForTheme } from '@/lib/landing/blocks';
 
 /**
  * Direktori data bisa dioverride lewat LISTINGKU_DATA_DIR — dibaca ulang setiap
@@ -50,6 +53,23 @@ function repairShape(parsed: unknown): StoreShape {
     const value = parsed[key];
     if (Array.isArray(value)) repaired[key] = value.filter(isRowLike);
   }
+
+  // Perbaikan tingkat BARIS. Sebelumnya repairShape hanya mengisi tabel yang
+  // HILANG, jadi snapshot lama diam-diam membawa theme/palette tidak sah dan
+  // merender halaman publik dengan tema default tanpa jejak apa pun.
+  repaired.projects = (repaired.projects as Project[]).map((p) => {
+    const theme = normalizeTheme((p as { theme?: unknown }).theme);
+    const rawPalette = (p as { palette?: unknown }).palette;
+    return {
+      ...p,
+      theme,
+      palette: PALETTE_NAMES.includes(rawPalette as PaletteName)
+        ? (rawPalette as PaletteName)
+        : THEME_DEFAULT_PALETTE[theme],
+      blocks: Array.isArray(p.blocks) && p.blocks.length ? p.blocks : defaultBlocksForTheme(theme),
+    };
+  });
+
   // Batas kepercayaan: satu-satunya tempat JSON yang belum tervalidasi menjadi
   // StoreShape yang dipercaya penuh oleh repos.ts. Filter di atas adalah semua
   // jaminan yang diberikan sebelum baris ini — tidak ada validasi lebih dalam.

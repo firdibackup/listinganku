@@ -7,15 +7,15 @@ import { Button } from '@/components/ds';
 import { toast } from '@/components/ui';
 import { BlockRenderer } from '@/lib/landing/BlockRenderer';
 import { resolveBlocks } from '@/lib/landing/resolve';
-import { BLOCK_LABELS, moveBlock, toggleBlock, updateBlockProps } from '@/lib/landing/blocks';
+import { BLOCK_LABELS, defaultBlocksForTheme, moveBlock, toggleBlock, updateBlockProps } from '@/lib/landing/blocks';
 import type { Block } from '@/lib/landing/blocks';
 import { AVAILABLE_THEMES } from '@/lib/landing/themes';
-import { saveBlocksAction, setThemeAction } from '@/app/(dashboard)/projects/[id]/editor/actions';
-import type { AgentProfile, HouseType, Media, Project, ThemeName } from '@/lib/data/types';
+import { THEME_NAMES, THEME_LABELS } from '@/lib/landing/themeNames';
+import { paletteStyle } from '@/lib/landing/palettes';
+import { saveBlocksAction, setPaletteAction, setThemeAction } from '@/app/(dashboard)/projects/[id]/editor/actions';
+import type { AgentProfile, HouseType, Media, PaletteName, Project, ThemeName } from '@/lib/data/types';
 import { BlockSettingsPanel } from './BlockSettingsPanel';
-
-const ALL_THEMES: ThemeName[] = ['modern', 'showcase', 'luxury'];
-const THEME_LABEL: Record<ThemeName, string> = { modern: 'Modern', showcase: 'Showcase', luxury: 'Luxury' };
+import { PalettePicker } from './PalettePicker';
 
 export function EditorShell({
   project, houseTypes, media, agent,
@@ -27,9 +27,24 @@ export function EditorShell({
 }) {
   const [blocks, setBlocks] = useState<Block[]>(project.blocks);
   const [theme, setTheme] = useState<ThemeName>(project.theme);
+  const [palette, setPalette] = useState<PaletteName>(project.palette);
+  const [themeConfirm, setThemeConfirm] = useState<ThemeName | null>(null);
   const [selected, setSelected] = useState(blocks[0]?.id ?? '');
   const [device, setDevice] = useState<'desktop' | 'mobile'>('desktop');
   const [pending, startTransition] = useTransition();
+
+  function chooseTheme(next: ThemeName) {
+    if (next === theme) return;
+    setTheme(next);
+    startTransition(async () => { await setThemeAction(project.id, next); });
+    // Susunan manual agen tidak pernah ditimpa diam-diam — konfirmasi dulu (spec §10).
+    setThemeConfirm(next);
+  }
+
+  function choosePalette(next: PaletteName) {
+    setPalette(next);
+    startTransition(async () => { await setPaletteAction(project.id, next); });
+  }
 
   const resolved = useMemo(
     () => resolveBlocks({ project: { ...project, blocks }, houseTypes, media, agent }),
@@ -85,12 +100,15 @@ export function EditorShell({
                 <button> adalah DOM tidak valid. Pemilihan blok yang bisa diakses
                 keyboard tetap tersedia lewat daftar blok di panel kanan. */}
             <div
-              className="ed__preview"
-              style={
-                device === 'mobile'
+              className="ed__preview lp"
+              data-lp-theme={theme}
+              data-lp-palette={palette}
+              style={{
+                ...paletteStyle(palette),
+                ...(device === 'mobile'
                   ? { width: 390, transform: 'scale(.72)' }
-                  : { width: 1200, transform: 'scale(.42)' }
-              }
+                  : { width: 1200, transform: 'scale(.42)' }),
+              }}
             >
               {resolved.map((block) => (
                 <div
@@ -109,25 +127,43 @@ export function EditorShell({
         <div className="ed__panel">
           <p className="lw-label">Tema</p>
           <div className="ed__themes">
-            {ALL_THEMES.map((t) => (
+            {THEME_NAMES.map((t) => (
               <button
                 key={t}
                 type="button"
                 className="ed__theme"
                 aria-pressed={theme === t}
                 disabled={!AVAILABLE_THEMES.includes(t)}
-                onClick={() => {
-                  setTheme(t);
-                  startTransition(async () => { await setThemeAction(project.id, t); });
-                }}
+                onClick={() => chooseTheme(t)}
               >
-                {THEME_LABEL[t]}
+                {THEME_LABELS[t]}
               </button>
             ))}
           </div>
           <p className="lw-caption" style={{ marginTop: 6, color: 'var(--sage)' }}>
-            Showcase dan Luxury tersedia setelah desain temanya masuk.
+            Sembilan tema lain tersedia setelah desain layoutnya masuk.
           </p>
+
+          {themeConfirm ? (
+            <div className="ed__confirm" role="group" aria-label="Konfirmasi urutan blok">
+              <p className="lw-label-sm">Terapkan urutan bawaan tema ini?</p>
+              <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={() => { setBlocks(defaultBlocksForTheme(themeConfirm)); setThemeConfirm(null); }}
+                >
+                  Terapkan urutan bawaan
+                </Button>
+                <Button variant="secondary" size="sm" onClick={() => setThemeConfirm(null)}>
+                  Pertahankan susunan saya
+                </Button>
+              </div>
+            </div>
+          ) : null}
+
+          <p className="lw-label" style={{ marginTop: 18 }}>Skema warna</p>
+          <PalettePicker value={palette} onSelect={choosePalette} />
 
           <p className="lw-label" style={{ marginTop: 18 }}>Blok</p>
           <div className="ed__blocks">
