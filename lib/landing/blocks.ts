@@ -118,11 +118,19 @@ export const BLOCK_ORDER_BY_THEME: Partial<Record<ThemeName, BlockType[]>> = {
     'location', 'floorPlans', 'pricePromo', 'testimonials', 'developer', 'faq',
     'agentCta', 'contactForm',
   ],
+  // 02 Editorial Putih: "bab" berurutan — USP, unit (daftar), lokasi, fasilitas,
+  // masterplan, galeri, harga, testimoni, developer, FAQ, tim marketing.
+  editorialWhite: [
+    'hero', 'highlights', 'houseTypes', 'specs', 'location', 'facilities',
+    'floorPlans', 'gallery', 'pricePromo', 'testimonials', 'developer', 'faq',
+    'agentCta', 'contactForm',
+  ],
 };
 
 const DISABLED_BY_DEFAULT: Partial<Record<ThemeName, BlockType[]>> = {
   tropicalWarm: ['specs'],
   premiumDark: ['specs'],
+  editorialWhite: ['specs'],
 };
 
 export function defaultBlocksForTheme(theme: ThemeName): Block[] {

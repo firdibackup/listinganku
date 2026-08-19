@@ -46,7 +46,7 @@ describe('BlockRenderer', () => {
 
   it('mendaftarkan kesepuluh tema; yang bisa dipilih bertambah saat layoutnya dibangun', () => {
     expect(Object.keys(THEMES)).toHaveLength(10);
-    expect(AVAILABLE_THEMES).toEqual(['tropicalWarm', 'premiumDark']);
+    expect(AVAILABLE_THEMES).toEqual(['tropicalWarm', 'premiumDark', 'editorialWhite']);
   });
 
   it('setiap tema mengimplementasi keempat belas blok', () => {
@@ -61,5 +61,28 @@ describe('BlockRenderer', () => {
 
   it('tema yang belum dibangun tetap punya entri agar picker tidak meledak', () => {
     expect(THEMES.editorialWhite.label).toBe('Editorial Putih');
+  });
+
+  it('editorialWhite merender tipe unit sebagai daftar (semua tipe), bukan bertab', () => {
+    const twoTypes: ResolvedBlock[] = [
+      {
+        id: 'ht', type: 'houseTypes',
+        houseTypes: [
+          {
+            id: 'h1', name: 'Villa', slug: 'villa', price: 2_450_000_000, landArea: 90, buildingArea: 120,
+            bedrooms: 3, bathrooms: 2, carport: 1, shortDescription: '', sellingPoints: [], photos: [], primaryPhoto: null, floorPlan: null,
+          },
+          {
+            id: 'h2', name: 'Midea', slug: 'midea', price: 3_100_000_000, landArea: 112, buildingArea: 145,
+            bedrooms: 4, bathrooms: 3, carport: 2, shortDescription: '', sellingPoints: [], photos: [], primaryPhoto: null, floorPlan: null,
+          },
+        ],
+      },
+    ];
+    const { container } = render(<BlockRenderer blocks={twoTypes} theme="editorialWhite" />);
+    expect(container.querySelector('.lp-x-unitlist')).toBeTruthy();
+    // Daftar merender KEDUA tipe (varian tabs hanya merender yang aktif).
+    expect(screen.getByText('Tipe Villa')).toBeInTheDocument();
+    expect(screen.getByText('Tipe Midea')).toBeInTheDocument();
   });
 });

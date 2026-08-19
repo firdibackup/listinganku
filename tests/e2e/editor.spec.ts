@@ -53,8 +53,8 @@ test('tema yang layoutnya sudah dibangun aktif; sisanya nonaktif sampai masuk', 
   // bentrok dengan swatch di .ed__palettes.
   const themes = page.locator('.ed__themes');
   await expect(themes.getByRole('button', { name: 'Tropis Hangat' })).toBeEnabled();
-  await expect(themes.getByRole('button', { name: 'Premium Gelap' })).toBeEnabled();
-  await expect(themes.getByRole('button', { name: 'Editorial Putih' })).toBeDisabled();
+  await expect(themes.getByRole('button', { name: 'Editorial Putih' })).toBeEnabled();
+  await expect(themes.getByRole('button', { name: 'Korporat Biru' })).toBeDisabled();
 });
 
 test('memilih swatch palet mengubah pratinjau tanpa reload', async ({ page }) => {
