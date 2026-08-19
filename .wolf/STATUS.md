@@ -2,7 +2,9 @@
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
 > Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
-> Last updated: 2026-08-19 (KESEPULUH tema landing SELESAI & aktif — semua 10 desain .dc.html diimplementasi. AVAILABLE_THEMES = 10.)
+> Last updated: 2026-08-19 (10 tema landing SELESAI + pass /impeccable adapt (responsif mobile-first, bingkai desktop) + polish (fokus keyboard, kontras). AVAILABLE_THEMES = 10.)
+>
+> **Responsif (lapisan bersама, `themes/tropicalWarm/theme.css`, kelas lp-tw-*):** kolom baca ~720px utk section teks, bingkai lebar ~1080px utk section grid/media (via `:has`), chrome full-bleed dibingkai lewat `padding-inline: max(...)`; grid nambah kolom; target sentuh ≥44px; `prefers-reduced-motion`; `:focus-visible` outline var(--lp-accent). Verifikasi visual: screenshot 390/768/1440 (mobile tak berubah). Jangan kembalikan `.lp-tw-in` ke 1120px satu-kolom.
 >
 > **10 tema:** tropicalWarm (bespoke, `themes/tropicalWarm/`), 9 lain = komponen bersama + CSS di-scope `[data-lp-theme=...]` (`themes/<name>.css`) + font + urutan. Override struktural: editorialWhite & softLuxury pakai `HouseTypesList` (unit sebagai daftar/carousel). Simplifikasi sadar: 03 corporateBlue pakai hero foto bersama (form-in-hero desain dijalankan lewat blok form penutup); 06 architectural pakai kartu unit bertab (sudah mirip lembar spesifikasi). Kalau mau lebih presisi ke desain, tambah varian Hero/Unit di `themes/shared/` + daftarkan di `THEME_OVERRIDES`.
 >
