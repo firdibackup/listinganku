@@ -28,3 +28,21 @@ test('tautan WhatsApp mengarah ke wa.me dengan pesan awal', async ({ page }) => 
   expect(href).toContain('wa.me/6281288994410');
   expect(decodeURIComponent(href ?? '')).toContain('Parkspring Gading');
 });
+
+test('di layar mobile sticky CTA bar tampil dan Minta info melompat ke form kontak', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/parkspring-gading');
+
+  const bar = page.locator('.lp__stickybar');
+  await expect(bar).toBeVisible();
+  await expect(bar.getByRole('link', { name: 'WhatsApp' })).toBeVisible();
+
+  await bar.getByRole('link', { name: 'Minta info' }).click();
+  await expect(page.locator('#minta-info')).toBeInViewport();
+});
+
+test('sticky CTA bar hanya untuk layar kecil — tersembunyi di desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/parkspring-gading');
+  await expect(page.locator('.lp__stickybar')).toBeHidden();
+});

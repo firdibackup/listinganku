@@ -23,6 +23,24 @@ describe('seed', () => {
     ]);
   });
 
+  it('menyediakan lima lead contoh yang mencakup beragam status dan kedua sumber', async () => {
+    const leads = await db.leads.listByUser(SEED_USER_ID);
+
+    expect(leads).toHaveLength(5);
+    // Tiap tone Chip harus terwakili supaya halaman Leads bisa dinilai visual.
+    expect(new Set(leads.map((l) => l.status))).toEqual(
+      new Set(['new', 'contacted', 'interested', 'negotiation', 'deal']),
+    );
+    expect(new Set(leads.map((l) => l.source))).toEqual(new Set(['form', 'whatsapp']));
+    // Telepon disimpan dalam bentuk kanonik 62, sama seperti tulisan submitLeadAction.
+    expect(leads.every((l) => l.phone.startsWith('62'))).toBe(true);
+  });
+
+  it('mengurutkan lead seed dari yang terbaru', async () => {
+    const leads = await db.leads.listByUser(SEED_USER_ID);
+    expect(leads[0].name).toBe('Rina Wijaya');
+  });
+
   it('hanya memaparkan project published lewat listPublished', async () => {
     const published = await db.projects.listPublished();
     // Seed punya 3 project, 2 published (Parkspring, Bintaro) dan 1 draft (Casa Verde).
@@ -74,6 +92,27 @@ describe('events', () => {
     // Seed prj_parkspring sudah punya 1.420 visitor (evt_1, lihat fixtures/seed.ts).
     // Literal, bukan diturunkan dari pemanggilan countsByProject sebelum tindakan.
     expect((await db.events.countsByProject(project.id)).visitor).toBe(1422);
+  });
+
+  it('listByUser mengembalikan baris bertanggal, bukan agregat', async () => {
+    const project = (await db.projects.list(SEED_USER_ID))[0];
+    await db.events.record({ projectId: project.id, type: 'whatsapp_click' });
+
+    const rows = await db.events.listByUser(SEED_USER_ID);
+
+    // totalsByUser meratakan tanggal; kartu delta "7 HARI" butuh baris mentahnya.
+    const recorded = rows.find((e) => e.projectId === project.id && e.type === 'whatsapp_click');
+    expect(recorded?.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    expect(recorded?.count).toBeGreaterThanOrEqual(1);
+  });
+
+  it('listByUser tidak membocorkan event milik user lain', async () => {
+    const project = (await db.projects.list(SEED_USER_ID))[0];
+    await db.events.record({ projectId: project.id, type: 'visitor' });
+
+    const rows = await db.events.listByUser('usr_orang_lain');
+
+    expect(rows).toEqual([]);
   });
 });
 
@@ -445,7 +484,7 @@ describe('snapshot berkas — persist: true', () => {
     expect(loadSnapshot()).toEqual(seedStore());
   });
 
-  it('snapshot skema lama (tanpa leads/aiUsage) tidak crash; tabel yang hilang default ke array kosong', () => {
+  it('snapshot skema lama (tanpa leads/aiUsage) tidak crash; tabel yang hilang jatuh ke nilai seed-nya', () => {
     mkdirSync(tmpDir, { recursive: true });
     const oldShape: Record<string, unknown> = seedStore();
     delete oldShape.leads;
@@ -453,7 +492,10 @@ describe('snapshot berkas — persist: true', () => {
     writeFileSync(snapshotFile(), JSON.stringify(oldShape), 'utf8');
 
     const loaded = loadSnapshot();
-    expect(loaded?.leads).toEqual([]);
+    // Kontrak repairShape adalah "tabel hilang -> nilai seed tabel itu", bukan
+    // "-> array kosong"; keduanya kebetulan sama sebelum seed memuat lead.
+    expect(loaded?.leads).toEqual(seedStore().leads);
+    expect(loaded?.leads).toHaveLength(5);
     expect(loaded?.aiUsage).toEqual([]);
     expect(loaded?.projects.map((p) => p.name)).toEqual(seedStore().projects.map((p) => p.name));
   });
@@ -466,7 +508,7 @@ describe('snapshot berkas — persist: true', () => {
     writeFileSync(snapshotFile(), JSON.stringify(oldShape), 'utf8');
 
     const store = createMockStore({ persist: true });
-    await expect(store.leads.listByUser(SEED_USER_ID)).resolves.toEqual([]);
+    await expect(store.leads.listByUser(SEED_USER_ID)).resolves.toHaveLength(5);
     await expect(store.aiUsage.record({
       userId: SEED_USER_ID, projectId: 'prj_parkspring', model: 'gemini-2.5-flash',
       promptTokens: 10, completionTokens: 20, latencyMs: 500, success: true, error: null,

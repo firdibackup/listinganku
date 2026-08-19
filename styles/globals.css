@@ -13,6 +13,8 @@
 @import "../components/ds/ds.css";
 @import "../components/ui/ui.css";
 @import "../components/dashboard/dashboard.css";
+@import "../components/leads/leads.css";
+@import "../components/settings/settings.css";
 @import "../components/media/media.css";
 @import "../components/wizard/wizard.css";
 @import "../components/project/project.css";

@@ -59,3 +59,30 @@ export function formatDateShort(iso: string | Date | null | undefined): string {
   if (!Number.isFinite(d.getTime())) return '—';
   return `${d.getUTCDate()} ${BULAN_PENDEK[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
+
+/**
+ * Rasio 0..1 menjadi persen gaya Indonesia ("6,7%"). Satu angka desimal, dan
+ * desimal nol dibuang supaya "50%" tidak tampil sebagai "50,0%".
+ */
+export function formatPercent(value: number | null | undefined): string {
+  if (isAbsent(value)) return '—';
+  const formatted = new Intl.NumberFormat(ID, { maximumFractionDigits: 1 }).format((value as number) * 100);
+  return `${formatted}%`;
+}
+
+/**
+ * Kolom TANGGAL di tabel Leads: "10 Agu, 09.12". Sengaja tanpa tahun — tabel
+ * memuat prospek terbaru dan kolomnya sempit. Titik sebagai pemisah jam adalah
+ * konvensi Indonesia ("09.12 WIB"), bukan titik dua.
+ *
+ * Memakai getter UTC seperti formatDateLong/Short: dirender di server lalu
+ * dihidrasi di klien, jadi zona waktu lokal akan membuat teksnya berbeda.
+ */
+export function formatDateTimeShort(iso: string | Date | null | undefined): string {
+  if (isAbsent(iso)) return '—';
+  const d = new Date(iso as string | Date);
+  if (!Number.isFinite(d.getTime())) return '—';
+  const hh = String(d.getUTCHours()).padStart(2, '0');
+  const mm = String(d.getUTCMinutes()).padStart(2, '0');
+  return `${d.getUTCDate()} ${BULAN_PENDEK[d.getUTCMonth()]}, ${hh}.${mm}`;
+}

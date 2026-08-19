@@ -12,7 +12,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 
   return (
     <div className="dash">
-      <Sidebar active="dashboard" agent={agent} />
+      <Sidebar agent={agent} />
       <main className="dash__main">{children}</main>
     </div>
   );

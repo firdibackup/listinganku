@@ -49,6 +49,11 @@ export interface DataStore {
     record(input: { projectId: Id; houseTypeId?: Id | null; type: EventType }): Promise<void>;
     countsByProject(projectId: Id): Promise<Record<EventType, number>>;
     totalsByUser(userId: Id): Promise<Record<EventType, number>>;
+    /**
+     * Baris mentah bertanggal. totalsByUser() meratakan tanggal, jadi kartu
+     * delta "7 HARI" di halaman Leads tidak bisa dihitung darinya.
+     */
+    listByUser(userId: Id): Promise<EventRow[]>;
   };
   aiUsage: {
     record(input: NewAiUsage): Promise<void>;

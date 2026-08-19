@@ -40,8 +40,16 @@ export interface AgentProfile {
   colorScheme: string;
   about: string;
   stats: { closings: number; listings: number; years: number };
+  /**
+   * Stat ke-3 pada tab Profil di file design ("Wilayah Spesialis"). Teks, jadi
+   * tidak bisa masuk `stats` yang seluruhnya angka. `stats.years` tetap ada dan
+   * dipakai situs profil, bukan layar Settings.
+   */
+  specialistArea: string;
   services: string[];
   isPublished: boolean;
+  /** Preferensi notifikasi lead. Pengiriman email di luar scope MVP; nilainya tetap disimpan. */
+  notifyOnLead: boolean;
 }
 
 export interface Project {

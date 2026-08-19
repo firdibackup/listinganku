@@ -22,6 +22,15 @@ const houseType = (
   status: 'published' as const, aiContent: null, sortOrder, createdAt: NOW, updatedAt: NOW,
 });
 
+const lead = (
+  id: string, houseTypeId: string | null, name: string, phone: string, message: string,
+  source: 'form' | 'whatsapp', status: 'new' | 'contacted' | 'interested' | 'negotiation' | 'deal' | 'lost',
+  createdAt: string,
+) => ({
+  id, projectId: 'prj_parkspring', houseTypeId, name, phone, email: null,
+  message, source, status, createdAt,
+});
+
 export function seedStore(): StoreShape {
   return {
     agentProfiles: [
@@ -38,8 +47,10 @@ export function seedStore(): StoreShape {
         colorScheme: 'Oranye',
         about: 'Agen properti untuk kawasan Gading Serpong dan sekitarnya. Fokus pada cluster baru dan unit ready stock.',
         stats: { closings: 64, listings: 18, years: 7 },
+        specialistArea: 'Gading Serpong',
         services: ['Jual', 'Sewa', 'Konsultasi'],
         isPublished: true,
+        notifyOnLead: true,
       },
     ],
     projects: [
@@ -74,7 +85,21 @@ export function seedStore(): StoreShape {
       houseType('hts_loop_xl', 'prj_bintaro', 'Loop XL', 'loop-xl', 3_400_000_000, 128, 175, 4, 3, 2, 3),
     ],
     media: [],
-    leads: [],
+    // Lima lead dari layar `leads` di file design. Telepon disimpan dalam bentuk
+    // kanonik 62 (sama seperti tulisan submitLeadAction), bukan gaya tampilan —
+    // formatPhoneDisplay yang mengembalikannya ke "0813-2244-9087" saat dirender.
+    leads: [
+      lead('led_rina', 'hts_midea', 'Rina Wijaya', '6281322449087',
+        'Tipe Midea masih ada unit hadap timur?', 'form', 'new', '2026-08-10T09:12:00.000Z'),
+      lead('led_hendra', null, 'Hendra S.', '6281277813390',
+        'Minta price list semua tipe.', 'whatsapp', 'contacted', '2026-08-09T20:44:00.000Z'),
+      lead('led_melisa', 'hts_grand', 'Melisa Tanuwijaya', '6285799031128',
+        'Bisa survey akhir pekan ini?', 'form', 'interested', '2026-08-09T15:03:00.000Z'),
+      lead('led_bayu', 'hts_villa', 'Bayu Prakoso', '6281944102277',
+        'KPR bank apa saja yang kerja sama?', 'form', 'negotiation', '2026-08-08T11:20:00.000Z'),
+      lead('led_dewi', 'hts_villa', 'Dewi Anggraini', '6287833210092',
+        'Sudah deal unit Villa 12/8.', 'whatsapp', 'deal', '2026-08-06T17:55:00.000Z'),
+    ],
     events: [
       { id: 'evt_1', projectId: 'prj_parkspring', houseTypeId: null, type: 'visitor', date: '2026-08-10', count: 1420 },
       { id: 'evt_2', projectId: 'prj_parkspring', houseTypeId: null, type: 'whatsapp_click', date: '2026-08-10', count: 96 },

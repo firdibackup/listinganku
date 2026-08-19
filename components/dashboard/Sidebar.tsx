@@ -1,27 +1,29 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import type { AgentProfile } from '@/lib/data/types';
+import { NAV_ITEMS, isNavItemActive } from './navItems';
 
-const ITEMS = [
-  { id: 'dashboard', label: 'Dashboard', href: '/dashboard' },
-  { id: 'projects', label: 'Projects', href: '/dashboard' },
-  { id: 'leads', label: 'Leads', href: '/dashboard' },
-  { id: 'settings', label: 'Pengaturan', href: '/dashboard' },
-] as const;
+/**
+ * Client Component semata-mata supaya `usePathname()` bisa menurunkan item nav
+ * yang aktif. Sebelumnya layout mengoper prop `active` yang di-hardcode
+ * "dashboard", sehingga setiap halaman dashboard menyalakan item yang sama.
+ */
+export function Sidebar({ agent }: { agent: AgentProfile }) {
+  const pathname = usePathname() ?? '';
 
-export type SidebarSection = (typeof ITEMS)[number]['id'];
-
-export function Sidebar({ active, agent }: { active: SidebarSection; agent: AgentProfile }) {
   return (
     <aside className="dash__aside">
       <Image src="/brand/listingku-logo.png" alt="Listingku" width={128} height={30} />
       <nav className="dash__nav">
-        {ITEMS.map((item) => (
+        {NAV_ITEMS.map((item) => (
           <Link
             key={item.id}
             href={item.href}
             className="dash__navitem"
-            aria-current={item.id === active ? 'page' : undefined}
+            aria-current={isNavItemActive(item.id, pathname) ? 'page' : undefined}
           >
             <span className="dash__navmark" aria-hidden="true" />
             {item.label}

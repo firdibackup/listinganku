@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { formatRupiahShort, formatRupiah, formatNumber, formatArea, formatDateLong, formatDateShort } from '@/lib/format';
+import { formatRupiahShort, formatRupiah, formatNumber, formatArea, formatDateLong, formatDateShort, formatPercent, formatDateTimeShort } from '@/lib/format';
 
 describe('formatRupiahShort', () => {
   it('memakai koma desimal dan satuan M untuk miliar', () => {
@@ -85,5 +85,44 @@ describe('nol adalah nilai nyata', () => {
 
   it('formatArea(0) tidak mengembalikan em dash', () => {
     expect(formatArea(0)).toBe('0 m²');
+  });
+});
+
+describe('formatPercent', () => {
+  it('memakai koma desimal dan satu angka di belakang koma', () => {
+    expect(formatPercent(0.067)).toBe('6,7%');
+    expect(formatPercent(0.002)).toBe('0,2%');
+  });
+
+  it('membuang desimal nol daripada menulis "50,0%"', () => {
+    expect(formatPercent(0.5)).toBe('50%');
+    expect(formatPercent(0)).toBe('0%');
+  });
+
+  it('mengembalikan em dash untuk null, undefined, dan NaN', () => {
+    expect(formatPercent(null)).toBe('—');
+    expect(formatPercent(undefined)).toBe('—');
+    expect(formatPercent(NaN)).toBe('—');
+  });
+});
+
+describe('formatDateTimeShort', () => {
+  it('menggabungkan tanggal pendek dan jam gaya 24 jam dipisah koma', () => {
+    expect(formatDateTimeShort('2026-08-10T09:12:00.000Z')).toBe('10 Agu, 09.12');
+    expect(formatDateTimeShort('2026-08-09T20:44:00.000Z')).toBe('9 Agu, 20.44');
+  });
+
+  it('memberi nol di depan pada jam dan menit satu digit', () => {
+    expect(formatDateTimeShort('2026-08-06T07:05:00.000Z')).toBe('6 Agu, 07.05');
+  });
+
+  it('memakai UTC, sama seperti formatDateShort, supaya server dan klien tidak berbeda', () => {
+    // Tanpa ini render server (UTC) dan hidrasi klien (zona lokal) bisa berbeda teks.
+    expect(formatDateTimeShort('2026-08-10T23:30:00.000Z')).toBe('10 Agu, 23.30');
+  });
+
+  it('mengembalikan em dash untuk nilai kosong atau tanggal tidak valid', () => {
+    expect(formatDateTimeShort(null)).toBe('—');
+    expect(formatDateTimeShort('bukan-tanggal')).toBe('—');
   });
 });

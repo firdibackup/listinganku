@@ -24,7 +24,9 @@ vi.mock('@/lib/session', () => ({
     return session.userId;
   },
 }));
-vi.mock('next/navigation', () => ({ redirect: redirectMock }));
+// Sidebar kini Client Component yang memakai usePathname() untuk menurunkan
+// item nav aktif; mock next/navigation harus menyediakannya juga.
+vi.mock('next/navigation', () => ({ redirect: redirectMock, usePathname: () => '/dashboard' }));
 
 import DashboardLayout from '@/app/(dashboard)/layout';
 import DashboardPage from '@/app/(dashboard)/dashboard/page';

@@ -227,6 +227,10 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
         for (const e of s.events) if (owned.has(e.projectId)) counts[e.type] += e.count;
         return counts;
       },
+      async listByUser(userId) {
+        const owned = new Set(s.projects.filter((p) => p.userId === userId).map((p) => p.id));
+        return s.events.filter((e) => owned.has(e.projectId)).map(clone);
+      },
     },
 
     aiUsage: {

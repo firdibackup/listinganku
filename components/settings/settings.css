@@ -1,0 +1,103 @@
+/* Halaman Settings. Angka disalin dari layar `settings` di Listingku App.dc.html. */
+
+.set__sub{margin-top:6px;font-size:var(--type-body-sm-size);color:var(--sage)}
+
+.set__tabs{margin-top:20px;display:flex;gap:22px;border-bottom:1px solid var(--ash)}
+.set__tab{padding:10px 2px;font-size:var(--type-body-sm-size);color:var(--sage);
+  border-bottom:2px solid transparent;transition:var(--transition-control)}
+.set__tab:hover{color:var(--evergreen)}
+.set__tab[aria-current="page"]{color:var(--evergreen);font-weight:600;border-bottom-color:var(--orange)}
+
+.set__layout{margin-top:24px;display:grid;grid-template-columns:minmax(0,1fr) 380px;
+  gap:24px;align-items:start}
+.set__stack{display:flex;flex-direction:column;gap:16px}
+.set__card{background:var(--white);border:1px solid var(--ash);border-radius:var(--radius-md);
+  padding:22px 24px;margin:0}
+.set__cardtitle{font-family:var(--font-text);font-size:var(--type-body-sm-size);font-weight:600;
+  padding:0;margin:0}
+
+/* Radio tema/aksen: input disembunyikan secara visual tapi tetap terjangkau
+   keyboard dan pembaca layar — bukan display:none. */
+.set__sronly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+.set__themes{margin-top:14px;display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.set__theme{border:1px solid var(--ash);border-radius:var(--radius-md);padding:12px;
+  cursor:pointer;background:var(--white);display:block;transition:var(--transition-control)}
+.set__theme[data-selected]{border-color:var(--evergreen);box-shadow:0 0 0 3px var(--mint)}
+.set__theme:has(:focus-visible){outline:2px solid var(--evergreen);outline-offset:2px}
+.set__themeswatch{display:block;height:48px;border-radius:var(--radius-sm);background:var(--stone);
+  border:1px solid var(--ash)}
+.set__themename{display:block;margin-top:8px;font-size:var(--type-label-sm-size);font-weight:600}
+
+.set__accents{margin-top:14px;display:flex;gap:10px;flex-wrap:wrap}
+.set__accent{display:flex;align-items:center;gap:8px;border:1px solid var(--ash);
+  border-radius:999px;padding:7px 14px;font-size:var(--type-body-sm-size);cursor:pointer;
+  background:var(--white);transition:var(--transition-control)}
+.set__accent[data-selected]{border-color:var(--evergreen)}
+.set__accent:has(:focus-visible){outline:2px solid var(--evergreen);outline-offset:2px}
+.set__dot{width:12px;height:12px;border-radius:50%}
+
+.set__logorow{margin-top:14px;display:flex;align-items:center;gap:16px}
+.set__logoslot{width:150px;height:62px;border:1px dashed var(--ash);border-radius:var(--radius-sm);
+  display:flex;align-items:center;justify-content:center;font-family:var(--font-text);
+  font-weight:600;font-size:var(--type-label-sm-size);letter-spacing:0.04em;color:var(--sage);
+  background:var(--stone);flex-shrink:0}
+.set__logofield{flex:1;min-width:0}
+
+.set__stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.set__half{max-width:320px}
+/* Latar abu menandai field yang tidak bisa diedit, sesuai file design — tanpa
+   ini email tampak seperti input biasa yang diam-diam menolak ketikan. */
+.set__readonly .ds-field__input{background:var(--stone);color:var(--sage)}
+
+.set__toggle{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:420px}
+.set__togglelabel{margin:0;font-size:var(--type-body-sm-size);font-weight:500}
+.set__togglehint{margin:3px 0 0;font-size:var(--type-label-sm-size);color:var(--sage)}
+.set__switch{width:40px;height:23px;border-radius:999px;padding:3px;background:var(--ash);
+  border:0;cursor:pointer;display:flex;align-items:center;transition:var(--transition-control)}
+.set__switch[data-on]{background:var(--evergreen)}
+.set__switchthumb{display:block;width:17px;height:17px;border-radius:50%;background:var(--white);
+  transition:transform var(--dur-base) var(--ease-standard)}
+.set__switch[data-on] .set__switchthumb{transform:translateX(17px)}
+
+.set__danger{background:var(--white);border:1px solid var(--orange-100);
+  border-radius:var(--radius-md);padding:22px 24px}
+.set__dangertitle{margin:0;font-family:var(--font-text);font-size:var(--type-body-sm-size);
+  font-weight:600;color:var(--orange)}
+.set__dangertext{margin:6px 0 0;font-size:var(--type-body-sm-size);color:var(--sage)}
+.set__dangerbtn{margin-top:14px;border-color:var(--orange-100);color:var(--orange)}
+.set__dangerbtn:hover{border-color:var(--orange);color:var(--orange-700)}
+
+.set__savebar{display:flex;align-items:center;gap:12px}
+.set__savemsg{font-size:var(--type-body-sm-size);color:var(--sage)}
+.set__error{color:var(--orange);font-size:var(--type-label-sm-size);margin:6px 0 0}
+
+.set__preview{background:var(--white);border:1px solid var(--ash);border-radius:var(--radius-md);
+  overflow:hidden;position:sticky;top:60px}
+.set__previewhead{margin:0;padding:10px 14px;border-bottom:1px solid var(--stone);
+  font-family:var(--font-text);font-weight:600;font-size:var(--type-label-sm-size);
+  letter-spacing:0.04em;color:var(--sage)}
+.set__previewbody{padding:20px 22px}
+.set__previewtop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.set__previewname{font-size:var(--type-body-sm-size);font-weight:700}
+.set__previewbtn,.set__previewcta{display:inline-block;color:var(--white);border-radius:var(--radius-sm);
+  font-size:var(--type-label-sm-size);font-weight:600;padding:5px 10px}
+.set__previewavatar{margin-top:18px;width:48px;height:48px;border-radius:50%;
+  background:var(--stone);border:1px solid var(--ash)}
+.set__previewagent{margin:12px 0 0;font-family:var(--font-text);font-size:18px;line-height:22px;
+  font-weight:600}
+.set__previewsub{margin:4px 0 0;font-size:var(--type-label-sm-size);color:var(--sage)}
+.set__previewcta{margin-top:16px;padding:8px 14px}
+.set__previewgrid{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.set__previewgrid span{display:block;height:62px;border-radius:var(--radius-sm);background:var(--mint)}
+
+@media (max-width:1100px){
+  .set__layout{grid-template-columns:minmax(0,1fr)}
+  .set__preview{position:static;order:-1}
+}
+@media (max-width:900px){
+  .set__themes{grid-template-columns:repeat(2,1fr)}
+  .set__stats{grid-template-columns:1fr}
+  .set__logorow{flex-direction:column;align-items:flex-start}
+}

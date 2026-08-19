@@ -23,6 +23,12 @@
 .dash__metric dt{font-size:var(--type-body-sm-size);color:var(--sage)}
 .dash__metric dd{margin:10px 0 0;font-family:var(--font-display);font-size:var(--type-h2-size);
   line-height:var(--type-h2-line);font-weight:600}
+/* Sub-baris tren pada kartu metrik halaman Leads. Ia juga <dd>, jadi harus
+   membatalkan font display/ukuran h2 dari aturan di atas — dan selektornya
+   wajib menyertakan `dd`: `.dash__metric dd` (0,1,1) mengalahkan kelas
+   tunggal (0,1,0), sehingga delta ikut terender sebesar angka utama. */
+.dash__metric dd.dash__metric-delta{margin-top:3px;font-family:var(--font-text);font-weight:600;
+  font-size:var(--type-label-sm-size);line-height:1.3;letter-spacing:0.04em;color:var(--sage)}
 .dash__project{display:block;transition:var(--transition-control)}
 .dash__project:hover .dash__project-card{border-color:var(--orange)}
 .dash__project:active{transform:translateY(1px)}

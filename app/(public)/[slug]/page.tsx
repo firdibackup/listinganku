@@ -6,6 +6,7 @@ import { resolveBlocks } from '@/lib/landing/resolve';
 import { BlockRenderer } from '@/lib/landing/BlockRenderer';
 import { buildJsonLd, buildMetadata, jsonLdScript } from '@/lib/landing/seo';
 import { PageViewTracker } from '@/components/landing/PageViewTracker';
+import { StickyCtaBar } from '@/components/landing/StickyCtaBar';
 
 /**
  * cache() menyatukan panggilan load() dari generateMetadata dan dari komponen
@@ -51,6 +52,7 @@ export default async function LandingPage({ params }: { params: Promise<{ slug: 
   );
 
   const typesBlock = blocks.find((b) => b.type === 'houseTypes');
+  const ctaBlock = blocks.find((b) => b.type === 'agentCta');
 
   return (
     <div className="lp">
@@ -78,6 +80,17 @@ export default async function LandingPage({ params }: { params: Promise<{ slug: 
           Dibuat oleh {data.agent.fullName} — <a href={`https://${data.agent.subdomain}.listingku.app`}>lihat profil</a>
         </div>
       </footer>
+
+      {/* Nomor dan pesan diambil dari blok agentCta yang sudah diresolve, bukan
+          dari agent mentah — kalau agen menimpanya di editor, bar ini ikut. Blok
+          yang dinonaktifkan tidak ikut ke blocks, jadi bar pun ikut hilang. */}
+      {ctaBlock && ctaBlock.type === 'agentCta' ? (
+        <StickyCtaBar
+          projectId={data.project.id}
+          waNumber={ctaBlock.waNumber}
+          message={ctaBlock.defaultMessage}
+        />
+      ) : null}
     </div>
   );
 }
