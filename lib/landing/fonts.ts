@@ -1,4 +1,7 @@
-import { DM_Serif_Display, DM_Sans, Cormorant_Garamond, Jost, Instrument_Serif, IBM_Plex_Sans } from 'next/font/google';
+import {
+  DM_Serif_Display, DM_Sans, Cormorant_Garamond, Jost, Instrument_Serif, IBM_Plex_Sans,
+  Marcellus, Karla, Anton, Figtree,
+} from 'next/font/google';
 
 /**
  * next/font tidak bisa dipanggil kondisional — semua pasangan font tema
@@ -25,6 +28,18 @@ const instrument = Instrument_Serif({
 const ibmPlex = IBM_Plex_Sans({
   subsets: ['latin'], weight: ['300', '400', '500'], variable: '--font-ibm-plex', display: 'swap',
 });
+const marcellus = Marcellus({
+  subsets: ['latin'], weight: ['400'], variable: '--font-marcellus', display: 'swap',
+});
+const karla = Karla({
+  subsets: ['latin'], weight: ['300', '400', '500'], variable: '--font-karla', display: 'swap',
+});
+const anton = Anton({
+  subsets: ['latin'], weight: ['400'], variable: '--font-anton', display: 'swap',
+});
+const figtree = Figtree({
+  subsets: ['latin'], weight: ['400', '500', '700', '800'], variable: '--font-figtree', display: 'swap',
+});
 
 export type ThemeFontDecl = { className: string; display: string; text: string };
 
@@ -43,5 +58,15 @@ export const THEME_FONTS: Record<string, ThemeFontDecl> = {
     className: `${instrument.variable} ${ibmPlex.variable}`,
     display: 'var(--font-instrument), Georgia, "Times New Roman", serif',
     text: 'var(--font-ibm-plex), system-ui, -apple-system, "Segoe UI", sans-serif',
+  },
+  softLuxury: {
+    className: `${marcellus.variable} ${karla.variable}`,
+    display: 'var(--font-marcellus), Georgia, "Times New Roman", serif',
+    text: 'var(--font-karla), system-ui, -apple-system, "Segoe UI", sans-serif',
+  },
+  boldRetail: {
+    className: `${anton.variable} ${figtree.variable}`,
+    display: 'var(--font-anton), "Arial Black", system-ui, sans-serif',
+    text: 'var(--font-figtree), system-ui, -apple-system, "Segoe UI", sans-serif',
   },
 };

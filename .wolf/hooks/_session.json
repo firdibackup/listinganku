@@ -31,13 +31,38 @@
       "count": 1,
       "tokens": 0,
       "first_read": "2026-08-19T05:23:43.149Z"
+    },
+    "C:/Users/jayac/Documents/listinganku/design/project/04 Soft Luxury Beige.dc.html": {
+      "count": 1,
+      "tokens": 0,
+      "first_read": "2026-08-19T05:33:46.024Z"
+    },
+    "C:/Users/jayac/Documents/listinganku/design/project/05 Bold Retail.dc.html": {
+      "count": 1,
+      "tokens": 0,
+      "first_read": "2026-08-19T05:36:20.148Z"
+    },
+    "C:/Users/jayac/Documents/listinganku/design/project/08 Klasik Navy.dc.html": {
+      "count": 1,
+      "tokens": 0,
+      "first_read": "2026-08-19T05:39:11.607Z"
+    },
+    "C:/Users/jayac/Documents/listinganku/design/project/09 Playful Pastel.dc.html": {
+      "count": 1,
+      "tokens": 0,
+      "first_read": "2026-08-19T05:39:25.665Z"
+    },
+    "C:/Users/jayac/Documents/listinganku/design/project/03 Korporat Biru.dc.html": {
+      "count": 1,
+      "tokens": 0,
+      "first_read": "2026-08-19T05:39:26.186Z"
     }
   },
   "files_written": [],
   "edit_counts": {},
   "anatomy_hits": 0,
-  "anatomy_misses": 6,
+  "anatomy_misses": 11,
   "repeated_reads_warned": 0,
   "cerebrum_warnings": 0,
-  "stop_count": 3
+  "stop_count": 4
 }

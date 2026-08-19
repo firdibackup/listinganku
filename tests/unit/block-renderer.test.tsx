@@ -46,7 +46,9 @@ describe('BlockRenderer', () => {
 
   it('mendaftarkan kesepuluh tema; yang bisa dipilih bertambah saat layoutnya dibangun', () => {
     expect(Object.keys(THEMES)).toHaveLength(10);
-    expect(AVAILABLE_THEMES).toEqual(['tropicalWarm', 'premiumDark', 'editorialWhite']);
+    expect(AVAILABLE_THEMES).toEqual([
+      'tropicalWarm', 'premiumDark', 'editorialWhite', 'softLuxury', 'boldRetail',
+    ]);
   });
 
   it('setiap tema mengimplementasi keempat belas blok', () => {

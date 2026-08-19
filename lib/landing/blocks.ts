@@ -125,12 +125,26 @@ export const BLOCK_ORDER_BY_THEME: Partial<Record<ThemeName, BlockType[]>> = {
     'floorPlans', 'gallery', 'pricePromo', 'testimonials', 'developer', 'faq',
     'agentCta', 'contactForm',
   ],
+  // 04 Soft Luxury Beige: fasilitas sebelum lokasi, galeri setelah lokasi.
+  softLuxury: [
+    'hero', 'highlights', 'houseTypes', 'specs', 'facilities', 'location',
+    'gallery', 'floorPlans', 'pricePromo', 'testimonials', 'developer', 'faq',
+    'agentCta', 'contactForm',
+  ],
+  // 05 Bold Retail: statistik developer sebagai strip di atas, promo di depan.
+  boldRetail: [
+    'hero', 'developer', 'highlights', 'houseTypes', 'specs', 'pricePromo',
+    'location', 'facilities', 'floorPlans', 'gallery', 'testimonials', 'faq',
+    'agentCta', 'contactForm',
+  ],
 };
 
 const DISABLED_BY_DEFAULT: Partial<Record<ThemeName, BlockType[]>> = {
   tropicalWarm: ['specs'],
   premiumDark: ['specs'],
   editorialWhite: ['specs'],
+  softLuxury: ['specs'],
+  boldRetail: ['specs'],
 };
 
 export function defaultBlocksForTheme(theme: ThemeName): Block[] {

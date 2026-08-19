@@ -37,6 +37,7 @@ export type Theme = {
  */
 const THEME_OVERRIDES: Partial<Record<ThemeName, Partial<BlockComponents>>> = {
   editorialWhite: { houseTypes: HouseTypesList },
+  softLuxury: { houseTypes: HouseTypesList },
 };
 
 export const THEMES: Record<ThemeName, Theme> = Object.fromEntries(
@@ -53,4 +54,6 @@ export const THEMES: Record<ThemeName, Theme> = Object.fromEntries(
 ) as Record<ThemeName, Theme>;
 
 /** Tema yang benar-benar sudah punya layout. Sisanya tampil disabled di editor. */
-export const AVAILABLE_THEMES: ThemeName[] = ['tropicalWarm', 'premiumDark', 'editorialWhite'];
+export const AVAILABLE_THEMES: ThemeName[] = [
+  'tropicalWarm', 'premiumDark', 'editorialWhite', 'softLuxury', 'boldRetail',
+];
