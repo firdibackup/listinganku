@@ -1,14 +1,13 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-23T05:40:25.620Z
-> Files: 373 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-23T10:34:46.398Z
+> Files: 402 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
 - `.gitignore` — Git ignore rules (~51 tok)
 - `AGENTS.md` — OpenWolf (~68 tok)
 - `CLAUDE.md` — Listingku product/architecture summary for Claude Code (no app code yet; distilled from PRD + flow doc) (~1977 tok)
-- `final-tokens.json` (~446 tok)
 - `Flow Onboarding & Alur Produk Listingku (MVP — Landing per Primary Property).md` — Flow Onboarding & Alur Produk Listingku (MVP — Landing per Primary Property) (~3435 tok)
 - `GEMINI.md` — OpenWolf (~68 tok)
 - `middleware.ts` — Exports middleware, config (~179 tok)
@@ -21,7 +20,7 @@
 - `Product Requirements Document (PRD).md` — Product Requirements Document (PRD) (~10162 tok)
 - `skills-lock.json` (~86 tok)
 - `tsconfig.json` — TypeScript configuration (~161 tok)
-- `tsconfig.tsbuildinfo` (~49046 tok)
+- `tsconfig.tsbuildinfo` (~48686 tok)
 - `vitest.config.ts` — Vitest test configuration (~142 tok)
 
 ## .agents/skills/web-design-guidelines/
@@ -53,14 +52,11 @@
 - `reframe.md` — Mode: migrate [framework] (~551 tok)
 - `security-audit.md` — Layer 1 — Dependencies (~510 tok)
 
-## .data/
-
-- `store.json` (~8715 tok)
-
 ## .impeccable/
 
+- `config.json` (~201 tok)
 - `config.local.json` (~14 tok)
-- `hook.cache.json` (~3978 tok)
+- `hook.cache.json` (~4405 tok)
 
 ## .opencode/command/
 
@@ -186,6 +182,27 @@
 - `task-9-brief.md` — Task 9: Skema Zod dan wizard Create Project (~4094 tok)
 - `task-9-report.md` — Task 9 Report: Skema Zod dan wizard Create Project (~2880 tok)
 
+## .superpowers/sdd/2026-08-23-listingku-brief-pipeline-slice3a/
+
+- `progress.md` — SDD ledger — plan: docs/superpowers/plans/2026-08-23-listingku-brief-pipeline-slice3a.md (~3222 tok)
+- `review-4959a53..5cc810d.diff` — Rantai yang menopang tombol "Use AI suggestion": override, lalu AI, lalu fallback. (~5002 tok)
+- `review-5cc810d..7900309.diff` — Menyalin blok bawaan tema lalu menambal props blok tertentu dengan konten seed. (~4144 tok)
+- `review-a138325..4959a53.diff` — Setiap metode baca (dan hasil create/update) HARUS lewat clone() sebelum (~2176 tok)
+- `review-b40f485..a138325.diff` — Kalimat pemasaran di bawah judul hero. Opsional: aiContent lama tidak punya. (~3236 tok)
+- `task-1-brief.md` — Nama kawasan, diketik bebas: "Gading Serpong". Bukan unit administratif. (~2529 tok)
+- `task-1-report.md` — Task 1 Report: Tipe brief + skema Zod (~2027 tok)
+- `task-2-brief.md` — ## Task 2: Repo, default store, dan repairShape (~1272 tok)
+- `task-2-report.md` — Task 2 report — Repo, default store, dan repairShape (~2309 tok)
+- `task-3-brief.md` — aiContent lengkap dengan nilai KONTRAS supaya kebocoran AI ke fakta terdeteksi. (~2971 tok)
+- `task-3-report.md` — Task 3 report — pickFirst() + rantai brief di resolve() (~1625 tok)
+- `task-4-brief.md` — Fakta Parkspring — dipindahkan dari blocks[].props ke brief (spec §12.2). (~2347 tok)
+- `task-4-report.md` — Task 4 report — seed Parkspring pindah ke brief (render wajib identik) (~2837 tok)
+- `task-5-brief.md` — Hanya pesan WhatsApp yang menjadi data di 3A. Label CTA tetap milik tema — (~1801 tok)
+- `task-6-brief.md` — Section yang MENYALA per tipe project. Yang tidak disebut di sini dimatikan. (~2028 tok)
+- `task-7-brief.md` — Dataset administratif berhenti di KECAMATAN. Nama kawasan komersial (~2294 tok)
+- `task-8-brief.md` — Dataset statis, jadi tidak ada sesi maupun store yang disentuh — route ini (~658 tok)
+- `task-9-brief.md` — Combobox ARIA yang ditulis sendiri, BUKAN Radix Popover — dua alasan: (~2592 tok)
+
 ## app/
 
 - `layout.tsx` — archivo (~188 tok)
@@ -210,12 +227,12 @@
 
 ## app/(dashboard)/projects/
 
-- `actions.ts` — Satu project hanya boleh diubah oleh pemiliknya. requireSessionUserId() cuma (~1373 tok)
-  - fn `requireOwnedProject` L23-28 (~65 tok)
-  - fn `createProjectAction` L29-49 (~314 tok)
-  - fn `updateProjectAction` L50-67 (~209 tok)
-  - fn `publishProjectAction` L68-88 (~238 tok)
-  - fn `deleteProjectAction` L89-108 (~268 tok)
+- `actions.ts` — Satu project hanya boleh diubah oleh pemiliknya. requireSessionUserId() cuma (~1550 tok)
+  - fn `requireOwnedProject` L24-28 (~65 tok)
+  - fn `createProjectAction` L30-56 (~360 tok)
+  - fn `updateProjectAction` L57-87 (~310 tok)
+  - fn `publishProjectAction` L88-108 (~238 tok)
+  - fn `deleteProjectAction` L109-127 (~268 tok)
 
 ## app/(dashboard)/projects/[id]/
 
@@ -238,8 +255,8 @@
 
 ## app/(dashboard)/projects/[id]/generate/
 
-- `actions.ts` — Exports generateContentAction (~666 tok)
-  - fn `generateContentAction` L8-64 (~589 tok)
+- `actions.ts` — Exports generateContentAction (~711 tok)
+  - fn `generateContentAction` L9-67 (~620 tok)
 - `page.tsx` — GeneratePage (~361 tok)
 
 ## app/(dashboard)/projects/[id]/publish/
@@ -398,6 +415,10 @@
 - `StepProgress.tsx` — StepProgress (~107 tok)
 - `wizard.css` — Styles: 13 rules, 1 media queries (~402 tok)
 
+## data/
+
+- `id-regions.json` — Dataset STARTER wilayah offline (39 kecamatan) untuk searchRegions. Sumber/lisensi dataset penuh (~7.300 kecamatan) belum diputuskan — blocker eksternal terbuka; bentuk baris `{district,city,province}` stabil sehingga dataset penuh nanti hanya mengganti isi file (~640 tok)
+
 ## design/
 
 - `README.md` — Project documentation (~427 tok)
@@ -422,32 +443,40 @@
 
 - `2026-08-16-listingku-frontend-slice1.md` — Listingku Front-End Slice 1 — Implementation Plan (~66573 tok)
 - `2026-08-19-listingku-landing-tema-tropis.md` — Listingku Landing Slice 2A — Implementation Plan (~13147 tok)
+- `2026-08-23-listingku-brief-pipeline-slice3a.md` — Slice 3A — Pipeline Brief Implementation Plan (~32614 tok)
 
 ## docs/superpowers/specs/
 
 - `2026-08-16-listingku-frontend-slice1-design.md` — Spec design Slice 1 front-end yang sudah disetujui. Sumber kebenaran untuk implementasi: batas slice, aturan design system + konten, repository seam, model blocks/theme, landing wireframe, AI mock, pengujian, definisi selesai, 9 keputusan tercatat. **Baca ini sebelum menulis kode aplikasi.** (~7093 tok)
 - `2026-08-19-listingku-landing-tema-tropis-design.md` — Design — Listingku Landing Slice 2: sistem tema + Tropis Hangat (~7823 tok)
+- `2026-08-23-listingku-brief-pipeline-slice3a-design.md` — Design — Listingku Slice 3A: pipeline brief (Content Planner → AI → landing) (~8021 tok)
 
 ## fixtures/
 
-- `seed.ts` — Menyalin blok bawaan tema lalu menambal props blok tertentu dengan konten seed. (~3168 tok)
-  - fn `withContent` L10-138 (~1680 tok)
-  - fn `seedStore` L139-220 (~1304 tok)
+- `seed.ts` — Menyalin blok bawaan tema lalu menambal props blok tertentu dengan konten seed. (~3533 tok)
+  - fn `withContent` L11-165 (~1988 tok)
+  - fn `seedStore` L166-249 (~1331 tok)
 
 ## graphify-out/
 
 - `.graphify_detect.json` (~145 tok)
-- `.graphify_labels.json` (~816 tok)
+- `.graphify_labels.json` (~821 tok)
 - `.graphify_labels.json.sig` (~636 tok)
 - `.graphify_python` (~21 tok)
 - `.graphify_root` (~1 tok)
+- `GRAPH_REPORT.md` — Graph Report - listinganku  (2026-08-23) (~4930 tok)
+- `manifest.json` (~14358 tok)
+
+## graphify-out/2026-08-23/
+
+- `.graphify_labels.json` (~816 tok)
 - `GRAPH_REPORT.md` — Graph Report - listinganku  (2026-08-23) (~4885 tok)
 - `manifest.json` (~14245 tok)
 
 ## graphify-out/cache/
 
 - `last_query_stamp` (~5 tok)
-- `stat-index.json` (~11655 tok)
+- `stat-index.json` (~11734 tok)
 
 ## graphify-out/cache/ast/v0.9.44/
 
@@ -457,6 +486,7 @@
 - `132fd8ea13f7c3364baa3e2344705dd1ca7fa33d6475c51865e2880315d5a4e1.json` (~172 tok)
 - `1d27c48e7537f337a6c8f15361c2f461cf99f5d46e099a783bd6591f7d9a9676.json` (~5237 tok)
 - `2368428a7b17df81a0e12b360a5192b62cf44648c730af11f3b0a830da03770f.json` (~5042 tok)
+- `28dff31d3856d99b9e0807daa63e0d81ba79e7bc27ccb0d8ef8e587eff80e725.json` (~2790 tok)
 - `2e51d9e0b8b141bc028b0e5fecc5387c3541274a1ec94d0a5c12880cd776bc0e.json` (~577 tok)
 - `44aebbf32b49c85f8db1990ee081e67b6b6747b51ad2da9cae543559b71a9c0b.json` (~3452 tok)
 - `44eda2ec07dd1a0e4b7f828cbe7eabbaaccf4715f778e6172b7e55fa067b0e99.json` (~6313 tok)
@@ -469,6 +499,8 @@
 - `84b75419639b657060d7969507150c1fb365694e33a6fbbf104731ade6608a80.json` (~2646 tok)
 - `93b008dc621fd591d269e2d35a57f306484285722c00f84b57b428aa319e71ac.json` (~928 tok)
 - `af8c917961112b02850cf77695f5843e8082ed29f573b51073015e845c71b1cb.json` (~469 tok)
+- `afe1e91a6d1236a45110ee3e3ece2b52e5daade38e606dc5838c5d15d86848ca.json` (~3722 tok)
+- `b052467ae66d74c4556361059c5ddb90a5ae1e5cd641f955dc44c514c04fbd9a.json` (~9559 tok)
 - `b1ecfb5fb6dd6856e31677af9b0b9de798b68d1091c1a80c1509a72a8770cc98.json` (~638 tok)
 - `bf0268e67c35865c8ba1268e04489a37a438b655b7937dd16aec83f0a0c82043.json` (~8259 tok)
 - `c5fd8f570bc9d8c9c190fa2d4820193f1b77fe3fb7c6d5b2aaa0152c3d18a2b4.json` (~2704 tok)
@@ -476,6 +508,7 @@
 - `c8116e4153824c6b3b9c80cc1b95aef0d0f0e099774c91e82f543282b48b8999.json` (~156 tok)
 - `c8d9093a194cdda6d1d6f5eabb4ae93644367a2eafd25e6ac9834621f57e2c55.json` (~474 tok)
 - `d200fbab766f9a690204dd2b7509fa72e941380761cf13237fe414e771a74cc2.json` (~460 tok)
+- `d7ec25b9205404502440302cdebbc7d79dd3f03de9f0c9ea0d0e325326d85f0d.json` (~638 tok)
 - `f07181cc84704d658af4484d18a22c7d740be3f8a262f708ca294128bb32db65.json` (~3312 tok)
 - `f66102626c67f1c9d0edfdac45e7ad3c34ab490341988db223cafe7edfb510c0.json` (~719 tok)
 - `f7b67c6dfca50ce12b9bf6cd3be1ee2b2e759c8464a2d7303ceca957ff3561c5.json` (~803 tok)
@@ -500,46 +533,53 @@
 
 ## lib/ai/
 
-- `generator.ts` — Diekspos supaya tes bisa menjalankan mock tanpa menunggu. (~171 tok)
+- `generator.ts` — Bahan mentah dari agen. Generator WAJIB memakai hanya fakta di sini dan di (~260 tok)
 - `index.ts` — Saat Gemini asli masuk, cabang kedua ditambahkan di sini. Tidak ada tempat lain. (~136 tok)
-- `mock.ts` — Exports mockGenerator (~1316 tok)
-  - fn `wait` L6-7 (~20 tok)
-  - fn `paragraphs` L8-71 (~1213 tok)
-- `schema.ts` — Cermin persis `responseSchema` yang akan dikirim ke Gemini 2.5 Flash. (~254 tok)
+- `mock.ts` — Nearby menjadi kalimat. Yang punya menit menyebut angkanya; yang tidak punya (~1665 tok)
+  - fn `wait` L6-12 (~83 tok)
+  - fn `nearbyPhrase` L13-27 (~153 tok)
+  - fn `paragraphs` L28-100 (~1337 tok)
+- `schema.ts` — Cermin persis `responseSchema` yang akan dikirim ke Gemini 2.5 Flash. (~329 tok)
 
 ## lib/data/
 
 - `index.ts` — Singleton disimpan di globalThis supaya HMR Next.js tidak me-reset store (~294 tok)
-- `repo.ts` — Satu-satunya kontrak yang dilihat UI. Slice 1 mengisinya dengan mock store; (~776 tok)
-  - section `DataStore` L17-66 (~515 tok)
-- `types.ts` — Stat ke-3 pada tab Profil di file design ("Wilayah Spesialis"). Teks, jadi (~1043 tok)
+- `repo.ts` — Satu-satunya kontrak yang dilihat UI. Slice 1 mengisinya dengan mock store; (~792 tok)
+  - section `DataStore` L19-68 (~515 tok)
+- `types.ts` — Kalimat pemasaran di bawah judul hero. Opsional: aiContent lama tidak punya. (~1775 tok)
   - section `SeoContent` L15-19 (~22 tok)
-  - section `ProjectAiContent` L20-28 (~75 tok)
-  - section `HouseTypeAiContent` L29-33 (~28 tok)
-  - section `AgentProfile` L34-58 (~206 tok)
-  - section `Project` L59-78 (~112 tok)
-  - section `HouseType` L79-96 (~97 tok)
-  - section `Media` L97-109 (~60 tok)
-  - section `Lead` L110-122 (~63 tok)
-  - section `EventRow` L123-131 (~39 tok)
-  - section `AiUsage` L132-144 (~65 tok)
-  - section `StoreShape` L145-154 (~56 tok)
+  - section `ProjectAiContent` L20-32 (~138 tok)
+  - section `HouseTypeAiContent` L33-46 (~130 tok)
+  - section `LocationDetail` L47-56 (~85 tok)
+  - section `NearbyItem` L57-68 (~108 tok)
+  - section `BriefFacility` L69-75 (~39 tok)
+  - section `BriefPromo` L76-86 (~80 tok)
+  - section `ProjectBrief` L87-103 (~156 tok)
+  - fn `emptyBrief` L104-110 (~58 tok)
+  - section `AgentProfile` L111-135 (~206 tok)
+  - section `Project` L136-157 (~128 tok)
+  - section `HouseType` L158-175 (~97 tok)
+  - section `Media` L176-188 (~60 tok)
+  - section `Lead` L189-201 (~63 tok)
+  - section `EventRow` L202-210 (~39 tok)
+  - section `AiUsage` L211-223 (~65 tok)
+  - section `StoreShape` L224-233 (~56 tok)
 
 ## lib/data/mock/
 
-- `repos.ts` — Setiap metode baca (dan hasil create/update) HARUS lewat clone() sebelum (~2838 tok)
-  - fn `now` L9-21 (~190 tok)
-  - fn `createMockStore` L22-250 (~2457 tok)
-- `snapshot.ts` — Direktori data bisa dioverride lewat LISTINGKU_DATA_DIR — dibaca ulang setiap (~1908 tok)
-  - fn `dataDir` L17-20 (~32 tok)
-  - fn `storeFile` L21-26 (~55 tok)
-  - fn `isPlainObject` L27-31 (~77 tok)
-  - fn `isRowLike` L32-46 (~229 tok)
-  - fn `repairShape` L47-78 (~379 tok)
-  - fn `loadSnapshot` L79-96 (~205 tok)
-  - fn `renameWithRetry` L97-120 (~278 tok)
-  - fn `saveSnapshot` L121-141 (~256 tok)
-  - fn `sweepStaleTmp` L142-156 (~143 tok)
+- `repos.ts` — Setiap metode baca (dan hasil create/update) HARUS lewat clone() sebelum (~2879 tok)
+  - fn `now` L10-22 (~190 tok)
+  - fn `createMockStore` L23-253 (~2487 tok)
+- `snapshot.ts` — Direktori data bisa dioverride lewat LISTINGKU_DATA_DIR — dibaca ulang setiap (~2045 tok)
+  - fn `dataDir` L18-21 (~32 tok)
+  - fn `storeFile` L22-27 (~55 tok)
+  - fn `isPlainObject` L28-32 (~77 tok)
+  - fn `isRowLike` L33-47 (~229 tok)
+  - fn `repairShape` L48-84 (~503 tok)
+  - fn `loadSnapshot` L85-102 (~205 tok)
+  - fn `renameWithRetry` L103-126 (~278 tok)
+  - fn `saveSnapshot` L127-147 (~256 tok)
+  - fn `sweepStaleTmp` L148-162 (~143 tok)
 - `store.ts` — Tulis sinkron, tanpa debounce. Ini mock single-user untuk dev lokal atas (~251 tok)
 
 ## lib/data/supabase/
@@ -563,11 +603,14 @@
   - fn `LandingView` L31-102 (~835 tok)
 - `palettes.ts` — KONTRAK PERAN TOKEN — dibaca sebelum menyentuh nilai apa pun di bawah. (~3079 tok)
   - fn `paletteStyle` L196-200 (~60 tok)
-- `resolve.ts` — Rantai yang menopang tombol "Use AI suggestion": override, lalu AI, lalu fallback. (~3449 tok)
-  - section `ResolvedHouseType` L4-36 (~548 tok)
-  - section `ResolveInput` L37-59 (~233 tok)
-  - fn `resolveHouseTypes` L60-86 (~335 tok)
-  - fn `resolveBlocks` L87-277 (~2220 tok)
+- `resolve.ts` — Task 3: `pickFirst()` (rantai N lapis, satu `isAbsent`) + `pick()` sebagai pembungkus 3-arg. `resolveBlocks` menyisipkan `project.brief`: access/facilities/pricePromo brief-only (nol `ai.*`, penjaga anti-halusinasi), highlights/hero.subtitle/agentCta.defaultMessage AI-di-atas-brief. (~3919 tok)
+  - section `ResolvedHouseType` L6-38 (~548 tok)
+  - section `ResolveInput` L39-57 (~172 tok)
+  - fn `pickFirst` L58-66 (~118 tok)
+  - fn `resolveHouseTypes` L67-93 (~335 tok)
+  - fn `resolveBlocks` L94-308 (~2599 tok)
+- `sectionPreset.ts` — Task 6: `SECTION_PRESET` (tabel deterministik, bukan panggilan AI) — section yang MENYALA per ProjectType. `testimonials` tidak pernah masuk preset mana pun (resolve.ts sengaja tanpa fallback AI untuk itu). `applySectionPreset()` hanya menyentuh flag `enabled`, tidak pernah urutan atau props. (~600 tok)
+  - fn `applySectionPreset` L44-48 (~90 tok)
 - `seo.ts` — Serialisasi aman untuk dipasang lewat dangerouslySetInnerHTML di dalam (~935 tok)
   - fn `siteUrl` L4-7 (~31 tok)
   - fn `buildMetadata` L8-40 (~293 tok)
@@ -827,13 +870,17 @@
   - fn `setPrimaryMediaAction` L150-173 (~292 tok)
 - `downscale.ts` — Mengecilkan gambar di browser sebelum diunggah. Menjaga .data/store.json dan (~460 tok)
 
+## lib/places/
+
+- `regions.ts` — searchRegions/formatRegion/composeLocationLabel atas dataset offline @/data/id-regions.json (impor JSON statis, BUKAN node:fs — aman dipakai dari route handler; tidak mengimpor @/lib/data). Prefix match didahulukan atas contains match (~450 tok)
+
 ## lib/schemas/
 
 - `agentProfile.ts` — Lima tema situs profil agen, disalin dari file design. Sengaja BERBEDA dari (~602 tok)
 - `houseType.ts` — z.coerce.number() tanpa invalid_type_error membiarkan pesan bawaan Zod (~380 tok)
-- `index.ts` (~150 tok)
+- `index.ts` (~183 tok)
 - `lead.ts` — Nomor Indonesia: 08xx / +62 / 62, 9–15 digit setelah normalisasi. (~187 tok)
-- `project.ts` — Publish menuntut lebih dari draft: minimal deskripsi supaya halaman tidak kosong. (~268 tok)
+- `project.ts` — Kunci notes dibatasi ke BlockType yang benar-benar ada, bukan string bebas. (~1075 tok)
 
 ## public/uploads/
 
@@ -878,9 +925,13 @@
 ## tests/unit/
 
 - `agent-profile-schema.test.ts` — Declares parsed (~955 tok)
-- `ai-mock.test.ts` — Declares store (~677 tok)
+- `ai-mock.test.ts` — Declares store (~1289 tok)
 - `block-renderer.test.tsx` — blocks (~1210 tok)
 - `blocks.test.ts` — Declares blocks (~1071 tok)
+- `brief-resolve.test.ts` — Task 3: pickFirst + rantai resolveBlocks pakai project.brief — access/facilities/pricePromo brief-only (nol ai.*), highlights/hero.subtitle/agentCta.defaultMessage AI-di-atas-brief (~2687 tok)
+  - fn `fixture` L8-212 (~2527 tok)
+- `brief-schema.test.ts` — Declares brief (~625 tok)
+- `brief-store.test.ts` — Task 2: `db.projects.create()` selalu isi `brief`/`projectType` default, terima override, clone (~565 tok)
 - `contact-form.test.tsx` — houseType (~585 tok)
   - fn `houseType` L11-44 (~493 tok)
 - `create-project-wizard.test.tsx` — LISTINGKU_DATA_DIR harus di-set SEBELUM '@/lib/data' dievaluasi (singleton db (~1671 tok)
@@ -914,14 +965,16 @@
 - `palettes.test.ts` — Luminansi relatif WCAG 2.1 dari hex #rrggbb. (~997 tok)
   - fn `luminance` L5-13 (~85 tok)
   - fn `contrast` L14-82 (~835 tok)
+- `places.test.ts` — searchRegions/formatRegion/composeLocationLabel atas dataset offline (~500 tok)
 - `phone-display.test.ts` (~352 tok)
 - `project-actions.test.ts` — LISTINGKU_DATA_DIR harus di-set SEBELUM '@/lib/data' dievaluasi (singleton db (~2342 tok)
 - `project-detail-page.test.tsx` — PROJECT (~1334 tok)
   - fn `houseType` L30-102 (~972 tok)
 - `qr-route.test.ts` (~154 tok)
-- `resolve.test.ts` — fixture: describe (~3815 tok)
-  - fn `fixture` L7-288 (~3646 tok)
+- `resolve.test.ts` — fixture: describe (~3752 tok)
+  - fn `fixture` L8-289 (~3652 tok)
 - `schemas.test.ts` — Declares result (~1144 tok)
+- `section-preset.test.ts` — Task 6: SECTION_PRESET punya entri per ProjectType, hanya BlockType valid, testimonials mati di semua preset, kavling/ruko sesuai spec; applySectionPreset menyalakan/mematikan tanpa mengubah urutan/props. (~450 tok)
 - `seo.test.ts` — Declares store (~917 tok)
 - `session.test.ts` — Declares store (~322 tok)
 - `settings-actions.test.ts` — Pola sama dengan house-type-actions.test.ts: LISTINGKU_DATA_DIR harus di-set (~1373 tok)

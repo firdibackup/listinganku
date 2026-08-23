@@ -216,3 +216,36 @@
 
 | Time | Action | File(s) | Outcome | ~Tokens |
 |------|--------|---------|---------|--------|
+| 16:50 | Task 1 slice pipeline brief: tipe ProjectBrief + ProjectBriefSchema (TDD, tes dulu 8 fail -> 8 pass), verifikasi manual zod z.record+enum menolak kunci asing (tidak perlu ganti pola), tsc --noEmit hanya error baru di fixtures/seed.ts + lib/data/mock/repos.ts (diharapkan, ditutup Task 2/4) | lib/data/types.ts, lib/schemas/project.ts, lib/schemas/index.ts, tests/unit/brief-schema.test.ts | commit a138325, vitest 8/8 pass | ~55k |
+
+## Session: 2026-08-23 16:50 — Task 2 slice pipeline brief
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 16:55 | Task 2: `NewProject` += `projectType`/`brief` opsional; `projects.create()` isi default (`null`/`emptyBrief()`) via clone; `repairShape()` ditambal untuk kedua field (TDD, 3 tes brief-store baru dulu gagal -> lulus) | lib/data/repo.ts, lib/data/mock/repos.ts, lib/data/mock/snapshot.ts, tests/unit/brief-store.test.ts | brief-store 3/3 pass; full suite 419/421 (2 gagal DIHARAPKAN di mock-store.test.ts — seedStore() belum punya brief, ditutup Task 4); tsc bersih untuk 3 file yang disentuh | ~40k |
+
+## Session: 2026-08-23 17:05
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 17:15 | Task 3 slice 3A: pickFirst() generalisasi + rantai brief di resolveBlocks (access/facilities/pricePromo brief-only, highlights/hero.subtitle/agentCta.defaultMessage AI-di-atas-brief) | lib/landing/resolve.ts, tests/unit/brief-resolve.test.ts | brief-resolve 12/12, resolve.test.ts lama 32/32, commit 5cc810d | ~55k |
+| 17:25 | Task 4 slice 3A: fakta Parkspring (lokasi/akses, fasilitas, promo) pindah dari blocks[].props ke project.brief (PARKSPRING_BRIEF), helper project() dapat projectType+brief berdefault | fixtures/seed.ts, tests/unit/brief-resolve.test.ts | brief-resolve 16/16, seo 6/6, block-renderer 8/8, mock-store 45/45 (2 red lama tertutup), resolve.test.ts 31/32 (1 concern: fixture lama assume brief kosong, bug-040), commit 025be1c | ~85k |
+| 17:30 | Task 4 fix round 1: fixture() di resolve.test.ts menambah brief: emptyBrief() sejajar blocks (cacat plan, bukan kesalahan implementasi — ruling koordinator) | tests/unit/resolve.test.ts | resolve 32/32, brief-resolve 16/16, suite unit 437/437, commit 7900309, bug-040 ditutup | ~20k |
+
+## Session: 2026-08-23 17:35 — Task 5 slice pipeline brief
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 17:40 | Task 5: `GenerateInput.brief: ProjectBrief` (wajib) + komentar grounding; `AiContentSchema` += `subheadline`, `cta.whatsappMessage`; mock membaca brief.location/highlights/nearby/ctaGoals (nearbyPhrase() angka vs "dekat X" tanpa angka); actions.ts kirim `brief: project.brief ?? emptyBrief()` dan simpan subheadline+cta. Juga menambal 6 panggilan lama di ai-mock.test.ts yang belum mengirim `brief` (baru undefined -> crash di `brief.location?.area` begitu brief jadi wajib) | lib/ai/schema.ts, lib/ai/generator.ts, lib/ai/mock.ts, app/(dashboard)/projects/[id]/generate/actions.ts, tests/unit/ai-mock.test.ts | ai-mock 12/12, brief-resolve 16/16 (28 total), commit pending | ~45k |
+
+## Session: 2026-08-23 (lanjutan) — Task 6 slice pipeline brief
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 17:45 | Task 6: `SECTION_PRESET: Record<ProjectType, BlockType[]>` + `applySectionPreset()` (tabel deterministik, testimonials selalu mati, hanya sentuh `enabled`). Diterapkan di createProjectAction (setelah create, projectType pertama diketahui) dan updateProjectAction (hanya saat projectType berubah). Koreksi wajib diterapkan: `patch.blocks ?? owned.blocks` (bukan `owned.blocks` telanjang) supaya Task 11 wizard tidak menimpa toggle agen dengan salinan server basi; diselesaikan dengan cast `patch` ke `typeof parsed.data & { blocks?: typeof owned.blocks }` alih-alih cast inline per-baris — tsc --noEmit bersih untuk kedua file yang disentuh. | lib/landing/sectionPreset.ts, app/(dashboard)/projects/actions.ts, tests/unit/section-preset.test.ts | section-preset 10/10, project-actions 13/13, commit pending | ~35k |
+
+## Session: 2026-08-23 (lanjutan) — Task 7 slice pipeline brief
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 17:50 | Task 7: dataset wilayah offline starter (39 kecamatan, bentuk baris `{district,city,province}` stabil untuk penggantian dataset penuh nanti) + `searchRegions`/`formatRegion`/`composeLocationLabel`. JSON diimpor statis (`import raw from '@/data/id-regions.json'`), TIDAK lewat node:fs, TIDAK mengimpor `@/lib/data` — aman untuk route handler Task 8. Verifikasi runtime: `/\p{Diacritic}/gu` bekerja benar di Node 24.19.0 (café->cafe teruji langsung), dipakai apa adanya dari brief. tsconfig.json sudah punya `resolveJsonModule: true` sebelumnya — tidak disentuh. | data/id-regions.json, lib/places/regions.ts, tests/unit/places.test.ts | places.test.ts 11/11, commit pending | ~15k |
