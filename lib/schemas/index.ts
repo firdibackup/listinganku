@@ -1,4 +1,7 @@
-export { ProjectDraftSchema, ProjectPublishSchema, FACILITY_OPTIONS } from './project';
+export {
+  ProjectDraftSchema, ProjectPublishSchema, ProjectBriefSchema, FACILITY_OPTIONS,
+  PROJECT_TYPES, PROJECT_TYPE_LABELS, NEARBY_CATEGORIES, NEARBY_CATEGORY_LABELS,
+} from './project';
 export type { ProjectDraftInput } from './project';
 export { HouseTypeSchema } from './houseType';
 export type { HouseTypeInput } from './houseType';
