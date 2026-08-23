@@ -4,6 +4,7 @@ import {
 import path from 'node:path';
 import { seedStore } from '@/fixtures/seed';
 import type { Project, StoreShape } from '../types';
+import { emptyBrief } from '../types';
 import { normalizeTheme, THEME_DEFAULT_PALETTE } from '@/lib/landing/themeNames';
 import { PALETTE_NAMES, type PaletteName } from '@/lib/landing/palettes';
 import { defaultBlocksForTheme } from '@/lib/landing/blocks';
@@ -67,6 +68,11 @@ function repairShape(parsed: unknown): StoreShape {
         ? (rawPalette as PaletteName)
         : THEME_DEFAULT_PALETTE[theme],
       blocks: Array.isArray(p.blocks) && p.blocks.length ? p.blocks : defaultBlocksForTheme(theme),
+      // Field BARU yang baru ditambahkan tidak pernah ada di snapshot lama.
+      // Tanpa dua baris ini, project lama membaca brief undefined dan setiap
+      // pembacaan di UI meledak — persis pola specialistArea/notifyOnLead.
+      projectType: ((p as { projectType?: unknown }).projectType as Project['projectType']) ?? null,
+      brief: isPlainObject((p as { brief?: unknown }).brief) ? (p as Project).brief : emptyBrief(),
     };
   });
 

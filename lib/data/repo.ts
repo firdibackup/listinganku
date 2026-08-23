@@ -2,7 +2,9 @@ import type {
   AgentProfile, EventRow, EventType, HouseType, Id, Lead, Media, Project, StoreShape,
 } from './types';
 
-export type NewProject = Pick<Project, 'userId' | 'name' | 'location' | 'developer' | 'description' | 'facilities'>;
+export type NewProject =
+  Pick<Project, 'userId' | 'name' | 'location' | 'developer' | 'description' | 'facilities'>
+  & Partial<Pick<Project, 'projectType' | 'brief'>>;
 export type NewHouseType = Pick<
   HouseType, 'projectId' | 'name' | 'price' | 'landArea' | 'buildingArea' | 'bedrooms' | 'bathrooms' | 'carport'
 >;

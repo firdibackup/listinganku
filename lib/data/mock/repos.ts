@@ -4,6 +4,7 @@ import { DEFAULT_THEME, THEME_DEFAULT_PALETTE } from '@/lib/landing/themeNames';
 import { uniqueSlug } from '@/lib/slug';
 import type { DataStore, NewAiUsage, NewHouseType, NewLead, NewMedia, NewProject } from '../repo';
 import type { EventType, StoreShape } from '../types';
+import { emptyBrief } from '../types';
 import { createStoreHandle } from './store';
 
 const now = () => new Date().toISOString();
@@ -57,6 +58,8 @@ export function createMockStore(opts: { persist: boolean; initial?: StoreShape }
       async create(input: NewProject) {
         const created = {
           ...clone(input),
+          projectType: input.projectType ?? null,
+          brief: clone(input.brief ?? emptyBrief()),
           id: newId('prj'),
           slug: uniqueSlug(input.name, s.projects.map((p) => p.slug)),
           status: 'draft' as const,
