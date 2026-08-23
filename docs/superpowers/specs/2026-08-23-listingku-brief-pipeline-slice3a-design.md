@@ -1,6 +1,6 @@
 # Design — Listingku Slice 3A: pipeline brief (Content Planner → AI → landing)
 
-> Status: isi desain disetujui 2026-08-23 di sesi brainstorm; menunggu review file.
+> Status: disetujui 2026-08-23 (isi desain dan file spec).
 > Spec ini sengaja berdiri sendiri — tidak ada konteks percakapan yang dibutuhkan
 > untuk mengeksekusinya di device lain.
 
@@ -136,6 +136,14 @@ export interface LocationDetail {
   district: string;   // kecamatan — dari dataset
   city: string;       // kota/kabupaten — dari dataset
   province: string;   // dari dataset
+  /**
+   * Alamat jalan lengkap, opsional, diisi di panel Lokasi step 2:
+   * "Jl. Boulevard Raya, Kelapa Gading, Jakarta Utara 14240".
+   * Dataset administratif berhenti di kecamatan, jadi ini satu-satunya tempat
+   * alamat presisi bisa hidup. Seed Parkspring memindahkan
+   * `blocks.location.props.address` ke sini.
+   */
+  address: string;
 }
 
 export interface NearbyItem {
@@ -153,8 +161,15 @@ export interface BriefFacility {
 }
 
 export interface BriefPromo {
+  /** Nama promo utama. Bahan AI untuk CTA ("Dapatkan Free BPHTB"), tidak dirender. */
   name: string;                 // "Free BPHTB"
-  detail: string;
+  /**
+   * Butir promo yang TAMPIL di halaman, satu baris per butir. Sebuah project
+   * lazimnya punya beberapa (seed Parkspring punya empat), jadi ini array —
+   * bukan satu string yang diturunkan dari `name`.
+   */
+  items: string[];
+  detail: string;               // catatan di bawah daftar
   validUntil: string | null;    // ISO date, contoh "2026-09-30"
   dpText: string;               // "10%" atau "Rp 200 jt"
   installmentText: string;      // "Rp 18 jt/bln"
@@ -221,8 +236,9 @@ yang boleh diperbaiki.**
 | `facilities.items` | `props` → **`brief.facilities`** → `project.facilities` | fakta |
 | `pricePromo.dpText` | `props` → **`brief.promo.dpText`** → `''` | fakta |
 | `pricePromo.installmentText` | `props` → **`brief.promo.installmentText`** → `''` | fakta |
-| `pricePromo.promos` | `props` → **`[brief.promo.name]`** → `[]` | fakta |
+| `pricePromo.promos` | `props` → **`brief.promo.items`** → `[]` | fakta |
 | `pricePromo.note` | `props` → **komposisi dari brief.promo** → `''` | fakta |
+| `location.address` | `props` → **`brief.location.address`** → `project.location` | fakta |
 | `testimonials.items` | `props` → `[]` — tanpa AI, seperti sekarang | fakta |
 | `hero.title` | `props` → `ai.headline` → `project.name` | copy |
 | `hero.subtitle` | `props` → **`ai.subheadline`** → `project.location` | copy |
@@ -250,19 +266,24 @@ argumen di atasnya. Semua call site lama tidak berubah.
 // access — HANYA yang punya menit. Lihat §5.3.
 access: brief.nearby
   .filter((n) => n.minutes !== null)
-  .map((n) => ({ time: `${n.minutes} menit`, place: n.name }))
+  .map((n) => ({ time: `${n.minutes} mnt`, place: n.name }))
 
-// pricePromo.note — detail + masa berlaku, gaya angka Indonesia
+// pricePromo.note — detail + masa berlaku
 note: [
   brief.promo.detail,
-  brief.promo.validUntil ? `Berlaku sampai ${formatTanggalId(brief.promo.validUntil)}` : '',
+  brief.promo.validUntil ? `Berlaku sampai ${formatDateLong(brief.promo.validUntil)}` : '',
 ].filter(Boolean).join(' · ')
 // -> "Gratis BPHTB untuk unit tertentu · Berlaku sampai 30 September 2026"
 ```
 
-`formatTanggalId()` **belum ada** — helper baru di `lib/format.ts`, bersama
-`formatRupiah` / `formatRupiahShort` / `formatArea` yang sudah ada di sana. Tidak
-ada satu pun pemformat tanggal di repo hari ini.
+**`"mnt"`, bukan `"menit"`.** Seed Parkspring memakai `time: '3 mnt'` — disalin
+dari `design/project/10 Tropis Hangat.dc.html`. Memakai "menit" akan membuat render
+seed berbeda (melanggar §12.2) dan memanjangkan string di kartu akses yang sempit
+di lebar 390px.
+
+**`formatDateLong()` sudah ada** di `lib/format.ts` dan menghasilkan persis
+`"30 September 2026"` (memakai getter UTC, konsisten dengan formatter lain di sana
+supaya SSR dan hidrasi tidak berbeda). Tidak perlu helper baru.
 
 Satu ketelitian pada baris `hero.defaultMessage` di tabel §5: "props" di situ
 berarti **props milik blok `agentCta`**, bukan props hero. `resolve()` hari ini
@@ -503,9 +524,17 @@ menampakkan kesalahan ini karena dev selalu re-eksekusi tiap request.
 
 ### 11.3 Komponen
 
-`components/wizard/LocationCombobox.tsx` — Radix Popover + pola ARIA combobox,
-dicat token DS. DS hanya mendefinisikan enam komponen; sisanya datang dari Radix,
-konsisten dengan Tabs/Switch/Toast/Dialog/Sheet yang sudah ada.
+`components/wizard/LocationCombobox.tsx` — listbox inline yang ditulis sendiri
+dengan pola ARIA combobox (`role="combobox"` + `aria-expanded` +
+`aria-activedescendant`, listbox `position:absolute` di bawah input). **Bukan Radix
+Popover**, karena dua alasan: `@radix-ui/react-popover` tidak terpasang (repo hanya
+punya accordion, dialog, switch), dan Popover memindahkan fokus ke dalam
+kontennya — kebalikan dari yang dibutuhkan combobox, yang menuntut fokus TETAP di
+input supaya pengetikan berlanjut. Ini pengecualian yang beralasan terhadap
+preferensi "ambil dari Radix": Radix tidak punya primitif combobox.
+
+Dicat token DS, memakai `.ds-field__input` yang sama dengan `components/ds/Input.tsx`
+supaya bentuk fieldnya identik dengan field lain di wizard.
 
 Dua field, bukan satu: **nama kawasan** (bebas, "Gading Serpong") di atas hasil
 administratif. Nama kawasan komersial bukan unit administratif dan tidak akan
@@ -567,6 +596,20 @@ Verifikasi: papan `/preview` (sepuluh iframe berdampingan) sebelum dan sesudah.
   payload yang dikirim ke generator.
 - `ProjectBriefSchema` — tolak `minutes` string, terima `null`.
 - Pencarian places — normalisasi diakritik, cap 8.
+
+### Tes yang PASTI patah dan harus ikut diperbarui
+
+Sudah diverifikasi lewat grep, bukan dugaan — merombak step 1 dan menamai ulang
+step 2 mematahkan tiga file:
+
+| File | Yang patah |
+|---|---|
+| `tests/unit/create-project-wizard.test.tsx` | enam asersi `'Fasilitas dan media'` (baris 53, 80, 86, 101, 111, 124) |
+| `tests/e2e/spine.spec.ts` | `getByLabel('Lokasi').fill()` (18) — Lokasi jadi combobox; `getByLabel('Deskripsi')` (20, 89) — label berubah |
+| `tests/unit/project-actions.test.ts` | aman, tapi tambahkan kasus `projectType` + `brief` |
+
+`tests/e2e/editor.spec.ts:47-48` menyebut "Lokasi" juga, tapi itu **nama blok di
+editor**, bukan field wizard — tidak terdampak.
 
 ### E2e (Playwright)
 
