@@ -13,8 +13,11 @@
 - **Mendesain di Claude Design (claude.ai/design), bukan Figma.** Sebelum mengasumsikan tidak ada desain, tanyakan atau cek — dia sempat memilih "fungsional dulu, poles belakangan" lalu ternyata sudah punya design system lengkap + 11 layar jadi.
 - Mengerjakan front-end lebih dulu dengan data dummy, backend menyusul — tapi minta fondasi produksi, bukan prototype sekali pakai.
 - Menyediakan desain bertahap: bagian yang belum ada desainnya minta dibuat **wireframe** dulu, jangan digarap visualnya karena akan diganti.
+- Untuk menggabungkan branch dia memilih **jalur PR GitHub**, bukan `git merge` lokal — konsisten dengan PR #1 & #2, supaya ada jejak. Dia belum hafal git; jelaskan kondisi branch (merge-base, jumlah commit beda, risiko konflik) sebelum menawarkan perintah.
 
 ## Key Learnings
+
+- **Graf graphify baru dibangun 2026-08-23.** Sebelumnya `graphify-out/` hanya berisi file deteksi — yang pernah jalan cuma `graphify claude install` (menulis section graphify ke CLAUDE.md), bukan pipeline grafnya. Bangun/refresh dengan `graphify update .` (AST-only, tanpa biaya LLM) — otomatis menulis ulang `graph.json`, `graph.html`, dan `GRAPH_REPORT.md`. Visualisasi = `graphify-out/graph.html`, buka langsung di browser (file lokal, tanpa server).
 
 - **Project:** listinganku
 - Repo has no application code yet — only PRD, onboarding flow doc, and AI-tooling scaffolding (OpenWolf/graphify/Codex/OpenCode configs). CLAUDE.md (2026-08-16) is a condensed spec distilled from the PRD + flow doc for future implementation sessions; treat it as the architecture/product source of truth until the Next.js app is actually scaffolded.
@@ -49,6 +52,10 @@
 - **Slot media** (`themes/slots.ts`) memisahkan "berapa banyak & apa namanya" (blok) dari "sudah ada filenya" (media) — itu yang membuat galeri & denah punya bentuk sebelum foto diunggah.
 - **Konten kanonik Parkspring** di `fixtures/seed.ts` disalin dari `design/project/10 Tropis Hangat.dc.html`. Kesepuluh tema memakai konten yang SAMA PERSIS; hanya tampilan dan urutan section yang berbeda. Jangan mengubah salah satunya tanpa alasan — perbandingan visual bergantung padanya.
 - **Papan banding** ada di `/preview` (grid 10 iframe) dan `/preview/{tema}` (satu tema penuh, `track={false}` supaya pratinjau tidak menghitung visitor). Keduanya memakai `LandingView` yang sama dengan halaman publik.
+- **`gh` CLI TIDAK terpasang** di mesin ini (tidak ada di Git Bash maupun PowerShell). PR tidak bisa dibuat dari terminal — siapkan judul + body lalu berikan URL `https://github.com/firdibackup/listinganku/compare/{base}...{head}?expand=1`.
+- **Topologi branch (2026-08-23):** `main` (cfd945e) hanya lokal, tidak pernah di-push dan tertinggal di baseline pra-kode. `origin/HEAD` menunjuk ke `slice-1-frontend`, yang de-facto jadi branch utama. `slice-2-templates-mobile` = slice-1 + 1 commit (`44c4021`). Rencana: setelah slice-2 masuk, majukan `main` lalu jadikan default branch.
+- **Commit `44c4021` pesannya menyesatkan** — tertulis "add Soft Luxury theme components and styles", isinya seluruh refactor tema per-folder + `/preview` + tes (81 file, +9.752/-1.856). Jangan percaya pesan commit itu saat menelusuri sejarah.
+
 ## Do-Not-Repeat
 
 - [2026-08-19] **Jangan menulis `.lp[data-lp-theme='x'] a { color: ... }` di file tema.** Spesifisitasnya (0,2,1) mengalahkan SEMUA kelas tombol (0,1,0), jadi setiap tombol yang dirender sebagai `<a>` (WhatsAppLink, anchor CTA) kehilangan warnanya dan jadi gelap-di-atas-gelap. Pakai `:where(.lp[data-lp-theme='x']) a` — (0,0,1), kalah dari kelas apa pun. Kesalahan yang sama terulang di kesepuluh tema sekaligus karena polanya disalin (`bug-031`).
