@@ -2,11 +2,12 @@ import { describe, it, expect } from 'vitest';
 import { resolveBlocks, pick } from '@/lib/landing/resolve';
 import { defaultBlocksForTheme, toggleBlock, updateBlockProps } from '@/lib/landing/blocks';
 import { seedStore } from '@/fixtures/seed';
+import { emptyBrief } from '@/lib/data/types';
 import type { Project, Media } from '@/lib/data/types';
 
 function fixture(overrides: Partial<Project> = {}) {
   const store = seedStore();
-  const project = { ...store.projects[0], blocks: defaultBlocksForTheme('tropicalWarm'), ...overrides };
+  const project = { ...store.projects[0], blocks: defaultBlocksForTheme('tropicalWarm'), brief: emptyBrief(), ...overrides };
   return {
     project,
     houseTypes: store.houseTypes.filter((h) => h.projectId === 'prj_parkspring'),
