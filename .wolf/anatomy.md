@@ -1,13 +1,14 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-19T15:15:54.033Z
-> Files: 336 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-23T05:40:25.620Z
+> Files: 373 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
 - `.gitignore` — Git ignore rules (~51 tok)
 - `AGENTS.md` — OpenWolf (~68 tok)
 - `CLAUDE.md` — Listingku product/architecture summary for Claude Code (no app code yet; distilled from PRD + flow doc) (~1977 tok)
+- `final-tokens.json` (~446 tok)
 - `Flow Onboarding & Alur Produk Listingku (MVP — Landing per Primary Property).md` — Flow Onboarding & Alur Produk Listingku (MVP — Landing per Primary Property) (~3435 tok)
 - `GEMINI.md` — OpenWolf (~68 tok)
 - `middleware.ts` — Exports middleware, config (~179 tok)
@@ -20,7 +21,7 @@
 - `Product Requirements Document (PRD).md` — Product Requirements Document (PRD) (~10162 tok)
 - `skills-lock.json` (~86 tok)
 - `tsconfig.json` — TypeScript configuration (~161 tok)
-- `tsconfig.tsbuildinfo` (~51462 tok)
+- `tsconfig.tsbuildinfo` (~49046 tok)
 - `vitest.config.ts` — Vitest test configuration (~142 tok)
 
 ## .agents/skills/web-design-guidelines/
@@ -54,12 +55,12 @@
 
 ## .data/
 
-- `store.json` (~9876 tok)
+- `store.json` (~8715 tok)
 
 ## .impeccable/
 
 - `config.local.json` (~14 tok)
-- `hook.cache.json` (~3668 tok)
+- `hook.cache.json` (~3978 tok)
 
 ## .opencode/command/
 
@@ -229,7 +230,10 @@
 
 ## app/(dashboard)/projects/[id]/editor/
 
-- `actions.ts` — Exports saveBlocksAction, setThemeAction, setPaletteAction (~327 tok)
+- `actions.ts` — Ganti tema SEKALIGUS menyetel palet ke bawaan tema itu. (~564 tok)
+  - fn `saveBlocksAction` L10-29 (~262 tok)
+  - fn `setThemeAction` L30-41 (~117 tok)
+  - fn `setPaletteAction` L42-48 (~78 tok)
 - `page.tsx` — EditorPage (~223 tok)
 
 ## app/(dashboard)/projects/[id]/generate/
@@ -315,8 +319,8 @@
 - `BlockSettingsPanel.tsx` — BlockSettingsPanel (~4569 tok)
   - fn `BlockSettingsPanel` L9-292 (~4409 tok)
 - `editor.css` — Styles: 28 rules, 1 media queries (~852 tok)
-- `EditorShell.tsx` — EditorShell — uses useState, useMemo (~2530 tok)
-  - fn `EditorShell` L20-214 (~2174 tok)
+- `EditorShell.tsx` — EditorShell — uses useState, useMemo (~2673 tok)
+  - fn `EditorShell` L20-223 (~2308 tok)
 - `PalettePicker.tsx` — Baris 10 swatch palet. Warna swatch diambil dari PALETTES[name].accent lewat (~318 tok)
 
 ## components/landing/
@@ -426,19 +430,56 @@
 
 ## fixtures/
 
-- `seed.ts` — Menyalin blok bawaan tema lalu menambal props blok tertentu dengan konten seed. (~3116 tok)
-  - fn `withContent` L10-136 (~1636 tok)
-  - fn `seedStore` L137-218 (~1304 tok)
+- `seed.ts` — Menyalin blok bawaan tema lalu menambal props blok tertentu dengan konten seed. (~3168 tok)
+  - fn `withContent` L10-138 (~1680 tok)
+  - fn `seedStore` L139-220 (~1304 tok)
 
 ## graphify-out/
 
 - `.graphify_detect.json` (~145 tok)
+- `.graphify_labels.json` (~816 tok)
+- `.graphify_labels.json.sig` (~636 tok)
 - `.graphify_python` (~21 tok)
-- `.graphify_root` (~7 tok)
+- `.graphify_root` (~1 tok)
+- `GRAPH_REPORT.md` — Graph Report - listinganku  (2026-08-23) (~4885 tok)
+- `manifest.json` (~14245 tok)
 
 ## graphify-out/cache/
 
-- `stat-index.json` (~36 tok)
+- `last_query_stamp` (~5 tok)
+- `stat-index.json` (~11655 tok)
+
+## graphify-out/cache/ast/v0.9.44/
+
+- `003f52c07e4e5b0b0b55a566c0964d93d8650ecae684c5175694c01a470153d2.json` (~788 tok)
+- `02a6deb6b6f79f3cd8bc845cdd21c4f266036f0904041199560f750707a3a1b4.json` — /*.ts", "file_type": "concept", "source_file": "tsconfig.json", "source_location": "L19"}, {"id": "$graphify-root$_tsconfig_exclude", "label": "exc... (~2903 tok)
+- `0434b6213e1900295bffcecfc5ce6ac3d32c398013657b847a06fd780f9e0c23.json` (~67 tok)
+- `132fd8ea13f7c3364baa3e2344705dd1ca7fa33d6475c51865e2880315d5a4e1.json` (~172 tok)
+- `1d27c48e7537f337a6c8f15361c2f461cf99f5d46e099a783bd6591f7d9a9676.json` (~5237 tok)
+- `2368428a7b17df81a0e12b360a5192b62cf44648c730af11f3b0a830da03770f.json` (~5042 tok)
+- `2e51d9e0b8b141bc028b0e5fecc5387c3541274a1ec94d0a5c12880cd776bc0e.json` (~577 tok)
+- `44aebbf32b49c85f8db1990ee081e67b6b6747b51ad2da9cae543559b71a9c0b.json` (~3452 tok)
+- `44eda2ec07dd1a0e4b7f828cbe7eabbaaccf4715f778e6172b7e55fa067b0e99.json` (~6313 tok)
+- `4aba9aeb1abca43278b238354d24de7fa1f1d90a0ae95b6b8cbbd8a1c85b316d.json` (~214 tok)
+- `53cc24bb36f6bdbbae1ee128f9aebba8239e306aeb8cd0f92381e3c737802a38.json` (~811 tok)
+- `5ddc95fe5d8ed1e37932a74dd9ae93d05507f708e8d554602ef95ffcfd6e8e4b.json` (~4198 tok)
+- `6bfba8f338e03b49ceeaf3351ff1f0c47141c79f82284077953c6dfa290cc925.json` (~7321 tok)
+- `79254ad5647d674ed8ea7513f76dd67c80d96d1ecb3abdf0686a1c39887a9fda.json` (~168 tok)
+- `815611b95a9b5a4ba04af6e8f1ce4589363edd7974ccf462828cc289afd05dd7.json` (~156 tok)
+- `84b75419639b657060d7969507150c1fb365694e33a6fbbf104731ade6608a80.json` (~2646 tok)
+- `93b008dc621fd591d269e2d35a57f306484285722c00f84b57b428aa319e71ac.json` (~928 tok)
+- `af8c917961112b02850cf77695f5843e8082ed29f573b51073015e845c71b1cb.json` (~469 tok)
+- `b1ecfb5fb6dd6856e31677af9b0b9de798b68d1091c1a80c1509a72a8770cc98.json` (~638 tok)
+- `bf0268e67c35865c8ba1268e04489a37a438b655b7937dd16aec83f0a0c82043.json` (~8259 tok)
+- `c5fd8f570bc9d8c9c190fa2d4820193f1b77fe3fb7c6d5b2aaa0152c3d18a2b4.json` (~2704 tok)
+- `c67d84ef56052e4f8cebb46d14077e1fdaebacd1e636c2c8a8d0f101f2fa32b8.json` (~1486 tok)
+- `c8116e4153824c6b3b9c80cc1b95aef0d0f0e099774c91e82f543282b48b8999.json` (~156 tok)
+- `c8d9093a194cdda6d1d6f5eabb4ae93644367a2eafd25e6ac9834621f57e2c55.json` (~474 tok)
+- `d200fbab766f9a690204dd2b7509fa72e941380761cf13237fe414e771a74cc2.json` (~460 tok)
+- `f07181cc84704d658af4484d18a22c7d740be3f8a262f708ca294128bb32db65.json` (~3312 tok)
+- `f66102626c67f1c9d0edfdac45e7ad3c34ab490341988db223cafe7edfb510c0.json` (~719 tok)
+- `f7b67c6dfca50ce12b9bf6cd3be1ee2b2e759c8464a2d7303ceca957ff3561c5.json` (~803 tok)
+- `f861dd5a1290a67e61ff61357d6c9c4cf9a168539742fdc8d22e40461b2873b8.json` (~9428 tok)
 
 ## lib/
 
@@ -516,12 +557,12 @@
   - fn `toggleBlock` L232-239 (~87 tok)
   - fn `updateBlockProps` L240-251 (~118 tok)
 - `fonts.ts` — next/font tidak bisa dipanggil kondisional — semua pasangan font tema (~1717 tok)
-- `landing.css` — Styles: 16 rules, 1 vars, 1 media queries (~1080 tok)
-- `LandingView.tsx` — Satu-satunya tempat halaman landing dirakit. Dipakai halaman publik `/{slug}` (~1066 tok)
+- `landing.css` — Styles: 16 rules, 1 vars, 1 media queries (~1272 tok)
+- `LandingView.tsx` — Satu-satunya tempat halaman landing dirakit. Dipakai halaman publik `/{slug}` (~1197 tok)
   - section `LandingData` L12-30 (~202 tok)
-  - fn `LandingView` L31-95 (~704 tok)
-- `palettes.ts` — Palet dikirim sebagai custom property di root landing, bukan sebagai (~2079 tok)
-  - fn `paletteStyle` L141-145 (~60 tok)
+  - fn `LandingView` L31-102 (~835 tok)
+- `palettes.ts` — KONTRAK PERAN TOKEN — dibaca sebelum menyentuh nilai apa pun di bawah. (~3079 tok)
+  - fn `paletteStyle` L196-200 (~60 tok)
 - `resolve.ts` — Rantai yang menopang tombol "Use AI suggestion": override, lalu AI, lalu fallback. (~3449 tok)
   - section `ResolvedHouseType` L4-36 (~548 tok)
   - section `ResolveInput` L37-59 (~233 tok)
@@ -560,7 +601,7 @@
   - fn `ContactFormBlock` L388-403 (~152 tok)
   - fn `Footer` L404-423 (~225 tok)
 - `index.ts` — Exports architecturalComponents, architecturalChrome (~194 tok)
-- `theme.css` — Styles: 103 rules, 5 vars (~3656 tok)
+- `theme.css` — Styles: 103 rules, 5 vars (~3645 tok)
 
 ## lib/landing/themes/boldRetail/
 
@@ -582,7 +623,7 @@
   - fn `ContactFormBlock` L385-399 (~137 tok)
   - fn `Footer` L400-419 (~216 tok)
 - `index.ts` — Exports boldRetailComponents, boldRetailChrome (~192 tok)
-- `theme.css` — Styles: 103 rules, 4 vars (~4062 tok)
+- `theme.css` — Styles: 103 rules, 4 vars (~4064 tok)
 
 ## lib/landing/themes/classicNavy/
 
@@ -604,7 +645,7 @@
   - fn `ContactFormBlock` L388-403 (~157 tok)
   - fn `Footer` L404-423 (~216 tok)
 - `index.ts` — Exports classicNavyComponents, classicNavyChrome (~193 tok)
-- `theme.css` — Styles: 104 rules, 3 vars (~3820 tok)
+- `theme.css` — Styles: 104 rules, 3 vars (~3812 tok)
 
 ## lib/landing/themes/corporateBlue/
 
@@ -626,7 +667,7 @@
   - fn `AgentCta` L382-409 (~342 tok)
   - fn `Footer` L410-429 (~216 tok)
 - `index.ts` — Exports corporateBlueComponents, corporateBlueChrome (~194 tok)
-- `theme.css` — Styles: 98 rules, 3 vars (~4326 tok)
+- `theme.css` — Styles: 99 rules, 3 vars (~4321 tok)
 
 ## lib/landing/themes/editorialWhite/
 
@@ -649,7 +690,7 @@
   - fn `ContactFormBlock` L387-404 (~187 tok)
   - fn `Footer` L405-424 (~216 tok)
 - `index.ts` — Exports editorialWhiteComponents, editorialWhiteChrome (~194 tok)
-- `theme.css` — Styles: 100 rules, 4 vars (~4125 tok)
+- `theme.css` — Styles: 100 rules, 4 vars (~4104 tok)
 
 ## lib/landing/themes/natureCalm/
 
@@ -671,7 +712,7 @@
   - fn `ContactFormBlock` L398-413 (~152 tok)
   - fn `Footer` L414-433 (~216 tok)
 - `index.ts` — Exports natureCalmComponents, natureCalmChrome (~192 tok)
-- `theme.css` — Styles: 110 rules, 3 vars (~3872 tok)
+- `theme.css` — Styles: 111 rules, 3 vars (~3858 tok)
 
 ## lib/landing/themes/playfulPastel/
 
@@ -693,7 +734,7 @@
   - fn `ContactFormBlock` L391-405 (~138 tok)
   - fn `Footer` L406-425 (~216 tok)
 - `index.ts` — Exports playfulPastelComponents, playfulPastelChrome (~194 tok)
-- `theme.css` — Styles: 106 rules, 7 vars (~4311 tok)
+- `theme.css` — Styles: 107 rules, 7 vars (~4304 tok)
 
 ## lib/landing/themes/premiumDark/
 
@@ -715,7 +756,7 @@
   - fn `ContactFormBlock` L403-420 (~190 tok)
   - fn `Footer` L421-440 (~216 tok)
 - `index.ts` — Exports premiumDarkComponents, premiumDarkChrome (~193 tok)
-- `theme.css` — Styles: 99 rules, 4 vars (~4481 tok)
+- `theme.css` — Styles: 100 rules, 4 vars (~4462 tok)
 
 ## lib/landing/themes/shared/
 
@@ -741,7 +782,7 @@
   - fn `ContactFormBlock` L390-406 (~176 tok)
   - fn `Footer` L407-426 (~216 tok)
 - `index.ts` — Exports softLuxuryComponents, softLuxuryChrome (~192 tok)
-- `theme.css` — Styles: 112 rules, 4 vars (~3840 tok)
+- `theme.css` — Styles: 113 rules, 4 vars (~3830 tok)
 
 ## lib/landing/themes/tropicalWarm/
 
@@ -767,7 +808,7 @@
 - `Specs.tsx` — Tabel perbandingan semua tipe. Mati by default (spesifikasi sudah di kartu tipe unit). (~517 tok)
   - fn `Specs` L5-47 (~444 tok)
 - `Testimonials.tsx` — Testimoni HANYA diisi agen (tidak pernah dari AI). Kosong = tidak dirender. (~318 tok)
-- `theme.css` — Styles: 101 rules, 2 vars, 1 media queries (~4902 tok)
+- `theme.css` — Styles: 93 rules, 2 vars, 1 media queries (~5158 tok)
 
 ## lib/leads/
 
@@ -845,6 +886,8 @@
 - `create-project-wizard.test.tsx` — LISTINGKU_DATA_DIR harus di-set SEBELUM '@/lib/data' dievaluasi (singleton db (~1671 tok)
 - `dashboard.test.tsx` — AGENT (~1318 tok)
 - `ds-components.test.tsx` — btn (~838 tok)
+- `editor-theme-palette.test.ts` — Tiap theme.css ditranskrip 1:1 dari satu file desain yang mengandaikan (~727 tok)
+  - fn `makeProject` L28-67 (~432 tok)
 - `format.test.ts` (~1316 tok)
 - `house-type-actions.test.ts` — LISTINGKU_DATA_DIR harus di-set SEBELUM '@/lib/data' dievaluasi (singleton db (~3461 tok)
   - fn `makeProject` L41-273 (~3051 tok)
@@ -868,9 +911,9 @@
 - `media-validation.test.ts` — Declares type (~345 tok)
 - `mock-store.test.ts` — API routes: GET (4 endpoints) (~7047 tok)
 - `page-view-tracker.test.tsx` — recordEventActionMock (~473 tok)
-- `palettes.test.ts` — Luminansi relatif WCAG 2.1 dari hex #rrggbb. (~602 tok)
+- `palettes.test.ts` — Luminansi relatif WCAG 2.1 dari hex #rrggbb. (~997 tok)
   - fn `luminance` L5-13 (~85 tok)
-  - fn `contrast` L14-57 (~447 tok)
+  - fn `contrast` L14-82 (~835 tok)
 - `phone-display.test.ts` (~352 tok)
 - `project-actions.test.ts` — LISTINGKU_DATA_DIR harus di-set SEBELUM '@/lib/data' dievaluasi (singleton db (~2342 tok)
 - `project-detail-page.test.tsx` — PROJECT (~1334 tok)
@@ -891,6 +934,11 @@
 - `sticky-cta-bar.test.tsx` — StickyCtaBar merender WhatsAppLink, yang memanggil recordEventAction (Server (~431 tok)
 - `theme-migration.test.ts` — Declares old (~812 tok)
 - `theme-no-literal-colors.test.ts` — Penegak aturan arsitektur: komponen tema tidak boleh menulis warna literal. (~295 tok)
+- `theme-token-pairs.test.ts` — Penegak KONTRAK PERAN TOKEN (lihat header lib/landing/palettes.ts). (~1398 tok)
+  - fn `luminance` L24-32 (~85 tok)
+  - fn `contrast` L33-50 (~206 tok)
+  - section `Decl` L51-59 (~127 tok)
+  - fn `collectDeclarations` L60-118 (~647 tok)
 - `tokens.test.ts` — STYLES: allCss (~536 tok)
   - fn `read` L6-7 (~21 tok)
   - fn `allCss` L8-50 (~462 tok)

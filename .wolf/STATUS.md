@@ -2,11 +2,13 @@
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
 > Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
-> Last updated: 2026-08-19 (Slice 2K SELESAI: kesepuluh tema landing DIBANGUN ULANG dengan DOM+CSS sendiri dari file desain, landing jadi MOBILE-ONLY 390px, konten kanonik seragam, papan banding `/preview`.)
+> Last updated: 2026-08-23 (Spec slice 3A "pipeline brief" disetujui — `project.brief` terpisah dari `blocks[].props`, fakta di atas AI & copy di bawah AI, grounding ditegakkan di lapisan render. Sebelumnya 2026-08-23 Perbaikan warna semantik: kontrak peran token, palet mengikuti tema, latar panggung. Sebelumnya 2026-08-19 Slice 2K: kesepuluh tema landing DIBANGUN ULANG dengan DOM+CSS sendiri dari file desain, landing jadi MOBILE-ONLY 390px, konten kanonik seragam, papan banding `/preview`.)
 >
 > **Tiga keputusan user 2026-08-19 (TERTUTUP):** (1) tiap tema punya DOM sendiri, ditranskrip 1:1 dari `design/project/NN *.dc.html` — bukan satu set komponen yang diwarnai ulang; (2) landing **mobile-only**: satu lebar 390px, di layar besar bingkai DIPUSATKAN bukan dilebarkan; (3) copy hero **seragam** untuk kesepuluh tema supaya perbandingan murni soal tampilan.
 >
 > **Lihat hasilnya:** `npm run dev` lalu buka **`/preview`** (papan banding 10 tema berdampingan) atau `/preview/{tema}` (satu tema penuh). Halaman publik tetap `/parkspring-gading`.
+>
+> **JANGAN memakai `accent` sebagai warna TEKS di atas `bg`/`surface`** — pakai `accent-ink`. Tiap token latar punya token tulisan pasangannya; kontrak lengkapnya ada di header `lib/landing/palettes.ts` dan ditegakkan `tests/unit/theme-token-pairs.test.ts`.
 >
 > **JANGAN menambahkan media query `min-width` di `lib/landing/**`.** Lapisan desktop lama (kolom baca 720px + bingkai 1080px) sudah dihapus; menambahkannya kembali membatalkan keputusan (2).
 
@@ -45,12 +47,64 @@
 
 ---
 
-## 🚀 Next phase
+---
 
-**Belum di-commit ke `slice-1-frontend`.** Kerja slice 2K ada di branch **`slice-2-templates-mobile`**.
+## ✅ Done — Perbaikan warna semantik (2026-08-23)
 
-Urutan yang masuk akal berikutnya, tinggal pilih:
+**Pemicu:** user melaporkan "beberapa tema warnanya tak sesuai, backgroundnya hitam, primary vs secondary berantakan, warnanya jadi gak semantic" + screenshot pratinjau editor.
 
+**Verifikasi:** unit **410/410** (dari 367) — `npx tsc --noEmit` bersih untuk seluruh kode produksi — audit kontras DOM di kesepuluh tema lewat papan `/preview`: **1.642 simpul teks diperiksa, 0 gagal** (sebelumnya 254 gagal, 56 di antaranya di bawah 2,5:1). `npm run build` + e2e **BELUM** dijalankan karena `next dev` masih hidup di port 3000 (lihat `bug-023`).
+
+**Empat bug, akar yang berbeda-beda** (`bug-035`..`bug-038` di buglog):
+
+1. **`bug-035` — overlay abu di pratinjau editor.** `.lp::before {position:fixed; z-index:-1}` dipakai sebagai latar di luar bingkai 390px; `EditorShell` memakai elemen `.lp` yang SAMA lalu `transform: scale(.72)`. Transform membuat `.lp` jadi containing block untuk keturunan `fixed` **dan** stacking context, jadi pseudo itu berbalik menutupi seluruh pratinjau. Sekarang digerbang `.lp[data-lp-standalone]::before`, penanda hanya dipasang `LandingView`. Warnanya juga bukan lagi `color-mix(bg 52%, #0e1013)` (lumpur `#898683`) melainkan token palet baru **`--lp-backdrop`**.
+2. **`bug-036` — palet natureCalm menyetel `accent` = `contrast` = `feature` = `#4a6047`,** padahal temanya memakai `feature` sebagai kartu sage pucat lalu menulis dengan `accent` di atasnya: 82 simpul di bawah AA, sembilan di antaranya **1,00:1**. `feature` dikembalikan ke `#dfe3d5` dan `contrast` ke `#2c3128` (keduanya nilai yang memang dipakai file desain 07).
+3. **`bug-037` — tema dan palet dua field yang berdiri sendiri.** Data live tersimpan `premiumDark` + `natureCalm`. `setThemeAction` sekarang ikut menulis `palette = THEME_DEFAULT_PALETTE[theme]`; PalettePicker tetap ada untuk penyimpangan yang disengaja. `.data/store.json` sudah dirapikan.
+4. **`bug-038` — scrim hero tropicalWarm** mulai dari `transparent 30%`, jadi di atas placeholder krem (project belum punya foto) badge 2,70:1 dan subjudul 2,67:1. Scrim dikuatkan; sekarang 7,4–13,8:1 di atas placeholder, foto terang, maupun foto gelap.
+
+**Tiga token palet baru:** `backdrop`, `accent-ink` (aksen sebagai TULISAN di atas bg/surface — identik dengan `accent` di enam palet), `on-accent-soft`. `ink-faint`/`ink-soft` digelapkan sampai lolos 4,5:1, dan `--lp-quiet`/`--lp-dim` yang mengencerkannya ke arah bg jadi alias `ink-faint`. Sekitar 30 deklarasi di kesepuluh `theme.css` dipasangkan ulang ke token yang sah; aturan `a { color: accent }` di lima tema jadi `inherit`.
+
+**Dua tes baru:** `tests/unit/theme-token-pairs.test.ts` (memindai kesepuluh `theme.css` x kesepuluh palet — peran token + 4,5:1) dan `tests/unit/editor-theme-palette.test.ts` (palet mengikuti tema). `tests/unit/palettes.test.ts` diperluas dari 6 jadi 18 pasangan + hierarki ink + backdrop.
+
+
+## 🚀 Next phase — Slice 3A: pipeline brief
+
+**Spec disetujui 2026-08-23**, commit `6b5f998` di `slice-2-templates-mobile`:
+`docs/superpowers/specs/2026-08-23-listingku-brief-pipeline-slice3a-design.md` (683 baris).
+**Implementation plan siap** (commit `fc1ed21`):
+`docs/superpowers/plans/2026-08-23-listingku-brief-pipeline-slice3a.md` — 14 task TDD,
+tiap task punya tes, kode, dan commit-nya sendiri. **Baca spec-nya sebelum menyentuh
+kode** — enam keputusan §3 sudah tertutup, jangan dibuka ulang.
+
+Urutan task WAJIB berurutan: Task 3 (rantai resolve) harus selesai sebelum Task 4
+(seed pindah ke brief), kalau tidak halaman publik terender kosong.
+
+Masalah yang diperbaiki: agen tidak punya tempat menaruh bahan mentahnya sebelum AI
+jalan, jadi alurnya `input tipis → AI menebak → agen membangun ulang halaman di
+editor`. Slice ini membaliknya jadi `input kaya → AI menyusun → editor merapikan`.
+
+Isi 3A: `Project.projectType` + `Project.brief` (JSONB) · preset section
+deterministik per tipe · lokasi terstruktur (dataset offline + `/api/places` +
+combobox) · wizard step 1 dirombak, step 2 jadi **Materi landing page** ·
+`GenerateInput.brief` + `AiContentSchema` bertambah `subheadline`/`cta` ·
+`resolve()` menyisipkan brief ke rantai `pick()`.
+
+**Batas keras slice 3A: NOL file di `lib/landing/themes/` boleh tersentuh.** Kalau
+plan menyuruh membuka file tema, plan-nya menyimpang dari spec.
+
+Ditunda ke **3B**: tab Materi di halaman detail · `MediaType` += `site_plan`,
+`location_map` · `BlockType` += `about` (menambal `aiContent.description` yang
+sekarang di-generate lalu dibuang) · label CTA sebagai data.
+
+**Blocker eksternal baru:** `data/id-regions.json` belum ada di repo — sumber dan
+lisensinya harus diputuskan sebelum §11 dikerjakan. Tidak menghalangi item lain.
+
+### Pekerjaan lain yang menunggu (tidak memblokir 3A)
+
+**Kerja slice 2K belum di-commit ke `slice-1-frontend`** — masih di branch
+`slice-2-templates-mobile`.
+
+0. **Jalankan `npm run verify`** (hentikan `next dev` dulu — `bug-023`) untuk menutup perbaikan warna 2026-08-23: build + e2e belum dijalankan. `npm run seed:reset` dulu kalau store sudah termutasi.
 1. **Foto asli.** Kesepuluh tema masih memakai placeholder berlabel karena `media: []`. Pipeline unggah sudah jalan (Task 8) — begitu ada foto, `Img` otomatis menggantikan `Ph` tanpa sentuh tema. Kalau ingin melihat tema dengan foto sungguhan, unggah lewat halaman detail project.
 2. **Sisir tema di layar sungguhan.** Papan `/preview` memakai iframe 390px; buka `/preview/{tema}` di ponsel untuk memastikan target sentuh dan panjang teks Indonesia (kata panjang seperti "Ketersediaan") tidak memecah tombol.
 3. **Situs profil agen** `{subdomain}.listingku.app` — Settings sudah MENGISI datanya, belum ada yang membacanya. Butuh middleware subdomain + desain (desainnya belum ada).

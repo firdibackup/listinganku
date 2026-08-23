@@ -631,6 +631,113 @@
       "related_bugs": [],
       "occurrences": 3,
       "last_seen": "2026-08-19T22:10:00+07:00"
+    },
+    {
+      "id": "bug-035",
+      "timestamp": "2026-08-23T12:40:00+07:00",
+      "error_message": "Pratinjau editor: semua section transparan tertutup abu lumpur (~#898683); user melapor \"backgroundnya hitam gitu, warnanya jadi gak semantic\".",
+      "file": "lib/landing/landing.css, lib/landing/LandingView.tsx",
+      "root_cause": "`.lp::before { position: fixed; inset: 0; z-index: -1 }` dipakai sebagai latar di LUAR bingkai 390px. Trik itu hanya jalan selama `.lp` tidak membuat stacking context. EditorShell memakai elemen `.lp` yang SAMA lalu men-`transform: scale(.72)`-nya; transform membuat `.lp` jadi (a) containing block untuk keturunan position:fixed sehingga pseudo berhenti kabur ke viewport dan malah menutupi seluruh pratinjau, dan (b) stacking context sehingga z-index:-1 dicat SESUDAH latar `.lp` sendiri, bukan di belakangnya. Warnanya sendiri juga tidak semantik: color-mix(var(--lp-bg) 52%, #0e1013) - hex literal yang bukan milik palet mana pun.",
+      "fix": "Pseudo digerbang jadi `.lp[data-lp-standalone]::before` dan hanya LandingView (halaman publik + /preview, yang punya viewport sendiri) yang memasang penanda itu; pratinjau editor yang di-transform tidak. Warnanya diganti token palet baru `--lp-backdrop` dengan nilai turunan per palet.",
+      "tags": [
+        "css",
+        "stacking-context",
+        "transform",
+        "position-fixed",
+        "editor-preview",
+        "landing",
+        "palette"
+      ],
+      "related_bugs": [
+        "bug-031"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-23T12:40:00+07:00"
+    },
+    {
+      "id": "bug-036",
+      "timestamp": "2026-08-23T12:40:00+07:00",
+      "error_message": "Tema natureCalm dengan paletnya SENDIRI: 82 simpul teks di bawah AA, sembilan di antaranya kontras 1,00:1 (harga priceband, harga promo, angka statistik, tanda FAQ hilang total).",
+      "file": "lib/landing/palettes.ts (natureCalm)",
+      "root_cause": "Palet natureCalm menyetel accent = contrast = feature = '#4a6047'. `natureCalm/theme.css` memakai `feature` sebagai KARTU SAGE PUCAT (priceband, kartu stat, kartu FAQ, kartu form) lalu menulis di atasnya dengan `accent` — hijau di atas hijau. Palet salah transkrip: file desain 07 memakai sage pucat #dfe3d5 untuk kartu dan #2c3128 untuk ink.",
+      "fix": "feature -> '#dfe3d5' (+ on-feature '#2c3128', on-feature-soft '#4b5046'), contrast -> '#2c3128' (+ contrast-accent '#b0c0ab'). Footer natureCalm yang gelap juga diperbaiki: footer__name/__copy dari ink/quiet jadi on-footer, dan kicker--invert jadi on-accent.",
+      "tags": [
+        "palette",
+        "contrast",
+        "a11y",
+        "natureCalm",
+        "landing"
+      ],
+      "related_bugs": [
+        "bug-037"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-23T12:40:00+07:00"
+    },
+    {
+      "id": "bug-037",
+      "timestamp": "2026-08-23T12:40:00+07:00",
+      "error_message": "Halaman publik /parkspring-gading: inisial avatar agen kontras 1,00:1 (tak terlihat), avatar testimoni 1,40:1. Project tersimpan sebagai theme premiumDark + palette natureCalm.",
+      "file": "app/(dashboard)/projects/[id]/editor/actions.ts, components/editor/EditorShell.tsx, fixtures/seed.ts",
+      "root_cause": "`Project.theme` dan `Project.palette` dua field yang berdiri sendiri dengan dua picker terpisah di editor, padahal tiap theme.css ditranskrip 1:1 dari file desain yang mengandaikan paletnya sendiri. 90 dari 100 pasangan tidak pernah didesain, dan mengganti tema tidak pernah menyentuh palet — jadi ketidakcocokan terjadi DIAM-DIAM. Diperparah deklarasi yang memakai token di luar perannya (background: feature + color: accent).",
+      "fix": "setThemeAction sekarang ikut menulis palette = THEME_DEFAULT_PALETTE[theme] dan mengembalikannya; EditorShell menyamakan state-nya; seed menurunkan palette dari tema. Picker palet tetap ada untuk penyimpangan yang DISENGAJA. Selain itu ~30 deklarasi di kesepuluh theme.css dipasangkan ulang ke token yang sah, dan dua token baru ditambahkan: accent-ink (aksen sebagai TULISAN di atas bg/surface) dan on-accent-soft.",
+      "tags": [
+        "palette",
+        "theme",
+        "contrast",
+        "a11y",
+        "server-action",
+        "editor",
+        "landing"
+      ],
+      "related_bugs": [
+        "bug-036",
+        "bug-035"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-23T12:40:00+07:00"
+    },
+    {
+      "id": "bug-038",
+      "timestamp": "2026-08-23T12:40:00+07:00",
+      "error_message": "Hero tropicalWarm di atas placeholder (project belum punya foto): badge 2,70:1 dan subjudul 2,67:1.",
+      "file": "lib/landing/themes/tropicalWarm/theme.css",
+      "root_cause": "Scrim hero mulai dari `transparent 30%`, jadi bobot gelapnya hanya muncul di bagian bawah. Ini satu-satunya tema yang menaruh teks di ATAS media, dan sampai agen mengunggah foto medianya adalah placeholder KREM — teks krem di atas krem. Badge malah memakai kaca TERANG (on-accent 16%) yang memperparah.",
+      "fix": "Scrim jadi tiga stop dan sudah punya bobot sejak puncak (contrast 14% -> 66% -> 94%); badge memakai kaca GELAP (contrast 58%); hero__sub memakai on-contrast, bukan on-contrast-soft yang dikalibrasi untuk blok contrast pekat. Hasil 7,4:1 sampai 13,8:1 di atas placeholder, foto terang, maupun foto gelap.",
+      "tags": [
+        "css",
+        "contrast",
+        "a11y",
+        "hero",
+        "placeholder",
+        "tropicalWarm"
+      ],
+      "related_bugs": [
+        "bug-033"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-23T12:40:00+07:00"
+    },
+    {
+      "id": "bug-039",
+      "timestamp": "2026-08-23T00:00:00+07:00",
+      "error_message": "Subjek commit jadi '@ docs(spec): ...' — berawalan @ literal.",
+      "file": "(git commit message)",
+      "root_cause": "Memakai PowerShell here-string (@'...'@) di tool Bash. Bash/Git Bash tidak mengenal sintaks itu, jadi @' ikut masuk sebagai teks pesan. Deskripsi tool Bash melarangnya eksplisit; heredoc juga bermasalah di sini (bug-001, unexpected EOF).",
+      "fix": "Tulis pesan multi-baris ke file lewat tool Write, lalu git commit -F <file>. Hindari here-string DAN heredoc di tool Bash untuk teks multi-baris.",
+      "tags": [
+        "git",
+        "bash",
+        "powershell",
+        "here-string",
+        "commit-message",
+        "tooling"
+      ],
+      "related_bugs": [
+        "bug-001"
+      ],
+      "occurrences": 1,
+      "last_seen": "2026-08-23T00:00:00+07:00"
     }
   ]
 }
