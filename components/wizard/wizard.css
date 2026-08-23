@@ -86,3 +86,9 @@
 .wz-plan__toggle[aria-expanded='true'] svg { transform: rotate(180deg); }
 .wz-plan__panel { display: flex; flex-direction: column; gap: 12px; padding: 4px 12px 14px; }
 .wz-plan__summary { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; background: var(--surface-muted); border-radius: var(--radius-md); }
+
+/* Lima panel materi (Task 12) — hidup di dalam .wz-plan__panel di atas. */
+.wz-panel__set { display: flex; flex-direction: column; gap: 6px; border: 0; margin: 0; padding: 0; }
+.wz-panel__opt { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.wz-panel__row { display: flex; align-items: flex-end; gap: 10px; flex-wrap: wrap; }
+.wz-panel__row > .ds-field { flex: 1 1 160px; }

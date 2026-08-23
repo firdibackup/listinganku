@@ -15,6 +15,11 @@ import { applySectionPreset } from '@/lib/landing/sectionPreset';
 import { StepProgress } from './StepProgress';
 import { LocationCombobox } from './LocationCombobox';
 import { SectionPlanner } from './SectionPlanner';
+import { HeroPanel } from './panels/HeroPanel';
+import { HighlightsPanel } from './panels/HighlightsPanel';
+import { FacilitiesPanel } from './panels/FacilitiesPanel';
+import { LocationPanel } from './panels/LocationPanel';
+import { PromoPanel } from './panels/PromoPanel';
 
 const TOTAL = 3;
 
@@ -237,6 +242,15 @@ export function CreateProjectWizard({ developers = [] }: { developers?: string[]
               onNote={(type, text) =>
                 setBrief({ notes: { ...form.brief.notes, [type]: text || undefined } })
               }
+              panelFor={(type) => {
+                const p = { brief: form.brief, onChange: setBrief };
+                if (type === 'hero') return <HeroPanel {...p} />;
+                if (type === 'highlights') return <HighlightsPanel {...p} />;
+                if (type === 'facilities') return <FacilitiesPanel {...p} />;
+                if (type === 'location') return <LocationPanel {...p} />;
+                if (type === 'pricePromo') return <PromoPanel {...p} />;
+                return null;
+              }}
             />
           </>
         ) : null}
