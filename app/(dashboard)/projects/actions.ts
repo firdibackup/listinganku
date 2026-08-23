@@ -6,6 +6,7 @@ import { requireSessionUserId } from '@/lib/session';
 import { ProjectDraftSchema, ProjectPublishSchema } from '@/lib/schemas';
 import type { ProjectDraftInput } from '@/lib/schemas';
 import type { Project } from '@/lib/data/types';
+import { applySectionPreset } from '@/lib/landing/sectionPreset';
 
 export type ActionResult<T> =
   | { ok: true; data: T }
@@ -40,6 +41,12 @@ export async function createProjectAction(input: unknown): Promise<ActionResult<
     // menyelesaikan bentrok. NewProject sengaja tidak menerimanya.
     const { slug: _slug, ...draft } = parsed.data as ProjectDraftInput;
     const project = await db.projects.create({ userId, ...draft });
+    // Preset diterapkan di sini karena inilah saat projectType pertama diketahui.
+    if (draft.projectType) {
+      await db.projects.update(project.id, {
+        blocks: applySectionPreset(project.blocks, draft.projectType),
+      });
+    }
     revalidatePath('/dashboard');
     return { ok: true, data: { id: project.id } };
   } catch {
@@ -56,7 +63,20 @@ export async function updateProjectAction(id: string, input: unknown): Promise<A
     const parsed = ProjectDraftSchema.partial().safeParse(input);
     if (!parsed.success) return { ok: false, fieldErrors: parsed.error.flatten().fieldErrors };
 
-    await db.projects.update(id, parsed.data);
+    // Ganti tipe project = ganti section yang relevan. Wizard SUDAH meminta
+    // konfirmasi ke agen sebelum memanggil ini, jadi di sini diterapkan tanpa
+    // tanya — tapi HANYA saat nilainya benar-benar BERUBAH, supaya penyimpanan
+    // langkah lain tidak menimpa toggle manual agen di step 2.
+    const patch = { ...parsed.data } as typeof parsed.data & { blocks?: typeof owned.blocks };
+    const nextType = patch.projectType;
+    if (nextType && nextType !== owned.projectType) {
+      // `patch.blocks ?? owned.blocks`, BUKAN `owned.blocks` telanjang: mulai
+      // Task 11 wizard mengirim `blocks` miliknya sendiri di payload yang sama
+      // — memakai owned.blocks membuang toggle/props yang baru saja disunting
+      // agen di step 2 karena itu salinan server yang sudah basi.
+      patch.blocks = applySectionPreset(patch.blocks ?? owned.blocks, nextType);
+    }
+    await db.projects.update(id, patch);
     revalidatePath(`/projects/${id}`);
     revalidatePath('/dashboard');
     return { ok: true, data: null };
