@@ -19,7 +19,7 @@ describe('seed', () => {
 
     const projects = await db.projects.list(SEED_USER_ID);
     expect(projects.map((p) => p.name)).toEqual([
-      'Parkspring Gading', 'Casa Verde Alam Sutera', 'Bintaro Loop Residence',
+      'Parkspring', 'Casa Verde Alam Sutera', 'Bintaro Loop Residence',
     ]);
   });
 
@@ -65,7 +65,7 @@ describe('projects', () => {
   });
 
   it('menemukan project lewat slug', async () => {
-    expect((await db.projects.getBySlug('parkspring-gading'))?.name).toBe('Parkspring Gading');
+    expect((await db.projects.getBySlug('parkspring-gading'))?.name).toBe('Parkspring');
     expect(await db.projects.getBySlug('tidak-ada')).toBeNull();
   });
 
@@ -81,7 +81,7 @@ describe('projects', () => {
 describe('houseTypes', () => {
   it('mengurutkan tipe rumah berdasarkan sortOrder', async () => {
     const project = (await db.projects.list(SEED_USER_ID))[0];
-    expect((await db.houseTypes.listByProject(project.id)).map((h) => h.name)).toEqual(['Villa', 'Midea', 'Grand']);
+    expect((await db.houseTypes.listByProject(project.id)).map((h) => h.name)).toEqual(['Villa', 'Medea', 'Grand']);
   });
 });
 
@@ -137,7 +137,7 @@ describe('salinan data — baca tidak boleh membocorkan referensi internal', () 
     project!.blocks[0].enabled = false;
 
     const reread = await db.projects.get('prj_parkspring');
-    expect(reread?.name).toBe('Parkspring Gading');
+    expect(reread?.name).toBe('Parkspring');
     expect(reread?.blocks[0].enabled).toBe(true);
   });
 

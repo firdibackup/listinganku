@@ -7,7 +7,7 @@ import { Button } from '@/components/ds';
 import { toast } from '@/components/ui';
 import { BlockRenderer } from '@/lib/landing/BlockRenderer';
 import { resolveBlocks } from '@/lib/landing/resolve';
-import { BLOCK_LABELS, defaultBlocksForTheme, moveBlock, toggleBlock, updateBlockProps } from '@/lib/landing/blocks';
+import { BLOCK_LABELS, applyThemeOrder, moveBlock, toggleBlock, updateBlockProps } from '@/lib/landing/blocks';
 import type { Block } from '@/lib/landing/blocks';
 import { AVAILABLE_THEMES } from '@/lib/landing/themes';
 import { THEME_NAMES, THEME_LABELS } from '@/lib/landing/themeNames';
@@ -151,7 +151,7 @@ export function EditorShell({
                 <Button
                   variant="primary"
                   size="sm"
-                  onClick={() => { setBlocks(defaultBlocksForTheme(themeConfirm)); setThemeConfirm(null); }}
+                  onClick={() => { setBlocks(applyThemeOrder(blocks, themeConfirm)); setThemeConfirm(null); }}
                 >
                   Terapkan urutan bawaan
                 </Button>

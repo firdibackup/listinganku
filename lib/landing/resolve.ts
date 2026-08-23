@@ -19,13 +19,13 @@ export interface ResolvedHouseType {
 }
 
 export type ResolvedBlock =
-  | { id: string; type: 'hero'; projectId: string; title: string; subtitle: string; image: Media | null; badges: string[]; priceFrom: number | null; waNumber: string; defaultMessage: string }
-  | { id: string; type: 'gallery'; layout: 'carousel' | 'grid'; images: Media[] }
-  | { id: string; type: 'highlights'; items: string[] }
+  | { id: string; type: 'hero'; projectId: string; title: string; subtitle: string; location: string; image: Media | null; badges: string[]; priceFrom: number | null; waNumber: string; defaultMessage: string }
+  | { id: string; type: 'gallery'; layout: 'carousel' | 'grid'; images: Media[]; captions: string[] }
+  | { id: string; type: 'highlights'; items: { title: string; desc: string }[] }
   | { id: string; type: 'houseTypes'; houseTypes: ResolvedHouseType[] }
   | { id: string; type: 'specs'; houseTypes: ResolvedHouseType[] }
-  | { id: string; type: 'facilities'; items: string[] }
-  | { id: string; type: 'floorPlans'; plans: { houseType: ResolvedHouseType; media: Media }[]; masterplan: Media | null }
+  | { id: string; type: 'facilities'; items: { name: string; desc: string }[] }
+  | { id: string; type: 'floorPlans'; plans: { houseType: ResolvedHouseType; media: Media }[]; masterplan: Media | null; houseTypes: ResolvedHouseType[]; legend: string[] }
   | { id: string; type: 'location'; address: string; mapUrl: string | null; access: { time: string; place: string }[] }
   | { id: string; type: 'faq'; items: { q: string; a: string }[] }
   | { id: string; type: 'agentCta'; projectId: string; waNumber: string; defaultMessage: string; agentName: string }
@@ -99,9 +99,16 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
   const defaultMessage = pick(
     ctaProps.defaultMessage, undefined, `Halo ${agent.fullName}, saya tertarik dengan ${project.name}.`,
   );
-  const highlightItems = pick(
-    (byId('highlights')?.props as { items?: string[] } | undefined)?.items, ai?.sellingPoints, [],
-  );
+  /**
+   * AI hanya mengembalikan kalimat lepas (`sellingPoints: string[]`), sementara
+   * blok menyimpan { title, desc }. Dinaikkan ke bentuk blok DI SINI supaya tiap
+   * komponen tema cukup membaca satu bentuk saja.
+   */
+  const highlightItems: { title: string; desc: string }[] = pick<{ title: string; desc?: string }[]>(
+    (byId('highlights')?.props as { items?: { title: string; desc?: string }[] } | undefined)?.items,
+    ai?.sellingPoints?.map((title) => ({ title })),
+    [],
+  ).map((it) => ({ title: it.title, desc: it.desc ?? '' }));
 
   const out: ResolvedBlock[] = [];
 
@@ -114,12 +121,17 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
         const heroBadges = (p.badges as string[] | undefined)?.length
           ? (p.badges as string[])
           : highlightItems.length
-            ? highlightItems
+            ? highlightItems.map((it) => it.title)
             : project.facilities;
         out.push({
           id: block.id, type: 'hero', projectId: project.id,
           title: pick(p.title as string | undefined, ai?.headline, project.name),
           subtitle: pick(p.subtitle as string | undefined, undefined, project.location),
+          // Terpisah dari subtitle: beberapa tema menaruh baris lokasi pendek
+          // di atas judul DAN kalimat pemasaran di bawahnya. Sebelum ini keduanya
+          // memakai `subtitle`, jadi kalimat panjang muncul sebagai eyebrow
+          // huruf kapital berspasi lebar — tidak terbaca dan bukan itu desainnya.
+          location: project.location,
           image: media.find((m) => m.id === p.mediaId) ?? projectPhotos[0] ?? houseTypes[0]?.primaryPhoto ?? null,
           badges: heroBadges.slice(0, 4),
           priceFrom,
@@ -138,15 +150,15 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
           id: block.id, type: 'gallery',
           layout: (p.layout as 'carousel' | 'grid') ?? 'carousel',
           images: resolved.length > 0 ? resolved : [...projectPhotos, ...houseTypes.flatMap((h) => h.photos)],
+          // Keterangan hidup terpisah dari foto: sebelum agen mengunggah apa pun,
+          // keterangan inilah yang memberi bentuk pada slot galeri yang kosong.
+          captions: (p.captions as string[] | undefined) ?? [],
         });
         break;
       }
 
       case 'highlights':
-        out.push({
-          id: block.id, type: 'highlights',
-          items: pick(p.items as string[] | undefined, ai?.sellingPoints, []),
-        });
+        out.push({ id: block.id, type: 'highlights', items: highlightItems });
         break;
 
       case 'houseTypes':
@@ -158,7 +170,14 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
         break;
 
       case 'facilities':
-        out.push({ id: block.id, type: 'facilities', items: project.facilities });
+        out.push({
+          id: block.id, type: 'facilities',
+          items: pick<{ name: string; desc?: string }[]>(
+            p.items as { name: string; desc?: string }[] | undefined,
+            undefined,
+            project.facilities.map((name) => ({ name })),
+          ).map((it) => ({ name: it.name, desc: it.desc ?? '' })),
+        });
         break;
 
       case 'floorPlans': {
@@ -169,6 +188,10 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
             .filter((h) => h.floorPlan && (!allow?.length || allow.includes(h.floorPlan.id)))
             .map((h) => ({ houseType: h, media: h.floorPlan as Media })),
           masterplan,
+          // Daftar tipe lengkap ikut, bukan hanya yang sudah punya denah — section
+          // ini menggambar satu slot per tipe sejak sebelum ada satu file pun.
+          houseTypes,
+          legend: (p.legend as string[] | undefined) ?? [],
         });
         break;
       }

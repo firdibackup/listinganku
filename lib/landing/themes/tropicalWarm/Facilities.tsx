@@ -9,10 +9,13 @@ export function Facilities({ block }: { block: Extract<ResolvedBlock, { type: 'f
         <p className="lp-tw-eyebrow">Fasilitas</p>
         <h2 className="lp-tw-h2">Fasilitas kawasan</h2>
         <div className="lp-tw-fac">
-          {block.items.map((name) => (
-            <div key={name} className="lp-tw-fac__item">
-              <div className="lp-tw-fac__ph"><Ph label={name} /></div>
-              <div className="lp-tw-fac__name">{name}</div>
+          {block.items.map((item) => (
+            <div key={item.name} className="lp-tw-fac__item">
+              <div className="lp-tw-fac__ph"><Ph label={`Foto ${item.name}`} /></div>
+              <div className="lp-tw-fac__body">
+                <div className="lp-tw-fac__name">{item.name}</div>
+                {item.desc ? <div className="lp-tw-fac__desc">{item.desc}</div> : null}
+              </div>
             </div>
           ))}
         </div>

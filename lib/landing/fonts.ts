@@ -1,7 +1,7 @@
 import {
   DM_Serif_Display, DM_Sans, Cormorant_Garamond, Jost, Instrument_Serif, IBM_Plex_Sans,
   Marcellus, Karla, Anton, Figtree,
-  Playfair_Display, Lato, Fredoka, Outfit, Archivo, Archivo_Narrow, Space_Grotesk, Lora, Nunito_Sans,
+  Playfair_Display, Lato, Fredoka, Outfit, Archivo, Archivo_Narrow, Space_Grotesk, Space_Mono, Lora, Nunito_Sans,
 } from 'next/font/google';
 
 /**
@@ -62,6 +62,9 @@ const archivoNarrow = Archivo_Narrow({
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'], weight: ['400', '500', '600', '700'], variable: '--font-space-grotesk', display: 'swap',
 });
+const spaceMono = Space_Mono({
+  subsets: ['latin'], weight: ['400', '700'], variable: '--font-space-mono', display: 'swap',
+});
 const lora = Lora({
   subsets: ['latin'], weight: ['400', '500'], style: ['normal', 'italic'], variable: '--font-lora', display: 'swap',
 });
@@ -113,7 +116,7 @@ export const THEME_FONTS: Record<string, ThemeFontDecl> = {
     text: 'var(--font-archivo), system-ui, -apple-system, "Segoe UI", sans-serif',
   },
   architectural: {
-    className: `${spaceGrotesk.variable}`,
+    className: `${spaceGrotesk.variable} ${spaceMono.variable}`,
     display: 'var(--font-space-grotesk), system-ui, sans-serif',
     text: 'var(--font-space-grotesk), system-ui, -apple-system, "Segoe UI", sans-serif',
   },

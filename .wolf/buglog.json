@@ -512,7 +512,13 @@
       "file": "lib/landing/themes/tropicalWarm/theme.css",
       "root_cause": "Regex lint /#[0-9a-fA-F]{3,8}|rgba?\\(|hsla?\\(/ memindai SETIAP baris termasuk komentar. Kata 'rgba(' di dalam komentar penjelas ikut cocok.",
       "fix": "Hindari menulis literal warna (termasuk 'rgba('/'hex') di komentar file di bawah lib/landing/themes. Ganti frasa jadi 'fungsi warna beralfa'. Alternatif: tambahkan penanda 'lp-lint-allow' pada baris itu.",
-      "tags": ["lint", "theme", "css", "no-literal-colors", "false-positive"],
+      "tags": [
+        "lint",
+        "theme",
+        "css",
+        "no-literal-colors",
+        "false-positive"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-19T11:00:00+07:00"
@@ -524,7 +530,14 @@
       "file": "tests/e2e/editor.spec.ts",
       "root_cause": "PALETTE_LABELS identik dengan THEME_LABELS (mis. 'Tropis Hangat', 'Premium Gelap'). PalettePicker memberi swatch aria-label dari PALETTE_LABELS, jadi accessible name-nya bertabrakan dengan tombol tema.",
       "fix": "Scope locator ke kontainer: page.locator('.ed__themes').getByRole('button', ...) untuk tema, page.locator('.ed__palettes').getByRole('button', ...) untuk swatch.",
-      "tags": ["playwright", "e2e", "strict-mode", "editor", "palette", "test-authoring"],
+      "tags": [
+        "playwright",
+        "e2e",
+        "strict-mode",
+        "editor",
+        "palette",
+        "test-authoring"
+      ],
       "related_bugs": [],
       "occurrences": 1,
       "last_seen": "2026-08-19T11:20:00+07:00"
@@ -536,10 +549,88 @@
       "file": "playwright.config.ts (reuseExistingServer)",
       "root_cause": "Dev server `next dev` dari run e2e sebelumnya BOCOR (tidak ter-teardown), tetap listen di port 3000 dengan bundle klien LAMA (dari sebelum perubahan tema). `reuseExistingServer: !process.env.CI` = true lokal, jadi Playwright memakai ulang server basi itu alih-alih start ulang. SSR meregenerasi (lulus), tapi hidrasi/interaksi memakai chunk klien basi (mati). Terlihat seperti bug kode padahal build + unit hijau.",
       "fix": "Sebelum e2e lokal: cek & bunuh proses port 3000 (Get-NetTCPConnection -LocalPort 3000 → Stop-Process), lalu `rm -rf .next`, lalu jalankan. Pola diagnosa: kalau SSR lulus tapi SEMUA interaksi klien gagal, curigai server basi, bukan kode.",
-      "tags": ["playwright", "e2e", "next-dev", "port-3000", "reuseExistingServer", "stale-bundle", "hydration"],
-      "related_bugs": ["bug-023"],
+      "tags": [
+        "playwright",
+        "e2e",
+        "next-dev",
+        "port-3000",
+        "reuseExistingServer",
+        "stale-bundle",
+        "hydration"
+      ],
+      "related_bugs": [
+        "bug-023"
+      ],
       "occurrences": 1,
       "last_seen": "2026-08-19T12:40:00+07:00"
+    },
+    {
+      "id": "bug-031",
+      "timestamp": "2026-08-19T22:10:00+07:00",
+      "error_message": "Tombol utama beberapa tema tampil gelap-di-atas-gelap / teksnya hilang (mis. 'Hubungi Marketing' Editorial Putih, 'HUBUNGI' Bold Retail, pil ungu Playful Pastel).",
+      "file": "lib/landing/themes/*/theme.css",
+      "root_cause": "Aturan `.lp[data-lp-theme='x'] a { color: ... }` bernilai spesifisitas (0,2,1) dan MENGALAHKAN kelas tombol seperti `.lp-ew-btn--solid` (0,1,0). Setiap tombol yang dirender sebagai <a> (WhatsAppLink, anchor) kehilangan warna teksnya dan mewarisi warna tautan/ink.",
+      "fix": "Bungkus scope-nya dalam :where() -> `:where(.lp[data-lp-theme='x']) a` = (0,0,1), sehingga kelas apa pun menang. Diterapkan ke kesepuluh file tema sekaligus.",
+      "tags": [
+        "css",
+        "specificity",
+        "theme",
+        "button",
+        "contrast"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-19T22:10:00+07:00"
+    },
+    {
+      "id": "bug-032",
+      "timestamp": "2026-08-19T22:10:00+07:00",
+      "error_message": "Konfirmasi 'Terapkan urutan bawaan tema ini?' di editor menghapus SELURUH isi blok (badge, FAQ, promo, testimoni) tanpa peringatan.",
+      "file": "components/editor/EditorShell.tsx",
+      "root_cause": "Handler memanggil `setBlocks(defaultBlocksForTheme(themeConfirm))`, yang mengembalikan blok dengan props KOSONG. Konfirmasinya menjanjikan perubahan URUTAN, bukan penghapusan konten.",
+      "fix": "Tambah `applyThemeOrder(blocks, theme)` di lib/landing/blocks.ts — mengambil urutan dari tema tapi membawa `props` dan `enabled` milik blok yang sudah ada; EditorShell memakainya.",
+      "tags": [
+        "editor",
+        "data-loss",
+        "blocks",
+        "theme"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-19T22:10:00+07:00"
+    },
+    {
+      "id": "bug-033",
+      "timestamp": "2026-08-19T22:10:00+07:00",
+      "error_message": "Blok galeri dan denah tidak pernah muncul di halaman landing mana pun, padahal digambar di kesepuluh file desain.",
+      "file": "lib/landing/themes/*/blocks.tsx (Gallery, FloorPlans)",
+      "root_cause": "Keduanya `return null` saat `media` kosong, dan seed memang `media: []`. Tidak ada tes yang gagal karena blok yang hilang diam-diam tetap 'benar' secara teknis.",
+      "fix": "lib/landing/themes/slots.ts: gallerySlots() membentuk slot dari `captions` (blok) DAN `images` (media); planSlots() membentuk satu slot per tipe rumah. Bentuk section jadi sama sebelum dan sesudah agen mengunggah foto.",
+      "tags": [
+        "landing",
+        "empty-state",
+        "media",
+        "silent-failure"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-19T22:10:00+07:00"
+    },
+    {
+      "id": "bug-034",
+      "timestamp": "2026-08-19T22:10:00+07:00",
+      "error_message": "bash: unexpected EOF while looking for matching `'' — heredoc `cat > file <<'EOF'` gagal parse padahal kutipnya seimbang.",
+      "file": "(tooling) perintah Bash",
+      "root_cause": "Perintah Bash terpotong di sekitar ~135 baris; heredoc yang lebih panjang dari itu kehilangan penanda penutupnya sehingga shell mengira kutipnya belum tertutup.",
+      "fix": "Pecah penulisan file jadi beberapa perintah `cat >` lalu `cat >>`, masing-masing di bawah ~110 baris. Untuk pola regex/escape di dalam skrip Python, pakai r-string: `\n` di argumen JSON menyusut jadi `\n` sebelum sampai ke file.",
+      "tags": [
+        "tooling",
+        "bash",
+        "heredoc"
+      ],
+      "related_bugs": [],
+      "occurrences": 3,
+      "last_seen": "2026-08-19T22:10:00+07:00"
     }
   ]
 }

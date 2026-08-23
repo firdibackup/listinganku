@@ -133,15 +133,45 @@ export function BlockSettingsPanel({
       ) : null}
 
       {block.type === 'highlights' ? (
-        <Input
-          label="Selling points" textarea rows={4}
-          hint="Satu poin per baris. Kosongkan untuk memakai hasil AI."
-          value={(((p.items as string[]) ?? []).join('\n'))}
-          onChange={(e) => {
-            const items = e.target.value.split('\n').map((s) => s.trim()).filter(Boolean);
-            onPatch({ items: items.length ? items : undefined });
-          }}
-        />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <span className="lw-caption" style={{ color: 'var(--evergreen)' }}>
+            Selling points — kosongkan semua untuk memakai hasil AI.
+          </span>
+          {(((p.items as { title: string; desc?: string }[]) ?? [])).map((row, i) => {
+            const items = () => [...((p.items as { title: string; desc?: string }[]) ?? [])];
+            return (
+              <div key={i} className="ed__fieldrow">
+                <Input label="Judul" value={row.title} onChange={(e) => { const it = items(); it[i] = { ...it[i], title: e.target.value }; onPatch({ items: it }); }} />
+                <Input label="Penjelasan" value={row.desc ?? ''} onChange={(e) => { const it = items(); it[i] = { ...it[i], desc: e.target.value }; onPatch({ items: it }); }} />
+                <button type="button" className="ds-btn ds-btn--link ds-btn--sm" aria-label={`Hapus poin ${i + 1}`} onClick={() => { const next = items().filter((_, j) => j !== i); onPatch({ items: next.length ? next : undefined }); }}>Hapus</button>
+              </div>
+            );
+          })}
+          <button type="button" className="ds-btn ds-btn--link ds-btn--sm" onClick={() => onPatch({ items: [...(((p.items as { title: string; desc?: string }[]) ?? [])), { title: '', desc: '' }] })}>
+            Tambah poin
+          </button>
+        </div>
+      ) : null}
+
+      {block.type === 'facilities' ? (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <span className="lw-caption" style={{ color: 'var(--evergreen)' }}>
+            Fasilitas — kosongkan semua untuk memakai daftar fasilitas project.
+          </span>
+          {(((p.items as { name: string; desc?: string }[]) ?? [])).map((row, i) => {
+            const items = () => [...((p.items as { name: string; desc?: string }[]) ?? [])];
+            return (
+              <div key={i} className="ed__fieldrow">
+                <Input label="Nama" value={row.name} onChange={(e) => { const it = items(); it[i] = { ...it[i], name: e.target.value }; onPatch({ items: it }); }} />
+                <Input label="Keterangan" value={row.desc ?? ''} onChange={(e) => { const it = items(); it[i] = { ...it[i], desc: e.target.value }; onPatch({ items: it }); }} />
+                <button type="button" className="ds-btn ds-btn--link ds-btn--sm" aria-label={`Hapus fasilitas ${i + 1}`} onClick={() => { const next = items().filter((_, j) => j !== i); onPatch({ items: next.length ? next : undefined }); }}>Hapus</button>
+              </div>
+            );
+          })}
+          <button type="button" className="ds-btn ds-btn--link ds-btn--sm" onClick={() => onPatch({ items: [...(((p.items as { name: string; desc?: string }[]) ?? [])), { name: '', desc: '' }] })}>
+            Tambah fasilitas
+          </button>
+        </div>
       ) : null}
 
       {block.type === 'location' ? (
@@ -235,16 +265,26 @@ export function BlockSettingsPanel({
         </label>
       ) : null}
 
-      {block.type === 'specs' || block.type === 'facilities' ? (
+      {block.type === 'specs' ? (
         <p className="lw-caption" style={{ color: 'var(--sage)' }}>
-          Isi blok ini diturunkan otomatis dari data project dan tipe rumah. Ubah datanya di halaman detail project.
+          Isi blok ini diturunkan otomatis dari data tipe rumah. Ubah datanya di halaman detail project.
         </p>
       ) : null}
 
       {block.type === 'floorPlans' ? (
-        <p className="lw-caption" style={{ color: 'var(--sage)' }}>
-          Menampilkan denah yang sudah diunggah pada setiap tipe rumah.
-        </p>
+        <>
+          <p className="lw-caption" style={{ color: 'var(--sage)' }}>
+            Satu slot denah per tipe rumah. Slot yang belum punya file tampil sebagai placeholder.
+          </p>
+          <Input
+            label="Legenda masterplan" textarea rows={3} hint="Satu klaster per baris."
+            value={(((p.legend as string[]) ?? []).join('\n'))}
+            onChange={(e) => {
+              const legend = e.target.value.split('\n').map((v) => v.trim()).filter(Boolean);
+              onPatch({ legend: legend.length ? legend : undefined });
+            }}
+          />
+        </>
       ) : null}
     </div>
   );

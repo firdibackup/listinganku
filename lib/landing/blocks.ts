@@ -28,12 +28,24 @@ export interface BlockBase<T extends BlockType, P> {
 }
 
 export type HeroBlock = BlockBase<'hero', { title?: string; subtitle?: string; mediaId?: string; badges?: string[] }>;
-export type GalleryBlock = BlockBase<'gallery', { layout: 'carousel' | 'grid'; mediaIds?: string[] }>;
-export type HighlightsBlock = BlockBase<'highlights', { items?: string[] }>;
+export type GalleryBlock = BlockBase<'gallery', { layout: 'carousel' | 'grid'; mediaIds?: string[]; captions?: string[] }>;
+
+/**
+ * Butir USP: judul pendek + penjelasan satu kalimat. Kesepuluh file desain
+ * menggambar KEDUANYA (judul tebal di atas, kalimat abu di bawah) — bentuk
+ * `string[]` yang lama hanya bisa memberi separuhnya. `sellingPoints` dari AI
+ * tetap string biasa; resolve.ts yang menaikkannya jadi { title }.
+ */
+export type HighlightItem = { title: string; desc?: string };
+export type HighlightsBlock = BlockBase<'highlights', { items?: HighlightItem[] }>;
 export type HouseTypesBlock = BlockBase<'houseTypes', { order?: string[]; hidden?: string[] }>;
 export type SpecsBlock = BlockBase<'specs', Record<string, never>>;
-export type FacilitiesBlock = BlockBase<'facilities', Record<string, never>>;
-export type FloorPlansBlock = BlockBase<'floorPlans', { mediaIds?: string[] }>;
+/** Fasilitas kawasan: nama + keterangan singkat ("Kolam 25 m & kolam anak"). */
+export type FacilityItem = { name: string; desc?: string };
+/** Kosong = pakai `project.facilities` (daftar nama dari wizard). Terisi = override. */
+export type FacilitiesBlock = BlockBase<'facilities', { items?: FacilityItem[] }>;
+/** `legend` menamai klaster di masterplan; warnanya dari palet, bukan dari data. */
+export type FloorPlansBlock = BlockBase<'floorPlans', { mediaIds?: string[]; legend?: string[] }>;
 export type LocationBlock = BlockBase<'location', { address?: string; mapUrl?: string; access?: { time: string; place: string }[] }>;
 export type FaqBlock = BlockBase<'faq', { items?: { q: string; a: string }[] }>;
 export type AgentCtaBlock = BlockBase<'agentCta', { waNumber?: string; defaultMessage?: string }>;
@@ -137,11 +149,12 @@ export const BLOCK_ORDER_BY_THEME: Partial<Record<ThemeName, BlockType[]>> = {
     'location', 'facilities', 'floorPlans', 'gallery', 'testimonials', 'faq',
     'agentCta', 'contactForm',
   ],
-  // 03 Korporat Biru: statistik trust di atas, promo dekat unit.
+  // 03 Korporat Biru: form lead DI DALAM hero (ciri utama desain ini — kartu
+  // putih di ujung pita biru yang menyambung dari hero), lalu strip statistik.
   corporateBlue: [
-    'hero', 'developer', 'highlights', 'houseTypes', 'specs', 'pricePromo',
-    'location', 'facilities', 'floorPlans', 'gallery', 'testimonials', 'agentCta',
-    'faq', 'contactForm',
+    'hero', 'contactForm', 'developer', 'highlights', 'houseTypes', 'specs',
+    'location', 'facilities', 'floorPlans', 'gallery', 'pricePromo', 'testimonials',
+    'faq', 'agentCta',
   ],
   // 06 Arsitektural Beton: masterplan menonjol lebih awal, unit sebagai lembar spesifikasi.
   architectural: [
@@ -188,6 +201,22 @@ export function defaultBlocksForTheme(theme: ThemeName): Block[] {
   return order.map(
     (type) => ({ id: `blk_${type}`, type, enabled: !off.has(type), props: { ...DEFAULT_PROPS[type] } }) as Block,
   );
+}
+
+/**
+ * Menyusun ulang blok ke urutan bawaan tema TANPA membuang isinya.
+ *
+ * Konfirmasi di editor berbunyi "Terapkan urutan bawaan tema ini?" — jadi yang
+ * boleh berubah hanya URUTAN. `defaultBlocksForTheme()` mengembalikan blok
+ * dengan props kosong; memakainya langsung akan menghapus badge, FAQ, promo,
+ * dan testimoni yang sudah diketik agen tanpa peringatan apa pun.
+ */
+export function applyThemeOrder(blocks: Block[], theme: ThemeName): Block[] {
+  const existing = new Map(blocks.map((b) => [b.type, b]));
+  return defaultBlocksForTheme(theme).map((fresh) => {
+    const prev = existing.get(fresh.type);
+    return prev ? ({ ...fresh, enabled: prev.enabled, props: prev.props } as Block) : fresh;
+  });
 }
 
 export function moveBlock(blocks: Block[], id: string, dir: 'up' | 'down'): Block[] {

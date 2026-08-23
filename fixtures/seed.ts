@@ -25,58 +25,93 @@ const project = (
 });
 
 /**
- * Konten 14 blok untuk Parkspring — diambil dari `10 Tropis Hangat.dc.html`
- * (Parkspring Kelapa Gading) supaya hasil render bisa dibandingkan mata langsung
- * dengan file desain. Testimoni & harga/promo tidak pernah diisi AI, jadi hanya
- * hidup kalau di-seed di sini.
+ * Konten 14 blok untuk Parkspring — disalin dari `design/project/10 Tropis
+ * Hangat.dc.html` (renderVals). Kesepuluh file desain memakai proyek yang sama
+ * dan hanya berbeda gaya visual; file 10 dipakai sebagai SATU-SATUNYA sumber
+ * copy supaya kesepuluh tema bisa dibandingkan tanpa variabel isi.
+ * Testimoni & harga/promo tidak pernah diisi AI, jadi hanya hidup kalau di-seed
+ * di sini.
  */
 const PARKSPRING_BLOCKS = withContent({
-  hero: { badges: ['Akses tol 5 menit', 'Cluster baru', 'Security 24 jam', 'Dekat CBD'] },
+  hero: {
+    title: 'Hunian tropis di lokasi strategis',
+    subtitle: 'Desain modern, fasilitas lengkap, dan akses mudah ke berbagai pusat aktivitas.',
+    badges: ['Lokasi strategis', 'Dekat tol', 'DP ringan', 'Free BPHTB'],
+  },
   highlights: {
     items: [
-      'Lima menit ke Gading Serpong CBD lewat akses tol langsung',
-      'Cluster baru dengan one gate system dan security 24 jam',
-      'Tiga tipe unit siap huni dengan spesifikasi bata ringan',
-      'Kolam renang, jogging track, dan taman di dalam cluster',
+      { title: 'Lokasi strategis', desc: 'Koridor Boulevard Kelapa Gading dengan akses dua arah.' },
+      { title: 'Developer terpercaya', desc: '28 tahun pengalaman dan 40 kawasan yang sudah serah terima.' },
+      { title: 'Desain tropis modern', desc: 'Ventilasi silang, teritisan lebar, dan taman privat tiap unit.' },
+      { title: 'Fasilitas lengkap', desc: 'Clubhouse, kolam renang, dan jogging track di dalam kawasan.' },
+      { title: 'Potensi investasi', desc: 'Kenaikan harga rata-rata 11% per tahun di kawasan sekitar.' },
+      { title: 'Legalitas jelas', desc: 'SHM per unit, PBG lengkap, dan bebas sengketa.' },
     ],
   },
   location: {
-    address: 'Jl. Gading Serpong Boulevard, Tangerang',
+    address: 'Jl. Boulevard Raya, Kelapa Gading, Jakarta Utara 14240',
     access: [
-      { time: '5 mnt', place: 'Gerbang Tol' },
-      { time: '7 mnt', place: 'Gading Serpong CBD' },
-      { time: '10 mnt', place: 'Sekolah & Kampus' },
+      { time: '3 mnt', place: 'Gerbang Tol Kelapa Gading' },
+      { time: '8 mnt', place: 'Mall Kelapa Gading' },
+      { time: '10 mnt', place: 'LRT Boulevard Utara' },
       { time: '12 mnt', place: 'RS Mitra Keluarga' },
-      { time: '15 mnt', place: 'Summarecon Mall' },
-      { time: '25 mnt', place: 'Bandara Soekarno-Hatta' },
+      { time: '15 mnt', place: 'Sekolah & universitas' },
+      { time: '35 mnt', place: 'Bandara Soekarno-Hatta' },
     ],
+  },
+  facilities: {
+    items: [
+      { name: 'Clubhouse', desc: 'Lounge & ruang serbaguna' },
+      { name: 'Swimming Pool', desc: 'Kolam 25 m & kolam anak' },
+      { name: 'Taman Tematik', desc: 'Empat taman tropis' },
+      { name: 'Jogging Track', desc: 'Lintasan 800 meter' },
+      { name: 'Playground', desc: 'Dua titik area anak' },
+      { name: 'One Gate System', desc: 'Security 24 jam & CCTV' },
+    ],
+  },
+  gallery: {
+    captions: [
+      'Fasade Type Villa', 'Ruang keluarga', 'Clubhouse & kolam',
+      'Taman tematik', 'Show unit Type Grand',
+    ],
+  },
+  floorPlans: {
+    legend: ['Cluster Villa', 'Cluster Medea', 'Cluster Grand', 'Fasilitas & taman'],
   },
   pricePromo: {
     dpText: '10%',
     installmentText: 'Rp 18 jt/bln',
-    promos: ['Free BPHTB', 'Free biaya KPR', 'Voucher furnitur Rp 25 jt', 'Subsidi DP bertahap'],
+    promos: [
+      'Free BPHTB dan AJB',
+      'Cashback 5% untuk pembelian tunai bertahap',
+      'Free smart door lock dan CCTV',
+      'Free biaya balik nama sertifikat',
+    ],
     note: 'Promo berlaku untuk pemesanan bulan ini, selama unit tersedia.',
   },
   developer: {
     about:
-      'Paramount Land adalah pengembang kawasan Gading Serpong dengan rekam jejak cluster hunian dan komersial yang matang serta serah terima tepat waktu.',
+      'Sejak 1998 membangun kawasan hunian di Jabodetabek dengan legalitas SHM dan PBG lengkap pada setiap unit.',
     stats: [
       { value: '28', label: 'Tahun' },
-      { value: '40+', label: 'Cluster' },
-      { value: '12.000', label: 'Unit diserahkan' },
+      { value: '40+', label: 'Kawasan' },
+      { value: '12.000', label: 'Unit' },
     ],
   },
   testimonials: {
     items: [
-      { quote: 'Prosesnya cepat dan transparan. Serah terima unit tepat waktu dan kualitas bangunannya rapi.', name: 'Rina Wijaya', unit: 'Tipe Midea' },
-      { quote: 'Lokasinya strategis, lima menit ke CBD. Anak-anak juga senang ada kolam renang di cluster.', name: 'Bayu Prakoso', unit: 'Tipe Villa' },
+      { quote: 'Rumahnya adem, ventilasinya bagus, jarang pakai AC di siang hari.', name: 'Andreas Halim', unit: 'Pemilik Type Villa' },
+      { quote: 'Kami pilih karena dekat sekolah anak dan akses tol.', name: 'Ratna Kusuma', unit: 'Pemilik Type Medea' },
     ],
   },
   faq: {
     items: [
-      { q: 'Apakah bisa KPR?', a: 'Bisa. Kami bekerja sama dengan beberapa bank untuk KPR dengan bunga kompetitif.' },
-      { q: 'Kapan serah terima unit?', a: 'Unit ready stock dapat diserahterimakan setelah proses administrasi selesai.' },
-      { q: 'Apakah harga sudah termasuk pajak?', a: 'Promo bulan ini mencakup Free BPHTB dan biaya KPR. Detail dijelaskan saat survei.' },
+      { q: 'Berapa harga unit di Parkspring?', a: 'Tipe Medea mulai Rp 2,6 miliar, Villa Rp 3,2 miliar, dan Grand Rp 4,5 miliar.' },
+      { q: 'Apakah bisa KPR?', a: 'Bisa, dengan lima bank rekanan dan pendampingan penuh dari tim marketing.' },
+      { q: 'Berapa DP yang harus disiapkan?', a: 'DP mulai 10% dan dapat dicicil hingga 12 kali tanpa bunga.' },
+      { q: 'Apa saja fasilitasnya?', a: 'Clubhouse, kolam renang, gym, jogging track, playground, dan one gate system.' },
+      { q: 'Bagaimana legalitasnya?', a: 'Seluruh unit bersertifikat SHM dengan PBG dan izin kawasan yang sudah terbit.' },
+      { q: 'Apakah bisa survey lokasi?', a: 'Bisa setiap hari pukul 09.00–17.00 WIB lewat janji temu dengan marketing.' },
     ],
   },
 });
@@ -123,10 +158,11 @@ export function seedStore(): StoreShape {
     ],
     projects: [
       project(
-        'prj_parkspring', 'Parkspring Gading', 'parkspring-gading',
-        'Gading Serpong, Tangerang', 'Paramount Land',
-        'Cluster baru dengan tiga tipe unit, akses lima menit ke Gading Serpong CBD. Fasilitas kolam renang, jogging track, dan security 24 jam.',
-        ['Kolam renang', 'Security 24 jam', 'Jogging track'], 'published', '2026-08-10T09:00:00.000Z',
+        'prj_parkspring', 'Parkspring', 'parkspring-gading',
+        'Kelapa Gading, Jakarta Utara', 'Parkspring Land',
+        'Kawasan hunian tropis 8,4 hektar di koridor Boulevard Kelapa Gading. Tiga tipe rumah dengan clubhouse, kolam renang, jogging track, dan one gate system.',
+        ['Clubhouse', 'Swimming Pool', 'Taman Tematik', 'Jogging Track', 'Playground', 'One Gate System'],
+        'published', '2026-08-10T09:00:00.000Z',
         PARKSPRING_BLOCKS,
       ),
       project(
@@ -143,9 +179,9 @@ export function seedStore(): StoreShape {
       ),
     ],
     houseTypes: [
-      houseType('hts_villa', 'prj_parkspring', 'Villa', 'villa', 2_450_000_000, 90, 120, 3, 2, 1, 0),
-      houseType('hts_midea', 'prj_parkspring', 'Midea', 'midea', 3_100_000_000, 112, 145, 4, 3, 2, 1),
-      houseType('hts_grand', 'prj_parkspring', 'Grand', 'grand', 4_600_000_000, 150, 210, 4, 3, 2, 2),
+      houseType('hts_villa', 'prj_parkspring', 'Villa', 'villa', 3_200_000_000, 90, 120, 3, 3, 2, 0),
+      houseType('hts_medea', 'prj_parkspring', 'Medea', 'medea', 2_600_000_000, 72, 96, 3, 2, 1, 1),
+      houseType('hts_grand', 'prj_parkspring', 'Grand', 'grand', 4_500_000_000, 120, 165, 4, 4, 2, 2),
       houseType('hts_verde_a', 'prj_casaverde', 'Verde A', 'verde-a', 1_850_000_000, 72, 96, 3, 2, 1, 0),
       houseType('hts_verde_b', 'prj_casaverde', 'Verde B', 'verde-b', 2_250_000_000, 90, 120, 3, 2, 1, 1),
       houseType('hts_loop_s', 'prj_bintaro', 'Loop S', 'loop-s', 1_450_000_000, 60, 75, 2, 1, 1, 0),
@@ -158,8 +194,8 @@ export function seedStore(): StoreShape {
     // kanonik 62 (sama seperti tulisan submitLeadAction), bukan gaya tampilan —
     // formatPhoneDisplay yang mengembalikannya ke "0813-2244-9087" saat dirender.
     leads: [
-      lead('led_rina', 'hts_midea', 'Rina Wijaya', '6281322449087',
-        'Tipe Midea masih ada unit hadap timur?', 'form', 'new', '2026-08-10T09:12:00.000Z'),
+      lead('led_rina', 'hts_medea', 'Rina Wijaya', '6281322449087',
+        'Tipe Medea masih ada unit hadap timur?', 'form', 'new', '2026-08-10T09:12:00.000Z'),
       lead('led_hendra', null, 'Hendra S.', '6281277813390',
         'Minta price list semua tipe.', 'whatsapp', 'contacted', '2026-08-09T20:44:00.000Z'),
       lead('led_melisa', 'hts_grand', 'Melisa Tanuwijaya', '6285799031128',

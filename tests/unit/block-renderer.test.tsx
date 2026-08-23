@@ -18,7 +18,7 @@ const blocks: ResolvedBlock[] = [
       photos: [], primaryPhoto: null, floorPlan: null,
     }],
   },
-  { id: 'b3', type: 'facilities', items: ['Kolam renang'] },
+  { id: 'b3', type: 'facilities', items: [{ name: 'Kolam renang', desc: 'Kolam 25 m' }] },
 ];
 
 describe('BlockRenderer', () => {
@@ -82,9 +82,11 @@ describe('BlockRenderer', () => {
       },
     ];
     const { container } = render(<BlockRenderer blocks={twoTypes} theme="editorialWhite" />);
-    expect(container.querySelector('.lp-x-unitlist')).toBeTruthy();
-    // Daftar merender KEDUA tipe (varian tabs hanya merender yang aktif).
-    expect(screen.getByText('Tipe Villa')).toBeInTheDocument();
-    expect(screen.getByText('Tipe Midea')).toBeInTheDocument();
+    // Editorial Putih menampilkan tipe unit sebagai DAFTAR bab: setiap tipe
+    // punya artikelnya sendiri dan semuanya terlihat sekaligus — berbeda dari
+    // tema bertab yang hanya merender tipe yang sedang aktif.
+    expect(container.querySelectorAll('.lp-ew-unit')).toHaveLength(2);
+    expect(screen.getByText('Type Villa')).toBeInTheDocument();
+    expect(screen.getByText('Type Midea')).toBeInTheDocument();
   });
 });

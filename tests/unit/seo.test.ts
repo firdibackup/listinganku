@@ -9,7 +9,7 @@ const houseTypes = store.houseTypes.filter((h) => h.projectId === 'prj_parksprin
 describe('buildMetadata', () => {
   it('jatuh ke nama dan lokasi project saat SEO belum diisi', () => {
     const meta = buildMetadata(project, houseTypes, null);
-    expect(meta.title).toBe('Parkspring Gading — Gading Serpong, Tangerang');
+    expect(meta.title).toBe('Parkspring — Kelapa Gading, Jakarta Utara');
     expect(meta.alternates?.canonical).toBe(`${siteUrl()}/parkspring-gading`);
     expect(meta.openGraph?.title).toBe(meta.title);
   });

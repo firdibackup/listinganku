@@ -1,0 +1,231 @@
+/*
+ * 09 Playful Pastel — dicocokkan ke `design/project/09 Playful Pastel.dc.html`.
+ * NOL warna literal; pastelnya diturunkan dari palet lewat color-mix.
+ * Mobile-only, 390px.
+ */
+
+.lp[data-lp-theme='playfulPastel'] {
+  --lp-font-display: var(--font-fredoka), 'Trebuchet MS', system-ui, sans-serif;
+  --lp-font-text: var(--font-outfit), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --lp-quiet: color-mix(in srgb, var(--lp-ink-faint) 74%, var(--lp-bg));
+  /* Empat pastel yang dipakai bergantian oleh kartu (data-slot 0–3) */
+  --lp-pastel-0: color-mix(in srgb, var(--lp-accent) 16%, var(--lp-bg));
+  --lp-pastel-1: color-mix(in srgb, var(--lp-feature) 34%, var(--lp-bg));
+  --lp-pastel-2: color-mix(in srgb, var(--lp-accent-soft) 55%, var(--lp-bg));
+  --lp-pastel-3: var(--lp-surface);
+  background: var(--lp-bg);
+  color: var(--lp-ink);
+  font-family: var(--lp-font-text);
+}
+:where(.lp[data-lp-theme='playfulPastel']) a { color: var(--lp-accent); text-decoration: none; }
+.lp[data-lp-theme='playfulPastel'] [id] { scroll-margin-top: 24px; }
+
+.lp[data-lp-theme='playfulPastel'] .lp-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lp[data-lp-theme='playfulPastel'] .lp-ph {
+  width: 100%; height: 100%; min-height: 100%; display: grid; place-items: center; padding: 10px;
+  background: repeating-linear-gradient(135deg, var(--lp-ph-a) 0 10px, var(--lp-ph-b) 10px 20px);
+}
+.lp[data-lp-theme='playfulPastel'] .lp-ph__label {
+  font: 10px ui-monospace, monospace; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--lp-quiet); text-align: center;
+}
+
+/* Slot pastel — WAJIB di-scope ke tema ini; data-slot juga dipakai legenda
+   masterplan di tema lain, dan selektor telanjang akan mewarnai ulang mereka. */
+.lp[data-lp-theme='playfulPastel'] [data-slot='0'] { background: var(--lp-pastel-0); }
+.lp[data-lp-theme='playfulPastel'] [data-slot='1'] { background: var(--lp-pastel-1); }
+.lp[data-lp-theme='playfulPastel'] [data-slot='2'] { background: var(--lp-pastel-2); }
+.lp[data-lp-theme='playfulPastel'] [data-slot='3'] { background: var(--lp-pastel-3); }
+/* Titik legenda punya warnanya sendiri, bukan latar pastel kartu. */
+.lp[data-lp-theme='playfulPastel'] .lp-pp-legend__dot[data-slot] { background: none; }
+
+/* Header */
+.lp-pp-header { padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.lp-pp-header__name { font-family: var(--lp-font-display); font-weight: 600; font-size: 20px; color: var(--lp-accent); }
+.lp-pp-header__cta {
+  background: var(--lp-pastel-1); color: var(--lp-ink); border-radius: 999px;
+  padding: 9px 15px; font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+
+/* Hero dalam blok pastel */
+.lp-pp-herowrap { padding: 8px 20px 30px; }
+.lp-pp-hero { background: var(--lp-pastel-0); border-radius: 28px; padding: 26px 22px; margin-bottom: 14px; }
+.lp-pp-flag {
+  display: inline-block; background: var(--lp-surface); border-radius: 999px; padding: 7px 13px;
+  font-size: 11.5px; font-weight: 600; color: var(--lp-accent); margin-bottom: 14px;
+}
+.lp-pp-hero__title { font-family: var(--lp-font-display); font-weight: 600; font-size: 38px; line-height: 1.08; margin: 0 0 12px; }
+.lp-pp-hero__sub { margin: 0 0 20px; font-size: 14.5px; line-height: 1.65; color: var(--lp-ink-soft); }
+.lp-pp-hero__media { height: 200px; border-radius: 20px; overflow: hidden; margin-bottom: 18px; }
+.lp-pp-hero__actions { display: flex; flex-direction: column; gap: 9px; }
+.lp-pp-btn {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  border-radius: 999px; padding: 15px; font-size: 14px; font-weight: 600; min-height: 44px;
+}
+.lp-pp-btn--solid { background: var(--lp-accent); color: var(--lp-on-accent); }
+.lp-pp-btn--white { background: var(--lp-surface); color: var(--lp-accent); }
+
+.lp-pp-duo { display: flex; flex-direction: column; gap: 10px; }
+.lp-pp-duo__card--wide { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.lp-pp-badges { display: flex; flex-wrap: wrap; gap: 8px; }
+.lp-pp-badge {
+  background: var(--lp-surface); border-radius: 999px; padding: 9px 14px;
+  font-size: 12px; font-weight: 500; color: var(--lp-ink-soft); white-space: nowrap;
+}
+.lp-pp-duo__card { border-radius: 20px; padding: 16px; }
+.lp-pp-duo__k { font-size: 11.5px; font-weight: 600; color: var(--lp-ink-soft); }
+.lp-pp-duo__v { font-family: var(--lp-font-display); font-weight: 600; font-size: 22px; margin-top: 3px; }
+
+/* Section shell */
+.lp-pp-sec { padding: 0 20px 30px; }
+.lp-pp-sec--bleed { padding-inline: 0; }
+.lp-pp-h2 { font-family: var(--lp-font-display); font-weight: 600; font-size: 27px; margin: 0 0 16px; }
+.lp-pp-h2--inset { margin-inline: 20px; }
+.lp-pp-h2--invert { color: var(--lp-on-accent); }
+.lp-pp-lead { margin: 0 0 14px; font-size: 13.5px; line-height: 1.65; color: var(--lp-ink-soft); }
+.lp-pp-panel { background: var(--lp-surface); border-radius: 20px; padding: 6px 14px; }
+.lp-pp-scroll { overflow-x: auto; }
+
+/* USP — kartu pastel bergantian */
+.lp-pp-uspgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.lp-pp-usp { border-radius: 20px; padding: 16px; }
+.lp-pp-usp__chip { display: block; width: 32px; height: 32px; border-radius: 12px; background: color-mix(in srgb, var(--lp-bg) 70%, transparent); margin-bottom: 10px; }
+.lp-pp-usp__title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.lp-pp-usp__desc { font-size: 12px; line-height: 1.55; color: var(--lp-ink-soft); }
+
+/* Tipe unit */
+.lp-pp-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+.lp-pp-tab {
+  flex: 1; background: var(--lp-surface); color: var(--lp-ink-soft); border: 0; border-radius: 999px;
+  padding: 13px 0; min-height: 44px; font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.lp-pp-tab[aria-selected='true'] { background: var(--lp-accent); color: var(--lp-on-accent); }
+.lp-pp-unit { background: var(--lp-pastel-3); border-radius: 24px; overflow: hidden; }
+.lp-pp-unit__media { height: 190px; }
+.lp-pp-unit__body { padding: 20px; }
+.lp-pp-unit__head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; }
+.lp-pp-unit__name { font-family: var(--lp-font-display); font-weight: 600; font-size: 23px; margin: 0; }
+.lp-pp-unit__price { background: var(--lp-bg); border-radius: 999px; padding: 8px 13px; font-size: 13px; font-weight: 600; color: var(--lp-accent); white-space: nowrap; }
+.lp-pp-specgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; margin-bottom: 14px; }
+.lp-pp-spec { background: var(--lp-bg); border-radius: 14px; padding: 12px 13px; }
+.lp-pp-spec__k { font-size: 11px; color: var(--lp-quiet); }
+.lp-pp-spec__v { font-size: 15px; font-weight: 600; margin-top: 2px; }
+.lp-pp-unit__note { margin: 0 0 14px; font-size: 13px; line-height: 1.6; color: var(--lp-ink-soft); }
+
+/* Tabel */
+.lp-pp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.lp-pp-table th, .lp-pp-table td { text-align: left; padding: 11px 10px; border-bottom: 1px solid var(--lp-line); white-space: nowrap; }
+.lp-pp-table thead th { font-size: 11px; color: var(--lp-quiet); font-weight: 600; }
+.lp-pp-table tbody th { font-weight: 500; color: var(--lp-ink-soft); }
+.lp-pp-table tbody tr:last-child th, .lp-pp-table tbody tr:last-child td { border-bottom: 0; }
+
+/* Fasilitas */
+.lp-pp-facgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.lp-pp-fac { border-radius: 20px; padding: 12px; }
+.lp-pp-fac__media { height: 92px; border-radius: 14px; overflow: hidden; margin-bottom: 10px; }
+.lp-pp-fac__name { font-size: 13.5px; font-weight: 600; }
+.lp-pp-fac__desc { font-size: 11.5px; line-height: 1.5; color: var(--lp-ink-soft); margin-top: 2px; }
+
+/* Lokasi */
+.lp-pp-map { position: relative; height: 200px; border-radius: 22px; overflow: hidden; background: var(--lp-pastel-0); display: grid; place-items: center; margin-bottom: 14px; }
+.lp-pp-map iframe { width: 100%; height: 100%; border: 0; }
+.lp-pp-map__grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--lp-accent) 12%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--lp-accent) 12%, transparent) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+.lp-pp-map__pin { position: relative; width: 14px; height: 14px; border-radius: 50%; background: var(--lp-accent); box-shadow: 0 0 0 8px color-mix(in srgb, var(--lp-accent) 16%, transparent); }
+.lp-pp-map__label { position: absolute; bottom: 14px; font: 10px ui-monospace, monospace; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-quiet); }
+.lp-pp-accessgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+.lp-pp-access { border-radius: 18px; padding: 14px; }
+.lp-pp-access__time { font-family: var(--lp-font-display); font-weight: 600; font-size: 19px; }
+.lp-pp-access__place { font-size: 11.5px; color: var(--lp-ink-soft); margin-top: 3px; line-height: 1.4; }
+
+/* Masterplan */
+.lp-pp-master { aspect-ratio: 1 / 1; border-radius: 24px; overflow: hidden; }
+.lp-pp-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; list-style: none; margin: 14px 0 0; padding: 0; font-size: 12.5px; color: var(--lp-ink-soft); }
+.lp-pp-legend__item { display: flex; align-items: center; gap: 9px; background: none; }
+.lp-pp-legend__dot { width: 12px; height: 12px; border-radius: 6px; flex: none; background: var(--lp-accent); }
+.lp-pp-legend__item[data-slot='1'] .lp-pp-legend__dot { background: var(--lp-feature); }
+.lp-pp-legend__item[data-slot='2'] .lp-pp-legend__dot { background: var(--lp-accent-soft); }
+.lp-pp-legend__item[data-slot='3'] .lp-pp-legend__dot { background: var(--lp-ink-faint); }
+
+/* Galeri */
+.lp-pp-rail { display: flex; gap: 10px; overflow-x: auto; padding: 0 20px 6px; scroll-snap-type: x mandatory; }
+.lp-pp-rail__item { min-width: 220px; scroll-snap-align: start; margin: 0; }
+.lp-pp-rail__media { height: 180px; border-radius: 20px; overflow: hidden; margin-bottom: 8px; }
+.lp-pp-rail__cap { font-size: 12.5px; color: var(--lp-ink-soft); }
+
+/* Promo — blok penuh warna aksen */
+.lp-pp-promo { background: var(--lp-accent); color: var(--lp-on-accent); border-radius: 28px; padding: 26px 22px; }
+.lp-pp-promo__price { font-family: var(--lp-font-display); font-weight: 600; font-size: 32px; margin: 0 0 18px; }
+.lp-pp-promo__terms { display: flex; gap: 10px; margin-bottom: 16px; }
+.lp-pp-promo__card { flex: 1; background: color-mix(in srgb, var(--lp-on-accent) 16%, transparent); border-radius: 18px; padding: 14px; }
+.lp-pp-promo__k { font-size: 11.5px; font-weight: 600; opacity: 0.85; }
+.lp-pp-promo__v { font-family: var(--lp-font-display); font-weight: 600; font-size: 22px; margin-top: 3px; }
+.lp-pp-promo__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.lp-pp-promo__list li {
+  background: color-mix(in srgb, var(--lp-on-accent) 12%, transparent);
+  border-radius: 14px; padding: 11px 14px; font-size: 13.5px; font-weight: 500;
+}
+.lp-pp-promo__note { margin: 14px 0 0; font-size: 12px; line-height: 1.6; opacity: 0.85; }
+
+/* Testimoni */
+.lp-pp-tststack { display: flex; flex-direction: column; gap: 10px; }
+.lp-pp-tst { margin: 0; border-radius: 22px; padding: 20px; }
+.lp-pp-tst__quote { font-size: 15px; line-height: 1.6; margin: 0 0 14px; font-weight: 500; }
+.lp-pp-tst__who { display: flex; gap: 11px; align-items: center; }
+.lp-pp-avatar { width: 38px; height: 38px; border-radius: 50%; flex: none; display: grid; place-items: center; background: var(--lp-bg); color: var(--lp-accent); font-size: 12px; font-weight: 700; }
+.lp-pp-avatar--lg { width: 56px; height: 56px; font-family: var(--lp-font-display); font-size: 20px; }
+.lp-pp-tst__name { display: block; font-size: 13px; font-weight: 600; }
+.lp-pp-tst__unit { display: block; font-size: 11.5px; color: var(--lp-ink-soft); }
+
+/* Developer */
+.lp-pp-dev__name { font-family: var(--lp-font-display); font-weight: 600; font-size: 20px; margin: 0 0 6px; }
+.lp-pp-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+.lp-pp-stat { border-radius: 18px; padding: 16px 8px; text-align: center; }
+.lp-pp-stat__v { font-family: var(--lp-font-display); font-weight: 600; font-size: 22px; }
+.lp-pp-stat__k { font-size: 10.5px; color: var(--lp-ink-soft); margin-top: 3px; }
+
+/* FAQ */
+.lp-pp-faqlist { display: flex; flex-direction: column; gap: 9px; }
+.lp-pp-faq { background: var(--lp-surface); border-radius: 18px; overflow: hidden; }
+.lp-pp-faq[data-open='true'] { background: var(--lp-pastel-0); }
+.lp-pp-faq__q {
+  width: 100%; display: flex; justify-content: space-between; gap: 14px; align-items: center;
+  background: none; border: 0; color: var(--lp-ink); padding: 15px 18px; text-align: left;
+  font-family: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer; min-height: 44px;
+}
+.lp-pp-faq__mark { color: var(--lp-accent); font-size: 18px; flex: none; }
+.lp-pp-faq__a { font-size: 13px; line-height: 1.65; color: var(--lp-ink-soft); padding: 0 18px 16px; }
+
+/* Tim marketing */
+.lp-pp-agent { display: flex; gap: 13px; align-items: center; background: var(--lp-pastel-2); border-radius: 22px; padding: 16px; margin-bottom: 12px; }
+.lp-pp-agent__name { font-family: var(--lp-font-display); font-weight: 600; font-size: 18px; }
+.lp-pp-agent__role { font-size: 11.5px; color: var(--lp-ink-soft); }
+.lp-pp-agent__actions { display: flex; gap: 9px; }
+.lp-pp-agent__actions > * { flex: 1; }
+
+/* Form */
+.lp-pp-formcard { background: var(--lp-surface); border-radius: 24px; padding: 20px; }
+.lp[data-lp-theme='playfulPastel'] .ds-field__control { border-radius: 14px; }
+.lp[data-lp-theme='playfulPastel'] .ds-btn { border-radius: 999px; font-weight: 600; }
+
+/* Footer */
+.lp-pp-footer { background: var(--lp-footer); color: var(--lp-on-footer); padding: 30px 20px 26px; }
+.lp-pp-footer__name { font-family: var(--lp-font-display); font-weight: 600; font-size: 20px; margin-bottom: 8px; color: var(--lp-accent); }
+.lp-pp-footer__addr { font-size: 12.5px; line-height: 1.7; margin-bottom: 16px; }
+.lp-pp-footer__links { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; font-weight: 500; padding-bottom: 14px; border-bottom: 1px solid var(--lp-line); }
+.lp-pp-footer__copy { font-size: 11px; padding-top: 14px; color: var(--lp-quiet); }
+
+/* Sticky bar: pil mengambang, sesuai desain 09 */
+.lp[data-lp-theme='playfulPastel'] .lp__stickybar {
+  background: none; border-top: 0; padding: 12px 16px 16px;
+}
+.lp[data-lp-theme='playfulPastel'] .lp__sticky-btn {
+  border-radius: 999px; font-weight: 600; font-size: 13.5px;
+  box-shadow: 0 6px 20px color-mix(in srgb, var(--lp-ink) 18%, transparent);
+}
+.lp[data-lp-theme='playfulPastel'] .lp__sticky-btn--info { background: var(--lp-surface); border-color: transparent; color: var(--lp-accent); }

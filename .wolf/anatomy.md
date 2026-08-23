@@ -1,7 +1,7 @@
 # anatomy.md
 
-> Auto-maintained by OpenWolf. Last scanned: 2026-08-18T23:21:30.058Z
-> Files: 270 tracked | Anatomy hits: 0 | Misses: 0
+> Auto-maintained by OpenWolf. Last scanned: 2026-08-19T15:15:54.033Z
+> Files: 336 tracked | Anatomy hits: 0 | Misses: 0
 
 ## ./
 
@@ -20,8 +20,8 @@
 - `Product Requirements Document (PRD).md` — Product Requirements Document (PRD) (~10162 tok)
 - `skills-lock.json` (~86 tok)
 - `tsconfig.json` — TypeScript configuration (~161 tok)
-- `tsconfig.tsbuildinfo` (~47948 tok)
-- `vitest.config.ts` — Vitest test configuration (~109 tok)
+- `tsconfig.tsbuildinfo` (~51462 tok)
+- `vitest.config.ts` — Vitest test configuration (~142 tok)
 
 ## .agents/skills/web-design-guidelines/
 
@@ -54,7 +54,7 @@
 
 ## .data/
 
-- `store.json` (~7446 tok)
+- `store.json` (~9876 tok)
 
 ## .impeccable/
 
@@ -229,7 +229,7 @@
 
 ## app/(dashboard)/projects/[id]/editor/
 
-- `actions.ts` — Exports saveBlocksAction, setThemeAction (~244 tok)
+- `actions.ts` — Exports saveBlocksAction, setThemeAction, setPaletteAction (~327 tok)
 - `page.tsx` — EditorPage (~223 tok)
 
 ## app/(dashboard)/projects/[id]/generate/
@@ -263,9 +263,7 @@
   - fn `resolvedHouseTypeId` L26-60 (~568 tok)
   - fn `submitLeadAction` L61-134 (~1089 tok)
   - fn `recordEventAction` L135-169 (~501 tok)
-- `page.tsx` — cache() menyatukan panggilan load() dari generateMetadata dan dari komponen (~1163 tok)
-  - fn `generateMetadata` L32-40 (~110 tok)
-  - fn `LandingPage` L41-97 (~654 tok)
+- `page.tsx` — cache() menyatukan panggilan load() dari generateMetadata dan dari komponen (~483 tok)
 
 ## app/api/qr/
 
@@ -276,6 +274,16 @@
 
 - `actions.ts` — Sesi dummy slice 1: tidak ada auth sungguhan. Tombol mana pun menandatangani (~125 tok)
 - `page.tsx` — metadata — renders form (~484 tok)
+
+## app/preview/
+
+- `page.tsx` — Papan banding. Tiap bingkai memuat `/preview/{tema}` yang sungguhan, bukan (~509 tok)
+  - fn `ThemeGalleryPage` L15-50 (~368 tok)
+- `preview.css` — Styles: 16 rules, 1 media queries (~600 tok)
+
+## app/preview/[theme]/
+
+- `page.tsx` — Pratinjau satu tema di atas project demo. Project yang dipakai SELALU sama (~389 tok)
 
 ## components/ai/
 
@@ -304,18 +312,19 @@
 
 ## components/editor/
 
-- `BlockSettingsPanel.tsx` — BlockSettingsPanel (~2158 tok)
-  - fn `BlockSettingsPanel` L9-179 (~2031 tok)
-- `editor.css` — Styles: 22 rules, 1 media queries (~704 tok)
-- `EditorShell.tsx` — ALL_THEMES — uses useState, useMemo (~2072 tok)
-  - fn `EditorShell` L20-178 (~1740 tok)
+- `BlockSettingsPanel.tsx` — BlockSettingsPanel (~4569 tok)
+  - fn `BlockSettingsPanel` L9-292 (~4409 tok)
+- `editor.css` — Styles: 28 rules, 1 media queries (~852 tok)
+- `EditorShell.tsx` — EditorShell — uses useState, useMemo (~2530 tok)
+  - fn `EditorShell` L20-214 (~2174 tok)
+- `PalettePicker.tsx` — Baris 10 swatch palet. Warna swatch diambil dari PALETTES[name].accent lewat (~318 tok)
 
 ## components/landing/
 
-- `ContactForm.tsx` — Form kontak publik (klien); submit ke submitLeadAction, validasi di server, konfirmasi datar "Permintaan terkirim". Select tipe rumah opsional. (~1040 tok)
-  - fn `ContactForm` L16-109 (~813 tok)
+- `ContactForm.tsx` — Form kontak publik. Tidak melakukan validasi Zod di klien: submitLeadAction (~1042 tok)
+  - fn `ContactForm` L16-109 (~815 tok)
 - `PageViewTracker.tsx` — Komponen klien tak-merender; catat 1 event visitor per project per sesi tab via sessionStorage. (~377 tok)
-- `StickyCtaBar.tsx` — Klien; bar CTA melekat di bawah untuk layar <900px (kelas .lp__stickybar). WhatsApp + tautan #minta-info ke blok form. Dirender di app/(public)/[slug]/page.tsx dari blok agentCta yang sudah diresolve. (~304 tok)
+- `StickyCtaBar.tsx` — Dua aksi utama landing yang ikut ke mana pun pengunjung menggulir. Sejak (~326 tok)
 - `WhatsAppLink.tsx` — Klien; toWaHref() membangun URL wa.me (reuse normalizeIndonesianPhone), catat whatsapp_click saat klik. (~421 tok)
 
 ## components/leads/
@@ -385,18 +394,41 @@
 - `StepProgress.tsx` — StepProgress (~107 tok)
 - `wizard.css` — Styles: 13 rules, 1 media queries (~402 tok)
 
+## design/
+
+- `README.md` — Project documentation (~427 tok)
+
+## design/project/
+
+- `.thumbnail` (~3409 tok)
+- `00 Index.dc.html` — Declares Component (~1118 tok)
+- `01 Premium Gelap.dc.html` (~6841 tok)
+- `02 Editorial Putih.dc.html` (~6025 tok)
+- `03 Korporat Biru.dc.html` (~6707 tok)
+- `04 Soft Luxury Beige.dc.html` (~6409 tok)
+- `05 Bold Retail.dc.html` (~5859 tok)
+- `06 Arsitektural Beton.dc.html` (~6059 tok)
+- `07 Nature Calm.dc.html` (~6429 tok)
+- `08 Klasik Navy.dc.html` (~6182 tok)
+- `09 Playful Pastel.dc.html` (~6273 tok)
+- `10 Tropis Hangat.dc.html` (~6282 tok)
+- `support.js` — getReact: getReactDOM, parseDcDocument, parseDcText + 10 more (~20299 tok)
+
 ## docs/superpowers/plans/
 
 - `2026-08-16-listingku-frontend-slice1.md` — Listingku Front-End Slice 1 — Implementation Plan (~66573 tok)
+- `2026-08-19-listingku-landing-tema-tropis.md` — Listingku Landing Slice 2A — Implementation Plan (~13147 tok)
 
 ## docs/superpowers/specs/
 
 - `2026-08-16-listingku-frontend-slice1-design.md` — Spec design Slice 1 front-end yang sudah disetujui. Sumber kebenaran untuk implementasi: batas slice, aturan design system + konten, repository seam, model blocks/theme, landing wireframe, AI mock, pengujian, definisi selesai, 9 keputusan tercatat. **Baca ini sebelum menulis kode aplikasi.** (~7093 tok)
+- `2026-08-19-listingku-landing-tema-tropis-design.md` — Design — Listingku Landing Slice 2: sistem tema + Tropis Hangat (~7823 tok)
 
 ## fixtures/
 
-- `seed.ts` — Exports SEED_USER_ID, seedStore (~1714 tok)
-  - fn `seedStore` L34-113 (~1278 tok)
+- `seed.ts` — Menyalin blok bawaan tema lalu menambal props blok tertentu dengan konten seed. (~3116 tok)
+  - fn `withContent` L10-136 (~1636 tok)
+  - fn `seedStore` L137-218 (~1304 tok)
 
 ## graphify-out/
 
@@ -439,34 +471,34 @@
 - `index.ts` — Singleton disimpan di globalThis supaya HMR Next.js tidak me-reset store (~294 tok)
 - `repo.ts` — Satu-satunya kontrak yang dilihat UI. Slice 1 mengisinya dengan mock store; (~776 tok)
   - section `DataStore` L17-66 (~515 tok)
-- `types.ts` — Stat ke-3 pada tab Profil di file design ("Wilayah Spesialis"). Teks, jadi (~984 tok)
-  - section `SeoContent` L11-15 (~22 tok)
-  - section `ProjectAiContent` L16-24 (~75 tok)
-  - section `HouseTypeAiContent` L25-29 (~28 tok)
-  - section `AgentProfile` L30-54 (~206 tok)
-  - section `Project` L55-73 (~105 tok)
-  - section `HouseType` L74-91 (~97 tok)
-  - section `Media` L92-104 (~60 tok)
-  - section `Lead` L105-117 (~63 tok)
-  - section `EventRow` L118-126 (~39 tok)
-  - section `AiUsage` L127-139 (~65 tok)
-  - section `StoreShape` L140-149 (~56 tok)
+- `types.ts` — Stat ke-3 pada tab Profil di file design ("Wilayah Spesialis"). Teks, jadi (~1043 tok)
+  - section `SeoContent` L15-19 (~22 tok)
+  - section `ProjectAiContent` L20-28 (~75 tok)
+  - section `HouseTypeAiContent` L29-33 (~28 tok)
+  - section `AgentProfile` L34-58 (~206 tok)
+  - section `Project` L59-78 (~112 tok)
+  - section `HouseType` L79-96 (~97 tok)
+  - section `Media` L97-109 (~60 tok)
+  - section `Lead` L110-122 (~63 tok)
+  - section `EventRow` L123-131 (~39 tok)
+  - section `AiUsage` L132-144 (~65 tok)
+  - section `StoreShape` L145-154 (~56 tok)
 
 ## lib/data/mock/
 
-- `repos.ts` — Setiap metode baca (dan hasil create/update) HARUS lewat clone() sebelum (~2791 tok)
-  - fn `now` L8-20 (~190 tok)
-  - fn `createMockStore` L21-248 (~2436 tok)
-- `snapshot.ts` — Direktori data bisa dioverride lewat LISTINGKU_DATA_DIR — dibaca ulang setiap (~1632 tok)
-  - fn `dataDir` L14-17 (~32 tok)
-  - fn `storeFile` L18-23 (~55 tok)
-  - fn `isPlainObject` L24-28 (~77 tok)
-  - fn `isRowLike` L29-43 (~229 tok)
-  - fn `repairShape` L44-58 (~174 tok)
-  - fn `loadSnapshot` L59-76 (~205 tok)
-  - fn `renameWithRetry` L77-100 (~278 tok)
-  - fn `saveSnapshot` L101-121 (~256 tok)
-  - fn `sweepStaleTmp` L122-136 (~143 tok)
+- `repos.ts` — Setiap metode baca (dan hasil create/update) HARUS lewat clone() sebelum (~2838 tok)
+  - fn `now` L9-21 (~190 tok)
+  - fn `createMockStore` L22-250 (~2457 tok)
+- `snapshot.ts` — Direktori data bisa dioverride lewat LISTINGKU_DATA_DIR — dibaca ulang setiap (~1908 tok)
+  - fn `dataDir` L17-20 (~32 tok)
+  - fn `storeFile` L21-26 (~55 tok)
+  - fn `isPlainObject` L27-31 (~77 tok)
+  - fn `isRowLike` L32-46 (~229 tok)
+  - fn `repairShape` L47-78 (~379 tok)
+  - fn `loadSnapshot` L79-96 (~205 tok)
+  - fn `renameWithRetry` L97-120 (~278 tok)
+  - fn `saveSnapshot` L121-141 (~256 tok)
+  - fn `sweepStaleTmp` L142-156 (~143 tok)
 - `store.ts` — Tulis sinkron, tanpa debounce. Ini mock single-user untuk dev lokal atas (~251 tok)
 
 ## lib/data/supabase/
@@ -475,44 +507,267 @@
 
 ## lib/landing/
 
-- `BlockRenderer.tsx` — Satu-satunya tempat yang menerjemahkan ResolvedBlock[] menjadi markup nyata. (~289 tok)
-- `blocks.ts` — Block model & types for landing pages: BlockType union, BLOCK_ORDER, BLOCK_LABELS, defaultBlocks/moveBlock/toggleBlock/updateBlockProps functions (~1286 tok)
-  - section `BlockBase` L17-82 (~726 tok)
-  - fn `defaultBlocks` L83-88 (~52 tok)
-  - fn `moveBlock` L89-98 (~108 tok)
-  - fn `toggleBlock` L99-106 (~87 tok)
-  - fn `updateBlockProps` L107-118 (~118 tok)
-- `landing.css` — Styles: 21 rules, 2 media queries (~576 tok)
-- `resolve.ts` — Rantai yang menopang tombol "Use AI suggestion": override, lalu AI, lalu fallback. (~2152 tok)
-  - section `ResolvedHouseType` L4-33 (~360 tok)
-  - section `ResolveInput` L34-56 (~233 tok)
-  - fn `resolveHouseTypes` L57-83 (~335 tok)
-  - fn `resolveBlocks` L84-199 (~1190 tok)
+- `BlockRenderer.tsx` — Satu-satunya tempat yang menerjemahkan ResolvedBlock[] menjadi markup nyata. (~302 tok)
+- `blocks.ts` — Model blok landing page. (~3013 tok)
+  - section `BlockBase` L21-197 (~2072 tok)
+  - fn `defaultBlocksForTheme` L198-213 (~219 tok)
+  - fn `applyThemeOrder` L214-221 (~97 tok)
+  - fn `moveBlock` L222-231 (~108 tok)
+  - fn `toggleBlock` L232-239 (~87 tok)
+  - fn `updateBlockProps` L240-251 (~118 tok)
+- `fonts.ts` — next/font tidak bisa dipanggil kondisional — semua pasangan font tema (~1717 tok)
+- `landing.css` — Styles: 16 rules, 1 vars, 1 media queries (~1080 tok)
+- `LandingView.tsx` — Satu-satunya tempat halaman landing dirakit. Dipakai halaman publik `/{slug}` (~1066 tok)
+  - section `LandingData` L12-30 (~202 tok)
+  - fn `LandingView` L31-95 (~704 tok)
+- `palettes.ts` — Palet dikirim sebagai custom property di root landing, bukan sebagai (~2079 tok)
+  - fn `paletteStyle` L141-145 (~60 tok)
+- `resolve.ts` — Rantai yang menopang tombol "Use AI suggestion": override, lalu AI, lalu fallback. (~3449 tok)
+  - section `ResolvedHouseType` L4-36 (~548 tok)
+  - section `ResolveInput` L37-59 (~233 tok)
+  - fn `resolveHouseTypes` L60-86 (~335 tok)
+  - fn `resolveBlocks` L87-277 (~2220 tok)
 - `seo.ts` — Serialisasi aman untuk dipasang lewat dangerouslySetInnerHTML di dalam (~935 tok)
   - fn `siteUrl` L4-7 (~31 tok)
   - fn `buildMetadata` L8-40 (~293 tok)
   - fn `buildJsonLd` L41-95 (~545 tok)
   - fn `jsonLdScript` L96-99 (~38 tok)
+- `themeNames.ts` — Peta datar, BUKAN diambil dari THEMES. Lapisan data (mock/store.ts) (~578 tok)
+  - fn `normalizeTheme` L42-47 (~64 tok)
 
 ## lib/landing/themes/
 
-- `index.ts` — Ketiga nama tema disimpan di data, tapi selama slice 1 semuanya dipetakan ke (~249 tok)
+- `index.ts` — Header dan Footer setiap tema menerima seluruh konteks project, bukan satu blok. (~1135 tok)
+- `slots.ts` — Slot media bersama untuk kesepuluh tema. (~412 tok)
 
-## lib/landing/themes/wireframe/
+## lib/landing/themes/architectural/
 
-- `AgentCta.tsx` — Server Component; merender WhatsAppLink (klien) dengan projectId/waNumber/defaultMessage dari block. (~268 tok)
-- `ContactFormBlock.tsx` — Server Component; merender ContactForm (klien) dengan projectId/houseTypes/askHouseType. (~257 tok)
-- `Facilities.tsx` — Facilities (~170 tok)
-- `Faq.tsx` — Faq (~168 tok)
-- `FloorPlans.tsx` — FloorPlans (~314 tok)
-- `Gallery.tsx` — Gallery (~346 tok)
-- `Hero.tsx` — PlaceholderBox (~288 tok)
-- `Highlights.tsx` — Highlights (~169 tok)
-- `HouseTypes.tsx` — HouseTypes (~504 tok)
-  - fn `HouseTypes` L5-41 (~460 tok)
-- `index.ts` — Exports wireframe (~232 tok)
-- `Location.tsx` — Location (~158 tok)
-- `Specs.tsx` — Specs — renders table (~338 tok)
+- `blocks.tsx` — 06 Arsitektural Beton — ditranskrip dari (~4655 tok)
+  - fn `Header` L22-30 (~74 tok)
+  - fn `Hero` L31-70 (~421 tok)
+  - fn `Highlights` L71-90 (~212 tok)
+  - fn `HouseTypes` L91-134 (~504 tok)
+  - fn `Specs` L135-169 (~380 tok)
+  - fn `FloorPlans` L170-196 (~294 tok)
+  - fn `Location` L197-225 (~298 tok)
+  - fn `Facilities` L226-246 (~226 tok)
+  - fn `Gallery` L247-266 (~195 tok)
+  - fn `PricePromo` L267-295 (~355 tok)
+  - fn `Developer` L296-316 (~213 tok)
+  - fn `Testimonials` L317-333 (~175 tok)
+  - fn `Faq` L334-360 (~274 tok)
+  - fn `AgentCta` L361-387 (~290 tok)
+  - fn `ContactFormBlock` L388-403 (~152 tok)
+  - fn `Footer` L404-423 (~225 tok)
+- `index.ts` — Exports architecturalComponents, architecturalChrome (~194 tok)
+- `theme.css` — Styles: 103 rules, 5 vars (~3656 tok)
+
+## lib/landing/themes/boldRetail/
+
+- `blocks.tsx` — 05 Bold Retail — ditranskrip dari `design/project/05 Bold Retail.dc.html`. (~4513 tok)
+  - fn `Header` L24-38 (~116 tok)
+  - fn `Hero` L39-59 (~230 tok)
+  - fn `Developer` L60-83 (~218 tok)
+  - fn `Highlights` L84-103 (~204 tok)
+  - fn `HouseTypes` L104-155 (~637 tok)
+  - fn `Specs` L156-190 (~377 tok)
+  - fn `PricePromo` L191-218 (~362 tok)
+  - fn `Location` L219-248 (~310 tok)
+  - fn `Facilities` L249-268 (~205 tok)
+  - fn `FloorPlans` L269-290 (~214 tok)
+  - fn `Gallery` L291-308 (~185 tok)
+  - fn `Testimonials` L309-331 (~257 tok)
+  - fn `Faq` L332-358 (~277 tok)
+  - fn `AgentCta` L359-384 (~284 tok)
+  - fn `ContactFormBlock` L385-399 (~137 tok)
+  - fn `Footer` L400-419 (~216 tok)
+- `index.ts` — Exports boldRetailComponents, boldRetailChrome (~192 tok)
+- `theme.css` — Styles: 103 rules, 4 vars (~4062 tok)
+
+## lib/landing/themes/classicNavy/
+
+- `blocks.tsx` — 08 Klasik Navy — ditranskrip dari `design/project/08 Klasik Navy.dc.html`. (~4745 tok)
+  - fn `Header` L20-28 (~80 tok)
+  - fn `Hero` L29-73 (~476 tok)
+  - fn `Highlights` L74-91 (~185 tok)
+  - fn `HouseTypes` L92-140 (~596 tok)
+  - fn `Specs` L141-176 (~393 tok)
+  - fn `Facilities` L177-195 (~201 tok)
+  - fn `Location` L196-224 (~295 tok)
+  - fn `FloorPlans` L225-247 (~228 tok)
+  - fn `Gallery` L248-266 (~192 tok)
+  - fn `PricePromo` L267-295 (~378 tok)
+  - fn `Testimonials` L296-314 (~218 tok)
+  - fn `Developer` L315-335 (~228 tok)
+  - fn `Faq` L336-362 (~268 tok)
+  - fn `AgentCta` L363-387 (~284 tok)
+  - fn `ContactFormBlock` L388-403 (~157 tok)
+  - fn `Footer` L404-423 (~216 tok)
+- `index.ts` — Exports classicNavyComponents, classicNavyChrome (~193 tok)
+- `theme.css` — Styles: 104 rules, 3 vars (~3820 tok)
+
+## lib/landing/themes/corporateBlue/
+
+- `blocks.tsx` — 03 Korporat Biru — ditranskrip dari `design/project/03 Korporat Biru.dc.html`. (~4800 tok)
+  - fn `Header` L22-30 (~76 tok)
+  - fn `Hero` L31-50 (~220 tok)
+  - fn `ContactFormBlock` L51-66 (~177 tok)
+  - fn `Developer` L67-91 (~245 tok)
+  - fn `Highlights` L92-112 (~226 tok)
+  - fn `HouseTypes` L113-171 (~719 tok)
+  - fn `Specs` L172-207 (~394 tok)
+  - fn `Location` L208-238 (~338 tok)
+  - fn `Facilities` L239-259 (~224 tok)
+  - fn `FloorPlans` L260-282 (~228 tok)
+  - fn `Gallery` L283-301 (~195 tok)
+  - fn `PricePromo` L302-330 (~389 tok)
+  - fn `Testimonials` L331-353 (~252 tok)
+  - fn `Faq` L354-381 (~290 tok)
+  - fn `AgentCta` L382-409 (~342 tok)
+  - fn `Footer` L410-429 (~216 tok)
+- `index.ts` — Exports corporateBlueComponents, corporateBlueChrome (~194 tok)
+- `theme.css` — Styles: 98 rules, 3 vars (~4326 tok)
+
+## lib/landing/themes/editorialWhite/
+
+- `blocks.tsx` — 02 Editorial Putih — ditranskrip dari `design/project/02 Editorial Putih.dc.html`. (~4744 tok)
+  - fn `Header` L22-31 (~98 tok)
+  - fn `TitleWithAccent` L32-42 (~81 tok)
+  - fn `Hero` L43-81 (~416 tok)
+  - fn `Highlights` L82-102 (~219 tok)
+  - fn `HouseTypes` L103-139 (~441 tok)
+  - fn `Specs` L140-175 (~393 tok)
+  - fn `Location` L176-202 (~285 tok)
+  - fn `Facilities` L203-221 (~198 tok)
+  - fn `FloorPlans` L222-244 (~227 tok)
+  - fn `Gallery` L245-263 (~188 tok)
+  - fn `PricePromo` L264-292 (~365 tok)
+  - fn `Testimonials` L293-313 (~230 tok)
+  - fn `Developer` L314-334 (~229 tok)
+  - fn `Faq` L335-359 (~248 tok)
+  - fn `AgentCta` L360-386 (~332 tok)
+  - fn `ContactFormBlock` L387-404 (~187 tok)
+  - fn `Footer` L405-424 (~216 tok)
+- `index.ts` — Exports editorialWhiteComponents, editorialWhiteChrome (~194 tok)
+- `theme.css` — Styles: 100 rules, 4 vars (~4125 tok)
+
+## lib/landing/themes/natureCalm/
+
+- `blocks.tsx` — 07 Nature Calm — ditranskrip dari `design/project/07 Nature Calm.dc.html`. (~4908 tok)
+  - fn `Header` L20-28 (~72 tok)
+  - fn `Hero` L29-71 (~468 tok)
+  - fn `Highlights` L72-90 (~210 tok)
+  - fn `Facilities` L91-109 (~203 tok)
+  - fn `HouseTypes` L110-158 (~598 tok)
+  - fn `Specs` L159-194 (~393 tok)
+  - fn `Location` L195-225 (~328 tok)
+  - fn `FloorPlans` L226-248 (~228 tok)
+  - fn `Gallery` L249-269 (~218 tok)
+  - fn `PricePromo` L270-298 (~380 tok)
+  - fn `Testimonials` L299-321 (~252 tok)
+  - fn `Developer` L322-342 (~223 tok)
+  - fn `Faq` L343-370 (~285 tok)
+  - fn `AgentCta` L371-397 (~324 tok)
+  - fn `ContactFormBlock` L398-413 (~152 tok)
+  - fn `Footer` L414-433 (~216 tok)
+- `index.ts` — Exports natureCalmComponents, natureCalmChrome (~192 tok)
+- `theme.css` — Styles: 110 rules, 3 vars (~3872 tok)
+
+## lib/landing/themes/playfulPastel/
+
+- `blocks.tsx` — 09 Playful Pastel — ditranskrip dari `design/project/09 Playful Pastel.dc.html`. (~4886 tok)
+  - fn `Header` L22-30 (~73 tok)
+  - fn `Hero` L31-72 (~531 tok)
+  - fn `Highlights` L73-90 (~191 tok)
+  - fn `HouseTypes` L91-140 (~607 tok)
+  - fn `Specs` L141-175 (~382 tok)
+  - fn `Facilities` L176-193 (~194 tok)
+  - fn `Location` L194-223 (~317 tok)
+  - fn `FloorPlans` L224-245 (~214 tok)
+  - fn `Gallery` L246-263 (~194 tok)
+  - fn `PricePromo` L264-293 (~386 tok)
+  - fn `Testimonials` L294-316 (~258 tok)
+  - fn `Developer` L317-337 (~232 tok)
+  - fn `Faq` L338-364 (~273 tok)
+  - fn `AgentCta` L365-390 (~286 tok)
+  - fn `ContactFormBlock` L391-405 (~138 tok)
+  - fn `Footer` L406-425 (~216 tok)
+- `index.ts` — Exports playfulPastelComponents, playfulPastelChrome (~194 tok)
+- `theme.css` — Styles: 106 rules, 7 vars (~4311 tok)
+
+## lib/landing/themes/premiumDark/
+
+- `blocks.tsx` — 01 Premium Gelap — ditranskrip dari `design/project/01 Premium Gelap.dc.html`. (~4830 tok)
+  - fn `Header` L21-29 (~81 tok)
+  - fn `Hero` L30-67 (~406 tok)
+  - fn `Highlights` L68-87 (~207 tok)
+  - fn `HouseTypes` L88-137 (~594 tok)
+  - fn `Specs` L138-173 (~394 tok)
+  - fn `Facilities` L174-194 (~223 tok)
+  - fn `Gallery` L195-212 (~170 tok)
+  - fn `Location` L213-243 (~328 tok)
+  - fn `FloorPlans` L244-276 (~335 tok)
+  - fn `PricePromo` L277-307 (~377 tok)
+  - fn `Testimonials` L308-328 (~232 tok)
+  - fn `Developer` L329-349 (~223 tok)
+  - fn `Faq` L350-376 (~266 tok)
+  - fn `AgentCta` L377-402 (~332 tok)
+  - fn `ContactFormBlock` L403-420 (~190 tok)
+  - fn `Footer` L421-440 (~216 tok)
+- `index.ts` — Exports premiumDarkComponents, premiumDarkChrome (~193 tok)
+- `theme.css` — Styles: 99 rules, 4 vars (~4481 tok)
+
+## lib/landing/themes/shared/
+
+- `parts.tsx` — Primitif media bersama untuk kesepuluh tema. (~368 tok)
+
+## lib/landing/themes/softLuxury/
+
+- `blocks.tsx` — 04 Soft Luxury Beige — ditranskrip dari (~4833 tok)
+  - fn `Header` L22-30 (~79 tok)
+  - fn `Hero` L31-70 (~428 tok)
+  - fn `Highlights` L71-88 (~190 tok)
+  - fn `HouseTypes` L89-128 (~474 tok)
+  - fn `Specs` L129-164 (~396 tok)
+  - fn `Facilities` L165-185 (~232 tok)
+  - fn `Location` L186-216 (~328 tok)
+  - fn `Gallery` L217-235 (~194 tok)
+  - fn `FloorPlans` L236-258 (~228 tok)
+  - fn `PricePromo` L259-289 (~398 tok)
+  - fn `Testimonials` L290-312 (~254 tok)
+  - fn `Developer` L313-333 (~230 tok)
+  - fn `Faq` L334-361 (~291 tok)
+  - fn `AgentCta` L362-389 (~354 tok)
+  - fn `ContactFormBlock` L390-406 (~176 tok)
+  - fn `Footer` L407-426 (~216 tok)
+- `index.ts` — Exports softLuxuryComponents, softLuxuryChrome (~192 tok)
+- `theme.css` — Styles: 112 rules, 4 vars (~3840 tok)
+
+## lib/landing/themes/tropicalWarm/
+
+- `AgentCta.tsx` — Tim marketing (desain #10). Satu kartu agen — multi-agen di luar scope MVP. (~476 tok)
+- `ContactFormBlock.tsx` — Blok penutup. Desain #10 tidak punya form, tapi menghapusnya berarti mematikan (~315 tok)
+- `Developer.tsx` — Developer (~271 tok)
+- `Facilities.tsx` — Facilities (~271 tok)
+- `Faq.tsx` — Faq — uses useState (~346 tok)
+- `FloorPlans.tsx` — Masterplan kawasan + denah per tipe. Legenda klaster mewarnai diri dari palet. (~428 tok)
+- `Footer.tsx` — Footer (~255 tok)
+- `Gallery.tsx` — Carousel horizontal. Slot dibentuk dari keterangan (blok) DAN foto (media): (~328 tok)
+- `Header.tsx` — Header (~96 tok)
+- `Hero.tsx` — Hero + price bar dalam satu komponen (price bar bukan blok tersendiri, spec §11). (~521 tok)
+  - fn `Hero` L11-51 (~388 tok)
+- `Highlights.tsx` — USP bernomor: judul tebal + satu kalimat penjelas (desain #10, blok "Enam alasan utama"). (~290 tok)
+- `HouseTypes.tsx` — Blok tipe unit bertab (desain #10, blok hijau). Ganti tab menukar kartu tanpa (~870 tok)
+  - fn `HouseTypes` L13-75 (~721 tok)
+- `index.ts` — Exports tropicalWarmComponents, tropicalWarmChrome (~326 tok)
+- `Location.tsx` — Location (~358 tok)
+- `parts.tsx` — Tropis Hangat memakai primitif bersama. File ini tinggal jembatan supaya (~54 tok)
+- `PricePromo.tsx` — PricePromo (~522 tok)
+  - fn `PricePromo` L4-48 (~480 tok)
+- `Specs.tsx` — Tabel perbandingan semua tipe. Mati by default (spesifikasi sudah di kartu tipe unit). (~517 tok)
+  - fn `Specs` L5-47 (~444 tok)
+- `Testimonials.tsx` — Testimoni HANYA diisi agen (tidak pernah dari AI). Kosong = tidak dirender. (~318 tok)
+- `theme.css` — Styles: 101 rules, 2 vars, 1 media queries (~4902 tok)
 
 ## lib/leads/
 
@@ -545,7 +800,7 @@
 
 ## styles/
 
-- `globals.css` — Styles: 19 rules, 10 vars, 2 layers (~525 tok)
+- `globals.css` — Styles: 30 rules, 10 vars, 2 layers (~713 tok)
 - `type-utils.css` — Styles: 12 rules (~486 tok)
 
 ## styles/tokens/
@@ -563,23 +818,28 @@
 
 ## tests/e2e/
 
-- `editor.spec.ts` — Declares rows (~739 tok)
+- `editor.spec.ts` — Declares rows (~948 tok)
 - `house-type.spec.ts` (~770 tok)
-- `landing-lead.spec.ts` — Declares link (~590 tok)
-- `landing-ssr.spec.ts` — API routes: GET (5 endpoints) (~538 tok)
+- `landing-lead.spec.ts` — Landing sekarang mobile-only: di layar lebar bingkai 390px dipusatkan, bukan (~749 tok)
+- `landing-ssr.spec.ts` — API routes: GET (5 endpoints) (~548 tok)
+- `landing-theme.spec.ts` — Menjaga tema "Tropis Hangat": keempat belas blok terisi seed Parkspring dan (~510 tok)
 - `leads.spec.ts` — Declares nama (~1164 tok)
-- `login.spec.ts` (~193 tok)
+- `login.spec.ts` (~203 tok)
 - `publish.spec.ts` — API routes: GET (3 endpoints) (~457 tok)
 - `settings.spec.ts` (~928 tok)
 - `spine.spec.ts` — Satu tes yang menjaga seluruh slice: jalur North Star dari login sampai (~1464 tok)
 - `zz-ai-failure.spec.ts` — Verifikasi §14 #4: dengan AI_MOCK_FAIL=1 di server, Generate AI harus (~591 tok)
 
+## tests/mocks/
+
+- `next-font.ts` — Mock untuk `next/font/google` di lingkungan Vitest. next/font adalah konstruksi (~469 tok)
+
 ## tests/unit/
 
 - `agent-profile-schema.test.ts` — Declares parsed (~955 tok)
-- `ai-mock.test.ts` — Declares store (~680 tok)
-- `block-renderer.test.tsx` — blocks (~571 tok)
-- `blocks.test.ts` — Declares blocks (~773 tok)
+- `ai-mock.test.ts` — Declares store (~677 tok)
+- `block-renderer.test.tsx` — blocks (~1210 tok)
+- `blocks.test.ts` — Declares blocks (~1071 tok)
 - `contact-form.test.tsx` — houseType (~585 tok)
   - fn `houseType` L11-44 (~493 tok)
 - `create-project-wizard.test.tsx` — LISTINGKU_DATA_DIR harus di-set SEBELUM '@/lib/data' dievaluasi (singleton db (~1671 tok)
@@ -594,6 +854,7 @@
   - fn `makeProject` L28-37 (~118 tok)
   - fn `makeHouseType` L38-44 (~65 tok)
   - fn `validInput` L45-251 (~2466 tok)
+- `landing-fonts.test.ts` — Declares f (~190 tok)
 - `leads-metrics.test.ts` — NOW: evt (~948 tok)
   - fn `evt` L7-92 (~862 tok)
 - `leads-page.test.tsx` — PROJECT (~1561 tok)
@@ -605,17 +866,20 @@
   - fn `formFor` L71-84 (~94 tok)
   - fn `listUploadFiles` L85-350 (~3604 tok)
 - `media-validation.test.ts` — Declares type (~345 tok)
-- `mock-store.test.ts` — API routes: GET (4 endpoints) (~7037 tok)
+- `mock-store.test.ts` — API routes: GET (4 endpoints) (~7047 tok)
 - `page-view-tracker.test.tsx` — recordEventActionMock (~473 tok)
+- `palettes.test.ts` — Luminansi relatif WCAG 2.1 dari hex #rrggbb. (~602 tok)
+  - fn `luminance` L5-13 (~85 tok)
+  - fn `contrast` L14-57 (~447 tok)
 - `phone-display.test.ts` (~352 tok)
 - `project-actions.test.ts` — LISTINGKU_DATA_DIR harus di-set SEBELUM '@/lib/data' dievaluasi (singleton db (~2342 tok)
 - `project-detail-page.test.tsx` — PROJECT (~1334 tok)
   - fn `houseType` L30-102 (~972 tok)
 - `qr-route.test.ts` (~154 tok)
-- `resolve.test.ts` — fixture: describe (~2498 tok)
-  - fn `fixture` L7-209 (~2414 tok)
+- `resolve.test.ts` — fixture: describe (~3815 tok)
+  - fn `fixture` L7-288 (~3646 tok)
 - `schemas.test.ts` — Declares result (~1144 tok)
-- `seo.test.ts` — Declares store (~898 tok)
+- `seo.test.ts` — Declares store (~917 tok)
 - `session.test.ts` — Declares store (~322 tok)
 - `settings-actions.test.ts` — Pola sama dengan house-type-actions.test.ts: LISTINGKU_DATA_DIR harus di-set (~1373 tok)
 - `settings-page.test.tsx` — AGENT — uses useRouter (~1374 tok)
@@ -625,6 +889,8 @@
 - `slug.test.ts` — Declares reserved (~476 tok)
 - `snapshot-retry.test.ts` — Declares errWithCode (~381 tok)
 - `sticky-cta-bar.test.tsx` — StickyCtaBar merender WhatsAppLink, yang memanggil recordEventAction (Server (~431 tok)
+- `theme-migration.test.ts` — Declares old (~812 tok)
+- `theme-no-literal-colors.test.ts` — Penegak aturan arsitektur: komponen tema tidak boleh menulis warna literal. (~295 tok)
 - `tokens.test.ts` — STYLES: allCss (~536 tok)
   - fn `read` L6-7 (~21 tok)
   - fn `allCss` L8-50 (~462 tok)

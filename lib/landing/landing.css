@@ -1,30 +1,106 @@
-.lp{background:var(--surface-page)}
-.lp__section{padding:var(--space-lg) 0}
-.lp__inner{max-width:var(--container-max);margin:0 auto;padding-inline:var(--container-pad)}
-.lp__eyebrow{color:var(--sage)}
-.lp__hero{padding:var(--space-lg) 0}
-.lp__ph{display:flex;align-items:center;justify-content:center;background:var(--mint);
-  border:1px solid var(--ash);border-radius:var(--radius-md);color:var(--sage);
-  font-family:var(--font-text);font-size:12px;font-weight:600;letter-spacing:.04em;
-  text-transform:uppercase;text-align:center;padding:8px}
-.lp__grid{display:grid;gap:16px}
-.lp__grid--2{grid-template-columns:repeat(2,1fr)}
-.lp__grid--3{grid-template-columns:repeat(3,1fr)}
-.lp__grid--4{grid-template-columns:repeat(4,1fr)}
-.lp__card{background:var(--white);border:1px solid var(--ash);border-radius:var(--radius-md);overflow:hidden}
-.lp__pills{position:sticky;top:0;z-index:20;background:var(--white);border-bottom:1px solid var(--ash);
-  display:flex;gap:8px;padding:10px 16px;overflow-x:auto}
-.lp__pill{border:1px solid var(--ash);border-radius:var(--radius-full);padding:5px 12px;
-  font-size:12px;color:var(--sage);white-space:nowrap;transition:var(--transition-control)}
-.lp__pill:hover{border-color:var(--evergreen);color:var(--evergreen)}
-.lp__specs{width:100%;border-collapse:collapse;font-size:var(--type-body-sm-size)}
-.lp__specs th,.lp__specs td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border-subtle)}
-.lp__specs th{color:var(--sage);font-family:var(--font-text);font-weight:600}
-.lp__stickybar{position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--white);
-  border-top:1px solid var(--ash);display:none;grid-template-columns:1fr 1fr;gap:10px;padding:10px 14px}
-@media (max-width:900px){
-  .lp__grid--3,.lp__grid--4{grid-template-columns:repeat(2,1fr)}
-  .lp__stickybar{display:grid}
-  .lp{padding-bottom:72px}
+/*
+ * Kerangka bersama landing — di LUAR sistem tema, jadi boleh memakai nilai
+ * literal (lint nol-warna-literal hanya menjaga lib/landing/themes/**).
+ *
+ * MOBILE-ONLY (keputusan user 2026-08-19). Kesepuluh file desain digambar pada
+ * satu lebar saja: 390px. Halaman tidak pernah melebar — di layar besar kolom
+ * 390px dipusatkan di atas latar netral, persis `width:390px;margin:0 auto`
+ * yang jadi baris pertama tiap `design/project/*.dc.html`. Di ponsel bingkai
+ * ini tidak terlihat sama sekali. JANGAN menambahkan @media (min-width: ...)
+ * yang melebarkan layout di sini maupun di file tema mana pun.
+ */
+.lp {
+  position: relative;
+  width: 100%;
+  max-width: 390px;
+  margin-inline: auto;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  /* Ruang untuk sticky CTA bar — sama seperti padding-bottom:76px di file desain. */
+  padding-bottom: 76px;
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--lp-line) 55%, transparent),
+    0 24px 80px rgba(0, 0, 0, 0.28);
 }
-@media (max-width:600px){.lp__grid--2,.lp__grid--3,.lp__grid--4{grid-template-columns:1fr}}
+
+/*
+ * Latar di luar bingkai. Fixed + z-index:-1 supaya menutup seluruh viewport
+ * tanpa memasang warna ke <body> (yang dipakai bersama dashboard). `.lp` tidak
+ * membuat stacking context (position:relative, z-index:auto), jadi pseudo ini
+ * jatuh tepat di belakangnya. Warnanya diturunkan dari palet aktif — tema gelap
+ * dapat latar gelap, tema terang dapat abu netral.
+ */
+.lp::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: color-mix(in srgb, var(--lp-bg) 52%, #0e1013);
+}
+
+/* Bar aksi yang ikut menggulir. Dikunci ke lebar bingkai, bukan ke viewport. */
+.lp__stickybar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 390px;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--lp-surface) 92%, transparent);
+  border-top: 1px solid var(--lp-line);
+  backdrop-filter: blur(8px);
+}
+.lp__sticky-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.lp__sticky-btn--wa { background: var(--lp-accent); color: var(--lp-on-accent); }
+.lp__sticky-btn--info { background: transparent; color: var(--lp-ink); border-color: var(--lp-line); }
+
+/* Konfirmasi setelah form kontak terkirim. */
+.lp__form-done {
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--lp-accent) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--lp-accent) 40%, transparent);
+  color: var(--lp-ink);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+/*
+ * Form kontak memakai komponen DS dashboard (Input/Button) supaya satu jalur
+ * lead saja yang perlu dirawat dan tervalidasi. Warnanya yang harus ikut tema:
+ * kotak putih dengan tombol oranye tampak seperti tempelan di atas tema gelap.
+ * Selektor `.lp .ds-*` menang atas `.ds-*` tanpa menyentuh dashboard sama sekali.
+ */
+.lp .ds-field__label { color: var(--lp-ink); }
+.lp .ds-field__control {
+  background: color-mix(in srgb, var(--lp-ink) 6%, var(--lp-surface));
+  border-color: var(--lp-line);
+}
+.lp .ds-field__control:focus-within { border-color: var(--lp-accent); }
+.lp .ds-field__input { color: var(--lp-ink); background: transparent; }
+.lp .ds-field__input::placeholder { color: var(--lp-ink-faint); }
+.lp .ds-field__hint { color: var(--lp-ink-faint); }
+.lp select.ds-field__input { padding-inline: 14px; }
+.lp .ds-btn--primary { background: var(--lp-accent); color: var(--lp-on-accent); }
+.lp .ds-btn--primary:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--lp-accent) 86%, var(--lp-ink));
+  color: var(--lp-on-accent);
+}

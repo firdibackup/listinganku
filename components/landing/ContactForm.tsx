@@ -33,7 +33,7 @@ export function ContactForm({
     return (
       <div role="status" className="lp__form-done">
         <p className="lw-h2" style={{ marginTop: 0 }}>Permintaan terkirim</p>
-        <p className="lw-body" style={{ marginTop: 8, color: 'var(--sage)' }}>
+        <p className="lw-body" style={{ marginTop: 8, color: 'var(--lp-ink-soft)' }}>
           Terima kasih, kami akan menghubungi Anda lewat WhatsApp.
         </p>
       </div>

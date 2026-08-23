@@ -2,19 +2,76 @@
 
 > Single source of truth for resuming work. Read this FIRST when starting a session.
 > Update this file at the end of every work phase so the next `/clear` resumes in 1 read.
-> Last updated: 2026-08-19 (10 tema landing SELESAI + pass /impeccable adapt (responsif mobile-first, bingkai desktop) + polish (fokus keyboard, kontras). AVAILABLE_THEMES = 10.)
+> Last updated: 2026-08-19 (Slice 2K SELESAI: kesepuluh tema landing DIBANGUN ULANG dengan DOM+CSS sendiri dari file desain, landing jadi MOBILE-ONLY 390px, konten kanonik seragam, papan banding `/preview`.)
 >
-> **Responsif (lapisan bersама, `themes/tropicalWarm/theme.css`, kelas lp-tw-*):** kolom baca ~720px utk section teks, bingkai lebar ~1080px utk section grid/media (via `:has`), chrome full-bleed dibingkai lewat `padding-inline: max(...)`; grid nambah kolom; target sentuh ≥44px; `prefers-reduced-motion`; `:focus-visible` outline var(--lp-accent). Verifikasi visual: screenshot 390/768/1440 (mobile tak berubah). Jangan kembalikan `.lp-tw-in` ke 1120px satu-kolom.
+> **Tiga keputusan user 2026-08-19 (TERTUTUP):** (1) tiap tema punya DOM sendiri, ditranskrip 1:1 dari `design/project/NN *.dc.html` — bukan satu set komponen yang diwarnai ulang; (2) landing **mobile-only**: satu lebar 390px, di layar besar bingkai DIPUSATKAN bukan dilebarkan; (3) copy hero **seragam** untuk kesepuluh tema supaya perbandingan murni soal tampilan.
 >
-> **10 tema:** tropicalWarm (bespoke, `themes/tropicalWarm/`), 9 lain = komponen bersama + CSS di-scope `[data-lp-theme=...]` (`themes/<name>.css`) + font + urutan. Override struktural: editorialWhite & softLuxury pakai `HouseTypesList` (unit sebagai daftar/carousel). Simplifikasi sadar: 03 corporateBlue pakai hero foto bersama (form-in-hero desain dijalankan lewat blok form penutup); 06 architectural pakai kartu unit bertab (sudah mirip lembar spesifikasi). Kalau mau lebih presisi ke desain, tambah varian Hero/Unit di `themes/shared/` + daftarkan di `THEME_OVERRIDES`.
+> **Lihat hasilnya:** `npm run dev` lalu buka **`/preview`** (papan banding 10 tema berdampingan) atau `/preview/{tema}` (satu tema penuh). Halaman publik tetap `/parkspring-gading`.
 >
-> **Tema landing (design/project/*.dc.html):** file desain 01–10 SUDAH ada di repo `design/project/`. DesignSync/`/design-login` GAGAL di device ini (400 "could not add design scopes") — baca file langsung dari `design/project/`, jangan pakai DesignSync.
-> **Pola membangun tema baru (terbukti):** (1) baca `design/project/NN ....dc.html`; (2) tambah font di `lib/landing/fonts.ts` + `tests/mocks/next-font.ts`; (3) tambah urutan di `BLOCK_ORDER_BY_THEME` (blocks.ts); (4) tulis `lib/landing/themes/<name>.css` — override kelas `lp-tw-*` di-scope `[data-lp-theme='<name>']`, NOL warna literal (semua var(--lp-*)); (5) untuk beda struktural (unit daftar/spec-sheet, form di hero) tambah komponen di `themes/shared/` + daftarkan di `THEME_OVERRIDES` (themes/index.ts); (6) import CSS di globals.css; (7) `AVAILABLE_THEMES` += nama; (8) update tes `block-renderer` (AVAILABLE_THEMES) + `editor.spec` (tema enabled/disabled); (9) verify. Palet 10 warna SUDAH ada — tema = font+urutan+CSS+enable saja. **7 sisa:** 03 Korporat Biru (form di hero), 04 Soft Luxury Beige, 05 Bold Retail, 06 Arsitektural Beton (unit spec-sheet), 07 Nature Calm (fasilitas dulu), 08 Klasik Navy, 09 Playful Pastel.
-> **PENTING e2e:** bunuh dev server bocor di port 3000 + `rm -rf .next` SEBELUM e2e (`bug-030`), kalau tidak `reuseExistingServer` pakai bundle basi → semua tes interaksi klien gagal walau kode benar.
+> **JANGAN menambahkan media query `min-width` di `lib/landing/**`.** Lapisan desktop lama (kolom baca 720px + bingkai 1080px) sudah dihapus; menambahkannya kembali membatalkan keputusan (2).
 
 ---
 
-## ✅ Done
+## ✅ Done — Slice 2K (2026-08-19)
+
+**Verifikasi:** `npm run verify` **EXIT_CODE=0** — unit **367/367**, `next build` bersih, e2e **35 passed + 1 skipped**.
+
+**1. Konten kanonik.** `fixtures/seed.ts` Parkspring ditulis ulang dari `design/project/10 Tropis Hangat.dc.html`: Kelapa Gading, developer `Parkspring Land` (nama fiktif — jangan pakai nama perusahaan nyata untuk data demo berisi statistik & testimoni karangan), tipe **Villa 3,2 M / Medea 2,6 M / Grand 4,5 M**, 6 USP judul+penjelasan, 6 fasilitas nama+keterangan, 6 akses, 5 keterangan galeri, 4 promo, legenda masterplan, 2 testimoni, 6 FAQ. Kesepuluh tema memakai konten yang SAMA PERSIS.
+
+**2. Kontrak blok diperluas** (`blocks.ts` + `resolve.ts`): `highlights.items` → `{title, desc}[]`, `facilities.items` → `{name, desc}[]` (override; kosong = pakai `project.facilities`), `gallery.captions`, `floorPlans.legend` + `houseTypes`, `hero.location` (terpisah dari `hero.subtitle`). Panel editor menyesuaikan.
+
+**3. Mobile-only.** `lib/landing/landing.css` ditulis ulang: `.lp{max-width:390px;margin-inline:auto}` + `.lp::before` fixed sebagai latar dari palet. Sticky bar dikunci ke bingkai, bukan viewport, dan ikut tema (dulu memakai tombol dashboard). Nav pil `.lp__pills` DIHAPUS (tidak ada di satu pun file desain, memakai warna dashboard).
+
+**4. Sepuluh tema, sepuluh DOM.** `lib/landing/themes/<nama>/{blocks.tsx, theme.css, index.ts}` untuk kesepuluhnya; `THEME_IMPL` di `themes/index.ts` kini `Record` penuh (bukan `Partial`) supaya tema tanpa komponen gagal kompilasi. Bersama: `themes/shared/parts.tsx` (`Ph`/`Img`/`initials`, kelas netral `lp-ph`/`lp-img`) dan `themes/slots.ts` (`gallerySlots`/`planSlots`).
+
+**5. Papan banding.** `app/preview/page.tsx` (grid 10 iframe) + `app/preview/[theme]/page.tsx`, keduanya lewat `lib/landing/LandingView.tsx` yang juga dipakai halaman publik. Pratinjau `track={false}` — melihat tema sendiri tidak menghitung visitor. Keduanya `robots: noindex`.
+
+**6. Empat bug ditemukan & diperbaiki** (`bug-031`..`bug-034`): spesifisitas warna tautan menutup warna tombol di kesepuluh tema; "terapkan urutan bawaan tema" menghapus seluruh isi blok; galeri & denah tidak pernah tampil karena `media: []`; batas panjang perintah heredoc.
+
+### Ciri tiap tema yang harus bertahan
+
+| # | Tema | Yang tidak boleh hilang |
+|---|---|---|
+| 01 | premiumDark | Latar hampir hitam, aksen emas, serif ringan, sudut 2px, eyebrow bernomor lewat CSS counter |
+| 02 | editorialWhite | Kertas hangat, satu kata miring di judul, NOL radius, tipe unit sebagai DAFTAR bab, `@counter-style lp-bab` |
+| 03 | corporateBlue | Pita biru menyambung header→hero→**form lead di dalam hero**, kartu membulat, strip statistik |
+| 04 | softLuxury | Krem, Marcellus, radius 14–28px, bayang lembut, tipe unit sebagai kartu yang DIGESER |
+| 05 | boldRetail | Pita kuning, Anton kapital, garis tebal 2–3px, aksen oranye, pita hitam untuk unit & testimoni |
+| 06 | architectural | Abu beton, Space Grotesk + Space Mono, garis rambut, tombol `[ kurung siku ]`, unit sebagai LEMBAR SPESIFIKASI |
+| 07 | natureCalm | Sage, hero LENGKUNG (radius 200px), rata tengah, pita bersudut 26px, tombol pil, unit di pita hijau |
+| 08 | classicNavy | Blok hero NAVY, Playfair, komposisi RATA TENGAH, aksen emas hanya di satu tombol |
+| 09 | playfulPastel | Blok pastel radius besar, Fredoka, semua tombol pil, kartu USP berganti pastel (`data-slot` 0–3) |
+| 10 | tropicalWarm | Terakota hangat, DM Serif, kartu 14px, unit bertab (tema rujukan copy) |
+
+---
+
+## 🚀 Next phase
+
+**Belum di-commit ke `slice-1-frontend`.** Kerja slice 2K ada di branch **`slice-2-templates-mobile`**.
+
+Urutan yang masuk akal berikutnya, tinggal pilih:
+
+1. **Foto asli.** Kesepuluh tema masih memakai placeholder berlabel karena `media: []`. Pipeline unggah sudah jalan (Task 8) — begitu ada foto, `Img` otomatis menggantikan `Ph` tanpa sentuh tema. Kalau ingin melihat tema dengan foto sungguhan, unggah lewat halaman detail project.
+2. **Sisir tema di layar sungguhan.** Papan `/preview` memakai iframe 390px; buka `/preview/{tema}` di ponsel untuk memastikan target sentuh dan panjang teks Indonesia (kata panjang seperti "Ketersediaan") tidak memecah tombol.
+3. **Situs profil agen** `{subdomain}.listingku.app` — Settings sudah MENGISI datanya, belum ada yang membacanya. Butuh middleware subdomain + desain (desainnya belum ada).
+4. **`leads.updateStatus`** + dropdown status di tabel (ditunda oleh keputusan user).
+5. **Unggah logo** di tab Tampilan masih placeholder — pipeline media selalu mengikat aset ke `projectId`, aset milik profil belum punya tempat.
+6. **Email notifikasi lead** (`notifyOnLead` tersimpan, belum ada yang mengirim).
+7. Aset `public/brand/listingku-mark.png` masih placeholder.
+
+### Catatan penting untuk sesi berikut
+
+- **Jangan jalankan `npm run build`/`npm run verify` selagi `next dev` hidup** — `.next` rusak dan SELURUH e2e timeout (`bug-023`). Cek port 3000 dulu.
+- **`npm run seed:reset` WAJIB sebelum e2e** kalau store sudah termutasi run sebelumnya (publish.spec memublikasikan casa-verde; landing-ssr.spec menuntutnya masih draft).
+- **`npm run seed:reset` juga WAJIB sesudah mengubah `fixtures/seed.ts`.**
+- **Dev server memegang store di memori.** Mengubah seed lalu me-refresh browser TIDAK cukup — restart dev server-nya.
+- **Jangan menulis asersi e2e bernilai absolut** — satu mock store bersama, serial (`workers:1`).
+- AI 100% **mock** lewat `getGenerator()` di `lib/ai/index.ts`.
+- `lib/data/index.ts` menyentuh `node:fs` saat modul dimuat — **jangan impor barrel `@/lib/data` dari Edge runtime.**
+
+---
+
+## 📜 Riwayat: slice 1 + slice 2A (arsip)
 
 **Dokumentasi & perencanaan**
 - `CLAUDE.md` ditulis — ringkasan produk + arsitektur terencana, disuling dari PRD v3.0 + flow doc Fase 0–9.
@@ -63,7 +120,7 @@
 
 ---
 
-## 🚀 Next phase
+### Slice 2A — fondasi tema & Tropis Hangat
 
 **Slice 2A — sistem tema landing + tema Tropis Hangat: SELESAI & terverifikasi (2026-08-19).**
 `npm run verify` hijau: **365 unit test**, `next build` bersih, **35 e2e passed + 1 skipped** (AI_MOCK_FAIL di-gate). Belum di-commit (menunggu keputusan user; branch = default `slice-1-frontend`, jadi buat branch baru dulu bila commit).
@@ -133,6 +190,8 @@ Spec §18. Ringkasnya: `npm run verify` EXIT_CODE=0 · landing tetap server-rend
 
 ---
 
+---
+
 ## 📁 Active architecture
 
 - **Stack:** Next.js 15 App Router (monolith) · Tailwind v4 + token DS via `@theme inline` · komponen DS di-port + Radix · Zod + react-hook-form · `lucide-react` · `next/font/google` Archivo · `qrcode` · Vitest + RTL + Playwright. Node 24.19.0, npm 11.17.0 (pnpm tidak terpasang).
@@ -144,7 +203,10 @@ Spec §18. Ringkasnya: `npm run verify` EXIT_CODE=0 · landing tetap server-rend
   - Action mengembalikan `ActionResult<T>` (`{ok:true,data}` / `{ok:false,fieldErrors}`, error generik di key `_`), bukan melempar; seluruh badan action dibungkus try/catch, dan pemanggil wajib memeriksa hasilnya. Jangan `startTransition(() => void action(...))` — rejection-nya hilang diam-diam.
   - Blocks menyimpan **referensi** (mediaId, houseTypeId), bukan salinan harga/foto.
   - Field teks kosong = pakai default AI; mengisi = override. "Use AI suggestion" cukup menghapus override.
-  - Ketiga tema berbagi content JSON identik — hanya layout/gaya yang berbeda.
+  - **Kesepuluh tema berbagi content JSON yang identik** — hanya layout/gaya dan urutan section
+    yang berbeda. Tiap tema punya set komponennya sendiri di `lib/landing/themes/<nama>/`;
+    komponen tema TIDAK boleh menulis warna literal (ditegakkan `theme-no-literal-colors.test.ts`)
+    dan TIDAK boleh memakai media query `min-width` (landing mobile-only, 390px).
   - Copy wajib patuh aturan DS: **Anda** formal, **kami**, sentence case, tanpa emoji, tanpa tanda seru, angka gaya Indonesia.
 
 ---
@@ -166,6 +228,14 @@ npm run build            # harus bersih sebelum menyatakan selesai
 npm run seed:reset       # hapus .data/store.json, kembali ke fixture
 npx vitest               # unit test
 npx playwright test      # spec tulang punggung
+npm run seed:reset && npm run verify   # unit + build + e2e (dev server HARUS mati dulu)
+
+# Melihat kesepuluh tema:
+#   /preview          papan banding 10 tema berdampingan
+#   /preview/{tema}   satu tema penuh (premiumDark, editorialWhite, corporateBlue,
+#                     softLuxury, boldRetail, architectural, natureCalm,
+#                     classicNavy, playfulPastel, tropicalWarm)
+#   /parkspring-gading  halaman publik sungguhan
 
 # Baca ulang design dari Claude Design (tool DesignSync)
 # projectId: 8059d123-0b3d-4faf-b7be-b76ce3506622

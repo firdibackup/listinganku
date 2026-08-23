@@ -32,6 +32,7 @@ export const Inter = factory;
 export const Manrope = factory;
 export const Fraunces = factory;
 export const Space_Grotesk = factory;
+export const Space_Mono = factory;
 export const Libre_Franklin = factory;
 export const Cormorant_Garamond = factory;
 export const Poppins = factory;

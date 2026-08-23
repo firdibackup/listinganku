@@ -16,13 +16,13 @@ describe('mockGenerator', () => {
 
   it('membuat satu entri per tipe rumah, dengan nama yang cocok', async () => {
     const content = await mockGenerator.generate({ project, houseTypes, delayMs: 0 });
-    expect(content.houseTypes.map((h) => h.name)).toEqual(['Villa', 'Midea', 'Grand']);
+    expect(content.houseTypes.map((h) => h.name)).toEqual(['Villa', 'Medea', 'Grand']);
   });
 
   it('menyusun teks dari data proyek sungguhan, bukan lorem ipsum', async () => {
     const content = await mockGenerator.generate({ project, houseTypes, delayMs: 0 });
-    expect(content.headline).toContain('Parkspring Gading');
-    expect(content.description).toContain('Gading Serpong');
+    expect(content.headline).toContain('Parkspring');
+    expect(content.description).toContain('Kelapa Gading');
     expect(content.description.split(/\s+/).length).toBeGreaterThanOrEqual(120);
     expect(content.description.toLowerCase()).not.toContain('lorem');
   });

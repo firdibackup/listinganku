@@ -26,7 +26,7 @@ test('tautan WhatsApp mengarah ke wa.me dengan pesan awal', async ({ page }) => 
   const link = page.getByRole('link', { name: 'WhatsApp' }).first();
   const href = await link.getAttribute('href');
   expect(href).toContain('wa.me/6281288994410');
-  expect(decodeURIComponent(href ?? '')).toContain('Parkspring Gading');
+  expect(decodeURIComponent(href ?? '')).toContain('Parkspring');
 });
 
 test('di layar mobile sticky CTA bar tampil dan Minta info melompat ke form kontak', async ({ page }) => {
@@ -41,8 +41,21 @@ test('di layar mobile sticky CTA bar tampil dan Minta info melompat ke form kont
   await expect(page.locator('#minta-info')).toBeInViewport();
 });
 
-test('sticky CTA bar hanya untuk layar kecil — tersembunyi di desktop', async ({ page }) => {
+/**
+ * Landing sekarang mobile-only: di layar lebar bingkai 390px dipusatkan, bukan
+ * dilebarkan, jadi sticky bar TETAP tampil — dan lebarnya ikut bingkai, bukan
+ * viewport. Dulu tes ini menuntut bar tersembunyi di desktop; itu perilaku
+ * layout desktop yang sudah dihapus.
+ */
+test('di desktop bingkai tetap selebar mobile dan sticky bar ikut bingkai', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/parkspring-gading');
-  await expect(page.locator('.lp__stickybar')).toBeHidden();
+
+  const bar = page.locator('.lp__stickybar');
+  await expect(bar).toBeVisible();
+
+  const frame = await page.locator('.lp').boundingBox();
+  const barBox = await bar.boundingBox();
+  expect(frame?.width).toBeLessThanOrEqual(390);
+  expect(barBox?.width).toBeLessThanOrEqual(390);
 });

@@ -1,0 +1,200 @@
+/*
+ * 08 Klasik Navy — dicocokkan ke `design/project/08 Klasik Navy.dc.html`.
+ * NOL warna literal; semi-transparan lewat color-mix. Mobile-only, 390px.
+ */
+
+.lp[data-lp-theme='classicNavy'] {
+  --lp-font-display: var(--font-playfair), Georgia, 'Times New Roman', serif;
+  --lp-font-text: var(--font-lato), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --lp-quiet: color-mix(in srgb, var(--lp-ink-faint) 80%, var(--lp-bg));
+  background: var(--lp-bg);
+  color: var(--lp-ink);
+  font-family: var(--lp-font-text);
+  text-align: center;
+}
+:where(.lp[data-lp-theme='classicNavy']) a { color: inherit; text-decoration: none; }
+.lp[data-lp-theme='classicNavy'] [id] { scroll-margin-top: 24px; }
+
+.lp[data-lp-theme='classicNavy'] .lp-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lp[data-lp-theme='classicNavy'] .lp-ph {
+  width: 100%; height: 100%; min-height: 100%; display: grid; place-items: center; padding: 10px;
+  background: repeating-linear-gradient(135deg, var(--lp-ph-a) 0 10px, var(--lp-ph-b) 10px 20px);
+}
+.lp[data-lp-theme='classicNavy'] .lp-ph__label {
+  font: 10px ui-monospace, monospace; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lp-quiet); text-align: center;
+}
+
+/* Header + hero navy */
+.lp-cn-header { background: var(--lp-contrast); color: var(--lp-on-contrast); padding: 14px 22px; }
+.lp-cn-header__name { font-family: var(--lp-font-display); font-size: 21px; letter-spacing: 0.16em; text-transform: uppercase; }
+.lp-cn-header__meta { font-size: 9.5px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--lp-on-contrast-soft); margin-top: 3px; }
+
+.lp-cn-hero { background: var(--lp-contrast); color: var(--lp-on-contrast); padding: 0 22px 38px; }
+.lp-cn-rule { display: block; width: 1px; height: 40px; background: color-mix(in srgb, var(--lp-on-contrast) 34%, transparent); margin: 0 auto 18px; }
+.lp-cn-hero__title { font-family: var(--lp-font-display); font-weight: 400; font-size: 40px; line-height: 1.14; margin: 0 0 16px; }
+.lp-cn-hero__eyebrow {
+  display: flex; align-items: center; justify-content: center; gap: 12px; margin: 0 0 18px;
+  font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--lp-on-contrast-soft);
+}
+.lp-cn-dash { width: 34px; height: 1px; background: color-mix(in srgb, var(--lp-on-contrast) 42%, transparent); flex: none; }
+.lp-cn-hero__sub { margin: 0 0 26px; font-size: 14.5px; line-height: 1.8; color: var(--lp-on-contrast-soft); font-weight: 300; }
+.lp-cn-hero__media { height: 280px; border: 1px solid color-mix(in srgb, var(--lp-on-contrast) 24%, transparent); margin-bottom: 26px; }
+.lp-cn-hero__actions { display: flex; flex-direction: column; gap: 10px; }
+.lp-cn-btn {
+  display: flex; align-items: center; justify-content: center; text-align: center; min-height: 48px;
+  padding: 16px; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; border-radius: 0;
+}
+.lp-cn-btn--gold { background: var(--lp-accent); color: var(--lp-on-accent); font-weight: 700; }
+.lp-cn-btn--ghost { border: 1px solid color-mix(in srgb, var(--lp-on-contrast) 42%, transparent); color: var(--lp-on-contrast); }
+.lp-cn-btn--outline { border: 1px solid var(--lp-contrast); color: var(--lp-ink); font-size: 11.5px; letter-spacing: 0.16em; }
+
+/* Pita harga */
+.lp-cn-priceband { padding: 34px 22px; border-bottom: 1px solid var(--lp-line); }
+.lp-cn-priceband__value { font-family: var(--lp-font-display); font-size: 44px; color: var(--lp-ink); margin: 0; }
+.lp-cn-tags { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.lp-cn-tag { border: 1px solid var(--lp-line); padding: 7px 13px; font-size: 11px; color: var(--lp-ink-soft); white-space: nowrap; }
+
+/* Section shell */
+.lp-cn-sec { padding: 38px 22px; }
+.lp-cn-sec--cream { background: var(--lp-surface); }
+.lp-cn-label { font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--lp-quiet); margin: 0 0 8px; }
+.lp-cn-label--invert { color: var(--lp-on-contrast-soft); }
+.lp-cn-h2 { font-family: var(--lp-font-display); font-weight: 400; font-size: 30px; line-height: 1.2; margin: 0 0 24px; }
+.lp-cn-h2--invert { color: var(--lp-on-contrast); }
+.lp-cn-lead { margin: 0 0 20px; font-size: 13.5px; line-height: 1.8; color: var(--lp-ink-soft); font-weight: 300; }
+.lp-cn-scroll { overflow-x: auto; text-align: left; }
+
+/* Baris kunci-nilai */
+.lp-cn-rows { margin: 0; }
+.lp-cn-row { display: flex; justify-content: space-between; gap: 14px; padding: 11px 0; border-top: 1px solid var(--lp-line); font-size: 13.5px; }
+.lp-cn-row dt { color: var(--lp-quiet); margin: 0; }
+.lp-cn-row dd { margin: 0; }
+.lp-cn-rows--wide .lp-cn-row dd { font-family: var(--lp-font-display); font-size: 17px; color: var(--lp-accent); }
+
+/* USP — daftar bergaris, rata tengah */
+.lp-cn-usp { padding: 20px 0; border-top: 1px solid var(--lp-line); }
+.lp-cn-usp__title { font-family: var(--lp-font-display); font-size: 19px; margin-bottom: 6px; }
+.lp-cn-usp__desc { font-size: 13px; line-height: 1.75; color: var(--lp-ink-soft); font-weight: 300; }
+
+/* Tipe unit — tab bergaris bawah */
+.lp-cn-tabs { display: flex; margin-bottom: 20px; border-bottom: 1px solid var(--lp-line); }
+.lp-cn-tab {
+  flex: 1; background: none; border: 0; border-bottom: 2px solid transparent; color: var(--lp-quiet);
+  padding: 13px 0; min-height: 44px; font-family: inherit; font-size: 12px; letter-spacing: 0.14em;
+  text-transform: uppercase; cursor: pointer;
+}
+.lp-cn-tab[aria-selected='true'] { border-bottom-color: var(--lp-accent); color: var(--lp-ink); }
+.lp-cn-unit { background: var(--lp-bg); border: 1px solid var(--lp-line); }
+.lp-cn-unit__media { height: 200px; }
+.lp-cn-unit__body { padding: 22px; }
+.lp-cn-unit__name { font-family: var(--lp-font-display); font-weight: 400; font-size: 27px; margin: 0; }
+.lp-cn-unit__price { font-size: 13.5px; color: var(--lp-accent); margin: 4px 0 18px; }
+.lp-cn-unit__note { margin: 16px 0 0; font-size: 13px; line-height: 1.7; color: var(--lp-ink-soft); font-weight: 300; }
+.lp-cn-unit .lp-cn-btn--outline { margin-top: 18px; }
+
+/* Tabel */
+.lp-cn-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.lp-cn-table th, .lp-cn-table td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--lp-line); white-space: nowrap; }
+.lp-cn-table thead th { font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-quiet); font-weight: 400; }
+.lp-cn-table tbody th { font-weight: 400; color: var(--lp-ink-soft); }
+
+/* Fasilitas */
+.lp-cn-facstack { display: flex; flex-direction: column; gap: 20px; }
+.lp-cn-fac__media { height: 190px; margin-bottom: 10px; }
+.lp-cn-fac__name { font-family: var(--lp-font-display); font-size: 19px; margin-bottom: 4px; }
+.lp-cn-fac__desc { font-size: 12.5px; line-height: 1.7; color: var(--lp-ink-soft); font-weight: 300; }
+
+/* Lokasi */
+.lp-cn-map { position: relative; height: 210px; border: 1px solid var(--lp-line); display: grid; place-items: center; margin-bottom: 16px; background: var(--lp-bg); }
+.lp-cn-map iframe { width: 100%; height: 100%; border: 0; }
+.lp-cn-map__grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--lp-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--lp-line) 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+.lp-cn-map__pin { position: relative; width: 11px; height: 11px; border-radius: 50%; background: var(--lp-accent); box-shadow: 0 0 0 7px color-mix(in srgb, var(--lp-accent) 16%, transparent); }
+.lp-cn-map__label { position: absolute; bottom: 14px; font: 10px ui-monospace, monospace; letter-spacing: 0.18em; text-transform: uppercase; color: var(--lp-quiet); }
+
+/* Masterplan */
+.lp-cn-master { aspect-ratio: 4 / 5; border: 1px solid var(--lp-line); }
+.lp-cn-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; list-style: none; margin: 16px 0 0; padding: 0; font-size: 12px; color: var(--lp-ink-soft); }
+.lp-cn-legend__item { display: flex; align-items: center; gap: 9px; justify-content: center; }
+.lp-cn-legend__dot { width: 9px; height: 9px; flex: none; background: var(--lp-accent); }
+.lp-cn-legend__item[data-slot='1'] .lp-cn-legend__dot { background: var(--lp-accent-soft); }
+.lp-cn-legend__item[data-slot='2'] .lp-cn-legend__dot { background: var(--lp-contrast); }
+.lp-cn-legend__item[data-slot='3'] .lp-cn-legend__dot { background: var(--lp-ink-faint); }
+
+/* Galeri */
+.lp-cn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.lp-cn-grid__cell { margin: 0; position: relative; aspect-ratio: 1 / 1; overflow: hidden; }
+.lp-cn-grid__cell[data-wide='true'] { grid-column: span 2; aspect-ratio: 3 / 2; }
+.lp-cn-grid__cap {
+  position: absolute; inset-inline: 0; bottom: 0; padding: 7px 9px; font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  background: color-mix(in srgb, var(--lp-bg) 84%, transparent); color: var(--lp-ink-soft);
+}
+
+/* Harga & promo — pita navy */
+.lp-cn-navy { background: var(--lp-contrast); color: var(--lp-on-contrast); padding: 38px 22px; }
+.lp-cn-navy__price { font-family: var(--lp-font-display); font-size: 40px; color: var(--lp-contrast-accent); margin: 0 0 22px; }
+.lp-cn-navy__terms {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding-bottom: 20px; margin-bottom: 18px;
+  border-bottom: 1px solid color-mix(in srgb, var(--lp-on-contrast) 22%, transparent);
+}
+.lp-cn-navy__v { font-family: var(--lp-font-display); font-size: 22px; }
+.lp-cn-navy__list { list-style: none; margin: 0; padding: 0; }
+.lp-cn-navy__list li { padding: 10px 0; font-size: 13.5px; border-bottom: 1px solid color-mix(in srgb, var(--lp-on-contrast) 14%, transparent); font-weight: 300; }
+.lp-cn-navy__list li:last-child { border-bottom: 0; }
+.lp-cn-navy__note { margin: 16px 0 0; font-size: 11.5px; line-height: 1.7; color: var(--lp-on-contrast-soft); }
+
+/* Testimoni */
+.lp-cn-tst { margin: 0; padding: 24px 0; border-top: 1px solid var(--lp-line); }
+.lp-cn-tst__quote { font-family: var(--lp-font-display); font-style: italic; font-size: 21px; line-height: 1.45; margin: 0 0 16px; }
+.lp-cn-tst__who { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.lp-cn-avatar {
+  width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--lp-surface); color: var(--lp-accent); font-family: var(--lp-font-display); font-size: 15px;
+}
+.lp-cn-avatar--lg { width: 60px; height: 60px; font-size: 21px; margin: 0 auto 12px; }
+.lp-cn-tst__name { font-size: 13.5px; }
+.lp-cn-tst__unit { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-quiet); }
+
+/* Developer */
+.lp-cn-stats { display: grid; grid-template-columns: repeat(3, 1fr); }
+.lp-cn-stat { padding: 16px 8px; border-right: 1px solid var(--lp-line); }
+.lp-cn-stat:last-child { border-right: 0; }
+.lp-cn-stat__v { font-family: var(--lp-font-display); font-size: 27px; color: var(--lp-accent); }
+.lp-cn-stat__k { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--lp-quiet); margin-top: 4px; }
+
+/* FAQ */
+.lp-cn-faq { border-top: 1px solid var(--lp-line); text-align: left; }
+.lp-cn-faq__q {
+  width: 100%; display: flex; justify-content: space-between; gap: 14px; align-items: center;
+  background: none; border: 0; color: var(--lp-ink); padding: 16px 0; text-align: left;
+  font-family: inherit; font-size: 14px; cursor: pointer; min-height: 44px;
+}
+.lp-cn-faq__mark { color: var(--lp-accent); font-size: 17px; flex: none; }
+.lp-cn-faq__a { font-size: 13px; line-height: 1.8; color: var(--lp-ink-soft); padding: 0 0 16px; font-weight: 300; }
+
+/* Tim marketing */
+.lp-cn-agent { margin-bottom: 20px; }
+.lp-cn-agent__name { font-family: var(--lp-font-display); font-size: 20px; }
+.lp-cn-agent__role { font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lp-quiet); margin-top: 4px; }
+
+/* Form */
+.lp-cn-formcard { background: var(--lp-bg); border: 1px solid var(--lp-line); padding: 20px; text-align: left; }
+.lp[data-lp-theme='classicNavy'] .ds-field__control { border-radius: 0; }
+.lp[data-lp-theme='classicNavy'] .ds-btn { border-radius: 0; letter-spacing: 0.16em; text-transform: uppercase; font-size: 12px; }
+
+/* Footer */
+.lp-cn-footer { background: var(--lp-footer); color: var(--lp-on-footer); padding: 34px 22px 30px; }
+.lp-cn-footer__name { font-family: var(--lp-font-display); font-size: 21px; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 10px; color: var(--lp-on-contrast); }
+.lp-cn-footer__addr { font-size: 12px; line-height: 1.8; margin-bottom: 18px; font-weight: 300; }
+.lp-cn-footer__links { display: flex; justify-content: center; gap: 18px; flex-wrap: wrap; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; padding-bottom: 16px; border-bottom: 1px solid color-mix(in srgb, var(--lp-on-footer) 24%, transparent); }
+.lp-cn-footer__copy { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; padding-top: 16px; }
+
+/* Sticky bar: siku, huruf kapital renggang */
+.lp[data-lp-theme='classicNavy'] .lp__sticky-btn { border-radius: 0; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; }

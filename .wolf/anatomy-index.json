@@ -1,12 +1,12 @@
 {
   "version": 1,
   "meta": {
-    "lastScanned": "2026-08-18T23:21:30.058Z",
-    "fileCount": 270,
+    "lastScanned": "2026-08-19T15:15:54.033Z",
+    "fileCount": 336,
     "hits": 0,
     "misses": 0,
-    "renderedHash": "69de8787ac1977089008ee9db1172cf104402f58218aeb25b005521239b7e482",
-    "storeUpdatedAt": "2026-08-18T23:21:30.060Z"
+    "renderedHash": "ed32d6a36e12643e2a93f409e7a60915ccee5f1296721aa4009f23387c71d49b",
+    "storeUpdatedAt": "2026-08-19T15:15:54.038Z"
   },
   "files": {
     ".agents/skills/web-design-guidelines/SKILL.md": {
@@ -15,7 +15,7 @@
       "hash": "f4647ca866a3accf",
       "size": 1231,
       "mtimeMs": 1786869849357.1714,
-      "updatedAt": "2026-08-18T23:21:29.944Z",
+      "updatedAt": "2026-08-19T15:15:53.800Z",
       "source": "scan"
     },
     ".claude/commands/reframe.md": {
@@ -24,7 +24,7 @@
       "hash": "17a75695be5d4629",
       "size": 2221,
       "mtimeMs": 1786866296325.7234,
-      "updatedAt": "2026-08-18T23:21:29.945Z",
+      "updatedAt": "2026-08-19T15:15:53.801Z",
       "source": "scan"
     },
     ".claude/commands/security-audit.md": {
@@ -33,7 +33,7 @@
       "hash": "e6f7e0b7337c9c86",
       "size": 2060,
       "mtimeMs": 1786866296324.727,
-      "updatedAt": "2026-08-18T23:21:29.945Z",
+      "updatedAt": "2026-08-19T15:15:53.801Z",
       "source": "scan"
     },
     ".claude/rules/openwolf.md": {
@@ -42,7 +42,7 @@
       "hash": "6d735b2c1c54a916",
       "size": 1323,
       "mtimeMs": 1786866296237.087,
-      "updatedAt": "2026-08-18T23:21:29.946Z",
+      "updatedAt": "2026-08-19T15:15:53.802Z",
       "source": "scan"
     },
     ".claude/settings.json": {
@@ -51,7 +51,7 @@
       "hash": "578be764b62d436b",
       "size": 2444,
       "mtimeMs": 1786868106940.768,
-      "updatedAt": "2026-08-18T23:21:29.946Z",
+      "updatedAt": "2026-08-19T15:15:53.803Z",
       "source": "scan"
     },
     ".claude/settings.json.graphify-bak": {
@@ -60,7 +60,7 @@
       "hash": "de68e7507f6f1f67",
       "size": 1896,
       "mtimeMs": 1786867396779.5771,
-      "updatedAt": "2026-08-18T23:21:29.946Z",
+      "updatedAt": "2026-08-19T15:15:53.804Z",
       "source": "scan"
     },
     ".claude/settings.local.json": {
@@ -69,7 +69,7 @@
       "hash": "bd7e7ed62b54c5c9",
       "size": 1458,
       "mtimeMs": 1786870300646.284,
-      "updatedAt": "2026-08-18T23:21:29.946Z",
+      "updatedAt": "2026-08-19T15:15:53.805Z",
       "source": "scan"
     },
     ".codex/config.toml": {
@@ -78,7 +78,7 @@
       "hash": "d37497c327812159",
       "size": 24,
       "mtimeMs": 1786866296310.3347,
-      "updatedAt": "2026-08-18T23:21:29.947Z",
+      "updatedAt": "2026-08-19T15:15:53.805Z",
       "source": "scan"
     },
     ".codex/hooks.json": {
@@ -87,7 +87,7 @@
       "hash": "b2d1e7654ac84d16",
       "size": 3573,
       "mtimeMs": 1786870300647.7126,
-      "updatedAt": "2026-08-18T23:21:29.947Z",
+      "updatedAt": "2026-08-19T15:15:53.806Z",
       "source": "scan"
     },
     ".codex/prompts/reframe.md": {
@@ -96,7 +96,7 @@
       "hash": "17a75695be5d4629",
       "size": 2221,
       "mtimeMs": 1786866296340.735,
-      "updatedAt": "2026-08-18T23:21:29.947Z",
+      "updatedAt": "2026-08-19T15:15:53.806Z",
       "source": "scan"
     },
     ".codex/prompts/security-audit.md": {
@@ -105,16 +105,16 @@
       "hash": "e6f7e0b7337c9c86",
       "size": 2060,
       "mtimeMs": 1786866296339.7373,
-      "updatedAt": "2026-08-18T23:21:29.948Z",
+      "updatedAt": "2026-08-19T15:15:53.807Z",
       "source": "scan"
     },
     ".data/store.json": {
       "description": "",
-      "tokens": 7446,
-      "hash": "64453e202ddb91e5",
-      "size": 26079,
-      "mtimeMs": 1787095118047.5894,
-      "updatedAt": "2026-08-18T23:21:29.948Z",
+      "tokens": 9876,
+      "hash": "aade4c344ce0fe91",
+      "size": 34583,
+      "mtimeMs": 1787152250160.2156,
+      "updatedAt": "2026-08-19T15:15:53.807Z",
       "source": "scan"
     },
     ".gitignore": {
@@ -123,7 +123,7 @@
       "hash": "95fa22370af967e5",
       "size": 188,
       "mtimeMs": 1786887899503.539,
-      "updatedAt": "2026-08-18T23:21:29.948Z",
+      "updatedAt": "2026-08-19T15:15:53.808Z",
       "source": "scan"
     },
     ".impeccable/config.local.json": {
@@ -132,7 +132,7 @@
       "hash": "1de4a5ea082e026e",
       "size": 46,
       "mtimeMs": 1786870293571.0332,
-      "updatedAt": "2026-08-18T23:21:29.948Z",
+      "updatedAt": "2026-08-19T15:15:53.808Z",
       "source": "scan"
     },
     ".impeccable/hook.cache.json": {
@@ -141,7 +141,7 @@
       "hash": "fea0d2011edb7b44",
       "size": 12835,
       "mtimeMs": 1787068374343.2952,
-      "updatedAt": "2026-08-18T23:21:29.949Z",
+      "updatedAt": "2026-08-19T15:15:53.809Z",
       "source": "scan"
     },
     ".opencode/command/reframe.md": {
@@ -150,7 +150,7 @@
       "hash": "17a75695be5d4629",
       "size": 2221,
       "mtimeMs": 1786866296337.74,
-      "updatedAt": "2026-08-18T23:21:29.949Z",
+      "updatedAt": "2026-08-19T15:15:53.809Z",
       "source": "scan"
     },
     ".opencode/command/security-audit.md": {
@@ -159,7 +159,7 @@
       "hash": "e6f7e0b7337c9c86",
       "size": 2060,
       "mtimeMs": 1786866296326.2283,
-      "updatedAt": "2026-08-18T23:21:29.949Z",
+      "updatedAt": "2026-08-19T15:15:53.810Z",
       "source": "scan"
     },
     ".opencode/plugin/openwolf/anatomy.ts": {
@@ -168,7 +168,7 @@
       "hash": "de2a14445289179f",
       "size": 10257,
       "mtimeMs": 1786866296312.44,
-      "updatedAt": "2026-08-18T23:21:29.952Z",
+      "updatedAt": "2026-08-19T15:15:53.813Z",
       "source": "scan",
       "symbols": [
         {
@@ -284,7 +284,7 @@
       "hash": "0193b1022c8e098b",
       "size": 1881,
       "mtimeMs": 1786866296313.4434,
-      "updatedAt": "2026-08-18T23:21:29.952Z",
+      "updatedAt": "2026-08-19T15:15:53.813Z",
       "source": "scan",
       "symbols": [
         {
@@ -365,7 +365,7 @@
       "hash": "5044a1f76c74f535",
       "size": 3782,
       "mtimeMs": 1786866296313.4434,
-      "updatedAt": "2026-08-18T23:21:29.952Z",
+      "updatedAt": "2026-08-19T15:15:53.814Z",
       "source": "scan"
     },
     ".opencode/plugin/openwolf/post-read.ts": {
@@ -374,7 +374,7 @@
       "hash": "1bc80c56ad0cfd32",
       "size": 2200,
       "mtimeMs": 1786866296314.4414,
-      "updatedAt": "2026-08-18T23:21:29.953Z",
+      "updatedAt": "2026-08-19T15:15:53.814Z",
       "source": "scan",
       "symbols": [
         {
@@ -392,7 +392,7 @@
       "hash": "02ba6ccd8d82475c",
       "size": 11300,
       "mtimeMs": 1786866296314.4414,
-      "updatedAt": "2026-08-18T23:21:29.953Z",
+      "updatedAt": "2026-08-19T15:15:53.815Z",
       "source": "scan",
       "symbols": [
         {
@@ -459,7 +459,7 @@
       "hash": "88c051b64b073c6a",
       "size": 2401,
       "mtimeMs": 1786866296315.9512,
-      "updatedAt": "2026-08-18T23:21:29.953Z",
+      "updatedAt": "2026-08-19T15:15:53.816Z",
       "source": "scan",
       "symbols": [
         {
@@ -477,7 +477,7 @@
       "hash": "c3b34d216601e76f",
       "size": 4092,
       "mtimeMs": 1786866296317.2173,
-      "updatedAt": "2026-08-18T23:21:29.954Z",
+      "updatedAt": "2026-08-19T15:15:53.817Z",
       "source": "scan",
       "symbols": [
         {
@@ -523,7 +523,7 @@
       "hash": "dda2df097f6d5874",
       "size": 3340,
       "mtimeMs": 1786866296318.2136,
-      "updatedAt": "2026-08-18T23:21:29.954Z",
+      "updatedAt": "2026-08-19T15:15:53.817Z",
       "source": "scan",
       "symbols": [
         {
@@ -562,7 +562,7 @@
       "hash": "5f8633a3904ee5ce",
       "size": 5057,
       "mtimeMs": 1786866296319.2166,
-      "updatedAt": "2026-08-18T23:21:29.954Z",
+      "updatedAt": "2026-08-19T15:15:53.818Z",
       "source": "scan",
       "symbols": [
         {
@@ -601,7 +601,7 @@
       "hash": "47f4dfb03abf55f9",
       "size": 757,
       "mtimeMs": 1786866296319.2166,
-      "updatedAt": "2026-08-18T23:21:29.954Z",
+      "updatedAt": "2026-08-19T15:15:53.819Z",
       "source": "scan"
     },
     ".opencode/plugin/openwolf.ts": {
@@ -610,7 +610,7 @@
       "hash": "a29f91aadb9a324d",
       "size": 261,
       "mtimeMs": 1786866296320.5073,
-      "updatedAt": "2026-08-18T23:21:29.955Z",
+      "updatedAt": "2026-08-19T15:15:53.819Z",
       "source": "scan"
     },
     ".superpowers/sdd/.gitignore": {
@@ -619,7 +619,7 @@
       "hash": "cdbcae15105d6b78",
       "size": 2,
       "mtimeMs": 1787006948786.7808,
-      "updatedAt": "2026-08-18T23:21:29.955Z",
+      "updatedAt": "2026-08-19T15:15:53.820Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/progress.md": {
@@ -628,7 +628,7 @@
       "hash": "0b3722bcee5b9305",
       "size": 54727,
       "mtimeMs": 1787008319051.4312,
-      "updatedAt": "2026-08-18T23:21:29.957Z",
+      "updatedAt": "2026-08-19T15:15:53.821Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-01d0ffe..0465457.diff": {
@@ -637,7 +637,7 @@
       "hash": "6f1b4b8e29555358",
       "size": 7777,
       "mtimeMs": 1786890905216.9282,
-      "updatedAt": "2026-08-18T23:21:29.958Z",
+      "updatedAt": "2026-08-19T15:15:53.822Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-0d91b8f..d57bd6a.diff": {
@@ -646,7 +646,7 @@
       "hash": "36715dd505b0f94c",
       "size": 14704,
       "mtimeMs": 1787006949039.2815,
-      "updatedAt": "2026-08-18T23:21:29.959Z",
+      "updatedAt": "2026-08-19T15:15:53.823Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-1002fd6..6c510a3.diff": {
@@ -655,7 +655,7 @@
       "hash": "165b78a219fc14f8",
       "size": 6845,
       "mtimeMs": 1786890300619.147,
-      "updatedAt": "2026-08-18T23:21:29.959Z",
+      "updatedAt": "2026-08-19T15:15:53.823Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-168334a..8d0f781.diff": {
@@ -664,7 +664,7 @@
       "hash": "c16d285670f1700a",
       "size": 33112,
       "mtimeMs": 1786933242412.1887,
-      "updatedAt": "2026-08-18T23:21:29.961Z",
+      "updatedAt": "2026-08-19T15:15:53.825Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-3f46db1..6753d1b.diff": {
@@ -673,7 +673,7 @@
       "hash": "fb8947db59a63ffc",
       "size": 15495,
       "mtimeMs": 1786984141487.0974,
-      "updatedAt": "2026-08-18T23:21:29.962Z",
+      "updatedAt": "2026-08-19T15:15:53.826Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-411f706..3f46db1.diff": {
@@ -682,7 +682,7 @@
       "hash": "06abdb021075cfbf",
       "size": 48669,
       "mtimeMs": 1786983827507.7136,
-      "updatedAt": "2026-08-18T23:21:29.963Z",
+      "updatedAt": "2026-08-19T15:15:53.827Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-4655f1f..e9e5272.diff": {
@@ -691,7 +691,7 @@
       "hash": "d50c7650e8221f0d",
       "size": 14427,
       "mtimeMs": 1786889062821.2266,
-      "updatedAt": "2026-08-18T23:21:29.964Z",
+      "updatedAt": "2026-08-19T15:15:53.828Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-4bf09e3..80d9909.diff": {
@@ -700,7 +700,7 @@
       "hash": "2385aa5d06881854",
       "size": 42246,
       "mtimeMs": 1786959167464.9368,
-      "updatedAt": "2026-08-18T23:21:29.966Z",
+      "updatedAt": "2026-08-19T15:15:53.830Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-5282b43..6a1b1a9.diff": {
@@ -709,7 +709,7 @@
       "hash": "d37107e83816181a",
       "size": 25338,
       "mtimeMs": 1786937897168.7468,
-      "updatedAt": "2026-08-18T23:21:29.967Z",
+      "updatedAt": "2026-08-19T15:15:53.831Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-612eed4..4bf09e3.diff": {
@@ -718,7 +718,7 @@
       "hash": "cd86ee0c728b3bd2",
       "size": 25716,
       "mtimeMs": 1786957568909.273,
-      "updatedAt": "2026-08-18T23:21:29.968Z",
+      "updatedAt": "2026-08-19T15:15:53.832Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-725b119..fd37db3.diff": {
@@ -727,7 +727,7 @@
       "hash": "216314f0cebb0782",
       "size": 22004,
       "mtimeMs": 1786986673218.2102,
-      "updatedAt": "2026-08-18T23:21:29.969Z",
+      "updatedAt": "2026-08-19T15:15:53.833Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-80d9909..85e7ce4.diff": {
@@ -736,7 +736,7 @@
       "hash": "389f79761d912d1a",
       "size": 33968,
       "mtimeMs": 1786960287607.2673,
-      "updatedAt": "2026-08-18T23:21:29.970Z",
+      "updatedAt": "2026-08-19T15:15:53.834Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-a7c8878..168334a.diff": {
@@ -745,7 +745,7 @@
       "hash": "ed1faba2831d74d5",
       "size": 32666,
       "mtimeMs": 1786931315190.3271,
-      "updatedAt": "2026-08-18T23:21:29.971Z",
+      "updatedAt": "2026-08-19T15:15:53.835Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-cfd945e..4655f1f.diff": {
@@ -754,7 +754,7 @@
       "hash": "3829fc60d0610fba",
       "size": 215984,
       "mtimeMs": 1786888404842.8174,
-      "updatedAt": "2026-08-18T23:21:29.973Z",
+      "updatedAt": "2026-08-19T15:15:53.837Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/review-e0be27e..457d822.diff": {
@@ -763,7 +763,7 @@
       "hash": "a86ff7999fa718f6",
       "size": 13392,
       "mtimeMs": 1786889644949.0903,
-      "updatedAt": "2026-08-18T23:21:29.974Z",
+      "updatedAt": "2026-08-19T15:15:53.838Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-1-brief.md": {
@@ -772,7 +772,7 @@
       "hash": "801e3d6aea3fdbf3",
       "size": 14369,
       "mtimeMs": 1786887919881.187,
-      "updatedAt": "2026-08-18T23:21:29.976Z",
+      "updatedAt": "2026-08-19T15:15:53.839Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-1-report.md": {
@@ -781,7 +781,7 @@
       "hash": "e59d6ace6fe51340",
       "size": 6259,
       "mtimeMs": 1786888388856.532,
-      "updatedAt": "2026-08-18T23:21:29.976Z",
+      "updatedAt": "2026-08-19T15:15:53.840Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-10-brief.md": {
@@ -790,7 +790,7 @@
       "hash": "8af323d9c451fd97",
       "size": 16931,
       "mtimeMs": 1786934417516.0527,
-      "updatedAt": "2026-08-18T23:21:29.977Z",
+      "updatedAt": "2026-08-19T15:15:53.841Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-10-report.md": {
@@ -799,7 +799,7 @@
       "hash": "3161057c13e8cbc2",
       "size": 14475,
       "mtimeMs": 1786986182671.0066,
-      "updatedAt": "2026-08-18T23:21:29.978Z",
+      "updatedAt": "2026-08-19T15:15:53.842Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-11-brief.md": {
@@ -808,7 +808,7 @@
       "hash": "32ee9c62aa6d9bfc",
       "size": 11271,
       "mtimeMs": 1786934417837.9116,
-      "updatedAt": "2026-08-18T23:21:29.978Z",
+      "updatedAt": "2026-08-19T15:15:53.842Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-11-report.md": {
@@ -817,7 +817,7 @@
       "hash": "1f0bfec2d3801843",
       "size": 9299,
       "mtimeMs": 1786985017466.4807,
-      "updatedAt": "2026-08-18T23:21:29.979Z",
+      "updatedAt": "2026-08-19T15:15:53.843Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-12-brief.md": {
@@ -826,7 +826,7 @@
       "hash": "57bf4df3114cc2a0",
       "size": 18355,
       "mtimeMs": 1786985235842.7603,
-      "updatedAt": "2026-08-18T23:21:29.980Z",
+      "updatedAt": "2026-08-19T15:15:53.844Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-12-report.md": {
@@ -835,7 +835,7 @@
       "hash": "ea28016487e65d8c",
       "size": 8284,
       "mtimeMs": 1786985918049.083,
-      "updatedAt": "2026-08-18T23:21:29.981Z",
+      "updatedAt": "2026-08-19T15:15:53.844Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-13-brief.md": {
@@ -844,7 +844,7 @@
       "hash": "3fda0363223e4d7e",
       "size": 9631,
       "mtimeMs": 1786985236242.5596,
-      "updatedAt": "2026-08-18T23:21:29.982Z",
+      "updatedAt": "2026-08-19T15:15:53.845Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-13-report.md": {
@@ -853,7 +853,7 @@
       "hash": "8d72ce3ffafa7c1f",
       "size": 15465,
       "mtimeMs": 1787006891302.3997,
-      "updatedAt": "2026-08-18T23:21:29.982Z",
+      "updatedAt": "2026-08-19T15:15:53.846Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-14-brief.md": {
@@ -862,7 +862,7 @@
       "hash": "e038ac54d3571855",
       "size": 11059,
       "mtimeMs": 1786985236643.516,
-      "updatedAt": "2026-08-18T23:21:29.983Z",
+      "updatedAt": "2026-08-19T15:15:53.847Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-15-brief.md": {
@@ -871,7 +871,7 @@
       "hash": "3355fdcfaf5ab882",
       "size": 19664,
       "mtimeMs": 1786985237000.07,
-      "updatedAt": "2026-08-18T23:21:29.984Z",
+      "updatedAt": "2026-08-19T15:15:53.847Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-16-brief.md": {
@@ -880,7 +880,7 @@
       "hash": "5081442fa2c48d96",
       "size": 22211,
       "mtimeMs": 1786985237427.0305,
-      "updatedAt": "2026-08-18T23:21:29.984Z",
+      "updatedAt": "2026-08-19T15:15:53.848Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-17-brief.md": {
@@ -889,7 +889,7 @@
       "hash": "3e7f78f1066ce12e",
       "size": 11805,
       "mtimeMs": 1786985237825.5813,
-      "updatedAt": "2026-08-18T23:21:29.985Z",
+      "updatedAt": "2026-08-19T15:15:53.849Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-18-brief.md": {
@@ -898,7 +898,7 @@
       "hash": "e69e0404d7f13cfb",
       "size": 6712,
       "mtimeMs": 1786985238165.318,
-      "updatedAt": "2026-08-18T23:21:29.985Z",
+      "updatedAt": "2026-08-19T15:15:53.849Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-2-brief.md": {
@@ -907,7 +907,7 @@
       "hash": "31791ebf5af6f6fb",
       "size": 13088,
       "mtimeMs": 1786888440165.809,
-      "updatedAt": "2026-08-18T23:21:29.986Z",
+      "updatedAt": "2026-08-19T15:15:53.851Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-2-report.md": {
@@ -916,7 +916,7 @@
       "hash": "ffa3a6d77e1dcffb",
       "size": 5303,
       "mtimeMs": 1786889403003.665,
-      "updatedAt": "2026-08-18T23:21:29.987Z",
+      "updatedAt": "2026-08-19T15:15:53.851Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-3-brief.md": {
@@ -925,7 +925,7 @@
       "hash": "4b11e5baa97d1018",
       "size": 11032,
       "mtimeMs": 1786888440504.8218,
-      "updatedAt": "2026-08-18T23:21:29.988Z",
+      "updatedAt": "2026-08-19T15:15:53.852Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-3-report.md": {
@@ -934,7 +934,7 @@
       "hash": "ff96b73cb4d8b9cf",
       "size": 6308,
       "mtimeMs": 1786890090403.2107,
-      "updatedAt": "2026-08-18T23:21:29.989Z",
+      "updatedAt": "2026-08-19T15:15:53.853Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-4-brief.md": {
@@ -943,7 +943,7 @@
       "hash": "cc48d78cce755a5a",
       "size": 7045,
       "mtimeMs": 1786888440875.1243,
-      "updatedAt": "2026-08-18T23:21:29.990Z",
+      "updatedAt": "2026-08-19T15:15:53.853Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-4-report.md": {
@@ -952,7 +952,7 @@
       "hash": "a025aefaa73e5962",
       "size": 5638,
       "mtimeMs": 1786890673483.2896,
-      "updatedAt": "2026-08-18T23:21:29.990Z",
+      "updatedAt": "2026-08-19T15:15:53.854Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-5-brief.md": {
@@ -961,7 +961,7 @@
       "hash": "e9f233f272f1e18d",
       "size": 8155,
       "mtimeMs": 1786888441335.6924,
-      "updatedAt": "2026-08-18T23:21:29.991Z",
+      "updatedAt": "2026-08-19T15:15:53.854Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-5-report.md": {
@@ -970,7 +970,7 @@
       "hash": "85a162a20a4ff89c",
       "size": 4409,
       "mtimeMs": 1786890879938.2253,
-      "updatedAt": "2026-08-18T23:21:29.991Z",
+      "updatedAt": "2026-08-19T15:15:53.855Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-6-brief.md": {
@@ -979,7 +979,7 @@
       "hash": "a0e904b45436117d",
       "size": 24335,
       "mtimeMs": 1786888784244.5786,
-      "updatedAt": "2026-08-18T23:21:29.992Z",
+      "updatedAt": "2026-08-19T15:15:53.855Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-6-report.md": {
@@ -988,7 +988,7 @@
       "hash": "d23667d5e4dfdf74",
       "size": 20499,
       "mtimeMs": 1786934116506.746,
-      "updatedAt": "2026-08-18T23:21:29.993Z",
+      "updatedAt": "2026-08-19T15:15:53.856Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-7-brief.md": {
@@ -997,7 +997,7 @@
       "hash": "6926c43274cd45a8",
       "size": 17770,
       "mtimeMs": 1786888784711.1602,
-      "updatedAt": "2026-08-18T23:21:29.994Z",
+      "updatedAt": "2026-08-19T15:15:53.857Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-7-report.md": {
@@ -1006,7 +1006,7 @@
       "hash": "34929fbe9c6ac9ca",
       "size": 9300,
       "mtimeMs": 1786955549978.4111,
-      "updatedAt": "2026-08-18T23:21:29.995Z",
+      "updatedAt": "2026-08-19T15:15:53.857Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-8-brief.md": {
@@ -1015,7 +1015,7 @@
       "hash": "25f9c2a2129d05ea",
       "size": 11405,
       "mtimeMs": 1786930759607.4077,
-      "updatedAt": "2026-08-18T23:21:29.996Z",
+      "updatedAt": "2026-08-19T15:15:53.858Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-8-report.md": {
@@ -1024,7 +1024,7 @@
       "hash": "b6b4ce3597b519ae",
       "size": 19387,
       "mtimeMs": 1786959137499.8372,
-      "updatedAt": "2026-08-18T23:21:29.997Z",
+      "updatedAt": "2026-08-19T15:15:53.859Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-9-brief.md": {
@@ -1033,7 +1033,7 @@
       "hash": "87d91eac89ecc339",
       "size": 16388,
       "mtimeMs": 1786930759988.5789,
-      "updatedAt": "2026-08-18T23:21:29.997Z",
+      "updatedAt": "2026-08-19T15:15:53.860Z",
       "source": "scan"
     },
     ".superpowers/sdd/2026-08-16-listingku-frontend-slice1/task-9-report.md": {
@@ -1042,7 +1042,7 @@
       "hash": "b88eb640be58d942",
       "size": 11580,
       "mtimeMs": 1786980865124.3176,
-      "updatedAt": "2026-08-18T23:21:29.998Z",
+      "updatedAt": "2026-08-19T15:15:53.861Z",
       "source": "scan"
     },
     "AGENTS.md": {
@@ -1051,7 +1051,7 @@
       "hash": "8c90778623bf50ac",
       "size": 271,
       "mtimeMs": 1786866296310.3347,
-      "updatedAt": "2026-08-18T23:21:29.998Z",
+      "updatedAt": "2026-08-19T15:15:53.861Z",
       "source": "scan"
     },
     "app/(dashboard)/dashboard/page.tsx": {
@@ -1060,7 +1060,7 @@
       "hash": "f7ba2c36ec930482",
       "size": 3021,
       "mtimeMs": 1786935102816.531,
-      "updatedAt": "2026-08-18T23:21:29.999Z",
+      "updatedAt": "2026-08-19T15:15:53.861Z",
       "source": "scan",
       "symbols": [
         {
@@ -1078,7 +1078,7 @@
       "hash": "a260fbe1f6e7ed75",
       "size": 585,
       "mtimeMs": 1787092436545.0215,
-      "updatedAt": "2026-08-18T23:21:29.999Z",
+      "updatedAt": "2026-08-19T15:15:53.862Z",
       "source": "scan"
     },
     "app/(dashboard)/leads/page.tsx": {
@@ -1087,7 +1087,7 @@
       "hash": "44019dd171895f49",
       "size": 3682,
       "mtimeMs": 1787092757740.6514,
-      "updatedAt": "2026-08-18T23:21:30.000Z",
+      "updatedAt": "2026-08-19T15:15:53.862Z",
       "source": "scan",
       "symbols": [
         {
@@ -1107,12 +1107,12 @@
       ]
     },
     "app/(dashboard)/projects/[id]/editor/actions.ts": {
-      "description": "Exports saveBlocksAction, setThemeAction",
-      "tokens": 244,
-      "hash": "f4d2232f2e7d6756",
-      "size": 852,
-      "mtimeMs": 1787065196279.7756,
-      "updatedAt": "2026-08-18T23:21:30.000Z",
+      "description": "Exports saveBlocksAction, setThemeAction, setPaletteAction",
+      "tokens": 327,
+      "hash": "6718ff111f9e1869",
+      "size": 1144,
+      "mtimeMs": 1787146784595.2698,
+      "updatedAt": "2026-08-19T15:15:53.863Z",
       "source": "scan"
     },
     "app/(dashboard)/projects/[id]/editor/page.tsx": {
@@ -1121,7 +1121,7 @@
       "hash": "9261d374a784253e",
       "size": 780,
       "mtimeMs": 1787065196279.7756,
-      "updatedAt": "2026-08-18T23:21:30.000Z",
+      "updatedAt": "2026-08-19T15:15:53.863Z",
       "source": "scan"
     },
     "app/(dashboard)/projects/[id]/generate/actions.ts": {
@@ -1130,7 +1130,7 @@
       "hash": "5ea34efcc6336537",
       "size": 2330,
       "mtimeMs": 1787065196280.3716,
-      "updatedAt": "2026-08-18T23:21:30.001Z",
+      "updatedAt": "2026-08-19T15:15:53.863Z",
       "source": "scan",
       "symbols": [
         {
@@ -1148,7 +1148,7 @@
       "hash": "28a37cd32a5b56ac",
       "size": 1264,
       "mtimeMs": 1787065196280.3716,
-      "updatedAt": "2026-08-18T23:21:30.001Z",
+      "updatedAt": "2026-08-19T15:15:53.863Z",
       "source": "scan"
     },
     "app/(dashboard)/projects/[id]/houseTypeActions.ts": {
@@ -1157,7 +1157,7 @@
       "hash": "4c08292ed5c0be25",
       "size": 6435,
       "mtimeMs": 1786985562382.028,
-      "updatedAt": "2026-08-18T23:21:30.001Z",
+      "updatedAt": "2026-08-19T15:15:53.864Z",
       "source": "scan",
       "symbols": [
         {
@@ -1210,7 +1210,7 @@
       "hash": "deb57484884cdb79",
       "size": 1058,
       "mtimeMs": 1786983174615.6882,
-      "updatedAt": "2026-08-18T23:21:30.001Z",
+      "updatedAt": "2026-08-19T15:15:53.864Z",
       "source": "scan"
     },
     "app/(dashboard)/projects/[id]/publish/page.tsx": {
@@ -1219,7 +1219,7 @@
       "hash": "0b9412e74fa2e464",
       "size": 581,
       "mtimeMs": 1787065196281.278,
-      "updatedAt": "2026-08-18T23:21:30.001Z",
+      "updatedAt": "2026-08-19T15:15:53.864Z",
       "source": "scan"
     },
     "app/(dashboard)/projects/actions.ts": {
@@ -1228,7 +1228,7 @@
       "hash": "71d067fa37e1d83a",
       "size": 4813,
       "mtimeMs": 1786980675468.4395,
-      "updatedAt": "2026-08-18T23:21:30.002Z",
+      "updatedAt": "2026-08-19T15:15:53.864Z",
       "source": "scan",
       "symbols": [
         {
@@ -1274,7 +1274,7 @@
       "hash": "80cccb7aa798c990",
       "size": 225,
       "mtimeMs": 1786959909603.5994,
-      "updatedAt": "2026-08-18T23:21:30.002Z",
+      "updatedAt": "2026-08-19T15:15:53.865Z",
       "source": "scan"
     },
     "app/(dashboard)/settings/actions.ts": {
@@ -1283,7 +1283,7 @@
       "hash": "164e0b4788dc101a",
       "size": 3331,
       "mtimeMs": 1787092959398.371,
-      "updatedAt": "2026-08-18T23:21:30.002Z",
+      "updatedAt": "2026-08-19T15:15:53.865Z",
       "source": "scan",
       "symbols": [
         {
@@ -1329,7 +1329,7 @@
       "hash": "06a268f24253867f",
       "size": 2714,
       "mtimeMs": 1787093089192.3267,
-      "updatedAt": "2026-08-18T23:21:30.002Z",
+      "updatedAt": "2026-08-19T15:15:53.865Z",
       "source": "scan",
       "symbols": [
         {
@@ -1347,7 +1347,7 @@
       "hash": "6b32ab727ecf1f0b",
       "size": 8710,
       "mtimeMs": 1787008364683.051,
-      "updatedAt": "2026-08-18T23:21:30.003Z",
+      "updatedAt": "2026-08-19T15:15:53.866Z",
       "source": "scan",
       "symbols": [
         {
@@ -1375,28 +1375,12 @@
     },
     "app/(public)/[slug]/page.tsx": {
       "description": "cache() menyatukan panggilan load() dari generateMetadata dan dari komponen",
-      "tokens": 1163,
-      "hash": "df679ea8a3238937",
-      "size": 4082,
-      "mtimeMs": 1787068374111.1821,
-      "updatedAt": "2026-08-18T23:21:30.003Z",
-      "source": "scan",
-      "symbols": [
-        {
-          "name": "generateMetadata",
-          "kind": "fn",
-          "startLine": 32,
-          "endLine": 40,
-          "tokens": 110
-        },
-        {
-          "name": "LandingPage",
-          "kind": "fn",
-          "startLine": 41,
-          "endLine": 97,
-          "tokens": 654
-        }
-      ]
+      "tokens": 483,
+      "hash": "524fd66554178594",
+      "size": 1693,
+      "mtimeMs": 1787149395506.12,
+      "updatedAt": "2026-08-19T15:15:53.866Z",
+      "source": "scan"
     },
     "app/api/qr/helpers.ts": {
       "description": "Exports QR_FORMATS, QrFormat, qrTargetUrl, isValidQrFormat",
@@ -1404,7 +1388,7 @@
       "hash": "597a3aed42375384",
       "size": 405,
       "mtimeMs": 1787065196281.278,
-      "updatedAt": "2026-08-18T23:21:30.004Z",
+      "updatedAt": "2026-08-19T15:15:53.867Z",
       "source": "scan"
     },
     "app/api/qr/route.ts": {
@@ -1413,7 +1397,7 @@
       "hash": "a395147a536c752e",
       "size": 1401,
       "mtimeMs": 1787065196282.3862,
-      "updatedAt": "2026-08-18T23:21:30.004Z",
+      "updatedAt": "2026-08-19T15:15:53.867Z",
       "source": "scan"
     },
     "app/layout.tsx": {
@@ -1422,7 +1406,7 @@
       "hash": "468ac6806b7b8699",
       "size": 655,
       "mtimeMs": 1786889560363.38,
-      "updatedAt": "2026-08-18T23:21:30.004Z",
+      "updatedAt": "2026-08-19T15:15:53.867Z",
       "source": "scan"
     },
     "app/login/actions.ts": {
@@ -1431,7 +1415,7 @@
       "hash": "f90590c1044fb522",
       "size": 435,
       "mtimeMs": 1786934731650.553,
-      "updatedAt": "2026-08-18T23:21:30.005Z",
+      "updatedAt": "2026-08-19T15:15:53.868Z",
       "source": "scan"
     },
     "app/login/page.tsx": {
@@ -1440,7 +1424,7 @@
       "hash": "187228956cfe8b7c",
       "size": 1695,
       "mtimeMs": 1786934751890.0085,
-      "updatedAt": "2026-08-18T23:21:30.005Z",
+      "updatedAt": "2026-08-19T15:15:53.868Z",
       "source": "scan"
     },
     "app/page.tsx": {
@@ -1449,7 +1433,43 @@
       "hash": "91630da9b0dda1e4",
       "size": 102,
       "mtimeMs": 1786888299668.3389,
-      "updatedAt": "2026-08-18T23:21:30.005Z",
+      "updatedAt": "2026-08-19T15:15:53.868Z",
+      "source": "scan"
+    },
+    "app/preview/[theme]/page.tsx": {
+      "description": "Pratinjau satu tema di atas project demo. Project yang dipakai SELALU sama",
+      "tokens": 389,
+      "hash": "4b0cd06197c2c726",
+      "size": 1363,
+      "mtimeMs": 1787149434982.945,
+      "updatedAt": "2026-08-19T15:15:53.868Z",
+      "source": "scan"
+    },
+    "app/preview/page.tsx": {
+      "description": "Papan banding. Tiap bingkai memuat `/preview/{tema}` yang sungguhan, bukan",
+      "tokens": 509,
+      "hash": "35cbbb94fab738a7",
+      "size": 1788,
+      "mtimeMs": 1787149435012.9583,
+      "updatedAt": "2026-08-19T15:15:53.868Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "ThemeGalleryPage",
+          "kind": "fn",
+          "startLine": 15,
+          "endLine": 50,
+          "tokens": 368
+        }
+      ]
+    },
+    "app/preview/preview.css": {
+      "description": "Styles: 16 rules, 1 media queries",
+      "tokens": 600,
+      "hash": "6f0a9b557f81825f",
+      "size": 2103,
+      "mtimeMs": 1787149451798.514,
+      "updatedAt": "2026-08-19T15:15:53.869Z",
       "source": "scan"
     },
     "app/robots.ts": {
@@ -1458,7 +1478,7 @@
       "hash": "611fa040d666db3e",
       "size": 471,
       "mtimeMs": 1787005718984.7761,
-      "updatedAt": "2026-08-18T23:21:30.005Z",
+      "updatedAt": "2026-08-19T15:15:53.869Z",
       "source": "scan"
     },
     "app/sitemap.ts": {
@@ -1467,7 +1487,7 @@
       "hash": "f56544b8544d1960",
       "size": 969,
       "mtimeMs": 1787005843995.878,
-      "updatedAt": "2026-08-18T23:21:30.006Z",
+      "updatedAt": "2026-08-19T15:15:53.869Z",
       "source": "scan"
     },
     "CLAUDE.md": {
@@ -1476,7 +1496,7 @@
       "hash": "aef2a4a254cf888a",
       "size": 8021,
       "mtimeMs": 1786868106936.1536,
-      "updatedAt": "2026-08-18T23:21:30.006Z",
+      "updatedAt": "2026-08-19T15:15:53.870Z",
       "source": "scan"
     },
     "components/ai/GeneratePanel.tsx": {
@@ -1485,7 +1505,7 @@
       "hash": "3e530f33f2d26e5c",
       "size": 5567,
       "mtimeMs": 1787065196282.3862,
-      "updatedAt": "2026-08-18T23:21:30.007Z",
+      "updatedAt": "2026-08-19T15:15:53.870Z",
       "source": "scan",
       "symbols": [
         {
@@ -1503,7 +1523,7 @@
       "hash": "5801d69863d8aca4",
       "size": 3000,
       "mtimeMs": 1787094868065.562,
-      "updatedAt": "2026-08-18T23:21:30.007Z",
+      "updatedAt": "2026-08-19T15:15:53.871Z",
       "source": "scan"
     },
     "components/dashboard/EmptyState.tsx": {
@@ -1512,7 +1532,7 @@
       "hash": "1a0144b98adbf9e2",
       "size": 673,
       "mtimeMs": 1786955365919.3032,
-      "updatedAt": "2026-08-18T23:21:30.008Z",
+      "updatedAt": "2026-08-19T15:15:53.871Z",
       "source": "scan"
     },
     "components/dashboard/MetricCard.tsx": {
@@ -1521,7 +1541,7 @@
       "hash": "3d5fd847695e1d60",
       "size": 563,
       "mtimeMs": 1787092645721.0618,
-      "updatedAt": "2026-08-18T23:21:30.008Z",
+      "updatedAt": "2026-08-19T15:15:53.872Z",
       "source": "scan"
     },
     "components/dashboard/navItems.ts": {
@@ -1530,7 +1550,7 @@
       "hash": "1fd78cebb1d2a023",
       "size": 1135,
       "mtimeMs": 1787092436481.7395,
-      "updatedAt": "2026-08-18T23:21:30.008Z",
+      "updatedAt": "2026-08-19T15:15:53.872Z",
       "source": "scan"
     },
     "components/dashboard/ProjectCard.tsx": {
@@ -1539,7 +1559,7 @@
       "hash": "e8d30965dd228df0",
       "size": 1387,
       "mtimeMs": 1786955415889.9048,
-      "updatedAt": "2026-08-18T23:21:30.009Z",
+      "updatedAt": "2026-08-19T15:15:53.873Z",
       "source": "scan"
     },
     "components/dashboard/Sidebar.tsx": {
@@ -1548,7 +1568,7 @@
       "hash": "8bbe57c5c56eacff",
       "size": 1674,
       "mtimeMs": 1787092436510.6643,
-      "updatedAt": "2026-08-18T23:21:30.009Z",
+      "updatedAt": "2026-08-19T15:15:53.873Z",
       "source": "scan"
     },
     "components/ds/Button.tsx": {
@@ -1557,7 +1577,7 @@
       "hash": "6a2ef89d83192d1e",
       "size": 961,
       "mtimeMs": 1786888791943.3464,
-      "updatedAt": "2026-08-18T23:21:30.009Z",
+      "updatedAt": "2026-08-19T15:15:53.874Z",
       "source": "scan"
     },
     "components/ds/Card.tsx": {
@@ -1566,7 +1586,7 @@
       "hash": "29769f409007ccd3",
       "size": 538,
       "mtimeMs": 1786888796190.775,
-      "updatedAt": "2026-08-18T23:21:30.009Z",
+      "updatedAt": "2026-08-19T15:15:53.874Z",
       "source": "scan"
     },
     "components/ds/Chip.tsx": {
@@ -1575,7 +1595,7 @@
       "hash": "7c6f80641ba6019b",
       "size": 624,
       "mtimeMs": 1786888800574.4036,
-      "updatedAt": "2026-08-18T23:21:30.009Z",
+      "updatedAt": "2026-08-19T15:15:53.874Z",
       "source": "scan"
     },
     "components/ds/ds.css": {
@@ -1584,7 +1604,7 @@
       "hash": "d45588c7b8c41c74",
       "size": 4438,
       "mtimeMs": 1786888786307.223,
-      "updatedAt": "2026-08-18T23:21:30.010Z",
+      "updatedAt": "2026-08-19T15:15:53.875Z",
       "source": "scan"
     },
     "components/ds/index.ts": {
@@ -1593,7 +1613,7 @@
       "hash": "d2b1215c17dd7bf5",
       "size": 357,
       "mtimeMs": 1786888811586.7834,
-      "updatedAt": "2026-08-18T23:21:30.010Z",
+      "updatedAt": "2026-08-19T15:15:53.875Z",
       "source": "scan"
     },
     "components/ds/Input.tsx": {
@@ -1602,7 +1622,7 @@
       "hash": "89223871fcc4ac73",
       "size": 1906,
       "mtimeMs": 1786889350541.396,
-      "updatedAt": "2026-08-18T23:21:30.010Z",
+      "updatedAt": "2026-08-19T15:15:53.875Z",
       "source": "scan",
       "symbols": [
         {
@@ -1623,56 +1643,65 @@
     },
     "components/editor/BlockSettingsPanel.tsx": {
       "description": "BlockSettingsPanel",
-      "tokens": 2158,
-      "hash": "60d6be98ada13270",
-      "size": 7553,
-      "mtimeMs": 1787065196283.386,
-      "updatedAt": "2026-08-18T23:21:30.011Z",
+      "tokens": 4569,
+      "hash": "373d9b4227595b42",
+      "size": 15996,
+      "mtimeMs": 1787149123362.8906,
+      "updatedAt": "2026-08-19T15:15:53.876Z",
       "source": "scan",
       "symbols": [
         {
           "name": "BlockSettingsPanel",
           "kind": "fn",
           "startLine": 9,
-          "endLine": 179,
-          "tokens": 2031
+          "endLine": 292,
+          "tokens": 4409
         }
       ]
     },
     "components/editor/editor.css": {
-      "description": "Styles: 22 rules, 1 media queries",
-      "tokens": 704,
-      "hash": "d745cace1e5b5b48",
-      "size": 2464,
-      "mtimeMs": 1787065196283.386,
-      "updatedAt": "2026-08-18T23:21:30.011Z",
+      "description": "Styles: 28 rules, 1 media queries",
+      "tokens": 852,
+      "hash": "70c492cec485a356",
+      "size": 2980,
+      "mtimeMs": 1787146784596.731,
+      "updatedAt": "2026-08-19T15:15:53.877Z",
       "source": "scan"
     },
     "components/editor/EditorShell.tsx": {
-      "description": "ALL_THEMES — uses useState, useMemo",
-      "tokens": 2072,
-      "hash": "2115b3d0dba1348f",
-      "size": 7255,
-      "mtimeMs": 1787065196283.386,
-      "updatedAt": "2026-08-18T23:21:30.011Z",
+      "description": "EditorShell — uses useState, useMemo",
+      "tokens": 2530,
+      "hash": "79cf02d61e9d2b06",
+      "size": 8860,
+      "mtimeMs": 1787149369014.9526,
+      "updatedAt": "2026-08-19T15:15:53.877Z",
       "source": "scan",
       "symbols": [
         {
           "name": "EditorShell",
           "kind": "fn",
           "startLine": 20,
-          "endLine": 178,
-          "tokens": 1740
+          "endLine": 214,
+          "tokens": 2174
         }
       ]
     },
+    "components/editor/PalettePicker.tsx": {
+      "description": "Baris 10 swatch palet. Warna swatch diambil dari PALETTES[name].accent lewat",
+      "tokens": 318,
+      "hash": "33a12b2d5a0e8e8e",
+      "size": 1112,
+      "mtimeMs": 1787146784596.731,
+      "updatedAt": "2026-08-19T15:15:53.878Z",
+      "source": "scan"
+    },
     "components/landing/ContactForm.tsx": {
-      "description": "Form kontak publik (klien); submit ke submitLeadAction, validasi di server, konfirmasi datar \"Permintaan terkirim\". Select tipe rumah opsional.",
-      "tokens": 1040,
-      "hash": "ece1a15f7b0143ab",
-      "size": 3640,
-      "mtimeMs": 1787065196283.386,
-      "updatedAt": "2026-08-18T23:21:30.012Z",
+      "description": "Form kontak publik. Tidak melakukan validasi Zod di klien: submitLeadAction",
+      "tokens": 1042,
+      "hash": "1c4849725bb365b7",
+      "size": 3647,
+      "mtimeMs": 1787149871550.5044,
+      "updatedAt": "2026-08-19T15:15:53.878Z",
       "source": "scan",
       "symbols": [
         {
@@ -1680,7 +1709,7 @@
           "kind": "fn",
           "startLine": 16,
           "endLine": 109,
-          "tokens": 813
+          "tokens": 815
         }
       ]
     },
@@ -1690,16 +1719,16 @@
       "hash": "5cc6543d732a0c32",
       "size": 1319,
       "mtimeMs": 1787065196284.5781,
-      "updatedAt": "2026-08-18T23:21:30.012Z",
+      "updatedAt": "2026-08-19T15:15:53.878Z",
       "source": "scan"
     },
     "components/landing/StickyCtaBar.tsx": {
-      "description": "Klien; bar CTA melekat di bawah untuk layar <900px (kelas .lp__stickybar). WhatsApp + tautan #minta-info ke blok form. Dirender di app/(public)/[slug]/page.tsx dari blok agentCta yang sudah diresolve.",
-      "tokens": 304,
-      "hash": "e533d6f5f8f901ae",
-      "size": 1063,
-      "mtimeMs": 1787068256693.9443,
-      "updatedAt": "2026-08-18T23:21:30.012Z",
+      "description": "Dua aksi utama landing yang ikut ke mana pun pengunjung menggulir. Sejak",
+      "tokens": 326,
+      "hash": "1ae2a89029523dfa",
+      "size": 1139,
+      "mtimeMs": 1787148973206.0479,
+      "updatedAt": "2026-08-19T15:15:53.878Z",
       "source": "scan"
     },
     "components/landing/WhatsAppLink.tsx": {
@@ -1708,7 +1737,7 @@
       "hash": "6f938ecdd36277f2",
       "size": 1473,
       "mtimeMs": 1787065196284.5781,
-      "updatedAt": "2026-08-18T23:21:30.012Z",
+      "updatedAt": "2026-08-19T15:15:53.878Z",
       "source": "scan"
     },
     "components/leads/LeadFilters.tsx": {
@@ -1717,7 +1746,7 @@
       "hash": "2698cb7d24210148",
       "size": 2247,
       "mtimeMs": 1787092623966.482,
-      "updatedAt": "2026-08-18T23:21:30.012Z",
+      "updatedAt": "2026-08-19T15:15:53.879Z",
       "source": "scan",
       "symbols": [
         {
@@ -1749,7 +1778,7 @@
       "hash": "137ff66821c25b01",
       "size": 3819,
       "mtimeMs": 1787092695279.953,
-      "updatedAt": "2026-08-18T23:21:30.013Z",
+      "updatedAt": "2026-08-19T15:15:53.879Z",
       "source": "scan"
     },
     "components/leads/LeadsTable.tsx": {
@@ -1758,7 +1787,7 @@
       "hash": "df52ae020dee11f5",
       "size": 2122,
       "mtimeMs": 1787092605212.4507,
-      "updatedAt": "2026-08-18T23:21:30.013Z",
+      "updatedAt": "2026-08-19T15:15:53.879Z",
       "source": "scan",
       "symbols": [
         {
@@ -1783,7 +1812,7 @@
       "hash": "487d02e65897fb0f",
       "size": 1021,
       "mtimeMs": 1787092605120.5354,
-      "updatedAt": "2026-08-18T23:21:30.013Z",
+      "updatedAt": "2026-08-19T15:15:53.879Z",
       "source": "scan"
     },
     "components/media/media.css": {
@@ -1792,7 +1821,7 @@
       "hash": "53849b3749cce1c4",
       "size": 1688,
       "mtimeMs": 1786958904908.112,
-      "updatedAt": "2026-08-18T23:21:30.013Z",
+      "updatedAt": "2026-08-19T15:15:53.880Z",
       "source": "scan"
     },
     "components/media/MediaUploader.tsx": {
@@ -1801,7 +1830,7 @@
       "hash": "594fb250fa9f4004",
       "size": 4315,
       "mtimeMs": 1786958899272.733,
-      "updatedAt": "2026-08-18T23:21:30.014Z",
+      "updatedAt": "2026-08-19T15:15:53.880Z",
       "source": "scan",
       "symbols": [
         {
@@ -1826,7 +1855,7 @@
       "hash": "c9a4f824c2260941",
       "size": 1982,
       "mtimeMs": 1786985436497.745,
-      "updatedAt": "2026-08-18T23:21:30.014Z",
+      "updatedAt": "2026-08-19T15:15:53.880Z",
       "source": "scan",
       "symbols": [
         {
@@ -1851,7 +1880,7 @@
       "hash": "28a9c068c1f14420",
       "size": 5684,
       "mtimeMs": 1786983144501.3274,
-      "updatedAt": "2026-08-18T23:21:30.015Z",
+      "updatedAt": "2026-08-19T15:15:53.881Z",
       "source": "scan",
       "symbols": [
         {
@@ -1876,7 +1905,7 @@
       "hash": "6a4c1681d5974cd2",
       "size": 1545,
       "mtimeMs": 1786985446674.0847,
-      "updatedAt": "2026-08-18T23:21:30.015Z",
+      "updatedAt": "2026-08-19T15:15:53.881Z",
       "source": "scan"
     },
     "components/project/ProjectHeader.tsx": {
@@ -1885,7 +1914,7 @@
       "hash": "0275cc428bf6057a",
       "size": 3973,
       "mtimeMs": 1786985456411.6318,
-      "updatedAt": "2026-08-18T23:21:30.015Z",
+      "updatedAt": "2026-08-19T15:15:53.881Z",
       "source": "scan",
       "symbols": [
         {
@@ -1903,7 +1932,7 @@
       "hash": "284d6ad04ac92380",
       "size": 6279,
       "mtimeMs": 1787065196284.5781,
-      "updatedAt": "2026-08-18T23:21:30.015Z",
+      "updatedAt": "2026-08-19T15:15:53.882Z",
       "source": "scan",
       "symbols": [
         {
@@ -1921,7 +1950,7 @@
       "hash": "aa7902c4d3569c51",
       "size": 4612,
       "mtimeMs": 1787094939933.1982,
-      "updatedAt": "2026-08-18T23:21:30.016Z",
+      "updatedAt": "2026-08-19T15:15:53.882Z",
       "source": "scan",
       "symbols": [
         {
@@ -1939,7 +1968,7 @@
       "hash": "c1da9889b5a892cb",
       "size": 4219,
       "mtimeMs": 1787094939933.7036,
-      "updatedAt": "2026-08-18T23:21:30.016Z",
+      "updatedAt": "2026-08-19T15:15:53.882Z",
       "source": "scan",
       "symbols": [
         {
@@ -1957,7 +1986,7 @@
       "hash": "eb54dd0cafc5336c",
       "size": 2344,
       "mtimeMs": 1787093049803.7507,
-      "updatedAt": "2026-08-18T23:21:30.016Z",
+      "updatedAt": "2026-08-19T15:15:53.883Z",
       "source": "scan",
       "symbols": [
         {
@@ -1975,7 +2004,7 @@
       "hash": "b171cbec8113be7c",
       "size": 1295,
       "mtimeMs": 1787093049835.3943,
-      "updatedAt": "2026-08-18T23:21:30.016Z",
+      "updatedAt": "2026-08-19T15:15:53.883Z",
       "source": "scan"
     },
     "components/settings/SaveBar.tsx": {
@@ -1984,7 +2013,7 @@
       "hash": "bcca292ef0fa63d4",
       "size": 800,
       "mtimeMs": 1787093016274.5889,
-      "updatedAt": "2026-08-18T23:21:30.017Z",
+      "updatedAt": "2026-08-19T15:15:53.883Z",
       "source": "scan"
     },
     "components/settings/settings.css": {
@@ -1993,7 +2022,7 @@
       "hash": "25a68f43bc682540",
       "size": 6345,
       "mtimeMs": 1787094939934.0251,
-      "updatedAt": "2026-08-18T23:21:30.017Z",
+      "updatedAt": "2026-08-19T15:15:53.884Z",
       "source": "scan"
     },
     "components/settings/SettingsTabs.tsx": {
@@ -2002,7 +2031,7 @@
       "hash": "7c8fa70962bfb1b9",
       "size": 1045,
       "mtimeMs": 1787093016239.7913,
-      "updatedAt": "2026-08-18T23:21:30.017Z",
+      "updatedAt": "2026-08-19T15:15:53.884Z",
       "source": "scan"
     },
     "components/ui/accordion.tsx": {
@@ -2011,7 +2040,7 @@
       "hash": "4d2310f517b9c994",
       "size": 1038,
       "mtimeMs": 1786889987369.8958,
-      "updatedAt": "2026-08-18T23:21:30.017Z",
+      "updatedAt": "2026-08-19T15:15:53.885Z",
       "source": "scan"
     },
     "components/ui/dialog.tsx": {
@@ -2020,7 +2049,7 @@
       "hash": "4b4ceea2173e47e4",
       "size": 1023,
       "mtimeMs": 1786889525156.807,
-      "updatedAt": "2026-08-18T23:21:30.018Z",
+      "updatedAt": "2026-08-19T15:15:53.886Z",
       "source": "scan"
     },
     "components/ui/index.ts": {
@@ -2029,7 +2058,7 @@
       "hash": "e831e44943ec292a",
       "size": 394,
       "mtimeMs": 1786889549249.599,
-      "updatedAt": "2026-08-18T23:21:30.018Z",
+      "updatedAt": "2026-08-19T15:15:53.886Z",
       "source": "scan"
     },
     "components/ui/progress.tsx": {
@@ -2038,7 +2067,7 @@
       "hash": "686e14c580ca1747",
       "size": 377,
       "mtimeMs": 1786889538142.8416,
-      "updatedAt": "2026-08-18T23:21:30.018Z",
+      "updatedAt": "2026-08-19T15:15:53.887Z",
       "source": "scan"
     },
     "components/ui/sheet.tsx": {
@@ -2047,7 +2076,7 @@
       "hash": "62eb48a1f5db6655",
       "size": 1121,
       "mtimeMs": 1786889529754.6406,
-      "updatedAt": "2026-08-18T23:21:30.018Z",
+      "updatedAt": "2026-08-19T15:15:53.888Z",
       "source": "scan"
     },
     "components/ui/skeleton.tsx": {
@@ -2056,7 +2085,7 @@
       "hash": "13feafb614f73049",
       "size": 148,
       "mtimeMs": 1786889541006.36,
-      "updatedAt": "2026-08-18T23:21:30.018Z",
+      "updatedAt": "2026-08-19T15:15:53.888Z",
       "source": "scan"
     },
     "components/ui/toaster.tsx": {
@@ -2065,7 +2094,7 @@
       "hash": "39f5626ef60b4272",
       "size": 537,
       "mtimeMs": 1786889544967.264,
-      "updatedAt": "2026-08-18T23:21:30.019Z",
+      "updatedAt": "2026-08-19T15:15:53.888Z",
       "source": "scan"
     },
     "components/ui/ui.css": {
@@ -2074,7 +2103,7 @@
       "hash": "abe26ebbc13adc12",
       "size": 2743,
       "mtimeMs": 1786889996184.2532,
-      "updatedAt": "2026-08-18T23:21:30.019Z",
+      "updatedAt": "2026-08-19T15:15:53.889Z",
       "source": "scan"
     },
     "components/wizard/CreateProjectWizard.tsx": {
@@ -2083,7 +2112,7 @@
       "hash": "b52d42c3808d74c5",
       "size": 6770,
       "mtimeMs": 1786980760102.9402,
-      "updatedAt": "2026-08-18T23:21:30.019Z",
+      "updatedAt": "2026-08-19T15:15:53.889Z",
       "source": "scan",
       "symbols": [
         {
@@ -2101,7 +2130,7 @@
       "hash": "3104d86e3f144ed3",
       "size": 373,
       "mtimeMs": 1786959812613.4521,
-      "updatedAt": "2026-08-18T23:21:30.020Z",
+      "updatedAt": "2026-08-19T15:15:53.890Z",
       "source": "scan"
     },
     "components/wizard/wizard.css": {
@@ -2110,7 +2139,133 @@
       "hash": "a7099ce375183952",
       "size": 1411,
       "mtimeMs": 1786960189144.7764,
-      "updatedAt": "2026-08-18T23:21:30.020Z",
+      "updatedAt": "2026-08-19T15:15:53.890Z",
+      "source": "scan"
+    },
+    "design/project/.thumbnail": {
+      "description": "",
+      "tokens": 3409,
+      "hash": "30d62f13333108bb",
+      "size": 13474,
+      "mtimeMs": 1787146784598.1545,
+      "updatedAt": "2026-08-19T15:15:53.892Z",
+      "source": "scan"
+    },
+    "design/project/00 Index.dc.html": {
+      "description": "Declares Component",
+      "tokens": 1118,
+      "hash": "51a271f1d7a50953",
+      "size": 4195,
+      "mtimeMs": 1787146784598.1545,
+      "updatedAt": "2026-08-19T15:15:53.893Z",
+      "source": "scan"
+    },
+    "design/project/01 Premium Gelap.dc.html": {
+      "description": "",
+      "tokens": 6841,
+      "hash": "0d99cb5ee8d0041a",
+      "size": 25697,
+      "mtimeMs": 1787146784599.381,
+      "updatedAt": "2026-08-19T15:15:53.893Z",
+      "source": "scan"
+    },
+    "design/project/02 Editorial Putih.dc.html": {
+      "description": "",
+      "tokens": 6025,
+      "hash": "525da08713059824",
+      "size": 22614,
+      "mtimeMs": 1787146784599.381,
+      "updatedAt": "2026-08-19T15:15:53.894Z",
+      "source": "scan"
+    },
+    "design/project/03 Korporat Biru.dc.html": {
+      "description": "",
+      "tokens": 6707,
+      "hash": "891acea01270fd1c",
+      "size": 25173,
+      "mtimeMs": 1787146784599.381,
+      "updatedAt": "2026-08-19T15:15:53.896Z",
+      "source": "scan"
+    },
+    "design/project/04 Soft Luxury Beige.dc.html": {
+      "description": "",
+      "tokens": 6409,
+      "hash": "609c6d33837cbcdb",
+      "size": 24054,
+      "mtimeMs": 1787146784600.631,
+      "updatedAt": "2026-08-19T15:15:53.897Z",
+      "source": "scan"
+    },
+    "design/project/05 Bold Retail.dc.html": {
+      "description": "",
+      "tokens": 5859,
+      "hash": "d974bb40bf56663b",
+      "size": 21990,
+      "mtimeMs": 1787146784600.631,
+      "updatedAt": "2026-08-19T15:15:53.898Z",
+      "source": "scan"
+    },
+    "design/project/06 Arsitektural Beton.dc.html": {
+      "description": "",
+      "tokens": 6059,
+      "hash": "229dd51e9a1629d1",
+      "size": 22747,
+      "mtimeMs": 1787146784600.631,
+      "updatedAt": "2026-08-19T15:15:53.900Z",
+      "source": "scan"
+    },
+    "design/project/07 Nature Calm.dc.html": {
+      "description": "",
+      "tokens": 6429,
+      "hash": "1fddd850b7aa8adb",
+      "size": 24124,
+      "mtimeMs": 1787146784601.7346,
+      "updatedAt": "2026-08-19T15:15:53.900Z",
+      "source": "scan"
+    },
+    "design/project/08 Klasik Navy.dc.html": {
+      "description": "",
+      "tokens": 6182,
+      "hash": "b1c575ad96de03d0",
+      "size": 23196,
+      "mtimeMs": 1787146784601.7346,
+      "updatedAt": "2026-08-19T15:15:53.901Z",
+      "source": "scan"
+    },
+    "design/project/09 Playful Pastel.dc.html": {
+      "description": "",
+      "tokens": 6273,
+      "hash": "280297b9d542dc00",
+      "size": 23539,
+      "mtimeMs": 1787146784601.7346,
+      "updatedAt": "2026-08-19T15:15:53.903Z",
+      "source": "scan"
+    },
+    "design/project/10 Tropis Hangat.dc.html": {
+      "description": "",
+      "tokens": 6282,
+      "hash": "a8a6ac6522dea774",
+      "size": 23580,
+      "mtimeMs": 1787146784601.7346,
+      "updatedAt": "2026-08-19T15:15:53.904Z",
+      "source": "scan"
+    },
+    "design/project/support.js": {
+      "description": "getReact: getReactDOM, parseDcDocument, parseDcText + 10 more",
+      "tokens": 20299,
+      "hash": "d6bb6dd3aadb9ff7",
+      "size": 71061,
+      "mtimeMs": 1787146784602.7563,
+      "updatedAt": "2026-08-19T15:15:53.906Z",
+      "source": "scan"
+    },
+    "design/README.md": {
+      "description": "Project documentation",
+      "tokens": 427,
+      "hash": "505481314a47ad42",
+      "size": 1720,
+      "mtimeMs": 1787146784598.1545,
+      "updatedAt": "2026-08-19T15:15:53.907Z",
       "source": "scan"
     },
     "docs/superpowers/plans/2026-08-16-listingku-frontend-slice1.md": {
@@ -2119,7 +2274,16 @@
       "hash": "2d899d196e22d449",
       "size": 266621,
       "mtimeMs": 1787068458688.0103,
-      "updatedAt": "2026-08-18T23:21:30.023Z",
+      "updatedAt": "2026-08-19T15:15:53.910Z",
+      "source": "scan"
+    },
+    "docs/superpowers/plans/2026-08-19-listingku-landing-tema-tropis.md": {
+      "description": "Listingku Landing Slice 2A — Implementation Plan",
+      "tokens": 13147,
+      "hash": "22bbd442c68b1c54",
+      "size": 52805,
+      "mtimeMs": 1787101039609.6182,
+      "updatedAt": "2026-08-19T15:15:53.912Z",
       "source": "scan"
     },
     "docs/superpowers/specs/2026-08-16-listingku-frontend-slice1-design.md": {
@@ -2128,24 +2292,40 @@
       "hash": "9fcc2b2888b713bd",
       "size": 28606,
       "mtimeMs": 1786869973266.4226,
-      "updatedAt": "2026-08-18T23:21:30.023Z",
+      "updatedAt": "2026-08-19T15:15:53.914Z",
+      "source": "scan"
+    },
+    "docs/superpowers/specs/2026-08-19-listingku-landing-tema-tropis-design.md": {
+      "description": "Design — Listingku Landing Slice 2: sistem tema + Tropis Hangat",
+      "tokens": 7823,
+      "hash": "33e431d4e4f5ea61",
+      "size": 31549,
+      "mtimeMs": 1787100133986.5803,
+      "updatedAt": "2026-08-19T15:15:53.915Z",
       "source": "scan"
     },
     "fixtures/seed.ts": {
-      "description": "Exports SEED_USER_ID, seedStore",
-      "tokens": 1714,
-      "hash": "c3567dc8f04bb7c3",
-      "size": 6001,
-      "mtimeMs": 1787092959309.6543,
-      "updatedAt": "2026-08-18T23:21:30.023Z",
+      "description": "Menyalin blok bawaan tema lalu menambal props blok tertentu dengan konten seed.",
+      "tokens": 3116,
+      "hash": "28da0ff1b6570ed7",
+      "size": 10912,
+      "mtimeMs": 1787148791383.88,
+      "updatedAt": "2026-08-19T15:15:53.915Z",
       "source": "scan",
       "symbols": [
         {
+          "name": "withContent",
+          "kind": "fn",
+          "startLine": 10,
+          "endLine": 136,
+          "tokens": 1636
+        },
+        {
           "name": "seedStore",
           "kind": "fn",
-          "startLine": 34,
-          "endLine": 113,
-          "tokens": 1278
+          "startLine": 137,
+          "endLine": 218,
+          "tokens": 1304
         }
       ]
     },
@@ -2155,7 +2335,7 @@
       "hash": "1c19c64df839821b",
       "size": 15162,
       "mtimeMs": 1786865838965.3887,
-      "updatedAt": "2026-08-18T23:21:30.024Z",
+      "updatedAt": "2026-08-19T15:15:53.917Z",
       "source": "scan"
     },
     "GEMINI.md": {
@@ -2164,7 +2344,7 @@
       "hash": "8c90778623bf50ac",
       "size": 271,
       "mtimeMs": 1786866296321.735,
-      "updatedAt": "2026-08-18T23:21:30.024Z",
+      "updatedAt": "2026-08-19T15:15:53.917Z",
       "source": "scan"
     },
     "graphify-out/.graphify_detect.json": {
@@ -2173,7 +2353,7 @@
       "hash": "04e1ede5d1109019",
       "size": 506,
       "mtimeMs": 1786865995683.7124,
-      "updatedAt": "2026-08-18T23:21:30.024Z",
+      "updatedAt": "2026-08-19T15:15:53.917Z",
       "source": "scan"
     },
     "graphify-out/.graphify_python": {
@@ -2182,7 +2362,7 @@
       "hash": "a68b458fe356b32b",
       "size": 76,
       "mtimeMs": 1786865981913.0122,
-      "updatedAt": "2026-08-18T23:21:30.024Z",
+      "updatedAt": "2026-08-19T15:15:53.918Z",
       "source": "scan"
     },
     "graphify-out/.graphify_root": {
@@ -2191,7 +2371,7 @@
       "hash": "004226115ae5b518",
       "size": 23,
       "mtimeMs": 1786865981918.5269,
-      "updatedAt": "2026-08-18T23:21:30.025Z",
+      "updatedAt": "2026-08-19T15:15:53.918Z",
       "source": "scan"
     },
     "graphify-out/cache/stat-index.json": {
@@ -2200,7 +2380,7 @@
       "hash": "6ba8d67a7ea9d5be",
       "size": 125,
       "mtimeMs": 1786865995684.7122,
-      "updatedAt": "2026-08-18T23:21:30.025Z",
+      "updatedAt": "2026-08-19T15:15:53.918Z",
       "source": "scan"
     },
     "lib/ai/generator.ts": {
@@ -2209,7 +2389,7 @@
       "hash": "bbb4f1a92af4518c",
       "size": 597,
       "mtimeMs": 1787065196285.583,
-      "updatedAt": "2026-08-18T23:21:30.025Z",
+      "updatedAt": "2026-08-19T15:15:53.918Z",
       "source": "scan"
     },
     "lib/ai/index.ts": {
@@ -2218,7 +2398,7 @@
       "hash": "eac0e08ef33f9f35",
       "size": 476,
       "mtimeMs": 1787065196286.1917,
-      "updatedAt": "2026-08-18T23:21:30.025Z",
+      "updatedAt": "2026-08-19T15:15:53.919Z",
       "source": "scan"
     },
     "lib/ai/mock.ts": {
@@ -2227,7 +2407,7 @@
       "hash": "8bec00cd20c48e8e",
       "size": 4612,
       "mtimeMs": 1787065196286.1917,
-      "updatedAt": "2026-08-18T23:21:30.025Z",
+      "updatedAt": "2026-08-19T15:15:53.919Z",
       "source": "scan",
       "symbols": [
         {
@@ -2252,7 +2432,7 @@
       "hash": "0a320697622725cf",
       "size": 888,
       "mtimeMs": 1787065196287.007,
-      "updatedAt": "2026-08-18T23:21:30.026Z",
+      "updatedAt": "2026-08-19T15:15:53.919Z",
       "source": "scan"
     },
     "lib/data/index.ts": {
@@ -2261,104 +2441,104 @@
       "hash": "d47538c4c130b9f2",
       "size": 1026,
       "mtimeMs": 1786932787479.6829,
-      "updatedAt": "2026-08-18T23:21:30.026Z",
+      "updatedAt": "2026-08-19T15:15:53.920Z",
       "source": "scan"
     },
     "lib/data/mock/repos.ts": {
       "description": "Setiap metode baca (dan hasil create/update) HARUS lewat clone() sebelum",
-      "tokens": 2791,
-      "hash": "4112380590b96991",
-      "size": 9772,
-      "mtimeMs": 1787092389903.6482,
-      "updatedAt": "2026-08-18T23:21:30.026Z",
+      "tokens": 2838,
+      "hash": "469d4fab813b9f41",
+      "size": 9937,
+      "mtimeMs": 1787146784602.7563,
+      "updatedAt": "2026-08-19T15:15:53.921Z",
       "source": "scan",
       "symbols": [
         {
           "name": "now",
           "kind": "fn",
-          "startLine": 8,
-          "endLine": 20,
+          "startLine": 9,
+          "endLine": 21,
           "tokens": 190
         },
         {
           "name": "createMockStore",
           "kind": "fn",
-          "startLine": 21,
-          "endLine": 248,
-          "tokens": 2436
+          "startLine": 22,
+          "endLine": 250,
+          "tokens": 2457
         }
       ]
     },
     "lib/data/mock/snapshot.ts": {
       "description": "Direktori data bisa dioverride lewat LISTINGKU_DATA_DIR — dibaca ulang setiap",
-      "tokens": 1632,
-      "hash": "fc4086fae511528c",
-      "size": 5728,
-      "mtimeMs": 1787065196287.007,
-      "updatedAt": "2026-08-18T23:21:30.026Z",
+      "tokens": 1908,
+      "hash": "936484d84b274ed4",
+      "size": 6694,
+      "mtimeMs": 1787146784604.0444,
+      "updatedAt": "2026-08-19T15:15:53.921Z",
       "source": "scan",
       "symbols": [
         {
           "name": "dataDir",
           "kind": "fn",
-          "startLine": 14,
-          "endLine": 17,
+          "startLine": 17,
+          "endLine": 20,
           "tokens": 32
         },
         {
           "name": "storeFile",
           "kind": "fn",
-          "startLine": 18,
-          "endLine": 23,
+          "startLine": 21,
+          "endLine": 26,
           "tokens": 55
         },
         {
           "name": "isPlainObject",
           "kind": "fn",
-          "startLine": 24,
-          "endLine": 28,
+          "startLine": 27,
+          "endLine": 31,
           "tokens": 77
         },
         {
           "name": "isRowLike",
           "kind": "fn",
-          "startLine": 29,
-          "endLine": 43,
+          "startLine": 32,
+          "endLine": 46,
           "tokens": 229
         },
         {
           "name": "repairShape",
           "kind": "fn",
-          "startLine": 44,
-          "endLine": 58,
-          "tokens": 174
+          "startLine": 47,
+          "endLine": 78,
+          "tokens": 379
         },
         {
           "name": "loadSnapshot",
           "kind": "fn",
-          "startLine": 59,
-          "endLine": 76,
+          "startLine": 79,
+          "endLine": 96,
           "tokens": 205
         },
         {
           "name": "renameWithRetry",
           "kind": "fn",
-          "startLine": 77,
-          "endLine": 100,
+          "startLine": 97,
+          "endLine": 120,
           "tokens": 278
         },
         {
           "name": "saveSnapshot",
           "kind": "fn",
-          "startLine": 101,
-          "endLine": 121,
+          "startLine": 121,
+          "endLine": 141,
           "tokens": 256
         },
         {
           "name": "sweepStaleTmp",
           "kind": "fn",
-          "startLine": 122,
-          "endLine": 136,
+          "startLine": 142,
+          "endLine": 156,
           "tokens": 143
         }
       ]
@@ -2369,7 +2549,7 @@
       "hash": "1c64f6cc86765770",
       "size": 878,
       "mtimeMs": 1786932749262.5808,
-      "updatedAt": "2026-08-18T23:21:30.027Z",
+      "updatedAt": "2026-08-19T15:15:53.922Z",
       "source": "scan"
     },
     "lib/data/repo.ts": {
@@ -2378,7 +2558,7 @@
       "hash": "9147d3ee84df5eef",
       "size": 2718,
       "mtimeMs": 1787092389694.7737,
-      "updatedAt": "2026-08-18T23:21:30.027Z",
+      "updatedAt": "2026-08-19T15:15:53.922Z",
       "source": "scan",
       "symbols": [
         {
@@ -2396,93 +2576,93 @@
       "hash": "a5dbd60954ea736f",
       "size": 570,
       "mtimeMs": 1786931117586.7898,
-      "updatedAt": "2026-08-18T23:21:30.027Z",
+      "updatedAt": "2026-08-19T15:15:53.922Z",
       "source": "scan"
     },
     "lib/data/types.ts": {
       "description": "Stat ke-3 pada tab Profil di file design (\"Wilayah Spesialis\"). Teks, jadi",
-      "tokens": 984,
-      "hash": "dfe458aa6e1367bc",
-      "size": 3441,
-      "mtimeMs": 1787092936680.1917,
-      "updatedAt": "2026-08-18T23:21:30.027Z",
+      "tokens": 1043,
+      "hash": "e8948771e1b53e5d",
+      "size": 3649,
+      "mtimeMs": 1787146784604.724,
+      "updatedAt": "2026-08-19T15:15:53.923Z",
       "source": "scan",
       "symbols": [
         {
           "name": "SeoContent",
           "kind": "section",
-          "startLine": 11,
-          "endLine": 15,
+          "startLine": 15,
+          "endLine": 19,
           "tokens": 22
         },
         {
           "name": "ProjectAiContent",
           "kind": "section",
-          "startLine": 16,
-          "endLine": 24,
+          "startLine": 20,
+          "endLine": 28,
           "tokens": 75
         },
         {
           "name": "HouseTypeAiContent",
           "kind": "section",
-          "startLine": 25,
-          "endLine": 29,
+          "startLine": 29,
+          "endLine": 33,
           "tokens": 28
         },
         {
           "name": "AgentProfile",
           "kind": "section",
-          "startLine": 30,
-          "endLine": 54,
+          "startLine": 34,
+          "endLine": 58,
           "tokens": 206
         },
         {
           "name": "Project",
           "kind": "section",
-          "startLine": 55,
-          "endLine": 73,
-          "tokens": 105
+          "startLine": 59,
+          "endLine": 78,
+          "tokens": 112
         },
         {
           "name": "HouseType",
           "kind": "section",
-          "startLine": 74,
-          "endLine": 91,
+          "startLine": 79,
+          "endLine": 96,
           "tokens": 97
         },
         {
           "name": "Media",
           "kind": "section",
-          "startLine": 92,
-          "endLine": 104,
+          "startLine": 97,
+          "endLine": 109,
           "tokens": 60
         },
         {
           "name": "Lead",
           "kind": "section",
-          "startLine": 105,
-          "endLine": 117,
+          "startLine": 110,
+          "endLine": 122,
           "tokens": 63
         },
         {
           "name": "EventRow",
           "kind": "section",
-          "startLine": 118,
-          "endLine": 126,
+          "startLine": 123,
+          "endLine": 131,
           "tokens": 39
         },
         {
           "name": "AiUsage",
           "kind": "section",
-          "startLine": 127,
-          "endLine": 139,
+          "startLine": 132,
+          "endLine": 144,
           "tokens": 65
         },
         {
           "name": "StoreShape",
           "kind": "section",
-          "startLine": 140,
-          "endLine": 149,
+          "startLine": 145,
+          "endLine": 154,
           "tokens": 56
         }
       ]
@@ -2493,7 +2673,7 @@
       "hash": "dcadd1862249b538",
       "size": 3642,
       "mtimeMs": 1787092580357.0068,
-      "updatedAt": "2026-08-18T23:21:30.027Z",
+      "updatedAt": "2026-08-19T15:15:53.923Z",
       "source": "scan",
       "symbols": [
         {
@@ -2567,109 +2747,168 @@
       "hash": "cb1426030a0e916d",
       "size": 204,
       "mtimeMs": 1786890225277.864,
-      "updatedAt": "2026-08-18T23:21:30.028Z",
+      "updatedAt": "2026-08-19T15:15:53.924Z",
       "source": "scan"
     },
     "lib/landing/BlockRenderer.tsx": {
       "description": "Satu-satunya tempat yang menerjemahkan ResolvedBlock[] menjadi markup nyata.",
-      "tokens": 289,
-      "hash": "2136c15622e1ea92",
-      "size": 1011,
-      "mtimeMs": 1786985705867.7827,
-      "updatedAt": "2026-08-18T23:21:30.028Z",
+      "tokens": 302,
+      "hash": "e155df689ec75156",
+      "size": 1055,
+      "mtimeMs": 1787146784604.724,
+      "updatedAt": "2026-08-19T15:15:53.924Z",
       "source": "scan"
     },
     "lib/landing/blocks.ts": {
-      "description": "Block model & types for landing pages: BlockType union, BLOCK_ORDER, BLOCK_LABELS, defaultBlocks/moveBlock/toggleBlock/updateBlockProps functions",
-      "tokens": 1286,
-      "hash": "c4ea5e6f1b74ffe3",
-      "size": 4503,
-      "mtimeMs": 1786891276458.9302,
-      "updatedAt": "2026-08-18T23:21:30.028Z",
+      "description": "Model blok landing page.",
+      "tokens": 3013,
+      "hash": "5414876a739c779c",
+      "size": 10560,
+      "mtimeMs": 1787150144924.0356,
+      "updatedAt": "2026-08-19T15:15:53.924Z",
       "source": "scan",
       "symbols": [
         {
           "name": "BlockBase",
           "kind": "section",
-          "startLine": 17,
-          "endLine": 82,
-          "tokens": 726
+          "startLine": 21,
+          "endLine": 197,
+          "tokens": 2072
         },
         {
-          "name": "defaultBlocks",
+          "name": "defaultBlocksForTheme",
           "kind": "fn",
-          "startLine": 83,
-          "endLine": 88,
-          "tokens": 52
+          "startLine": 198,
+          "endLine": 213,
+          "tokens": 219
+        },
+        {
+          "name": "applyThemeOrder",
+          "kind": "fn",
+          "startLine": 214,
+          "endLine": 221,
+          "tokens": 97
         },
         {
           "name": "moveBlock",
           "kind": "fn",
-          "startLine": 89,
-          "endLine": 98,
+          "startLine": 222,
+          "endLine": 231,
           "tokens": 108
         },
         {
           "name": "toggleBlock",
           "kind": "fn",
-          "startLine": 99,
-          "endLine": 106,
+          "startLine": 232,
+          "endLine": 239,
           "tokens": 87
         },
         {
           "name": "updateBlockProps",
           "kind": "fn",
-          "startLine": 107,
-          "endLine": 118,
+          "startLine": 240,
+          "endLine": 251,
           "tokens": 118
         }
       ]
     },
-    "lib/landing/landing.css": {
-      "description": "Styles: 21 rules, 2 media queries",
-      "tokens": 576,
-      "hash": "d0845ca1cda07475",
-      "size": 2014,
-      "mtimeMs": 1786985581675.7664,
-      "updatedAt": "2026-08-18T23:21:30.028Z",
+    "lib/landing/fonts.ts": {
+      "description": "next/font tidak bisa dipanggil kondisional — semua pasangan font tema",
+      "tokens": 1717,
+      "hash": "39420d9481dfb390",
+      "size": 6010,
+      "mtimeMs": 1787150718332.1013,
+      "updatedAt": "2026-08-19T15:15:53.925Z",
       "source": "scan"
+    },
+    "lib/landing/landing.css": {
+      "description": "Styles: 16 rules, 1 vars, 1 media queries",
+      "tokens": 1080,
+      "hash": "45b9e7a9675361a4",
+      "size": 3788,
+      "mtimeMs": 1787149871374.819,
+      "updatedAt": "2026-08-19T15:15:53.925Z",
+      "source": "scan"
+    },
+    "lib/landing/LandingView.tsx": {
+      "description": "Satu-satunya tempat halaman landing dirakit. Dipakai halaman publik `/{slug}`",
+      "tokens": 1066,
+      "hash": "58c19092999f8619",
+      "size": 3739,
+      "mtimeMs": 1787149395473.6294,
+      "updatedAt": "2026-08-19T15:15:53.926Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "LandingData",
+          "kind": "section",
+          "startLine": 12,
+          "endLine": 30,
+          "tokens": 202
+        },
+        {
+          "name": "LandingView",
+          "kind": "fn",
+          "startLine": 31,
+          "endLine": 95,
+          "tokens": 704
+        }
+      ]
+    },
+    "lib/landing/palettes.ts": {
+      "description": "Palet dikirim sebagai custom property di root landing, bukan sebagai",
+      "tokens": 2079,
+      "hash": "50d12dd65bdb93b9",
+      "size": 7278,
+      "mtimeMs": 1787146784605.7239,
+      "updatedAt": "2026-08-19T15:15:53.927Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "paletteStyle",
+          "kind": "fn",
+          "startLine": 141,
+          "endLine": 145,
+          "tokens": 60
+        }
+      ]
     },
     "lib/landing/resolve.ts": {
       "description": "Rantai yang menopang tombol \"Use AI suggestion\": override, lalu AI, lalu fallback.",
-      "tokens": 2152,
-      "hash": "bf25c31b10b9a13e",
-      "size": 7532,
-      "mtimeMs": 1787008318128.7295,
-      "updatedAt": "2026-08-18T23:21:30.028Z",
+      "tokens": 3449,
+      "hash": "0b20dce601ebbbbe",
+      "size": 12079,
+      "mtimeMs": 1787151594098.041,
+      "updatedAt": "2026-08-19T15:15:53.927Z",
       "source": "scan",
       "symbols": [
         {
           "name": "ResolvedHouseType",
           "kind": "section",
           "startLine": 4,
-          "endLine": 33,
-          "tokens": 360
+          "endLine": 36,
+          "tokens": 548
         },
         {
           "name": "ResolveInput",
           "kind": "section",
-          "startLine": 34,
-          "endLine": 56,
+          "startLine": 37,
+          "endLine": 59,
           "tokens": 233
         },
         {
           "name": "resolveHouseTypes",
           "kind": "fn",
-          "startLine": 57,
-          "endLine": 83,
+          "startLine": 60,
+          "endLine": 86,
           "tokens": 335
         },
         {
           "name": "resolveBlocks",
           "kind": "fn",
-          "startLine": 84,
-          "endLine": 199,
-          "tokens": 1190
+          "startLine": 87,
+          "endLine": 277,
+          "tokens": 2220
         }
       ]
     },
@@ -2679,7 +2918,7 @@
       "hash": "812a3c3d459001ea",
       "size": 3277,
       "mtimeMs": 1787005695994.3975,
-      "updatedAt": "2026-08-18T23:21:30.029Z",
+      "updatedAt": "2026-08-19T15:15:53.928Z",
       "source": "scan",
       "symbols": [
         {
@@ -2712,130 +2951,1532 @@
         }
       ]
     },
+    "lib/landing/themeNames.ts": {
+      "description": "Peta datar, BUKAN diambil dari THEMES. Lapisan data (mock/store.ts)",
+      "tokens": 578,
+      "hash": "54d9ca700bd1e195",
+      "size": 2023,
+      "mtimeMs": 1787146784606.9658,
+      "updatedAt": "2026-08-19T15:15:53.928Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "normalizeTheme",
+          "kind": "fn",
+          "startLine": 42,
+          "endLine": 47,
+          "tokens": 64
+        }
+      ]
+    },
+    "lib/landing/themes/architectural/blocks.tsx": {
+      "description": "06 Arsitektural Beton — ditranskrip dari",
+      "tokens": 4655,
+      "hash": "f8c50a8c8c0a35e4",
+      "size": 16304,
+      "mtimeMs": 1787151624657.9414,
+      "updatedAt": "2026-08-19T15:15:53.929Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Header",
+          "kind": "fn",
+          "startLine": 22,
+          "endLine": 30,
+          "tokens": 74
+        },
+        {
+          "name": "Hero",
+          "kind": "fn",
+          "startLine": 31,
+          "endLine": 70,
+          "tokens": 421
+        },
+        {
+          "name": "Highlights",
+          "kind": "fn",
+          "startLine": 71,
+          "endLine": 90,
+          "tokens": 212
+        },
+        {
+          "name": "HouseTypes",
+          "kind": "fn",
+          "startLine": 91,
+          "endLine": 134,
+          "tokens": 504
+        },
+        {
+          "name": "Specs",
+          "kind": "fn",
+          "startLine": 135,
+          "endLine": 169,
+          "tokens": 380
+        },
+        {
+          "name": "FloorPlans",
+          "kind": "fn",
+          "startLine": 170,
+          "endLine": 196,
+          "tokens": 294
+        },
+        {
+          "name": "Location",
+          "kind": "fn",
+          "startLine": 197,
+          "endLine": 225,
+          "tokens": 298
+        },
+        {
+          "name": "Facilities",
+          "kind": "fn",
+          "startLine": 226,
+          "endLine": 246,
+          "tokens": 226
+        },
+        {
+          "name": "Gallery",
+          "kind": "fn",
+          "startLine": 247,
+          "endLine": 266,
+          "tokens": 195
+        },
+        {
+          "name": "PricePromo",
+          "kind": "fn",
+          "startLine": 267,
+          "endLine": 295,
+          "tokens": 355
+        },
+        {
+          "name": "Developer",
+          "kind": "fn",
+          "startLine": 296,
+          "endLine": 316,
+          "tokens": 213
+        },
+        {
+          "name": "Testimonials",
+          "kind": "fn",
+          "startLine": 317,
+          "endLine": 333,
+          "tokens": 175
+        },
+        {
+          "name": "Faq",
+          "kind": "fn",
+          "startLine": 334,
+          "endLine": 360,
+          "tokens": 274
+        },
+        {
+          "name": "AgentCta",
+          "kind": "fn",
+          "startLine": 361,
+          "endLine": 387,
+          "tokens": 290
+        },
+        {
+          "name": "ContactFormBlock",
+          "kind": "fn",
+          "startLine": 388,
+          "endLine": 403,
+          "tokens": 152
+        },
+        {
+          "name": "Footer",
+          "kind": "fn",
+          "startLine": 404,
+          "endLine": 423,
+          "tokens": 225
+        }
+      ]
+    },
+    "lib/landing/themes/architectural/index.ts": {
+      "description": "Exports architecturalComponents, architecturalChrome",
+      "tokens": 194,
+      "hash": "0f7beed6910e4dff",
+      "size": 677,
+      "mtimeMs": 1787150805674.0884,
+      "updatedAt": "2026-08-19T15:15:53.929Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/architectural/theme.css": {
+      "description": "Styles: 103 rules, 5 vars",
+      "tokens": 3656,
+      "hash": "e7da3f0979cb4c7f",
+      "size": 12801,
+      "mtimeMs": 1787151763832.1223,
+      "updatedAt": "2026-08-19T15:15:53.929Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/boldRetail/blocks.tsx": {
+      "description": "05 Bold Retail — ditranskrip dari `design/project/05 Bold Retail.dc.html`.",
+      "tokens": 4513,
+      "hash": "255c43b0289c957c",
+      "size": 15810,
+      "mtimeMs": 1787150595590.2869,
+      "updatedAt": "2026-08-19T15:15:53.930Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Header",
+          "kind": "fn",
+          "startLine": 24,
+          "endLine": 38,
+          "tokens": 116
+        },
+        {
+          "name": "Hero",
+          "kind": "fn",
+          "startLine": 39,
+          "endLine": 59,
+          "tokens": 230
+        },
+        {
+          "name": "Developer",
+          "kind": "fn",
+          "startLine": 60,
+          "endLine": 83,
+          "tokens": 218
+        },
+        {
+          "name": "Highlights",
+          "kind": "fn",
+          "startLine": 84,
+          "endLine": 103,
+          "tokens": 204
+        },
+        {
+          "name": "HouseTypes",
+          "kind": "fn",
+          "startLine": 104,
+          "endLine": 155,
+          "tokens": 637
+        },
+        {
+          "name": "Specs",
+          "kind": "fn",
+          "startLine": 156,
+          "endLine": 190,
+          "tokens": 377
+        },
+        {
+          "name": "PricePromo",
+          "kind": "fn",
+          "startLine": 191,
+          "endLine": 218,
+          "tokens": 362
+        },
+        {
+          "name": "Location",
+          "kind": "fn",
+          "startLine": 219,
+          "endLine": 248,
+          "tokens": 310
+        },
+        {
+          "name": "Facilities",
+          "kind": "fn",
+          "startLine": 249,
+          "endLine": 268,
+          "tokens": 205
+        },
+        {
+          "name": "FloorPlans",
+          "kind": "fn",
+          "startLine": 269,
+          "endLine": 290,
+          "tokens": 214
+        },
+        {
+          "name": "Gallery",
+          "kind": "fn",
+          "startLine": 291,
+          "endLine": 308,
+          "tokens": 185
+        },
+        {
+          "name": "Testimonials",
+          "kind": "fn",
+          "startLine": 309,
+          "endLine": 331,
+          "tokens": 257
+        },
+        {
+          "name": "Faq",
+          "kind": "fn",
+          "startLine": 332,
+          "endLine": 358,
+          "tokens": 277
+        },
+        {
+          "name": "AgentCta",
+          "kind": "fn",
+          "startLine": 359,
+          "endLine": 384,
+          "tokens": 284
+        },
+        {
+          "name": "ContactFormBlock",
+          "kind": "fn",
+          "startLine": 385,
+          "endLine": 399,
+          "tokens": 137
+        },
+        {
+          "name": "Footer",
+          "kind": "fn",
+          "startLine": 400,
+          "endLine": 419,
+          "tokens": 216
+        }
+      ]
+    },
+    "lib/landing/themes/boldRetail/index.ts": {
+      "description": "Exports boldRetailComponents, boldRetailChrome",
+      "tokens": 192,
+      "hash": "5c6290f1adcbf9c7",
+      "size": 671,
+      "mtimeMs": 1787150595628.212,
+      "updatedAt": "2026-08-19T15:15:53.930Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/boldRetail/theme.css": {
+      "description": "Styles: 103 rules, 4 vars",
+      "tokens": 4062,
+      "hash": "0406b572fbd4f595",
+      "size": 14220,
+      "mtimeMs": 1787151574592.5293,
+      "updatedAt": "2026-08-19T15:15:53.930Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/classicNavy/blocks.tsx": {
+      "description": "08 Klasik Navy — ditranskrip dari `design/project/08 Klasik Navy.dc.html`.",
+      "tokens": 4745,
+      "hash": "f7f4e4330e14f5e4",
+      "size": 16616,
+      "mtimeMs": 1787151611912.322,
+      "updatedAt": "2026-08-19T15:15:53.931Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Header",
+          "kind": "fn",
+          "startLine": 20,
+          "endLine": 28,
+          "tokens": 80
+        },
+        {
+          "name": "Hero",
+          "kind": "fn",
+          "startLine": 29,
+          "endLine": 73,
+          "tokens": 476
+        },
+        {
+          "name": "Highlights",
+          "kind": "fn",
+          "startLine": 74,
+          "endLine": 91,
+          "tokens": 185
+        },
+        {
+          "name": "HouseTypes",
+          "kind": "fn",
+          "startLine": 92,
+          "endLine": 140,
+          "tokens": 596
+        },
+        {
+          "name": "Specs",
+          "kind": "fn",
+          "startLine": 141,
+          "endLine": 176,
+          "tokens": 393
+        },
+        {
+          "name": "Facilities",
+          "kind": "fn",
+          "startLine": 177,
+          "endLine": 195,
+          "tokens": 201
+        },
+        {
+          "name": "Location",
+          "kind": "fn",
+          "startLine": 196,
+          "endLine": 224,
+          "tokens": 295
+        },
+        {
+          "name": "FloorPlans",
+          "kind": "fn",
+          "startLine": 225,
+          "endLine": 247,
+          "tokens": 228
+        },
+        {
+          "name": "Gallery",
+          "kind": "fn",
+          "startLine": 248,
+          "endLine": 266,
+          "tokens": 192
+        },
+        {
+          "name": "PricePromo",
+          "kind": "fn",
+          "startLine": 267,
+          "endLine": 295,
+          "tokens": 378
+        },
+        {
+          "name": "Testimonials",
+          "kind": "fn",
+          "startLine": 296,
+          "endLine": 314,
+          "tokens": 218
+        },
+        {
+          "name": "Developer",
+          "kind": "fn",
+          "startLine": 315,
+          "endLine": 335,
+          "tokens": 228
+        },
+        {
+          "name": "Faq",
+          "kind": "fn",
+          "startLine": 336,
+          "endLine": 362,
+          "tokens": 268
+        },
+        {
+          "name": "AgentCta",
+          "kind": "fn",
+          "startLine": 363,
+          "endLine": 387,
+          "tokens": 284
+        },
+        {
+          "name": "ContactFormBlock",
+          "kind": "fn",
+          "startLine": 388,
+          "endLine": 403,
+          "tokens": 157
+        },
+        {
+          "name": "Footer",
+          "kind": "fn",
+          "startLine": 404,
+          "endLine": 423,
+          "tokens": 216
+        }
+      ]
+    },
+    "lib/landing/themes/classicNavy/index.ts": {
+      "description": "Exports classicNavyComponents, classicNavyChrome",
+      "tokens": 193,
+      "hash": "56e0ab2973566e82",
+      "size": 673,
+      "mtimeMs": 1787151137121.1,
+      "updatedAt": "2026-08-19T15:15:53.931Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/classicNavy/theme.css": {
+      "description": "Styles: 104 rules, 3 vars",
+      "tokens": 3820,
+      "hash": "79e8613af7228f8a",
+      "size": 13378,
+      "mtimeMs": 1787151611913.8665,
+      "updatedAt": "2026-08-19T15:15:53.931Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/corporateBlue/blocks.tsx": {
+      "description": "03 Korporat Biru — ditranskrip dari `design/project/03 Korporat Biru.dc.html`.",
+      "tokens": 4800,
+      "hash": "518df23df097bbc2",
+      "size": 16810,
+      "mtimeMs": 1787150214825.3723,
+      "updatedAt": "2026-08-19T15:15:53.932Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Header",
+          "kind": "fn",
+          "startLine": 22,
+          "endLine": 30,
+          "tokens": 76
+        },
+        {
+          "name": "Hero",
+          "kind": "fn",
+          "startLine": 31,
+          "endLine": 50,
+          "tokens": 220
+        },
+        {
+          "name": "ContactFormBlock",
+          "kind": "fn",
+          "startLine": 51,
+          "endLine": 66,
+          "tokens": 177
+        },
+        {
+          "name": "Developer",
+          "kind": "fn",
+          "startLine": 67,
+          "endLine": 91,
+          "tokens": 245
+        },
+        {
+          "name": "Highlights",
+          "kind": "fn",
+          "startLine": 92,
+          "endLine": 112,
+          "tokens": 226
+        },
+        {
+          "name": "HouseTypes",
+          "kind": "fn",
+          "startLine": 113,
+          "endLine": 171,
+          "tokens": 719
+        },
+        {
+          "name": "Specs",
+          "kind": "fn",
+          "startLine": 172,
+          "endLine": 207,
+          "tokens": 394
+        },
+        {
+          "name": "Location",
+          "kind": "fn",
+          "startLine": 208,
+          "endLine": 238,
+          "tokens": 338
+        },
+        {
+          "name": "Facilities",
+          "kind": "fn",
+          "startLine": 239,
+          "endLine": 259,
+          "tokens": 224
+        },
+        {
+          "name": "FloorPlans",
+          "kind": "fn",
+          "startLine": 260,
+          "endLine": 282,
+          "tokens": 228
+        },
+        {
+          "name": "Gallery",
+          "kind": "fn",
+          "startLine": 283,
+          "endLine": 301,
+          "tokens": 195
+        },
+        {
+          "name": "PricePromo",
+          "kind": "fn",
+          "startLine": 302,
+          "endLine": 330,
+          "tokens": 389
+        },
+        {
+          "name": "Testimonials",
+          "kind": "fn",
+          "startLine": 331,
+          "endLine": 353,
+          "tokens": 252
+        },
+        {
+          "name": "Faq",
+          "kind": "fn",
+          "startLine": 354,
+          "endLine": 381,
+          "tokens": 290
+        },
+        {
+          "name": "AgentCta",
+          "kind": "fn",
+          "startLine": 382,
+          "endLine": 409,
+          "tokens": 342
+        },
+        {
+          "name": "Footer",
+          "kind": "fn",
+          "startLine": 410,
+          "endLine": 429,
+          "tokens": 216
+        }
+      ]
+    },
+    "lib/landing/themes/corporateBlue/index.ts": {
+      "description": "Exports corporateBlueComponents, corporateBlueChrome",
+      "tokens": 194,
+      "hash": "abdbb8004e979ba3",
+      "size": 677,
+      "mtimeMs": 1787150214860.754,
+      "updatedAt": "2026-08-19T15:15:53.932Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/corporateBlue/theme.css": {
+      "description": "Styles: 98 rules, 3 vars",
+      "tokens": 4326,
+      "hash": "eaf4a72e9d13ccf8",
+      "size": 15149,
+      "mtimeMs": 1787151574593.5298,
+      "updatedAt": "2026-08-19T15:15:53.932Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/editorialWhite/blocks.tsx": {
+      "description": "02 Editorial Putih — ditranskrip dari `design/project/02 Editorial Putih.dc.html`.",
+      "tokens": 4744,
+      "hash": "378a68f6ddabbdee",
+      "size": 16618,
+      "mtimeMs": 1787151594276.8909,
+      "updatedAt": "2026-08-19T15:15:53.933Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Header",
+          "kind": "fn",
+          "startLine": 22,
+          "endLine": 31,
+          "tokens": 98
+        },
+        {
+          "name": "TitleWithAccent",
+          "kind": "fn",
+          "startLine": 32,
+          "endLine": 42,
+          "tokens": 81
+        },
+        {
+          "name": "Hero",
+          "kind": "fn",
+          "startLine": 43,
+          "endLine": 81,
+          "tokens": 416
+        },
+        {
+          "name": "Highlights",
+          "kind": "fn",
+          "startLine": 82,
+          "endLine": 102,
+          "tokens": 219
+        },
+        {
+          "name": "HouseTypes",
+          "kind": "fn",
+          "startLine": 103,
+          "endLine": 139,
+          "tokens": 441
+        },
+        {
+          "name": "Specs",
+          "kind": "fn",
+          "startLine": 140,
+          "endLine": 175,
+          "tokens": 393
+        },
+        {
+          "name": "Location",
+          "kind": "fn",
+          "startLine": 176,
+          "endLine": 202,
+          "tokens": 285
+        },
+        {
+          "name": "Facilities",
+          "kind": "fn",
+          "startLine": 203,
+          "endLine": 221,
+          "tokens": 198
+        },
+        {
+          "name": "FloorPlans",
+          "kind": "fn",
+          "startLine": 222,
+          "endLine": 244,
+          "tokens": 227
+        },
+        {
+          "name": "Gallery",
+          "kind": "fn",
+          "startLine": 245,
+          "endLine": 263,
+          "tokens": 188
+        },
+        {
+          "name": "PricePromo",
+          "kind": "fn",
+          "startLine": 264,
+          "endLine": 292,
+          "tokens": 365
+        },
+        {
+          "name": "Testimonials",
+          "kind": "fn",
+          "startLine": 293,
+          "endLine": 313,
+          "tokens": 230
+        },
+        {
+          "name": "Developer",
+          "kind": "fn",
+          "startLine": 314,
+          "endLine": 334,
+          "tokens": 229
+        },
+        {
+          "name": "Faq",
+          "kind": "fn",
+          "startLine": 335,
+          "endLine": 359,
+          "tokens": 248
+        },
+        {
+          "name": "AgentCta",
+          "kind": "fn",
+          "startLine": 360,
+          "endLine": 386,
+          "tokens": 332
+        },
+        {
+          "name": "ContactFormBlock",
+          "kind": "fn",
+          "startLine": 387,
+          "endLine": 404,
+          "tokens": 187
+        },
+        {
+          "name": "Footer",
+          "kind": "fn",
+          "startLine": 405,
+          "endLine": 424,
+          "tokens": 216
+        }
+      ]
+    },
+    "lib/landing/themes/editorialWhite/index.ts": {
+      "description": "Exports editorialWhiteComponents, editorialWhiteChrome",
+      "tokens": 194,
+      "hash": "b075dcde8476ee43",
+      "size": 679,
+      "mtimeMs": 1787149969208.8618,
+      "updatedAt": "2026-08-19T15:15:53.933Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/editorialWhite/theme.css": {
+      "description": "Styles: 100 rules, 4 vars",
+      "tokens": 4125,
+      "hash": "20e733effe99e91e",
+      "size": 14450,
+      "mtimeMs": 1787151594277.8914,
+      "updatedAt": "2026-08-19T15:15:53.933Z",
+      "source": "scan"
+    },
     "lib/landing/themes/index.ts": {
-      "description": "Ketiga nama tema disimpan di data, tapi selama slice 1 semuanya dipetakan ke",
-      "tokens": 249,
-      "hash": "ceef871e5520bdd0",
-      "size": 872,
-      "mtimeMs": 1786985695842.4983,
-      "updatedAt": "2026-08-18T23:21:30.029Z",
+      "description": "Header dan Footer setiap tema menerima seluruh konteks project, bukan satu blok.",
+      "tokens": 1135,
+      "hash": "930ce742e885ec40",
+      "size": 3973,
+      "mtimeMs": 1787151452594.5957,
+      "updatedAt": "2026-08-19T15:15:53.933Z",
       "source": "scan"
     },
-    "lib/landing/themes/wireframe/AgentCta.tsx": {
-      "description": "Server Component; merender WhatsAppLink (klien) dengan projectId/waNumber/defaultMessage dari block.",
-      "tokens": 268,
-      "hash": "2ffa2f00041c8a99",
-      "size": 936,
-      "mtimeMs": 1787065196287.007,
-      "updatedAt": "2026-08-18T23:21:30.029Z",
+    "lib/landing/themes/natureCalm/blocks.tsx": {
+      "description": "07 Nature Calm — ditranskrip dari `design/project/07 Nature Calm.dc.html`.",
+      "tokens": 4908,
+      "hash": "0d4201e3a8b6dd81",
+      "size": 17189,
+      "mtimeMs": 1787151611915.0115,
+      "updatedAt": "2026-08-19T15:15:53.934Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Header",
+          "kind": "fn",
+          "startLine": 20,
+          "endLine": 28,
+          "tokens": 72
+        },
+        {
+          "name": "Hero",
+          "kind": "fn",
+          "startLine": 29,
+          "endLine": 71,
+          "tokens": 468
+        },
+        {
+          "name": "Highlights",
+          "kind": "fn",
+          "startLine": 72,
+          "endLine": 90,
+          "tokens": 210
+        },
+        {
+          "name": "Facilities",
+          "kind": "fn",
+          "startLine": 91,
+          "endLine": 109,
+          "tokens": 203
+        },
+        {
+          "name": "HouseTypes",
+          "kind": "fn",
+          "startLine": 110,
+          "endLine": 158,
+          "tokens": 598
+        },
+        {
+          "name": "Specs",
+          "kind": "fn",
+          "startLine": 159,
+          "endLine": 194,
+          "tokens": 393
+        },
+        {
+          "name": "Location",
+          "kind": "fn",
+          "startLine": 195,
+          "endLine": 225,
+          "tokens": 328
+        },
+        {
+          "name": "FloorPlans",
+          "kind": "fn",
+          "startLine": 226,
+          "endLine": 248,
+          "tokens": 228
+        },
+        {
+          "name": "Gallery",
+          "kind": "fn",
+          "startLine": 249,
+          "endLine": 269,
+          "tokens": 218
+        },
+        {
+          "name": "PricePromo",
+          "kind": "fn",
+          "startLine": 270,
+          "endLine": 298,
+          "tokens": 380
+        },
+        {
+          "name": "Testimonials",
+          "kind": "fn",
+          "startLine": 299,
+          "endLine": 321,
+          "tokens": 252
+        },
+        {
+          "name": "Developer",
+          "kind": "fn",
+          "startLine": 322,
+          "endLine": 342,
+          "tokens": 223
+        },
+        {
+          "name": "Faq",
+          "kind": "fn",
+          "startLine": 343,
+          "endLine": 370,
+          "tokens": 285
+        },
+        {
+          "name": "AgentCta",
+          "kind": "fn",
+          "startLine": 371,
+          "endLine": 397,
+          "tokens": 324
+        },
+        {
+          "name": "ContactFormBlock",
+          "kind": "fn",
+          "startLine": 398,
+          "endLine": 413,
+          "tokens": 152
+        },
+        {
+          "name": "Footer",
+          "kind": "fn",
+          "startLine": 414,
+          "endLine": 433,
+          "tokens": 216
+        }
+      ]
+    },
+    "lib/landing/themes/natureCalm/index.ts": {
+      "description": "Exports natureCalmComponents, natureCalmChrome",
+      "tokens": 192,
+      "hash": "4074a3b85eb04cb5",
+      "size": 671,
+      "mtimeMs": 1787150972631.677,
+      "updatedAt": "2026-08-19T15:15:53.934Z",
       "source": "scan"
     },
-    "lib/landing/themes/wireframe/ContactFormBlock.tsx": {
-      "description": "Server Component; merender ContactForm (klien) dengan projectId/houseTypes/askHouseType.",
-      "tokens": 257,
-      "hash": "d84021103c9adecd",
-      "size": 899,
-      "mtimeMs": 1787068351439.3098,
-      "updatedAt": "2026-08-18T23:21:30.029Z",
+    "lib/landing/themes/natureCalm/theme.css": {
+      "description": "Styles: 110 rules, 3 vars",
+      "tokens": 3872,
+      "hash": "99bcb0860ef6f2d9",
+      "size": 13557,
+      "mtimeMs": 1787151611916.025,
+      "updatedAt": "2026-08-19T15:15:53.934Z",
       "source": "scan"
     },
-    "lib/landing/themes/wireframe/Facilities.tsx": {
+    "lib/landing/themes/playfulPastel/blocks.tsx": {
+      "description": "09 Playful Pastel — ditranskrip dari `design/project/09 Playful Pastel.dc.html`.",
+      "tokens": 4886,
+      "hash": "5a52c75f92833ec8",
+      "size": 17120,
+      "mtimeMs": 1787151725041.8462,
+      "updatedAt": "2026-08-19T15:15:53.935Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Header",
+          "kind": "fn",
+          "startLine": 22,
+          "endLine": 30,
+          "tokens": 73
+        },
+        {
+          "name": "Hero",
+          "kind": "fn",
+          "startLine": 31,
+          "endLine": 72,
+          "tokens": 531
+        },
+        {
+          "name": "Highlights",
+          "kind": "fn",
+          "startLine": 73,
+          "endLine": 90,
+          "tokens": 191
+        },
+        {
+          "name": "HouseTypes",
+          "kind": "fn",
+          "startLine": 91,
+          "endLine": 140,
+          "tokens": 607
+        },
+        {
+          "name": "Specs",
+          "kind": "fn",
+          "startLine": 141,
+          "endLine": 175,
+          "tokens": 382
+        },
+        {
+          "name": "Facilities",
+          "kind": "fn",
+          "startLine": 176,
+          "endLine": 193,
+          "tokens": 194
+        },
+        {
+          "name": "Location",
+          "kind": "fn",
+          "startLine": 194,
+          "endLine": 223,
+          "tokens": 317
+        },
+        {
+          "name": "FloorPlans",
+          "kind": "fn",
+          "startLine": 224,
+          "endLine": 245,
+          "tokens": 214
+        },
+        {
+          "name": "Gallery",
+          "kind": "fn",
+          "startLine": 246,
+          "endLine": 263,
+          "tokens": 194
+        },
+        {
+          "name": "PricePromo",
+          "kind": "fn",
+          "startLine": 264,
+          "endLine": 293,
+          "tokens": 386
+        },
+        {
+          "name": "Testimonials",
+          "kind": "fn",
+          "startLine": 294,
+          "endLine": 316,
+          "tokens": 258
+        },
+        {
+          "name": "Developer",
+          "kind": "fn",
+          "startLine": 317,
+          "endLine": 337,
+          "tokens": 232
+        },
+        {
+          "name": "Faq",
+          "kind": "fn",
+          "startLine": 338,
+          "endLine": 364,
+          "tokens": 273
+        },
+        {
+          "name": "AgentCta",
+          "kind": "fn",
+          "startLine": 365,
+          "endLine": 390,
+          "tokens": 286
+        },
+        {
+          "name": "ContactFormBlock",
+          "kind": "fn",
+          "startLine": 391,
+          "endLine": 405,
+          "tokens": 138
+        },
+        {
+          "name": "Footer",
+          "kind": "fn",
+          "startLine": 406,
+          "endLine": 425,
+          "tokens": 216
+        }
+      ]
+    },
+    "lib/landing/themes/playfulPastel/index.ts": {
+      "description": "Exports playfulPastelComponents, playfulPastelChrome",
+      "tokens": 194,
+      "hash": "961893a213bd6d7a",
+      "size": 677,
+      "mtimeMs": 1787151306356.4983,
+      "updatedAt": "2026-08-19T15:15:53.935Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/playfulPastel/theme.css": {
+      "description": "Styles: 106 rules, 7 vars",
+      "tokens": 4311,
+      "hash": "7586056377092cb2",
+      "size": 15098,
+      "mtimeMs": 1787151725043.185,
+      "updatedAt": "2026-08-19T15:15:53.935Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/premiumDark/blocks.tsx": {
+      "description": "01 Premium Gelap — ditranskrip dari `design/project/01 Premium Gelap.dc.html`.",
+      "tokens": 4830,
+      "hash": "f0badf89097c32af",
+      "size": 16921,
+      "mtimeMs": 1787149714268.0137,
+      "updatedAt": "2026-08-19T15:15:53.936Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Header",
+          "kind": "fn",
+          "startLine": 21,
+          "endLine": 29,
+          "tokens": 81
+        },
+        {
+          "name": "Hero",
+          "kind": "fn",
+          "startLine": 30,
+          "endLine": 67,
+          "tokens": 406
+        },
+        {
+          "name": "Highlights",
+          "kind": "fn",
+          "startLine": 68,
+          "endLine": 87,
+          "tokens": 207
+        },
+        {
+          "name": "HouseTypes",
+          "kind": "fn",
+          "startLine": 88,
+          "endLine": 137,
+          "tokens": 594
+        },
+        {
+          "name": "Specs",
+          "kind": "fn",
+          "startLine": 138,
+          "endLine": 173,
+          "tokens": 394
+        },
+        {
+          "name": "Facilities",
+          "kind": "fn",
+          "startLine": 174,
+          "endLine": 194,
+          "tokens": 223
+        },
+        {
+          "name": "Gallery",
+          "kind": "fn",
+          "startLine": 195,
+          "endLine": 212,
+          "tokens": 170
+        },
+        {
+          "name": "Location",
+          "kind": "fn",
+          "startLine": 213,
+          "endLine": 243,
+          "tokens": 328
+        },
+        {
+          "name": "FloorPlans",
+          "kind": "fn",
+          "startLine": 244,
+          "endLine": 276,
+          "tokens": 335
+        },
+        {
+          "name": "PricePromo",
+          "kind": "fn",
+          "startLine": 277,
+          "endLine": 307,
+          "tokens": 377
+        },
+        {
+          "name": "Testimonials",
+          "kind": "fn",
+          "startLine": 308,
+          "endLine": 328,
+          "tokens": 232
+        },
+        {
+          "name": "Developer",
+          "kind": "fn",
+          "startLine": 329,
+          "endLine": 349,
+          "tokens": 223
+        },
+        {
+          "name": "Faq",
+          "kind": "fn",
+          "startLine": 350,
+          "endLine": 376,
+          "tokens": 266
+        },
+        {
+          "name": "AgentCta",
+          "kind": "fn",
+          "startLine": 377,
+          "endLine": 402,
+          "tokens": 332
+        },
+        {
+          "name": "ContactFormBlock",
+          "kind": "fn",
+          "startLine": 403,
+          "endLine": 420,
+          "tokens": 190
+        },
+        {
+          "name": "Footer",
+          "kind": "fn",
+          "startLine": 421,
+          "endLine": 440,
+          "tokens": 216
+        }
+      ]
+    },
+    "lib/landing/themes/premiumDark/index.ts": {
+      "description": "Exports premiumDarkComponents, premiumDarkChrome",
+      "tokens": 193,
+      "hash": "9a6e14ae49517e69",
+      "size": 673,
+      "mtimeMs": 1787149714303.0056,
+      "updatedAt": "2026-08-19T15:15:53.936Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/premiumDark/theme.css": {
+      "description": "Styles: 99 rules, 4 vars",
+      "tokens": 4481,
+      "hash": "3bff6120e2d67dec",
+      "size": 15696,
+      "mtimeMs": 1787151574643.5303,
+      "updatedAt": "2026-08-19T15:15:53.936Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/shared/parts.tsx": {
+      "description": "Primitif media bersama untuk kesepuluh tema.",
+      "tokens": 368,
+      "hash": "8af536e8b36d0d8a",
+      "size": 1292,
+      "mtimeMs": 1787149609516.8816,
+      "updatedAt": "2026-08-19T15:15:53.936Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/slots.ts": {
+      "description": "Slot media bersama untuk kesepuluh tema.",
+      "tokens": 412,
+      "hash": "645f7613e1c73169",
+      "size": 1441,
+      "mtimeMs": 1787149030932.0435,
+      "updatedAt": "2026-08-19T15:15:53.937Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/softLuxury/blocks.tsx": {
+      "description": "04 Soft Luxury Beige — ditranskrip dari",
+      "tokens": 4833,
+      "hash": "430979f52664c4c4",
+      "size": 16930,
+      "mtimeMs": 1787151611916.025,
+      "updatedAt": "2026-08-19T15:15:53.937Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Header",
+          "kind": "fn",
+          "startLine": 22,
+          "endLine": 30,
+          "tokens": 79
+        },
+        {
+          "name": "Hero",
+          "kind": "fn",
+          "startLine": 31,
+          "endLine": 70,
+          "tokens": 428
+        },
+        {
+          "name": "Highlights",
+          "kind": "fn",
+          "startLine": 71,
+          "endLine": 88,
+          "tokens": 190
+        },
+        {
+          "name": "HouseTypes",
+          "kind": "fn",
+          "startLine": 89,
+          "endLine": 128,
+          "tokens": 474
+        },
+        {
+          "name": "Specs",
+          "kind": "fn",
+          "startLine": 129,
+          "endLine": 164,
+          "tokens": 396
+        },
+        {
+          "name": "Facilities",
+          "kind": "fn",
+          "startLine": 165,
+          "endLine": 185,
+          "tokens": 232
+        },
+        {
+          "name": "Location",
+          "kind": "fn",
+          "startLine": 186,
+          "endLine": 216,
+          "tokens": 328
+        },
+        {
+          "name": "Gallery",
+          "kind": "fn",
+          "startLine": 217,
+          "endLine": 235,
+          "tokens": 194
+        },
+        {
+          "name": "FloorPlans",
+          "kind": "fn",
+          "startLine": 236,
+          "endLine": 258,
+          "tokens": 228
+        },
+        {
+          "name": "PricePromo",
+          "kind": "fn",
+          "startLine": 259,
+          "endLine": 289,
+          "tokens": 398
+        },
+        {
+          "name": "Testimonials",
+          "kind": "fn",
+          "startLine": 290,
+          "endLine": 312,
+          "tokens": 254
+        },
+        {
+          "name": "Developer",
+          "kind": "fn",
+          "startLine": 313,
+          "endLine": 333,
+          "tokens": 230
+        },
+        {
+          "name": "Faq",
+          "kind": "fn",
+          "startLine": 334,
+          "endLine": 361,
+          "tokens": 291
+        },
+        {
+          "name": "AgentCta",
+          "kind": "fn",
+          "startLine": 362,
+          "endLine": 389,
+          "tokens": 354
+        },
+        {
+          "name": "ContactFormBlock",
+          "kind": "fn",
+          "startLine": 390,
+          "endLine": 406,
+          "tokens": 176
+        },
+        {
+          "name": "Footer",
+          "kind": "fn",
+          "startLine": 407,
+          "endLine": 426,
+          "tokens": 216
+        }
+      ]
+    },
+    "lib/landing/themes/softLuxury/index.ts": {
+      "description": "Exports softLuxuryComponents, softLuxuryChrome",
+      "tokens": 192,
+      "hash": "d5566f4f8ce36a75",
+      "size": 671,
+      "mtimeMs": 1787150404901.041,
+      "updatedAt": "2026-08-19T15:15:53.937Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/softLuxury/theme.css": {
+      "description": "Styles: 112 rules, 4 vars",
+      "tokens": 3840,
+      "hash": "419ffcd28dfb1d9e",
+      "size": 13451,
+      "mtimeMs": 1787151611917.1877,
+      "updatedAt": "2026-08-19T15:15:53.937Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/tropicalWarm/AgentCta.tsx": {
+      "description": "Tim marketing (desain #10). Satu kartu agen — multi-agen di luar scope MVP.",
+      "tokens": 476,
+      "hash": "1310058f83df84c4",
+      "size": 1666,
+      "mtimeMs": 1787146784610.4653,
+      "updatedAt": "2026-08-19T15:15:53.938Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/tropicalWarm/ContactFormBlock.tsx": {
+      "description": "Blok penutup. Desain #10 tidak punya form, tapi menghapusnya berarti mematikan",
+      "tokens": 315,
+      "hash": "9ecf07e218b4f840",
+      "size": 1106,
+      "mtimeMs": 1787146784610.4653,
+      "updatedAt": "2026-08-19T15:15:53.938Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/tropicalWarm/Developer.tsx": {
+      "description": "Developer",
+      "tokens": 271,
+      "hash": "d8c09cd1ab990e66",
+      "size": 947,
+      "mtimeMs": 1787146784610.4653,
+      "updatedAt": "2026-08-19T15:15:53.938Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/tropicalWarm/Facilities.tsx": {
       "description": "Facilities",
-      "tokens": 170,
-      "hash": "514488a66cb49e69",
-      "size": 593,
-      "mtimeMs": 1786985642247.2073,
-      "updatedAt": "2026-08-18T23:21:30.029Z",
+      "tokens": 271,
+      "hash": "137640a20ac19967",
+      "size": 948,
+      "mtimeMs": 1787149002261.9456,
+      "updatedAt": "2026-08-19T15:15:53.938Z",
       "source": "scan"
     },
-    "lib/landing/themes/wireframe/Faq.tsx": {
-      "description": "Faq",
-      "tokens": 168,
-      "hash": "50706e3e80b58a76",
-      "size": 585,
-      "mtimeMs": 1786985665381.5933,
-      "updatedAt": "2026-08-18T23:21:30.030Z",
-      "source": "scan"
-    },
-    "lib/landing/themes/wireframe/FloorPlans.tsx": {
-      "description": "FloorPlans",
-      "tokens": 314,
-      "hash": "90f9a3c9c52da3b5",
-      "size": 1096,
-      "mtimeMs": 1786985652065.8716,
-      "updatedAt": "2026-08-18T23:21:30.030Z",
-      "source": "scan"
-    },
-    "lib/landing/themes/wireframe/Gallery.tsx": {
-      "description": "Gallery",
+    "lib/landing/themes/tropicalWarm/Faq.tsx": {
+      "description": "Faq — uses useState",
       "tokens": 346,
-      "hash": "7793b32566d0506d",
+      "hash": "6701fafbf11cb4cb",
       "size": 1211,
-      "mtimeMs": 1787005137823.88,
-      "updatedAt": "2026-08-18T23:21:30.030Z",
+      "mtimeMs": 1787146784611.474,
+      "updatedAt": "2026-08-19T15:15:53.938Z",
       "source": "scan"
     },
-    "lib/landing/themes/wireframe/Hero.tsx": {
-      "description": "PlaceholderBox",
-      "tokens": 288,
-      "hash": "27dcde8659479957",
-      "size": 1009,
-      "mtimeMs": 1786985605126.7756,
-      "updatedAt": "2026-08-18T23:21:30.030Z",
+    "lib/landing/themes/tropicalWarm/FloorPlans.tsx": {
+      "description": "Masterplan kawasan + denah per tipe. Legenda klaster mewarnai diri dari palet.",
+      "tokens": 428,
+      "hash": "0b9305a80fa60264",
+      "size": 1496,
+      "mtimeMs": 1787149002336.8997,
+      "updatedAt": "2026-08-19T15:15:53.939Z",
       "source": "scan"
     },
-    "lib/landing/themes/wireframe/Highlights.tsx": {
-      "description": "Highlights",
-      "tokens": 169,
-      "hash": "c8af45bf21090abf",
-      "size": 590,
-      "mtimeMs": 1786985618907.867,
-      "updatedAt": "2026-08-18T23:21:30.030Z",
+    "lib/landing/themes/tropicalWarm/Footer.tsx": {
+      "description": "Footer",
+      "tokens": 255,
+      "hash": "da2949cc36d80396",
+      "size": 892,
+      "mtimeMs": 1787146784611.474,
+      "updatedAt": "2026-08-19T15:15:53.939Z",
       "source": "scan"
     },
-    "lib/landing/themes/wireframe/HouseTypes.tsx": {
-      "description": "HouseTypes",
-      "tokens": 504,
-      "hash": "8fe497a43dad24d9",
-      "size": 1767,
-      "mtimeMs": 1786985627701.8308,
-      "updatedAt": "2026-08-18T23:21:30.030Z",
+    "lib/landing/themes/tropicalWarm/Gallery.tsx": {
+      "description": "Carousel horizontal. Slot dibentuk dari keterangan (blok) DAN foto (media):",
+      "tokens": 328,
+      "hash": "248bade8245fab33",
+      "size": 1149,
+      "mtimeMs": 1787149002303.3472,
+      "updatedAt": "2026-08-19T15:15:53.940Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/tropicalWarm/Header.tsx": {
+      "description": "Header",
+      "tokens": 96,
+      "hash": "9e2eef21eee31c97",
+      "size": 334,
+      "mtimeMs": 1787146784612.821,
+      "updatedAt": "2026-08-19T15:15:53.940Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/tropicalWarm/Hero.tsx": {
+      "description": "Hero + price bar dalam satu komponen (price bar bukan blok tersendiri, spec §11).",
+      "tokens": 521,
+      "hash": "b69e4d23f08eaf4e",
+      "size": 1823,
+      "mtimeMs": 1787151764007.4963,
+      "updatedAt": "2026-08-19T15:15:53.940Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Hero",
+          "kind": "fn",
+          "startLine": 11,
+          "endLine": 51,
+          "tokens": 388
+        }
+      ]
+    },
+    "lib/landing/themes/tropicalWarm/Highlights.tsx": {
+      "description": "USP bernomor: judul tebal + satu kalimat penjelas (desain #10, blok \"Enam alasan utama\").",
+      "tokens": 290,
+      "hash": "691c0ff9150e9006",
+      "size": 1014,
+      "mtimeMs": 1787149002222.1584,
+      "updatedAt": "2026-08-19T15:15:53.940Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/tropicalWarm/HouseTypes.tsx": {
+      "description": "Blok tipe unit bertab (desain #10, blok hijau). Ganti tab menukar kartu tanpa",
+      "tokens": 870,
+      "hash": "2762dace9f92f3e0",
+      "size": 3046,
+      "mtimeMs": 1787146784612.821,
+      "updatedAt": "2026-08-19T15:15:53.941Z",
       "source": "scan",
       "symbols": [
         {
           "name": "HouseTypes",
           "kind": "fn",
-          "startLine": 5,
-          "endLine": 41,
-          "tokens": 460
+          "startLine": 13,
+          "endLine": 75,
+          "tokens": 721
         }
       ]
     },
-    "lib/landing/themes/wireframe/index.ts": {
-      "description": "Exports wireframe",
-      "tokens": 232,
-      "hash": "3b327eeaf5acab60",
-      "size": 810,
-      "mtimeMs": 1786985687178.9216,
-      "updatedAt": "2026-08-18T23:21:30.031Z",
+    "lib/landing/themes/tropicalWarm/index.ts": {
+      "description": "Exports tropicalWarmComponents, tropicalWarmChrome",
+      "tokens": 326,
+      "hash": "ac8adba46da48542",
+      "size": 1139,
+      "mtimeMs": 1787146784613.8777,
+      "updatedAt": "2026-08-19T15:15:53.941Z",
       "source": "scan"
     },
-    "lib/landing/themes/wireframe/Location.tsx": {
+    "lib/landing/themes/tropicalWarm/Location.tsx": {
       "description": "Location",
-      "tokens": 158,
-      "hash": "30307e1d9da2d920",
-      "size": 553,
-      "mtimeMs": 1786985658597.9915,
-      "updatedAt": "2026-08-18T23:21:30.031Z",
+      "tokens": 358,
+      "hash": "e46f07de47b411e5",
+      "size": 1253,
+      "mtimeMs": 1787146784612.821,
+      "updatedAt": "2026-08-19T15:15:53.941Z",
       "source": "scan"
     },
-    "lib/landing/themes/wireframe/Specs.tsx": {
-      "description": "Specs — renders table",
-      "tokens": 338,
-      "hash": "c894a77f5e985b07",
-      "size": 1181,
-      "mtimeMs": 1786985635762.4463,
-      "updatedAt": "2026-08-18T23:21:30.031Z",
+    "lib/landing/themes/tropicalWarm/parts.tsx": {
+      "description": "Tropis Hangat memakai primitif bersama. File ini tinggal jembatan supaya",
+      "tokens": 54,
+      "hash": "9e87037832002d0f",
+      "size": 189,
+      "mtimeMs": 1787149609566.2332,
+      "updatedAt": "2026-08-19T15:15:53.941Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/tropicalWarm/PricePromo.tsx": {
+      "description": "PricePromo",
+      "tokens": 522,
+      "hash": "1465a22ca136d9c0",
+      "size": 1827,
+      "mtimeMs": 1787146784613.8777,
+      "updatedAt": "2026-08-19T15:15:53.941Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "PricePromo",
+          "kind": "fn",
+          "startLine": 4,
+          "endLine": 48,
+          "tokens": 480
+        }
+      ]
+    },
+    "lib/landing/themes/tropicalWarm/Specs.tsx": {
+      "description": "Tabel perbandingan semua tipe. Mati by default (spesifikasi sudah di kartu tipe unit).",
+      "tokens": 517,
+      "hash": "03f670798618e8ea",
+      "size": 1807,
+      "mtimeMs": 1787146784613.8777,
+      "updatedAt": "2026-08-19T15:15:53.942Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "Specs",
+          "kind": "fn",
+          "startLine": 5,
+          "endLine": 47,
+          "tokens": 444
+        }
+      ]
+    },
+    "lib/landing/themes/tropicalWarm/Testimonials.tsx": {
+      "description": "Testimoni HANYA diisi agen (tidak pernah dari AI). Kosong = tidak dirender.",
+      "tokens": 318,
+      "hash": "7039f537b06ea141",
+      "size": 1117,
+      "mtimeMs": 1787146784613.8777,
+      "updatedAt": "2026-08-19T15:15:53.942Z",
+      "source": "scan"
+    },
+    "lib/landing/themes/tropicalWarm/theme.css": {
+      "description": "Styles: 101 rules, 2 vars, 1 media queries",
+      "tokens": 4902,
+      "hash": "e458ed75f24d0558",
+      "size": 17185,
+      "mtimeMs": 1787151574646.7046,
+      "updatedAt": "2026-08-19T15:15:53.942Z",
       "source": "scan"
     },
     "lib/leads/metrics.ts": {
@@ -2844,7 +4485,7 @@
       "hash": "0291a1998a470185",
       "size": 2221,
       "mtimeMs": 1787092757702.7593,
-      "updatedAt": "2026-08-18T23:21:30.031Z",
+      "updatedAt": "2026-08-19T15:15:53.942Z",
       "source": "scan",
       "symbols": [
         {
@@ -2876,7 +4517,7 @@
       "hash": "0b59ed29f0349934",
       "size": 7876,
       "mtimeMs": 1786958885495.829,
-      "updatedAt": "2026-08-18T23:21:30.032Z",
+      "updatedAt": "2026-08-19T15:15:53.943Z",
       "source": "scan",
       "symbols": [
         {
@@ -2922,7 +4563,7 @@
       "hash": "4fde73724c39a48f",
       "size": 1608,
       "mtimeMs": 1786957167941.7078,
-      "updatedAt": "2026-08-18T23:21:30.032Z",
+      "updatedAt": "2026-08-19T15:15:53.943Z",
       "source": "scan"
     },
     "lib/phone.ts": {
@@ -2931,7 +4572,7 @@
       "hash": "2cb24bc672a74788",
       "size": 1382,
       "mtimeMs": 1787092546662.0278,
-      "updatedAt": "2026-08-18T23:21:30.032Z",
+      "updatedAt": "2026-08-19T15:15:53.943Z",
       "source": "scan"
     },
     "lib/schemas/agentProfile.ts": {
@@ -2940,7 +4581,7 @@
       "hash": "c2c2f27634afb171",
       "size": 2109,
       "mtimeMs": 1787092881258.2944,
-      "updatedAt": "2026-08-18T23:21:30.032Z",
+      "updatedAt": "2026-08-19T15:15:53.943Z",
       "source": "scan"
     },
     "lib/schemas/houseType.ts": {
@@ -2949,7 +4590,7 @@
       "hash": "48c279f209ee4337",
       "size": 1331,
       "mtimeMs": 1786980574729.8235,
-      "updatedAt": "2026-08-18T23:21:30.033Z",
+      "updatedAt": "2026-08-19T15:15:53.943Z",
       "source": "scan"
     },
     "lib/schemas/index.ts": {
@@ -2958,7 +4599,7 @@
       "hash": "2dd69faca605cce8",
       "size": 524,
       "mtimeMs": 1787092881297.0652,
-      "updatedAt": "2026-08-18T23:21:30.033Z",
+      "updatedAt": "2026-08-19T15:15:53.944Z",
       "source": "scan"
     },
     "lib/schemas/lead.ts": {
@@ -2967,7 +4608,7 @@
       "hash": "c5f07e66680c1d9c",
       "size": 654,
       "mtimeMs": 1786959713204.1633,
-      "updatedAt": "2026-08-18T23:21:30.033Z",
+      "updatedAt": "2026-08-19T15:15:53.944Z",
       "source": "scan"
     },
     "lib/schemas/project.ts": {
@@ -2976,7 +4617,7 @@
       "hash": "b8ecc0960dc81ec3",
       "size": 938,
       "mtimeMs": 1786959708166.2134,
-      "updatedAt": "2026-08-18T23:21:30.033Z",
+      "updatedAt": "2026-08-19T15:15:53.944Z",
       "source": "scan"
     },
     "lib/session.ts": {
@@ -2985,7 +4626,7 @@
       "hash": "473a39af1f4520f2",
       "size": 1035,
       "mtimeMs": 1786934698602.2756,
-      "updatedAt": "2026-08-18T23:21:30.033Z",
+      "updatedAt": "2026-08-19T15:15:53.945Z",
       "source": "scan"
     },
     "lib/slug.ts": {
@@ -2994,7 +4635,7 @@
       "hash": "a871482382eb159c",
       "size": 1242,
       "mtimeMs": 1786890604430.1829,
-      "updatedAt": "2026-08-18T23:21:30.033Z",
+      "updatedAt": "2026-08-19T15:15:53.945Z",
       "source": "scan"
     },
     "middleware.ts": {
@@ -3003,7 +4644,7 @@
       "hash": "f338820a635d7008",
       "size": 624,
       "mtimeMs": 1786934712406.1372,
-      "updatedAt": "2026-08-18T23:21:30.033Z",
+      "updatedAt": "2026-08-19T15:15:53.945Z",
       "source": "scan"
     },
     "next-env.d.ts": {
@@ -3012,7 +4653,7 @@
       "hash": "f4e8976c19fc9266",
       "size": 268,
       "mtimeMs": 1786888332157.0327,
-      "updatedAt": "2026-08-18T23:21:30.034Z",
+      "updatedAt": "2026-08-19T15:15:53.945Z",
       "source": "scan"
     },
     "next.config.ts": {
@@ -3021,7 +4662,7 @@
       "hash": "217a173b3bce5ea5",
       "size": 633,
       "mtimeMs": 1786958708885.4253,
-      "updatedAt": "2026-08-18T23:21:30.034Z",
+      "updatedAt": "2026-08-19T15:15:53.945Z",
       "source": "scan"
     },
     "package-lock.json": {
@@ -3029,8 +4670,8 @@
       "tokens": 56856,
       "hash": "9f9a85acb05640c1",
       "size": 198994,
-      "mtimeMs": 1787065203894.0815,
-      "updatedAt": "2026-08-18T23:21:30.035Z",
+      "mtimeMs": 1787146796511.6792,
+      "updatedAt": "2026-08-19T15:15:53.948Z",
       "source": "scan"
     },
     "package.json": {
@@ -3039,7 +4680,7 @@
       "hash": "a3d912b0a12674e7",
       "size": 1392,
       "mtimeMs": 1787065196289.013,
-      "updatedAt": "2026-08-18T23:21:30.035Z",
+      "updatedAt": "2026-08-19T15:15:53.948Z",
       "source": "scan"
     },
     "playwright.config.ts": {
@@ -3048,7 +4689,7 @@
       "hash": "04dcf63d94bd244a",
       "size": 1318,
       "mtimeMs": 1787065196289.013,
-      "updatedAt": "2026-08-18T23:21:30.035Z",
+      "updatedAt": "2026-08-19T15:15:53.948Z",
       "source": "scan"
     },
     "postcss.config.mjs": {
@@ -3057,7 +4698,7 @@
       "hash": "f50058e0d309cdb3",
       "size": 60,
       "mtimeMs": 1786888253620.1565,
-      "updatedAt": "2026-08-18T23:21:30.035Z",
+      "updatedAt": "2026-08-19T15:15:53.949Z",
       "source": "scan"
     },
     "Product Requirements Document (PRD).md": {
@@ -3066,7 +4707,7 @@
       "hash": "f4a3a1c50daa94fc",
       "size": 41475,
       "mtimeMs": 1786865848750.0945,
-      "updatedAt": "2026-08-18T23:21:30.035Z",
+      "updatedAt": "2026-08-19T15:15:53.950Z",
       "source": "scan"
     },
     "public/uploads/.gitkeep": {
@@ -3075,7 +4716,7 @@
       "hash": "e3b0c44298fc1c14",
       "size": 0,
       "mtimeMs": 1786888258801.161,
-      "updatedAt": "2026-08-18T23:21:30.036Z",
+      "updatedAt": "2026-08-19T15:15:53.951Z",
       "source": "scan"
     },
     "skills-lock.json": {
@@ -3084,16 +4725,16 @@
       "hash": "27090677e0032cdf",
       "size": 298,
       "mtimeMs": 1786869849360.8174,
-      "updatedAt": "2026-08-18T23:21:30.036Z",
+      "updatedAt": "2026-08-19T15:15:53.951Z",
       "source": "scan"
     },
     "styles/globals.css": {
-      "description": "Styles: 19 rules, 10 vars, 2 layers",
-      "tokens": 525,
-      "hash": "e5176282ec54fc9a",
-      "size": 1839,
-      "mtimeMs": 1787093141324.3118,
-      "updatedAt": "2026-08-18T23:21:30.036Z",
+      "description": "Styles: 30 rules, 10 vars, 2 layers",
+      "tokens": 713,
+      "hash": "fceda474be695b3f",
+      "size": 2497,
+      "mtimeMs": 1787151394384.0142,
+      "updatedAt": "2026-08-19T15:15:53.951Z",
       "source": "scan"
     },
     "styles/tokens/colors.css": {
@@ -3102,7 +4743,7 @@
       "hash": "43afa8e50297605f",
       "size": 1266,
       "mtimeMs": 1786888269506.1294,
-      "updatedAt": "2026-08-18T23:21:30.036Z",
+      "updatedAt": "2026-08-19T15:15:53.953Z",
       "source": "scan"
     },
     "styles/tokens/elevation.css": {
@@ -3111,7 +4752,7 @@
       "hash": "5705df36d529f292",
       "size": 228,
       "mtimeMs": 1786888276091.2688,
-      "updatedAt": "2026-08-18T23:21:30.037Z",
+      "updatedAt": "2026-08-19T15:15:53.954Z",
       "source": "scan"
     },
     "styles/tokens/motion.css": {
@@ -3120,7 +4761,7 @@
       "hash": "2f3204259573653f",
       "size": 321,
       "mtimeMs": 1786888278120.8577,
-      "updatedAt": "2026-08-18T23:21:30.037Z",
+      "updatedAt": "2026-08-19T15:15:53.954Z",
       "source": "scan"
     },
     "styles/tokens/radius.css": {
@@ -3129,7 +4770,7 @@
       "hash": "10060b28c700261f",
       "size": 217,
       "mtimeMs": 1786888273101.0474,
-      "updatedAt": "2026-08-18T23:21:30.037Z",
+      "updatedAt": "2026-08-19T15:15:53.954Z",
       "source": "scan"
     },
     "styles/tokens/spacing.css": {
@@ -3138,7 +4779,7 @@
       "hash": "e07a84340c44cff5",
       "size": 293,
       "mtimeMs": 1786888270711.287,
-      "updatedAt": "2026-08-18T23:21:30.037Z",
+      "updatedAt": "2026-08-19T15:15:53.954Z",
       "source": "scan"
     },
     "styles/tokens/typography.css": {
@@ -3147,7 +4788,7 @@
       "hash": "5d8860b0a8443c47",
       "size": 1450,
       "mtimeMs": 1786888280074.2407,
-      "updatedAt": "2026-08-18T23:21:30.037Z",
+      "updatedAt": "2026-08-19T15:15:53.955Z",
       "source": "scan"
     },
     "styles/type-utils.css": {
@@ -3156,7 +4797,7 @@
       "hash": "a79f8859756da2fe",
       "size": 1699,
       "mtimeMs": 1786888287779.6946,
-      "updatedAt": "2026-08-18T23:21:30.037Z",
+      "updatedAt": "2026-08-19T15:15:53.955Z",
       "source": "scan"
     },
     "test-results/.last-run.json": {
@@ -3164,17 +4805,17 @@
       "tokens": 13,
       "hash": "91d1c43004802cd4",
       "size": 45,
-      "mtimeMs": 1787095120005.4697,
-      "updatedAt": "2026-08-18T23:21:30.038Z",
+      "mtimeMs": 1787152251846.756,
+      "updatedAt": "2026-08-19T15:15:53.955Z",
       "source": "scan"
     },
     "tests/e2e/editor.spec.ts": {
       "description": "Declares rows",
-      "tokens": 739,
-      "hash": "2bcdcb4474b7d043",
-      "size": 2590,
-      "mtimeMs": 1787065196291.0144,
-      "updatedAt": "2026-08-18T23:21:30.038Z",
+      "tokens": 948,
+      "hash": "0e0ee03493992ab2",
+      "size": 3322,
+      "mtimeMs": 1787146784615.7134,
+      "updatedAt": "2026-08-19T15:15:53.957Z",
       "source": "scan"
     },
     "tests/e2e/house-type.spec.ts": {
@@ -3183,25 +4824,34 @@
       "hash": "83cb00d140825521",
       "size": 2699,
       "mtimeMs": 1786985741030.9412,
-      "updatedAt": "2026-08-18T23:21:30.038Z",
+      "updatedAt": "2026-08-19T15:15:53.957Z",
       "source": "scan"
     },
     "tests/e2e/landing-lead.spec.ts": {
-      "description": "Declares link",
-      "tokens": 590,
-      "hash": "a6ede54b39fd5fb9",
-      "size": 2067,
-      "mtimeMs": 1787068285755.4712,
-      "updatedAt": "2026-08-18T23:21:30.038Z",
+      "description": "Landing sekarang mobile-only: di layar lebar bingkai 390px dipusatkan, bukan",
+      "tokens": 749,
+      "hash": "aab4e2f78291febb",
+      "size": 2621,
+      "mtimeMs": 1787152090028.5493,
+      "updatedAt": "2026-08-19T15:15:53.957Z",
       "source": "scan"
     },
     "tests/e2e/landing-ssr.spec.ts": {
       "description": "API routes: GET (5 endpoints)",
-      "tokens": 538,
-      "hash": "c4dc923d20f81910",
-      "size": 1884,
-      "mtimeMs": 1787005671336.122,
-      "updatedAt": "2026-08-18T23:21:30.039Z",
+      "tokens": 548,
+      "hash": "e5f141882fefead7",
+      "size": 1917,
+      "mtimeMs": 1787152090027.4648,
+      "updatedAt": "2026-08-19T15:15:53.958Z",
+      "source": "scan"
+    },
+    "tests/e2e/landing-theme.spec.ts": {
+      "description": "Menjaga tema \"Tropis Hangat\": keempat belas blok terisi seed Parkspring dan",
+      "tokens": 510,
+      "hash": "03d4f5ed4e4e3d50",
+      "size": 1784,
+      "mtimeMs": 1787152090027.4648,
+      "updatedAt": "2026-08-19T15:15:53.958Z",
       "source": "scan"
     },
     "tests/e2e/leads.spec.ts": {
@@ -3210,16 +4860,16 @@
       "hash": "32653dc9408ffb82",
       "size": 4077,
       "mtimeMs": 1787094630362.0327,
-      "updatedAt": "2026-08-18T23:21:30.039Z",
+      "updatedAt": "2026-08-19T15:15:53.958Z",
       "source": "scan"
     },
     "tests/e2e/login.spec.ts": {
       "description": "",
-      "tokens": 193,
-      "hash": "bc03c7e6e23857e6",
-      "size": 675,
-      "mtimeMs": 1786935119428.7378,
-      "updatedAt": "2026-08-18T23:21:30.039Z",
+      "tokens": 203,
+      "hash": "68c68f0c60746e18",
+      "size": 708,
+      "mtimeMs": 1787152090028.5493,
+      "updatedAt": "2026-08-19T15:15:53.958Z",
       "source": "scan"
     },
     "tests/e2e/publish.spec.ts": {
@@ -3228,7 +4878,7 @@
       "hash": "3cfbd3486b851dc4",
       "size": 1598,
       "mtimeMs": 1787065196291.0144,
-      "updatedAt": "2026-08-18T23:21:30.040Z",
+      "updatedAt": "2026-08-19T15:15:53.958Z",
       "source": "scan"
     },
     "tests/e2e/settings.spec.ts": {
@@ -3237,7 +4887,7 @@
       "hash": "53f0bdaf8b818536",
       "size": 3249,
       "mtimeMs": 1787094055949.8542,
-      "updatedAt": "2026-08-18T23:21:30.040Z",
+      "updatedAt": "2026-08-19T15:15:53.958Z",
       "source": "scan"
     },
     "tests/e2e/spine.spec.ts": {
@@ -3246,7 +4896,7 @@
       "hash": "6ba5a886e4ff6282",
       "size": 5134,
       "mtimeMs": 1787065196291.0144,
-      "updatedAt": "2026-08-18T23:21:30.040Z",
+      "updatedAt": "2026-08-19T15:15:53.959Z",
       "source": "scan"
     },
     "tests/e2e/zz-ai-failure.spec.ts": {
@@ -3255,7 +4905,16 @@
       "hash": "aa72f0f82ec59546",
       "size": 2075,
       "mtimeMs": 1787068428201.057,
-      "updatedAt": "2026-08-18T23:21:30.040Z",
+      "updatedAt": "2026-08-19T15:15:53.959Z",
+      "source": "scan"
+    },
+    "tests/mocks/next-font.ts": {
+      "description": "Mock untuk `next/font/google` di lingkungan Vitest. next/font adalah konstruksi",
+      "tokens": 469,
+      "hash": "dd6e6bd52dfd9fef",
+      "size": 1643,
+      "mtimeMs": 1787150743630.8262,
+      "updatedAt": "2026-08-19T15:15:53.959Z",
       "source": "scan"
     },
     "tests/unit/agent-profile-schema.test.ts": {
@@ -3264,34 +4923,34 @@
       "hash": "52776b7ccbbd67da",
       "size": 3344,
       "mtimeMs": 1787092864287.58,
-      "updatedAt": "2026-08-18T23:21:30.041Z",
+      "updatedAt": "2026-08-19T15:15:53.960Z",
       "source": "scan"
     },
     "tests/unit/ai-mock.test.ts": {
       "description": "Declares store",
-      "tokens": 680,
-      "hash": "36e15791f9125ce3",
-      "size": 2377,
-      "mtimeMs": 1787065196291.0144,
-      "updatedAt": "2026-08-18T23:21:30.041Z",
+      "tokens": 677,
+      "hash": "306b54a154fa83c6",
+      "size": 2369,
+      "mtimeMs": 1787149308380.9507,
+      "updatedAt": "2026-08-19T15:15:53.960Z",
       "source": "scan"
     },
     "tests/unit/block-renderer.test.tsx": {
       "description": "blocks",
-      "tokens": 571,
-      "hash": "152f803d827344aa",
-      "size": 1997,
-      "mtimeMs": 1786985560579.152,
-      "updatedAt": "2026-08-18T23:21:30.041Z",
+      "tokens": 1210,
+      "hash": "64d57eb4ac799699",
+      "size": 4237,
+      "mtimeMs": 1787151465825.0496,
+      "updatedAt": "2026-08-19T15:15:53.961Z",
       "source": "scan"
     },
     "tests/unit/blocks.test.ts": {
       "description": "Declares blocks",
-      "tokens": 773,
-      "hash": "ec993e8826086f5f",
-      "size": 2705,
-      "mtimeMs": 1786890775659.5564,
-      "updatedAt": "2026-08-18T23:21:30.041Z",
+      "tokens": 1071,
+      "hash": "d1865b527cd4a524",
+      "size": 3748,
+      "mtimeMs": 1787146784617.1118,
+      "updatedAt": "2026-08-19T15:15:53.961Z",
       "source": "scan"
     },
     "tests/unit/contact-form.test.tsx": {
@@ -3300,7 +4959,7 @@
       "hash": "59eebcea9b523911",
       "size": 2048,
       "mtimeMs": 1787008227073.912,
-      "updatedAt": "2026-08-18T23:21:30.041Z",
+      "updatedAt": "2026-08-19T15:15:53.962Z",
       "source": "scan",
       "symbols": [
         {
@@ -3318,7 +4977,7 @@
       "hash": "af00ab54e8e8a677",
       "size": 5857,
       "mtimeMs": 1786980661763.0415,
-      "updatedAt": "2026-08-18T23:21:30.042Z",
+      "updatedAt": "2026-08-19T15:15:53.962Z",
       "source": "scan"
     },
     "tests/unit/dashboard.test.tsx": {
@@ -3327,7 +4986,7 @@
       "hash": "5b0f02bbdb673ca5",
       "size": 4613,
       "mtimeMs": 1787092462123.7515,
-      "updatedAt": "2026-08-18T23:21:30.042Z",
+      "updatedAt": "2026-08-19T15:15:53.963Z",
       "source": "scan"
     },
     "tests/unit/ds-components.test.tsx": {
@@ -3336,7 +4995,7 @@
       "hash": "83769df19a23bef2",
       "size": 2932,
       "mtimeMs": 1786889430822.704,
-      "updatedAt": "2026-08-18T23:21:30.042Z",
+      "updatedAt": "2026-08-19T15:15:53.964Z",
       "source": "scan"
     },
     "tests/unit/format.test.ts": {
@@ -3345,7 +5004,7 @@
       "hash": "f3c3b677a919e5c6",
       "size": 4654,
       "mtimeMs": 1787092569596.8438,
-      "updatedAt": "2026-08-18T23:21:30.042Z",
+      "updatedAt": "2026-08-19T15:15:53.966Z",
       "source": "scan"
     },
     "tests/unit/house-type-actions.test.ts": {
@@ -3354,7 +5013,7 @@
       "hash": "0b7595d422854c56",
       "size": 12119,
       "mtimeMs": 1786985664602.9927,
-      "updatedAt": "2026-08-18T23:21:30.043Z",
+      "updatedAt": "2026-08-19T15:15:53.967Z",
       "source": "scan",
       "symbols": [
         {
@@ -3372,7 +5031,7 @@
       "hash": "154f05c96fd92bfb",
       "size": 6021,
       "mtimeMs": 1786983290240.5342,
-      "updatedAt": "2026-08-18T23:21:30.043Z",
+      "updatedAt": "2026-08-19T15:15:53.967Z",
       "source": "scan",
       "symbols": [
         {
@@ -3390,7 +5049,7 @@
       "hash": "75dea0f33818c47f",
       "size": 10240,
       "mtimeMs": 1787008195596.5938,
-      "updatedAt": "2026-08-18T23:21:30.044Z",
+      "updatedAt": "2026-08-19T15:15:53.968Z",
       "source": "scan",
       "symbols": [
         {
@@ -3416,13 +5075,22 @@
         }
       ]
     },
+    "tests/unit/landing-fonts.test.ts": {
+      "description": "Declares f",
+      "tokens": 190,
+      "hash": "0130ebe4ebd2847a",
+      "size": 665,
+      "mtimeMs": 1787146784617.1118,
+      "updatedAt": "2026-08-19T15:15:53.968Z",
+      "source": "scan"
+    },
     "tests/unit/leads-metrics.test.ts": {
       "description": "NOW: evt",
       "tokens": 948,
       "hash": "77ace1c3bec1f849",
       "size": 3329,
       "mtimeMs": 1787092744455.5461,
-      "updatedAt": "2026-08-18T23:21:30.045Z",
+      "updatedAt": "2026-08-19T15:15:53.970Z",
       "source": "scan",
       "symbols": [
         {
@@ -3440,7 +5108,7 @@
       "hash": "78248a97ef95c489",
       "size": 5469,
       "mtimeMs": 1787092499552.6052,
-      "updatedAt": "2026-08-18T23:21:30.045Z",
+      "updatedAt": "2026-08-19T15:15:53.971Z",
       "source": "scan",
       "symbols": [
         {
@@ -3465,7 +5133,7 @@
       "hash": "a803fc43f2580afa",
       "size": 15776,
       "mtimeMs": 1786959030463.1294,
-      "updatedAt": "2026-08-18T23:21:30.045Z",
+      "updatedAt": "2026-08-19T15:15:53.972Z",
       "source": "scan",
       "symbols": [
         {
@@ -3504,16 +5172,16 @@
       "hash": "fc6a5e6f709f68a5",
       "size": 1207,
       "mtimeMs": 1786957152743.7808,
-      "updatedAt": "2026-08-18T23:21:30.045Z",
+      "updatedAt": "2026-08-19T15:15:53.973Z",
       "source": "scan"
     },
     "tests/unit/mock-store.test.ts": {
       "description": "API routes: GET (4 endpoints)",
-      "tokens": 7037,
-      "hash": "9352040c755749ce",
-      "size": 24655,
-      "mtimeMs": 1787092818529.5974,
-      "updatedAt": "2026-08-18T23:21:30.046Z",
+      "tokens": 7047,
+      "hash": "c44396c03e81485b",
+      "size": 24691,
+      "mtimeMs": 1787149316377.2734,
+      "updatedAt": "2026-08-19T15:15:53.974Z",
       "source": "scan"
     },
     "tests/unit/page-view-tracker.test.tsx": {
@@ -3522,8 +5190,33 @@
       "hash": "884a41a92e6711f4",
       "size": 1655,
       "mtimeMs": 1787008255800.2134,
-      "updatedAt": "2026-08-18T23:21:30.046Z",
+      "updatedAt": "2026-08-19T15:15:53.974Z",
       "source": "scan"
+    },
+    "tests/unit/palettes.test.ts": {
+      "description": "Luminansi relatif WCAG 2.1 dari hex #rrggbb.",
+      "tokens": 602,
+      "hash": "64f8cef5c010dab9",
+      "size": 2106,
+      "mtimeMs": 1787146784618.1106,
+      "updatedAt": "2026-08-19T15:15:53.975Z",
+      "source": "scan",
+      "symbols": [
+        {
+          "name": "luminance",
+          "kind": "fn",
+          "startLine": 5,
+          "endLine": 13,
+          "tokens": 85
+        },
+        {
+          "name": "contrast",
+          "kind": "fn",
+          "startLine": 14,
+          "endLine": 57,
+          "tokens": 447
+        }
+      ]
     },
     "tests/unit/phone-display.test.ts": {
       "description": "",
@@ -3531,7 +5224,7 @@
       "hash": "d587b2f2e0590a9b",
       "size": 1233,
       "mtimeMs": 1787092525786.1235,
-      "updatedAt": "2026-08-18T23:21:30.046Z",
+      "updatedAt": "2026-08-19T15:15:53.975Z",
       "source": "scan"
     },
     "tests/unit/project-actions.test.ts": {
@@ -3540,7 +5233,7 @@
       "hash": "960b17c5eaf595b1",
       "size": 8200,
       "mtimeMs": 1786980691257.029,
-      "updatedAt": "2026-08-18T23:21:30.047Z",
+      "updatedAt": "2026-08-19T15:15:53.976Z",
       "source": "scan"
     },
     "tests/unit/project-detail-page.test.tsx": {
@@ -3549,7 +5242,7 @@
       "hash": "6997b81f32e6085a",
       "size": 4672,
       "mtimeMs": 1786985533712.3225,
-      "updatedAt": "2026-08-18T23:21:30.047Z",
+      "updatedAt": "2026-08-19T15:15:53.978Z",
       "source": "scan",
       "symbols": [
         {
@@ -3567,24 +5260,24 @@
       "hash": "036e5132a69230b1",
       "size": 536,
       "mtimeMs": 1787065196292.0151,
-      "updatedAt": "2026-08-18T23:21:30.047Z",
+      "updatedAt": "2026-08-19T15:15:53.978Z",
       "source": "scan"
     },
     "tests/unit/resolve.test.ts": {
       "description": "fixture: describe",
-      "tokens": 2498,
-      "hash": "1ca8352b4445e2c8",
-      "size": 8753,
-      "mtimeMs": 1786984795020.1829,
-      "updatedAt": "2026-08-18T23:21:30.047Z",
+      "tokens": 3815,
+      "hash": "5d38b0bb972ab7d6",
+      "size": 13364,
+      "mtimeMs": 1787149298160.3164,
+      "updatedAt": "2026-08-19T15:15:53.978Z",
       "source": "scan",
       "symbols": [
         {
           "name": "fixture",
           "kind": "fn",
           "startLine": 7,
-          "endLine": 209,
-          "tokens": 2414
+          "endLine": 288,
+          "tokens": 3646
         }
       ]
     },
@@ -3594,16 +5287,16 @@
       "hash": "121a10769fcaa251",
       "size": 4004,
       "mtimeMs": 1786980591569.8677,
-      "updatedAt": "2026-08-18T23:21:30.048Z",
+      "updatedAt": "2026-08-19T15:15:53.979Z",
       "source": "scan"
     },
     "tests/unit/seo.test.ts": {
       "description": "Declares store",
-      "tokens": 898,
-      "hash": "70547da2b9eb0c39",
-      "size": 3149,
-      "mtimeMs": 1787005659192.8752,
-      "updatedAt": "2026-08-18T23:21:30.048Z",
+      "tokens": 917,
+      "hash": "257bd49732938eac",
+      "size": 3217,
+      "mtimeMs": 1787149308379.4463,
+      "updatedAt": "2026-08-19T15:15:53.979Z",
       "source": "scan"
     },
     "tests/unit/session.test.ts": {
@@ -3612,7 +5305,7 @@
       "hash": "52140809a7bb1bf0",
       "size": 1124,
       "mtimeMs": 1786934682429.779,
-      "updatedAt": "2026-08-18T23:21:30.048Z",
+      "updatedAt": "2026-08-19T15:15:53.980Z",
       "source": "scan"
     },
     "tests/unit/settings-actions.test.ts": {
@@ -3621,7 +5314,7 @@
       "hash": "2506cc0920bea08b",
       "size": 4806,
       "mtimeMs": 1787092919282.752,
-      "updatedAt": "2026-08-18T23:21:30.048Z",
+      "updatedAt": "2026-08-19T15:15:53.981Z",
       "source": "scan"
     },
     "tests/unit/settings-page.test.tsx": {
@@ -3630,7 +5323,7 @@
       "hash": "8f07362efca5d70f",
       "size": 4821,
       "mtimeMs": 1787093098395.9658,
-      "updatedAt": "2026-08-18T23:21:30.049Z",
+      "updatedAt": "2026-08-19T15:15:53.981Z",
       "source": "scan",
       "symbols": [
         {
@@ -3648,7 +5341,7 @@
       "hash": "91a3c8962a0edcb9",
       "size": 43,
       "mtimeMs": 1786888260099.7058,
-      "updatedAt": "2026-08-18T23:21:30.049Z",
+      "updatedAt": "2026-08-19T15:15:53.981Z",
       "source": "scan"
     },
     "tests/unit/sidebar-nav.test.tsx": {
@@ -3657,7 +5350,7 @@
       "hash": "61c684f7c6c47824",
       "size": 2570,
       "mtimeMs": 1787092417996.5493,
-      "updatedAt": "2026-08-18T23:21:30.049Z",
+      "updatedAt": "2026-08-19T15:15:53.982Z",
       "source": "scan"
     },
     "tests/unit/slug.test.ts": {
@@ -3666,7 +5359,7 @@
       "hash": "0a71e4fcecb20cb2",
       "size": 1664,
       "mtimeMs": 1786890626068.5024,
-      "updatedAt": "2026-08-18T23:21:30.049Z",
+      "updatedAt": "2026-08-19T15:15:53.983Z",
       "source": "scan"
     },
     "tests/unit/snapshot-retry.test.ts": {
@@ -3675,7 +5368,7 @@
       "hash": "36c4c0a1e44f2743",
       "size": 1333,
       "mtimeMs": 1787065196292.0151,
-      "updatedAt": "2026-08-18T23:21:30.050Z",
+      "updatedAt": "2026-08-19T15:15:53.984Z",
       "source": "scan"
     },
     "tests/unit/sticky-cta-bar.test.tsx": {
@@ -3684,7 +5377,25 @@
       "hash": "747856aaa9f6a21f",
       "size": 1508,
       "mtimeMs": 1787068223622.0647,
-      "updatedAt": "2026-08-18T23:21:30.050Z",
+      "updatedAt": "2026-08-19T15:15:53.985Z",
+      "source": "scan"
+    },
+    "tests/unit/theme-migration.test.ts": {
+      "description": "Declares old",
+      "tokens": 812,
+      "hash": "3084c6ba7719c0e2",
+      "size": 2841,
+      "mtimeMs": 1787146784618.1106,
+      "updatedAt": "2026-08-19T15:15:53.987Z",
+      "source": "scan"
+    },
+    "tests/unit/theme-no-literal-colors.test.ts": {
+      "description": "Penegak aturan arsitektur: komponen tema tidak boleh menulis warna literal.",
+      "tokens": 295,
+      "hash": "573047147e012301",
+      "size": 1034,
+      "mtimeMs": 1787146784619.3152,
+      "updatedAt": "2026-08-19T15:15:53.988Z",
       "source": "scan"
     },
     "tests/unit/tokens.test.ts": {
@@ -3693,7 +5404,7 @@
       "hash": "642534c3f79a2fa2",
       "size": 1876,
       "mtimeMs": 1786888308761.517,
-      "updatedAt": "2026-08-18T23:21:30.050Z",
+      "updatedAt": "2026-08-19T15:15:53.989Z",
       "source": "scan",
       "symbols": [
         {
@@ -3718,7 +5429,7 @@
       "hash": "84f95357df1bab38",
       "size": 2797,
       "mtimeMs": 1786890127590.1494,
-      "updatedAt": "2026-08-18T23:21:30.050Z",
+      "updatedAt": "2026-08-19T15:15:53.990Z",
       "source": "scan",
       "symbols": [
         {
@@ -3736,7 +5447,7 @@
       "hash": "621d97311358d6b8",
       "size": 2686,
       "mtimeMs": 1787008212332.7754,
-      "updatedAt": "2026-08-18T23:21:30.050Z",
+      "updatedAt": "2026-08-19T15:15:53.991Z",
       "source": "scan"
     },
     "tsconfig.json": {
@@ -3745,25 +5456,25 @@
       "hash": "8360b5e863c76730",
       "size": 563,
       "mtimeMs": 1786888251163.9148,
-      "updatedAt": "2026-08-18T23:21:30.050Z",
+      "updatedAt": "2026-08-19T15:15:53.992Z",
       "source": "scan"
     },
     "tsconfig.tsbuildinfo": {
       "description": "",
-      "tokens": 47948,
-      "hash": "a30f76e8774ae421",
-      "size": 179804,
-      "mtimeMs": 1787068541086.4424,
-      "updatedAt": "2026-08-18T23:21:30.053Z",
+      "tokens": 51462,
+      "hash": "cdfb6a2fa89fcaa2",
+      "size": 192982,
+      "mtimeMs": 1787151731123.183,
+      "updatedAt": "2026-08-19T15:15:53.995Z",
       "source": "scan"
     },
     "vitest.config.ts": {
       "description": "Vitest test configuration",
-      "tokens": 109,
-      "hash": "47b1a7f81bdcd929",
-      "size": 380,
-      "mtimeMs": 1786888254865.9033,
-      "updatedAt": "2026-08-18T23:21:30.053Z",
+      "tokens": 142,
+      "hash": "4aeb71b07af0706a",
+      "size": 496,
+      "mtimeMs": 1787146784619.3152,
+      "updatedAt": "2026-08-19T15:15:53.995Z",
       "source": "scan"
     }
   }

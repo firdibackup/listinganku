@@ -1,0 +1,279 @@
+/*
+ * 01 Premium Gelap — dicocokkan ke `design/project/01 Premium Gelap.dc.html`.
+ * NOL nilai warna literal: semua lewat var(--lp-*) dari paletteStyle().
+ * Semi-transparan pakai color-mix, bukan fungsi warna beralfa.
+ * Mobile-only: satu lebar 390px, tanpa media query yang melebarkan.
+ */
+
+.lp[data-lp-theme='premiumDark'] {
+  --lp-font-display: var(--font-cormorant), Georgia, 'Times New Roman', serif;
+  --lp-font-text: var(--font-jost), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --lp-dim: color-mix(in srgb, var(--lp-ink-faint) 78%, var(--lp-bg));
+  --lp-hairline: color-mix(in srgb, var(--lp-line) 60%, var(--lp-ink) 18%);
+  background: var(--lp-bg);
+  color: var(--lp-ink);
+  font-family: var(--lp-font-text);
+  counter-reset: lp-sec;
+}
+:where(.lp[data-lp-theme='premiumDark']) a { color: inherit; text-decoration: none; }
+.lp[data-lp-theme='premiumDark'] [id] { scroll-margin-top: 64px; }
+
+.lp[data-lp-theme='premiumDark'] .lp-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lp[data-lp-theme='premiumDark'] .lp-ph {
+  width: 100%; height: 100%; min-height: 100%;
+  display: grid; place-items: center; padding: 10px; text-align: center;
+  background: repeating-linear-gradient(135deg, var(--lp-ph-a) 0 10px, var(--lp-ph-b) 10px 20px);
+}
+.lp[data-lp-theme='premiumDark'] .lp-ph__label {
+  font: 10px ui-monospace, monospace; letter-spacing: 0.2em; text-transform: uppercase;
+  color: color-mix(in srgb, var(--lp-ink-faint) 60%, var(--lp-bg));
+}
+
+/* Header */
+.lp-pd-header {
+  position: sticky; top: 0; z-index: 30;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 20px; border-bottom: 1px solid var(--lp-line);
+  background: color-mix(in srgb, var(--lp-bg) 92%, transparent);
+  backdrop-filter: blur(8px);
+}
+.lp-pd-header__name {
+  font-family: var(--lp-font-display); font-size: 19px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.lp-pd-header__loc {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lp-ink-faint); text-align: right;
+}
+
+/* Hero */
+.lp-pd-hero { position: relative; height: 520px; display: flex; flex-direction: column; justify-content: flex-end; }
+.lp-pd-hero__media { position: absolute; inset: 0; }
+.lp-pd-hero__scrim {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--lp-bg) 20%, transparent) 0%,
+    color-mix(in srgb, var(--lp-bg) 55%, transparent) 55%,
+    var(--lp-bg) 100%
+  );
+}
+.lp-pd-hero__body { position: relative; padding: 0 20px 30px; }
+.lp-pd-hero__badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.lp-pd-badge {
+  border: 1px solid var(--lp-hairline); border-radius: 999px; padding: 5px 11px;
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--lp-accent); white-space: nowrap;
+}
+.lp-pd-hero__title {
+  font-family: var(--lp-font-display); font-weight: 300; font-size: 44px; line-height: 1.06;
+  letter-spacing: -0.01em; margin: 0 0 14px; text-wrap: pretty;
+}
+.lp-pd-hero__sub { margin: 0 0 22px; font-size: 14px; line-height: 1.65; color: var(--lp-ink-soft); max-width: 300px; }
+.lp-pd-hero__price {
+  display: flex; align-items: baseline; gap: 8px; margin: 0;
+  padding-top: 18px; border-top: 1px solid var(--lp-line);
+}
+.lp-pd-hero__price-label { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-ink-faint); }
+.lp-pd-hero__price-value { font-family: var(--lp-font-display); font-size: 30px; color: var(--lp-accent); }
+
+.lp-pd-herocta { padding: 20px 20px 44px; display: flex; flex-direction: column; gap: 10px; }
+.lp-pd-btn {
+  display: block; text-align: center; padding: 16px; border-radius: 2px;
+  font-size: 13px; letter-spacing: 0.16em; text-transform: uppercase; min-height: 44px;
+}
+.lp-pd-btn--gold { background: var(--lp-accent); color: var(--lp-on-accent); font-weight: 500; }
+.lp-pd-btn--line { border: 1px solid var(--lp-hairline); color: var(--lp-ink); }
+
+/* Section shell + eyebrow bernomor (nomor dari counter, bukan dari JSX) */
+.lp-pd-sec { padding: 0 20px 52px; }
+.lp-pd-sec--bleed { padding-inline: 0; }
+.lp-pd-sec--bleed .lp-pd-sec__head { padding-inline: 20px; }
+.lp-pd-eyebrow {
+  font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--lp-accent); margin: 0 0 8px;
+}
+.lp-pd-eyebrow::before { counter-increment: lp-sec; content: counter(lp-sec, decimal-leading-zero) ' — '; }
+.lp-pd-h2 {
+  font-family: var(--lp-font-display); font-weight: 300; font-size: 30px; line-height: 1.15;
+  margin: 0 0 18px;
+}
+.lp-pd-lead { margin: 0 0 18px; font-size: 13px; line-height: 1.7; color: var(--lp-ink-faint); }
+.lp-pd-scroll { overflow-x: auto; }
+
+/* USP — daftar bergaris, bukan kartu */
+.lp-pd-usp { list-style: none; margin: 0; padding: 0; }
+.lp-pd-usp__row { display: flex; gap: 16px; padding: 18px 0; border-top: 1px solid var(--lp-line); }
+.lp-pd-usp__no { font-family: var(--lp-font-display); font-size: 22px; color: var(--lp-accent); min-width: 34px; }
+.lp-pd-usp__title { display: block; font-size: 15px; margin-bottom: 5px; letter-spacing: 0.01em; }
+.lp-pd-usp__desc { display: block; font-size: 12.5px; line-height: 1.6; color: var(--lp-ink-faint); }
+
+/* Tipe unit */
+.lp-pd-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+.lp-pd-tab {
+  flex: 1; padding: 12px 0; min-height: 44px; border-radius: 2px; cursor: pointer;
+  background: transparent; color: var(--lp-ink-soft); border: 1px solid var(--lp-line);
+  font-family: inherit; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.lp-pd-tab[aria-selected='true'] { background: var(--lp-accent); color: var(--lp-on-accent); border-color: var(--lp-accent); }
+.lp-pd-unit { border: 1px solid var(--lp-line); border-radius: 2px; overflow: hidden; }
+.lp-pd-unit__media { height: 200px; }
+.lp-pd-unit__body { padding: 20px; }
+.lp-pd-unit__head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+.lp-pd-unit__name { font-family: var(--lp-font-display); font-weight: 300; font-size: 26px; margin: 0; }
+.lp-pd-unit__price { font-size: 13px; color: var(--lp-accent); white-space: nowrap; }
+.lp-pd-specgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--lp-line); }
+.lp-pd-spec { background: var(--lp-bg); padding: 13px 14px; }
+.lp-pd-spec__k { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-dim); margin-bottom: 4px; }
+.lp-pd-spec__v { font-size: 15px; }
+.lp-pd-unit__note { margin: 16px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--lp-ink-faint); }
+
+/* Tabel perbandingan */
+.lp-pd-table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.lp-pd-table th, .lp-pd-table td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--lp-line); white-space: nowrap; }
+.lp-pd-table thead th { color: var(--lp-accent); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; font-size: 10px; }
+.lp-pd-table tbody th { color: var(--lp-ink-faint); font-weight: 400; }
+
+/* Fasilitas — rel horizontal */
+.lp-pd-facrail { display: flex; gap: 12px; overflow-x: auto; padding: 0 20px 6px; scroll-snap-type: x mandatory; }
+.lp-pd-fac { min-width: 230px; scroll-snap-align: start; }
+.lp-pd-fac__media { height: 270px; margin-bottom: 12px; }
+.lp-pd-fac__name { font-size: 15px; margin-bottom: 4px; }
+.lp-pd-fac__desc { font-size: 12px; line-height: 1.55; color: var(--lp-ink-faint); }
+
+/* Galeri — mosaik dua kolom, satu sel melebar tiap tiga */
+.lp-pd-mosaic { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.lp-pd-mosaic__cell { aspect-ratio: 1 / 1; overflow: hidden; }
+.lp-pd-mosaic__cell[data-wide='true'] { grid-column: span 2; aspect-ratio: 16 / 9; }
+
+/* Lokasi */
+.lp-pd-map {
+  position: relative; height: 200px; margin-bottom: 16px;
+  background: var(--lp-surface); border: 1px solid var(--lp-line); display: grid; place-items: center;
+}
+.lp-pd-map iframe { width: 100%; height: 100%; border: 0; }
+.lp-pd-map__grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--lp-line) 70%, var(--lp-ink) 8%) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--lp-line) 70%, var(--lp-ink) 8%) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+.lp-pd-map__pin {
+  position: relative; width: 12px; height: 12px; border-radius: 50%; background: var(--lp-accent);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--lp-accent) 15%, transparent);
+}
+.lp-pd-map__label {
+  position: absolute; bottom: 16px; font: 10px ui-monospace, monospace;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--lp-dim);
+}
+.lp-pd-access { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--lp-line); border: 1px solid var(--lp-line); }
+.lp-pd-access__cell { background: var(--lp-bg); padding: 15px 14px; }
+.lp-pd-access__time { font-family: var(--lp-font-display); font-size: 24px; color: var(--lp-accent); line-height: 1; }
+.lp-pd-access__place { font-size: 12px; color: var(--lp-ink-faint); margin-top: 5px; }
+
+/* Masterplan */
+.lp-pd-master { aspect-ratio: 1 / 1; border: 1px solid var(--lp-line); }
+.lp-pd-legend { display: flex; flex-wrap: wrap; gap: 10px 18px; list-style: none; margin: 16px 0 0; padding: 0; font-size: 12px; color: var(--lp-ink-faint); }
+.lp-pd-legend__item { display: flex; align-items: center; gap: 8px; }
+.lp-pd-legend__dot { width: 9px; height: 9px; background: var(--lp-accent); }
+.lp-pd-legend__item[data-slot='1'] .lp-pd-legend__dot { background: var(--lp-accent-soft); }
+.lp-pd-legend__item[data-slot='2'] .lp-pd-legend__dot { background: var(--lp-ink-soft); }
+.lp-pd-legend__item[data-slot='3'] .lp-pd-legend__dot { background: var(--lp-feature); }
+.lp-pd-plans { display: grid; gap: 14px; margin-top: 18px; }
+.lp-pd-plan { border: 1px solid var(--lp-line); }
+.lp-pd-plan__media { aspect-ratio: 4 / 3; }
+.lp-pd-plan__name { padding: 11px 14px; font-size: 13px; letter-spacing: 0.06em; }
+
+/* Harga & promo — satu-satunya blok berbingkai di tema ini */
+.lp-pd-promo {
+  margin: 0 20px 52px; padding: 30px 22px;
+  border: 1px solid color-mix(in srgb, var(--lp-accent) 28%, var(--lp-line));
+  background: linear-gradient(180deg, var(--lp-contrast) 0%, var(--lp-bg) 100%);
+}
+.lp-pd-promo__price { font-family: var(--lp-font-display); font-size: 38px; color: var(--lp-accent); margin: 0 0 20px; }
+.lp-pd-promo__terms {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+  padding-bottom: 20px; border-bottom: 1px solid var(--lp-line); margin-bottom: 20px;
+}
+.lp-pd-promo__k { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lp-dim); }
+.lp-pd-promo__v { font-size: 18px; margin-top: 4px; }
+.lp-pd-promo__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.lp-pd-promo__list li { display: flex; gap: 10px; align-items: baseline; font-size: 13.5px; }
+.lp-pd-promo__list li::before { content: '—'; color: var(--lp-accent); }
+.lp-pd-promo__note { margin: 18px 0 0; font-size: 11.5px; line-height: 1.6; color: var(--lp-dim); }
+
+/* Testimoni */
+.lp-pd-tst { margin: 0; border-top: 1px solid var(--lp-line); padding: 22px 0; }
+.lp-pd-tst__quote {
+  font-family: var(--lp-font-display); font-size: 21px; line-height: 1.45;
+  margin: 0 0 16px; color: color-mix(in srgb, var(--lp-ink) 92%, var(--lp-bg));
+}
+.lp-pd-tst__who { display: flex; gap: 12px; align-items: center; }
+.lp-pd-tst__avatar {
+  width: 40px; height: 40px; border-radius: 50%; flex: none;
+  display: grid; place-items: center; font-size: 12px; letter-spacing: 0.06em;
+  background: var(--lp-feature); color: var(--lp-ink-faint);
+}
+.lp-pd-tst__name { display: block; font-size: 13.5px; }
+.lp-pd-tst__unit { display: block; font-size: 11px; color: var(--lp-dim); letter-spacing: 0.06em; }
+
+/* Developer */
+.lp-pd-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--lp-line); border: 1px solid var(--lp-line); }
+.lp-pd-stat { background: var(--lp-bg); padding: 16px 12px; text-align: center; }
+.lp-pd-stat__v { font-family: var(--lp-font-display); font-size: 26px; color: var(--lp-accent); }
+.lp-pd-stat__k { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lp-dim); margin-top: 4px; }
+
+/* FAQ */
+.lp-pd-faq__item { border-top: 1px solid var(--lp-line); }
+.lp-pd-faq__q {
+  width: 100%; display: flex; justify-content: space-between; gap: 14px; align-items: center;
+  background: none; border: 0; color: var(--lp-ink); padding: 17px 0; text-align: left;
+  font-family: inherit; font-size: 14px; cursor: pointer; min-height: 44px;
+}
+.lp-pd-faq__mark { color: var(--lp-accent); font-size: 18px; flex: none; }
+.lp-pd-faq__a { font-size: 13px; line-height: 1.7; color: var(--lp-ink-faint); padding: 0 0 18px; }
+
+/* Tim marketing */
+.lp-pd-agent { border: 1px solid var(--lp-line); padding: 14px; display: flex; gap: 14px; align-items: center; }
+.lp-pd-agent__avatar {
+  width: 56px; height: 56px; flex: none; display: grid; place-items: center;
+  background: var(--lp-feature); color: var(--lp-accent);
+  font-family: var(--lp-font-display); font-size: 20px;
+}
+.lp-pd-agent__body { flex: 1; min-width: 0; }
+.lp-pd-agent__name { font-size: 14.5px; }
+.lp-pd-agent__role { font-size: 11px; color: var(--lp-dim); letter-spacing: 0.06em; margin-bottom: 8px; }
+.lp-pd-agent__actions { display: flex; gap: 6px; flex-wrap: wrap; }
+.lp-pd-chip {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 6px 12px;
+  border: 1px solid var(--lp-hairline); color: var(--lp-ink-soft);
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+}
+.lp-pd-chip--gold { border-color: var(--lp-accent); color: var(--lp-accent); }
+
+/* Penutup: banner CTA + form kontak */
+.lp-pd-contact {
+  position: relative; padding: 52px 20px; text-align: center;
+  background: repeating-linear-gradient(135deg, var(--lp-ph-a) 0 10px, var(--lp-ph-b) 10px 20px);
+}
+.lp-pd-contact > * { position: relative; }
+.lp-pd-contact::before {
+  content: ''; position: absolute; inset: 0;
+  background: color-mix(in srgb, var(--lp-bg) 72%, transparent);
+}
+.lp-pd-contact__title {
+  font-family: var(--lp-font-display); font-weight: 300; font-size: 34px; line-height: 1.15; margin: 0 0 12px;
+}
+.lp-pd-contact__lead { margin: 0 0 24px; font-size: 13.5px; line-height: 1.65; color: var(--lp-ink-soft); }
+.lp-pd-contact__card { background: var(--lp-surface); border: 1px solid var(--lp-line); padding: 18px; text-align: left; }
+
+/* Footer */
+.lp-pd-footer { padding: 36px 20px 30px; border-top: 1px solid var(--lp-line); background: var(--lp-footer); color: var(--lp-on-footer); }
+.lp-pd-footer__name { font-family: var(--lp-font-display); font-size: 20px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; color: var(--lp-ink); }
+.lp-pd-footer__addr { font-size: 12px; line-height: 1.7; margin-bottom: 20px; }
+.lp-pd-footer__links { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12px; padding-bottom: 20px; border-bottom: 1px solid var(--lp-line); }
+.lp-pd-footer__copy { font-size: 10.5px; letter-spacing: 0.08em; padding-top: 18px; color: var(--lp-dim); }
+
+/* Sticky bar mengikuti tema: sudut siku, emas, huruf kapital renggang */
+.lp[data-lp-theme='premiumDark'] .lp__sticky-btn { border-radius: 2px; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; }

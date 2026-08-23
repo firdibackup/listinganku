@@ -1,0 +1,228 @@
+/*
+ * 04 Soft Luxury Beige — dicocokkan ke
+ * `design/project/04 Soft Luxury Beige.dc.html`.
+ * NOL warna literal; semi-transparan lewat color-mix. Mobile-only, 390px.
+ */
+
+.lp[data-lp-theme='softLuxury'] {
+  --lp-font-display: var(--font-marcellus), Georgia, 'Times New Roman', serif;
+  --lp-font-text: var(--font-karla), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --lp-quiet: color-mix(in srgb, var(--lp-ink-faint) 72%, var(--lp-bg));
+  --lp-soft-shadow: 0 2px 20px color-mix(in srgb, var(--lp-ink) 7%, transparent);
+  background: var(--lp-bg);
+  color: var(--lp-ink);
+  font-family: var(--lp-font-text);
+}
+:where(.lp[data-lp-theme='softLuxury']) a { color: var(--lp-accent); text-decoration: none; }
+.lp[data-lp-theme='softLuxury'] [id] { scroll-margin-top: 24px; }
+
+.lp[data-lp-theme='softLuxury'] .lp-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.lp[data-lp-theme='softLuxury'] .lp-ph {
+  width: 100%; height: 100%; min-height: 100%; display: grid; place-items: center; padding: 10px;
+  background: repeating-linear-gradient(135deg, var(--lp-ph-a) 0 10px, var(--lp-ph-b) 10px 20px);
+}
+.lp[data-lp-theme='softLuxury'] .lp-ph__label {
+  font: 9.5px ui-monospace, monospace; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--lp-quiet); text-align: center;
+}
+
+/* Header */
+.lp-sl-header { padding: 18px 22px; display: flex; align-items: center; justify-content: space-between; }
+.lp-sl-header__name { font-family: var(--lp-font-display); font-size: 20px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lp-ink); }
+.lp-sl-header__dot {
+  width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--lp-line);
+  display: grid; place-items: center; font-size: 13px; color: var(--lp-accent);
+}
+
+/* Hero — foto di dalam kartu membulat */
+.lp-sl-herowrap { padding: 8px 22px 0; }
+.lp-sl-hero { position: relative; height: 460px; border-radius: 22px; overflow: hidden; }
+.lp-sl-hero__cap {
+  position: absolute; inset-inline: 0; bottom: 0; padding: 22px;
+  background: linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--lp-contrast) 72%, transparent) 60%);
+}
+.lp-sl-hero__kicker {
+  margin: 0 0 8px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--lp-on-contrast);
+}
+.lp-sl-hero__title {
+  margin: 0; font-family: var(--lp-font-display); font-weight: 400; font-size: 32px; line-height: 1.12;
+  color: var(--lp-on-contrast);
+}
+
+.lp-sl-intro { padding: 26px 22px 34px; }
+.lp-sl-intro__lead { margin: 0 0 22px; font-size: 15px; line-height: 1.75; color: var(--lp-ink-soft); }
+.lp-sl-card { background: var(--lp-surface); border-radius: 18px; box-shadow: var(--lp-soft-shadow); }
+.lp-sl-pricecard { padding: 20px; margin-bottom: 18px; }
+.lp-sl-pricecard__value { font-family: var(--lp-font-display); font-size: 38px; color: var(--lp-accent); margin: 0 0 16px; }
+.lp-sl-pills { display: flex; flex-wrap: wrap; gap: 7px; }
+.lp-sl-pill { background: var(--lp-feature); border-radius: 999px; padding: 7px 13px; font-size: 11.5px; color: var(--lp-ink-soft); white-space: nowrap; }
+.lp-sl-actions { display: flex; flex-direction: column; gap: 9px; }
+.lp-sl-btn {
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  border-radius: 999px; padding: 16px; font-size: 13.5px; letter-spacing: 0.06em; min-height: 44px;
+}
+.lp-sl-btn--dark { background: var(--lp-contrast); color: var(--lp-on-contrast); }
+.lp-sl-btn--line { border: 1px solid var(--lp-line); color: var(--lp-ink); }
+.lp-sl-btn--sm { padding: 12px; font-size: 12.5px; }
+
+/* Section shell */
+.lp-sl-sec { padding: 0 22px 38px; }
+.lp-sl-sec--bleed { padding-inline: 0; }
+.lp-sl-sec--bleed .lp-sl-sec__head { padding-inline: 22px; }
+.lp-sl-band { background: var(--lp-feature); padding: 0 22px 38px; }
+.lp-sl-band--top { border-radius: 28px 28px 0 0; padding-top: 38px; }
+.lp-sl-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--lp-quiet); margin: 0 0 8px; }
+.lp-sl-label--invert { color: var(--lp-on-contrast-soft); }
+.lp-sl-h2 { font-family: var(--lp-font-display); font-weight: 400; font-size: 29px; line-height: 1.2; margin: 0 0 18px; }
+.lp-sl-h2--sm { font-size: 27px; margin-bottom: 12px; }
+.lp-sl-h2--invert { color: var(--lp-on-contrast); }
+.lp-sl-lead { margin: 0 0 16px; font-size: 13.5px; line-height: 1.75; color: var(--lp-ink-soft); }
+.lp-sl-stack { display: flex; flex-direction: column; gap: 9px; }
+.lp-sl-stack--lg { gap: 14px; }
+.lp-sl-scroll { overflow-x: auto; padding: 4px 14px; }
+
+/* USP — kartu putih membulat */
+.lp-sl-usp { padding: 17px 18px; border-radius: 16px; }
+.lp-sl-usp__title { font-family: var(--lp-font-display); font-size: 16px; margin-bottom: 5px; }
+.lp-sl-usp__desc { font-size: 13px; line-height: 1.65; color: var(--lp-ink-soft); }
+
+/* Tipe unit — kartu yang digeser */
+.lp-sl-unitrail { display: flex; gap: 14px; overflow-x: auto; padding: 0 22px 8px; scroll-snap-type: x mandatory; }
+.lp-sl-unit {
+  min-width: 270px; scroll-snap-align: center; background: var(--lp-surface);
+  border-radius: 20px; overflow: hidden; box-shadow: var(--lp-soft-shadow);
+}
+.lp-sl-unit__media { height: 180px; }
+.lp-sl-unit__body { padding: 18px; }
+.lp-sl-unit__name { font-family: var(--lp-font-display); font-weight: 400; font-size: 24px; margin: 0 0 2px; }
+.lp-sl-unit__price { font-size: 13.5px; color: var(--lp-accent); margin: 0 0 14px; }
+.lp-sl-unit__specs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; margin: 0 0 14px; }
+.lp-sl-unit__specs dt { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lp-quiet); }
+.lp-sl-unit__specs dd { font-size: 14.5px; margin: 2px 0 0; }
+
+/* Tabel perbandingan */
+.lp-sl-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.lp-sl-table th, .lp-sl-table td { text-align: left; padding: 10px 10px; border-bottom: 1px solid var(--lp-line); white-space: nowrap; }
+.lp-sl-table thead th { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lp-quiet); font-weight: 500; }
+.lp-sl-table tbody th { font-weight: 400; color: var(--lp-ink-soft); }
+.lp-sl-table tbody tr:last-child th, .lp-sl-table tbody tr:last-child td { border-bottom: 0; }
+
+/* Fasilitas — kartu bertumpuk di pita krem */
+.lp-sl-fac { background: var(--lp-bg); border-radius: 18px; overflow: hidden; }
+.lp-sl-fac__media { height: 160px; }
+.lp-sl-fac__body { padding: 15px 17px; }
+.lp-sl-fac__name { font-family: var(--lp-font-display); font-size: 17px; margin-bottom: 4px; }
+.lp-sl-fac__desc { font-size: 12.5px; line-height: 1.6; color: var(--lp-ink-soft); }
+
+/* Lokasi */
+.lp-sl-map {
+  position: relative; height: 210px; border-radius: 18px; overflow: hidden;
+  background: var(--lp-bg); display: grid; place-items: center; margin-bottom: 14px;
+}
+.lp-sl-map iframe { width: 100%; height: 100%; border: 0; }
+.lp-sl-map__grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--lp-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--lp-line) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.lp-sl-map__pin {
+  position: relative; width: 12px; height: 12px; border-radius: 50%; background: var(--lp-accent);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--lp-accent) 14%, transparent);
+}
+.lp-sl-map__label {
+  position: absolute; bottom: 14px; font: 10px ui-monospace, monospace;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--lp-quiet);
+}
+.lp-sl-accesspanel { background: var(--lp-bg); border-radius: 18px; padding: 6px 18px; }
+.lp-sl-access { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid var(--lp-line); }
+.lp-sl-access:last-child { border-bottom: 0; }
+.lp-sl-access__place { font-size: 13.5px; color: var(--lp-ink-soft); }
+.lp-sl-access__time { font-family: var(--lp-font-display); font-size: 18px; color: var(--lp-accent); }
+
+/* Galeri */
+.lp-sl-mosaic { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.lp-sl-mosaic__cell { margin: 0; position: relative; aspect-ratio: 1 / 1; border-radius: 14px; overflow: hidden; }
+.lp-sl-mosaic__cell[data-wide='true'] { grid-column: span 2; aspect-ratio: 16 / 10; }
+.lp-sl-mosaic__cap {
+  position: absolute; inset-inline: 0; bottom: 0; padding: 7px 10px; font-size: 10.5px;
+  background: color-mix(in srgb, var(--lp-bg) 84%, transparent); color: var(--lp-ink-soft);
+}
+
+/* Masterplan */
+.lp-sl-master { aspect-ratio: 4 / 5; border-radius: 20px; overflow: hidden; }
+.lp-sl-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; list-style: none; margin: 16px 0 0; padding: 0; font-size: 12.5px; color: var(--lp-ink-soft); }
+.lp-sl-legend__item { display: flex; align-items: center; gap: 9px; }
+.lp-sl-legend__dot { width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--lp-accent); }
+.lp-sl-legend__item[data-slot='1'] .lp-sl-legend__dot { background: var(--lp-accent-soft); }
+.lp-sl-legend__item[data-slot='2'] .lp-sl-legend__dot { background: var(--lp-contrast); }
+.lp-sl-legend__item[data-slot='3'] .lp-sl-legend__dot { background: var(--lp-ink-faint); }
+
+/* Harga & promo — kartu gelap membulat */
+.lp-sl-promowrap { padding: 0 22px 38px; }
+.lp-sl-promo { background: var(--lp-contrast); color: var(--lp-on-contrast); border-radius: 24px; padding: 30px 24px; }
+.lp-sl-promo__price { font-family: var(--lp-font-display); font-size: 36px; color: var(--lp-contrast-accent); margin: 0 0 22px; }
+.lp-sl-promo__terms {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding-bottom: 20px; margin-bottom: 18px;
+  border-bottom: 1px solid color-mix(in srgb, var(--lp-on-contrast) 20%, transparent);
+}
+.lp-sl-promo__k { font-size: 11px; color: var(--lp-on-contrast-soft); }
+.lp-sl-promo__v { font-size: 19px; margin-top: 4px; }
+.lp-sl-promo__list { list-style: none; margin: 0; padding: 0; }
+.lp-sl-promo__list li { display: flex; gap: 11px; padding: 8px 0; font-size: 13.5px; }
+.lp-sl-promo__list li::before { content: '✦'; color: var(--lp-contrast-accent); }
+.lp-sl-promo__note { margin: 16px 0 0; font-size: 11.5px; line-height: 1.7; color: var(--lp-on-contrast-soft); }
+
+/* Testimoni */
+.lp-sl-tst { margin: 0; padding: 20px; }
+.lp-sl-tst__quote { font-family: var(--lp-font-display); font-size: 19px; line-height: 1.45; margin: 0 0 16px; }
+.lp-sl-tst__who { display: flex; gap: 11px; align-items: center; }
+.lp-sl-avatar {
+  width: 38px; height: 38px; border-radius: 50%; flex: none; display: grid; place-items: center;
+  background: var(--lp-feature); color: var(--lp-accent); font-size: 12px;
+}
+.lp-sl-avatar--lg { width: 56px; height: 56px; font-family: var(--lp-font-display); font-size: 20px; }
+.lp-sl-tst__name { display: block; font-size: 13.5px; }
+.lp-sl-tst__unit { display: block; font-size: 11.5px; color: var(--lp-quiet); }
+
+/* Developer */
+.lp-sl-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+.lp-sl-stat { border-radius: 14px; padding: 16px 8px; text-align: center; }
+.lp-sl-stat__v { font-family: var(--lp-font-display); font-size: 24px; color: var(--lp-accent); }
+.lp-sl-stat__k { font-size: 10.5px; color: var(--lp-quiet); margin-top: 3px; }
+
+/* FAQ */
+.lp-sl-faq { border-radius: 16px; overflow: hidden; }
+.lp-sl-faq__q {
+  width: 100%; display: flex; justify-content: space-between; gap: 14px; align-items: center;
+  background: none; border: 0; color: var(--lp-ink); padding: 16px 18px; text-align: left;
+  font-family: inherit; font-size: 13.5px; cursor: pointer; min-height: 44px;
+}
+.lp-sl-faq__mark { color: var(--lp-accent); font-size: 17px; flex: none; }
+.lp-sl-faq__a { font-size: 13px; line-height: 1.75; color: var(--lp-ink-soft); padding: 0 18px 16px; }
+
+/* Tim marketing */
+.lp-sl-agent { padding: 18px; display: flex; gap: 14px; align-items: center; }
+.lp-sl-agent__body { flex: 1; min-width: 0; }
+.lp-sl-agent__name { font-family: var(--lp-font-display); font-size: 18px; }
+.lp-sl-agent__role { font-size: 11.5px; color: var(--lp-quiet); margin-bottom: 10px; }
+.lp-sl-agent__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.lp-sl-agent__actions .lp-sl-btn { flex: 1; }
+
+/* Form kontak */
+.lp-sl-formcard { padding: 20px; }
+.lp[data-lp-theme='softLuxury'] .ds-field__control { border-radius: 12px; }
+.lp[data-lp-theme='softLuxury'] .ds-btn { border-radius: 999px; }
+
+/* Footer */
+.lp-sl-footer { background: var(--lp-footer); color: var(--lp-on-footer); padding: 34px 22px 30px; }
+.lp-sl-footer__name { font-family: var(--lp-font-display); font-size: 20px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; color: var(--lp-ink); }
+.lp-sl-footer__addr { font-size: 12.5px; line-height: 1.75; margin-bottom: 18px; }
+.lp-sl-footer__links { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; padding-bottom: 16px; border-bottom: 1px solid var(--lp-line); }
+.lp-sl-footer__copy { font-size: 11px; padding-top: 16px; color: var(--lp-quiet); }
+
+/* Sticky bar: pil, sesuai bahasa bentuk tema ini */
+.lp[data-lp-theme='softLuxury'] .lp__sticky-btn { border-radius: 999px; font-size: 13px; letter-spacing: 0.04em; }
+.lp[data-lp-theme='softLuxury'] .lp__sticky-btn--wa { background: var(--lp-contrast); color: var(--lp-on-contrast); }

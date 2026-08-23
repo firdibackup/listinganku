@@ -13,7 +13,7 @@ export function Hero({ block }: { block: Extract<ResolvedBlock, { type: 'hero' }
     <>
       <section className="lp-tw-hero">
         <div className="lp-tw-hero__media">
-          <Img media={block.image} alt={block.title} />
+          <Img media={block.image} alt="Foto hero kawasan" />
         </div>
         <div className="lp-tw-hero__overlay" />
         <div className="lp-tw-hero__body">

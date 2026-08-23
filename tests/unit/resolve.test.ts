@@ -55,7 +55,7 @@ describe('resolveBlocks', () => {
 
   it('jatuh ke nama project saat AI dan override sama-sama kosong', () => {
     const hero = pickBlock(resolveBlocks(fixture()), 'hero') as { title: string };
-    expect(hero.title).toBe('Parkspring Gading');
+    expect(hero.title).toBe('Parkspring');
   });
 
   it('menghormati urutan dan penyembunyian tipe rumah', () => {
@@ -73,12 +73,27 @@ describe('resolveBlocks', () => {
   it('mengambil nomor WhatsApp dari profil agen bila CTA tidak dioverride', () => {
     const cta = pickBlock(resolveBlocks(fixture()), 'agentCta') as { waNumber: string; defaultMessage: string };
     expect(cta.waNumber).toBe('081288994410');
-    expect(cta.defaultMessage).toContain('Parkspring Gading');
+    expect(cta.defaultMessage).toContain('Parkspring');
   });
 
-  it('menurunkan fasilitas dari project, bukan dari props blok', () => {
-    const facilities = pickBlock(resolveBlocks(fixture()), 'facilities') as { items: string[] };
-    expect(facilities.items).toEqual(['Kolam renang', 'Security 24 jam', 'Jogging track']);
+  it('menurunkan fasilitas dari project saat blok tidak mengoverride', () => {
+    const facilities = pickBlock(resolveBlocks(fixture()), 'facilities') as { items: { name: string; desc: string }[] };
+    expect(facilities.items.map((f) => f.name))
+      .toEqual(['Clubhouse', 'Swimming Pool', 'Taman Tematik', 'Jogging Track', 'Playground', 'One Gate System']);
+    // Nama tanpa keterangan tetap punya field desc kosong — komponen tema tidak
+    // perlu tahu apakah isinya berasal dari wizard atau dari override blok.
+    expect(facilities.items.every((f) => f.desc === '')).toBe(true);
+  });
+
+  it('memakai fasilitas dari props blok saat dioverride, lengkap dengan keterangannya', () => {
+    const input = fixture();
+    const blocks = updateBlockProps(input.project.blocks, 'blk_facilities', {
+      items: [{ name: 'Clubhouse', desc: 'Lounge & ruang serbaguna' }],
+    });
+    const facilities = pickBlock(
+      resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'facilities',
+    ) as { items: { name: string; desc: string }[] };
+    expect(facilities.items).toEqual([{ name: 'Clubhouse', desc: 'Lounge & ruang serbaguna' }]);
   });
 
   // Edge cases for pick() function
@@ -156,8 +171,9 @@ describe('resolveBlocks', () => {
       },
     });
     const blocks = updateBlockProps(input.project.blocks, 'blk_highlights', { items: [] });
-    const highlights = pickBlock(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'highlights') as { items: string[] };
-    expect(highlights.items).toEqual(['Dari AI']);
+    const highlights = pickBlock(resolveBlocks({ ...input, project: { ...input.project, blocks } }), 'highlights') as { items: { title: string; desc: string }[] };
+    // sellingPoints AI adalah kalimat lepas; resolve menaikkannya ke bentuk blok.
+    expect(highlights.items).toEqual([{ title: 'Dari AI', desc: '' }]);
   });
 
   it('mengabaikan mediaId yang tidak ada tanpa crash', () => {
@@ -183,7 +199,7 @@ describe('resolveBlocks', () => {
   it('menangani block tanpa aiContent sama sekali', () => {
     const input = fixture({ aiContent: null });
     const hero = pickBlock(resolveBlocks(input), 'hero') as { title: string };
-    expect(hero.title).toBe('Parkspring Gading');
+    expect(hero.title).toBe('Parkspring');
   });
 
   it('melewati disabled block dari output', () => {
@@ -261,7 +277,9 @@ describe('resolveBlocks', () => {
 
     it('badge hero jatuh ke highlights lalu facilities, maksimal 4', () => {
       const input = fixture();
-      const withHl = updateBlockProps(input.project.blocks, 'blk_highlights', { items: ['a', 'b', 'c', 'd', 'e'] });
+      const withHl = updateBlockProps(input.project.blocks, 'blk_highlights', {
+        items: ['a', 'b', 'c', 'd', 'e'].map((title) => ({ title })),
+      });
       const heroA = pickBlock(resolveBlocks({ ...input, project: { ...input.project, blocks: withHl } }), 'hero');
       expect(heroA).toMatchObject({ badges: ['a', 'b', 'c', 'd'] });
     });

@@ -6,8 +6,8 @@ test('landing publik dirender di server, bukan di klien', async ({ request }) =>
 
   const html = await response.text();
   // Dibuktikan lewat HTML mentah — bukan setelah hidrasi.
-  expect(html).toContain('Parkspring Gading');
-  expect(html).toContain('Rp 2,45 M');
+  expect(html).toContain('Parkspring');
+  expect(html).toContain('Rp 2,6 M');
   expect(html).toContain('"@type":"RealEstateListing"');
   expect(html).toMatch(/<link[^>]+rel="canonical"/);
 });

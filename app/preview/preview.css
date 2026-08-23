@@ -1,0 +1,67 @@
+/*
+ * Papan banding tema (/preview). Ini alat kerja, bukan template — jadi ia BOLEH
+ * melebar mengikuti layar. Yang wajib mobile-only adalah isi bingkainya.
+ */
+.pv {
+  min-height: 100dvh;
+  background: #0e1013;
+  color: #e9e7e2;
+  padding: 40px 24px 72px;
+  font-family: var(--font-body);
+}
+.pv__srtitle {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+.pv__head { max-width: 62ch; margin: 0 auto 36px; text-align: center; }
+.pv__eyebrow {
+  margin: 0 0 10px; font-size: 11px; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #8d8a84;
+}
+.pv__title { margin: 0 0 12px; font-size: 34px; line-height: 1.15; font-weight: 600; letter-spacing: -0.01em; }
+.pv__sub { margin: 0; font-size: 14px; line-height: 1.7; color: #a3a09a; }
+
+.pv__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 28px;
+  max-width: 1560px;
+  margin: 0 auto;
+}
+.pv__card {
+  background: #16181c;
+  border: 1px solid #24272c;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.pv__meta { display: flex; align-items: center; gap: 10px; padding: 14px 16px; }
+.pv__no { font-size: 11px; letter-spacing: 0.14em; color: #6f6c67; font-variant-numeric: tabular-nums; }
+.pv__name { margin: 0; font-size: 15px; font-weight: 600; flex: 1; }
+.pv__open { font-size: 12px; color: #9fc6ff; text-decoration: none; white-space: nowrap; }
+.pv__open:hover { text-decoration: underline; }
+
+/*
+ * Bingkai 390×844 diperkecil supaya beberapa tema muat berdampingan. Skalanya
+ * di CSS, bukan di iframe: halaman di dalamnya tetap yakin ia selebar 390px,
+ * jadi yang terlihat benar-benar layout mobile — bukan layout desktop yang
+ * dikecilkan.
+ */
+.pv__frame {
+  height: calc(844px * 0.72);
+  overflow: hidden;
+  border-top: 1px solid #24272c;
+  background: #0a0b0d;
+}
+.pv__frame iframe {
+  width: 390px;
+  height: 844px;
+  border: 0;
+  transform: scale(0.72);
+  transform-origin: top left;
+  display: block;
+  margin-inline: auto;
+}
+@media (min-width: 900px) {
+  .pv__frame { height: 844px; }
+  .pv__frame iframe { transform: none; }
+}
