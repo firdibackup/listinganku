@@ -15,9 +15,10 @@ test('jalur North Star: dari login sampai landing publik live', async ({ page, r
   // Fase 3 — Create Project
   await page.getByRole('link', { name: /Create project/i }).click();
   await page.getByLabel(/Nama project/).fill(nama);
-  await page.getByLabel('Lokasi').fill('Gading Serpong, Tangerang');
+  await page.getByRole('button', { name: 'Perumahan' }).click();
+  await page.getByLabel(/Nama kawasan/).fill('Gading Serpong');
   await page.getByLabel('Developer').fill('Paramount Land');
-  await page.getByLabel('Deskripsi').fill('Cluster uji dengan dua tipe unit dan akses tol lima menit.');
+  await page.getByLabel(/Ceritakan singkat/).fill('Cluster uji dengan dua tipe unit dan akses tol lima menit.');
   await page.getByRole('button', { name: 'Lanjut' }).click();
   await page.getByRole('button', { name: 'Lanjut' }).click();
   await page.getByRole('button', { name: 'Simpan project' }).click();
@@ -86,7 +87,7 @@ test('publish tetap berhasil tanpa konten AI sama sekali', async ({ page }) => {
 
   await page.getByRole('link', { name: /Create project/i }).click();
   await page.getByLabel(/Nama project/).fill(`Tanpa AI ${Date.now()}`);
-  await page.getByLabel('Deskripsi').fill('Konten diisi manual tanpa bantuan AI sama sekali.');
+  await page.getByLabel(/Ceritakan singkat/).fill('Konten diisi manual tanpa bantuan AI sama sekali.');
   await page.getByRole('button', { name: 'Lanjut' }).click();
   await page.getByRole('button', { name: 'Lanjut' }).click();
   await page.getByRole('button', { name: 'Simpan project' }).click();

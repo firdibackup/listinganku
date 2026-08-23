@@ -259,9 +259,16 @@ export function CreateProjectWizard({ developers = [] }: { developers?: string[]
           <>
             <h2 className="lw-h3">Review</h2>
             <div className="wz__review"><span style={{ color: 'var(--sage)' }}>Nama project</span><span style={{ fontWeight: 500 }}>{form.name || '—'}</span></div>
+            <div className="wz__review"><span style={{ color: 'var(--sage)' }}>Tipe project</span><span>{form.projectType ? PROJECT_TYPE_LABELS[form.projectType] : '—'}</span></div>
             <div className="wz__review"><span style={{ color: 'var(--sage)' }}>Lokasi</span><span>{form.location || '—'}</span></div>
             <div className="wz__review"><span style={{ color: 'var(--sage)' }}>Developer</span><span>{form.developer || '—'}</span></div>
-            <div className="wz__review"><span style={{ color: 'var(--sage)' }}>Fasilitas</span><span>{form.facilities.join(' · ') || '—'}</span></div>
+            <div className="wz__review"><span style={{ color: 'var(--sage)' }}>Section aktif</span><span>{blocks.filter((b) => b.enabled).length} section</span></div>
+            <div className="wz__review"><span style={{ color: 'var(--sage)' }}>Fasilitas</span><span>{form.brief.facilities.map((f) => f.name).join(' · ') || '—'}</span></div>
+            <div className="wz__review"><span style={{ color: 'var(--sage)' }}>Tempat terdekat</span><span>{form.brief.nearby.length ? `${form.brief.nearby.length} tempat` : '—'}</span></div>
+            <div className="wz__review"><span style={{ color: 'var(--sage)' }}>Promo</span><span>{form.brief.promo ? form.brief.promo.name || 'Ada' : '—'}</span></div>
+            <p style={{ fontSize: 13, color: 'var(--sage)', marginTop: 8 }}>
+              Materi yang kosong akan kami susun dari informasi yang ada.
+            </p>
           </>
         ) : null}
       </Card>
