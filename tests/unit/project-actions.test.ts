@@ -100,6 +100,50 @@ describe('updateProjectAction — upsert per langkah wizard', () => {
     const result = await updateProjectAction('prj_tidak_pernah_ada', { location: 'X' });
     expect(result).toEqual({ ok: false, fieldErrors: { _: ['Project tidak ditemukan.'] } });
   });
+
+  // Spec §4.3: `project.facilities` (string[] lama, dibaca lib/landing/seo.ts
+  // dan rantai fallback facilities) tidak dihapus — disinkronkan dari
+  // brief.facilities setiap kali brief ikut dikirim di payload update.
+  it('menyinkronkan project.facilities dari brief.facilities ketika brief dikirim', async () => {
+    const created = await createProjectAction({ name: 'Cluster Sinkron Fasilitas' });
+    if (!created.ok) throw new Error('expected ok');
+
+    const updated = await updateProjectAction(created.data.id, {
+      brief: {
+        version: 1, location: null, nearby: [], highlights: [],
+        facilities: [
+          { name: 'Kolam renang', desc: '', mediaIds: [] },
+          { name: 'Taman', desc: 'Asri dan luas', mediaIds: [] },
+        ],
+        promo: null, heroEmphasis: null, ctaGoals: [], notes: {},
+      },
+    });
+    expect(updated).toEqual({ ok: true, data: null });
+
+    const row = await db.projects.get(created.data.id);
+    expect(row?.facilities).toEqual(['Kolam renang', 'Taman']);
+  });
+
+  it('TIDAK menimpa project.facilities ketika update tidak membawa brief sama sekali', async () => {
+    const created = await createProjectAction({ name: 'Cluster Tanpa Brief' });
+    if (!created.ok) throw new Error('expected ok');
+
+    await updateProjectAction(created.data.id, {
+      brief: {
+        version: 1, location: null, nearby: [], highlights: [],
+        facilities: [{ name: 'Masjid', desc: '', mediaIds: [] }],
+        promo: null, heroEmphasis: null, ctaGoals: [], notes: {},
+      },
+    });
+
+    // Update kedua ini sama sekali tidak mengirim `brief` — project.facilities
+    // yang sudah tersinkron dari langkah sebelumnya tidak boleh ditimpa [].
+    const updated = await updateProjectAction(created.data.id, { location: 'Bandung' });
+    expect(updated).toEqual({ ok: true, data: null });
+
+    const row = await db.projects.get(created.data.id);
+    expect(row?.facilities).toEqual(['Masjid']);
+  });
 });
 
 describe('publishProjectAction', () => {

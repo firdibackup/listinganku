@@ -76,6 +76,19 @@ export async function updateProjectAction(id: string, input: unknown): Promise<A
       // agen di step 2 karena itu salinan server yang sudah basi.
       patch.blocks = applySectionPreset(patch.blocks ?? owned.blocks, nextType);
     }
+
+    // Spec §4.3: `project.facilities` (string[] lama) TIDAK dihapus — ia
+    // disinkronkan dari `brief.facilities` setiap kali brief ikut dikirim.
+    // Tanpa ini `project.facilities` tetap [] selamanya begitu agen mengisi
+    // fasilitas di wizard step 2, dan lib/landing/seo.ts + rantai fallback
+    // facilities yang membaca project.facilities (bukan brief.facilities)
+    // tidak pernah melihatnya. Hanya jalan saat `brief` benar-benar ada di
+    // patch — update lain (mis. cuma projectType) tidak boleh menimpa
+    // project.facilities dengan array kosong dari brief yang tidak dikirim.
+    if (patch.brief) {
+      patch.facilities = patch.brief.facilities.map((f) => f.name);
+    }
+
     await db.projects.update(id, patch);
     revalidatePath(`/projects/${id}`);
     revalidatePath('/dashboard');

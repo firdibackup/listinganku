@@ -20,6 +20,23 @@ export function FacilitiesPanel({ brief, onChange }: PanelProps) {
     onChange({ facilities: next });
   };
 
+  /**
+   * Baris custom yang ditinggalkan tanpa nama ("Tambah fasilitas" diklik
+   * lalu tidak diisi) disaring begitu field nama-nya blur — pola yang sama
+   * dengan PromoPanel.onBlur. `desc` opsional tidak jadi kriteria: baris
+   * tanpa nama tetap dibuang meski keterangannya sudah diisi, karena
+   * BriefFacilitySchema.name mewajibkan isi (skema tidak punya cara
+   * menyimpan fasilitas tanpa nama). Hanya jalan di onBlur — bukan tiap
+   * keystroke — supaya baris yang SEDANG diketik tidak ikut tersapu saat
+   * sempat kosong sesaat.
+   */
+  const cleanOnBlur = () =>
+    onChange({
+      facilities: brief.facilities
+        .map((f) => ({ ...f, name: f.name.trim() }))
+        .filter((f) => f.name.length > 0),
+    });
+
   return (
     <>
       <div>
@@ -35,7 +52,7 @@ export function FacilitiesPanel({ brief, onChange }: PanelProps) {
 
       {brief.facilities.map((f, i) => (
         <div key={i} className="wz-panel__row">
-          <Input label={`Nama fasilitas ${i + 1}`} value={f.name} onChange={(e) => set(i, { name: e.target.value })} />
+          <Input label={`Nama fasilitas ${i + 1}`} value={f.name} onChange={(e) => set(i, { name: e.target.value })} onBlur={cleanOnBlur} />
           <Input label={`Keterangan ${i + 1}`} placeholder="Opsional" value={f.desc} onChange={(e) => set(i, { desc: e.target.value })} />
           <Button
             variant="link" size="sm"

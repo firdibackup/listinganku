@@ -125,6 +125,35 @@ describe('CreateProjectWizard — simpan otomatis per langkah', () => {
     expect(screen.getByText('Materi landing page')).toBeInTheDocument();
     expect(screen.queryByLabelText(/Nama project/)).not.toBeInTheDocument();
   });
+
+  // Reproduksi persis dari laporan: klik "Tambah keunggulan", JANGAN diisi
+  // (fokus tidak pernah menyentuh field-nya, jadi guard onBlur milik
+  // HighlightsPanel tidak sempat jalan), lalu klik "Lanjut". Sebelum
+  // perbaikan ini, fieldErrors.brief (dari ProjectBriefSchema menolak baris
+  // kosong) tersimpan di state `errors` tapi tidak pernah dirender — agen
+  // macet tanpa toast, tanpa pindah step, tanpa apa pun.
+  it('baris keunggulan kosong yang ditinggalkan menampilkan toast, bukan macet diam-diam', async () => {
+    const user = userEvent.setup();
+    render(<CreateProjectWizard />);
+
+    await user.type(screen.getByLabelText(/Nama project/), 'Cluster Baris Kosong');
+    await user.click(screen.getByRole('button', { name: 'Lanjut' }));
+    await screen.findByText('Materi landing page');
+
+    await user.click(screen.getByRole('button', { name: 'Buka materi Highlights' }));
+    await user.click(screen.getByRole('button', { name: 'Tambah keunggulan' }));
+    // TIDAK ada user.type/user.click ke field "Keunggulan 1" di sini — persis
+    // "menekan Tambah lalu membiarkannya kosong" dari laporan.
+    await user.click(screen.getByRole('button', { name: 'Lanjut' }));
+
+    await vi.waitFor(() => expect(toastMock.error).toHaveBeenCalled());
+    // Pesannya bukan string kosong/undefined — benar-benar ada sesuatu yang
+    // terlihat pengguna, bukan cuma "toast dipanggil tanpa isi".
+    expect(toastMock.error.mock.calls[0]?.[0]).toEqual(expect.any(String));
+    expect(toastMock.error.mock.calls[0]?.[0]?.length).toBeGreaterThan(0);
+    // Tetap di step 2 — kegagalan ini bukan tentang "Nama project".
+    expect(screen.getByText('Materi landing page')).toBeInTheDocument();
+  });
 });
 
 describe('CreateProjectWizard — step 1 basic info', () => {

@@ -18,6 +18,21 @@ export function LocationPanel({ brief, onChange }: PanelProps) {
       location: { ...(brief.location ?? { area: '', district: '', city: '', province: '' }), address },
     });
 
+  /**
+   * Baris yang ditinggalkan tanpa nama tempat ("Tambah tempat terdekat"
+   * diklik lalu tidak diisi) disaring begitu field nama-nya blur — pola
+   * yang sama dengan PromoPanel.onBlur. `minutes` bukan kriteria: baris
+   * tanpa nama dibuang terlepas dari menit-nya, karena NearbyItemSchema.name
+   * mewajibkan isi. Hanya jalan di onBlur supaya baris yang SEDANG diketik
+   * tidak ikut tersapu saat sempat kosong sesaat.
+   */
+  const cleanOnBlur = () =>
+    onChange({
+      nearby: brief.nearby
+        .map((n) => ({ ...n, name: n.name.trim() }))
+        .filter((n) => n.name.length > 0),
+    });
+
   const adaTanpaMenit = brief.nearby.some((n) => n.minutes === null);
 
   return (
@@ -51,7 +66,7 @@ export function LocationPanel({ brief, onChange }: PanelProps) {
               ))}
             </select>
           </label>
-          <Input label={`Nama tempat ${i + 1}`} placeholder="Contoh: Tol Jakarta–Merak" value={n.name} onChange={(e) => set(i, { name: e.target.value })} />
+          <Input label={`Nama tempat ${i + 1}`} placeholder="Contoh: Tol Jakarta–Merak" value={n.name} onChange={(e) => set(i, { name: e.target.value })} onBlur={cleanOnBlur} />
           <Input
             label={`Menit ${i + 1}`}
             type="number" min={1} inputMode="numeric"

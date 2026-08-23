@@ -124,9 +124,21 @@ export function CreateProjectWizard({ developers = [] }: { developers?: string[]
           // memindahkan step. Melompat ke step 1 di sini pernah jadi masalah:
           // seseorang yang sudah di step 3 kehilangan progres tampilan gara-gara
           // sesi blip sesaat, padahal projectId di state masih valid dan retry
-          // dari step yang sama akan berhasil. Tanpa toast ini juga silent
-          // failure yang sama seperti bug-010 di uploader media.
-          const fallback = result.fieldErrors._?.[0];
+          // dari step yang sama akan berhasil.
+          //
+          // Fallback-nya SENGAJA tidak dibatasi ke key `_` saja: field APA PUN
+          // yang belum (atau tidak lagi) punya UI khusus di wizard ini — misalnya
+          // `brief` dari ProjectBriefSchema begitu salah satu panel materi
+          // mengirim baris kosong yang lolos dari guard-nya sendiri — dulu
+          // tersimpan di state `errors` tapi TIDAK PERNAH dirender di mana pun:
+          // agen menekan Lanjut/Simpan dan tidak terjadi apa-apa, macet total
+          // tanpa penjelasan (silent failure yang sama seperti bug-010 di
+          // uploader media, hanya beda lokasi). Ambil pesan dari key gagal
+          // PERTAMA APA PUN, bukan daftar key yang di-hardcode, supaya field
+          // skema baru di masa depan otomatis ikut ter-toast tanpa perlu
+          // menyentuh file ini lagi.
+          const [firstKey] = Object.keys(result.fieldErrors);
+          const fallback = firstKey ? result.fieldErrors[firstKey]?.[0] : undefined;
           if (fallback) toast.error(fallback);
         }
         return;

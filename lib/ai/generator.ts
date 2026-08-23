@@ -5,10 +5,12 @@ export interface GenerateInput {
   project: Project;
   houseTypes: HouseType[];
   /**
-   * Bahan mentah dari agen. Generator WAJIB memakai hanya fakta di sini dan di
-   * houseTypes — jangan menyebut angka, jarak, waktu tempuh, harga, atau nama
-   * tempat yang tidak ada di keduanya. Kalau `minutes` null, sebut tempatnya
-   * tanpa angka.
+   * Bahan mentah dari agen. Generator WAJIB memakai hanya fakta di `brief`,
+   * `houseTypes`, dan field milik `project` sendiri (`project.name`,
+   * `project.location`, `project.developer`, `project.description`,
+   * `project.facilities`) — jangan menyebut angka, jarak, waktu tempuh,
+   * harga, atau nama tempat di luar sumber-sumber itu. Kalau `minutes`
+   * null, sebut tempatnya tanpa angka.
    */
   brief: ProjectBrief;
   /** Diekspos supaya tes bisa menjalankan mock tanpa menunggu. */

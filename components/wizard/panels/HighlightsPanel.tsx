@@ -15,6 +15,21 @@ export function HighlightsPanel({ brief, onChange }: PanelProps) {
     onChange({ highlights: next });
   };
 
+  /**
+   * Baris yang ditinggalkan kosong ("Tambah keunggulan" diklik lalu tidak
+   * diisi) disaring begitu field-nya blur — pola yang sama dengan
+   * PromoPanel.onBlur (lihat parsePromoLines untuk alasan filternya harus
+   * di onBlur, bukan onChange): menyaring di TIAP keystroke akan membuang
+   * baris begitu sempat kosong sesaat (mis. backspace penuh sebelum
+   * mengetik ulang), membuat baris yang sedang diketik menghilang dari
+   * bawah kursor. Menyaring di onBlur hanya menyentuh baris yang sudah
+   * ditinggalkan (dan karena setiap baris adalah input terkendali sendiri,
+   * baris lain yang sedang aktif diketik tidak pernah ikut tersapu — beda
+   * dari kasus PromoPanel yang satu textarea dipecah jadi banyak baris).
+   */
+  const cleanOnBlur = () =>
+    onChange({ highlights: brief.highlights.map((h) => h.trim()).filter((h) => h.length > 0) });
+
   return (
     <>
       {brief.highlights.map((h, i) => (
@@ -24,6 +39,7 @@ export function HighlightsPanel({ brief, onChange }: PanelProps) {
             placeholder="Contoh: Bebas banjir"
             value={h}
             onChange={(e) => set(i, e.target.value)}
+            onBlur={cleanOnBlur}
           />
           <Button
             variant="link" size="sm"

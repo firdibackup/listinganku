@@ -69,7 +69,7 @@ export const ProjectBriefSchema = z.object({
   version: z.literal(1),
   location: LocationDetailSchema.nullable().default(null),
   nearby: z.array(NearbyItemSchema).default([]),
-  highlights: z.array(z.string().trim().min(1)).default([]),
+  highlights: z.array(z.string().trim().min(1, wajib)).default([]),
   facilities: z.array(BriefFacilitySchema).default([]),
   promo: BriefPromoSchema.nullable().default(null),
   heroEmphasis: z.enum(['promo', 'lokasi', 'konsep', 'harga']).nullable().default(null),
