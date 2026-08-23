@@ -1,5 +1,7 @@
 import type { Block } from './blocks';
 import type { AgentProfile, HouseType, Media, Project } from '@/lib/data/types';
+import { formatDateLong } from '@/lib/format';
+import { emptyBrief } from '@/lib/data/types';
 
 export interface ResolvedHouseType {
   id: string;
@@ -41,21 +43,26 @@ export interface ResolveInput {
   agent: AgentProfile;
 }
 
-/** Rantai yang menopang tombol "Use AI suggestion": override, lalu AI, lalu fallback. */
-export const pick = <T>(override: T | undefined, ai: T | undefined, fallback: T): T => {
-  const isAbsent = (v: T | undefined): boolean => {
-    if (v === undefined) return true;
-    if (v === '') return true; // empty string is absent
-    if (Array.isArray(v) && v.length === 0) return true; // empty array is absent
-    // Whitespace-only string is deliberately absent so fallback to AI / default occurs
-    if (typeof v === 'string' && v.trim() === '') return true;
-    return false;
-  };
-
-  if (!isAbsent(override)) return override as T;
-  if (!isAbsent(ai)) return ai as T;
-  return fallback;
+const isAbsent = <T>(v: T | undefined): boolean => {
+  if (v === undefined || v === null) return true;
+  if (typeof v === 'string' && v.trim() === '') return true;
+  if (Array.isArray(v) && v.length === 0) return true;
+  return false;
 };
+
+/**
+ * Rantai N lapis. Kandidat terakhir adalah fallback dan selalu dipakai kalau
+ * semua di depannya absen. Ini generalisasi pick(); logika isAbsent-nya sama
+ * persis supaya tidak ada dua definisi "kosong" yang bisa berdivergensi.
+ */
+export function pickFirst<T>(...candidates: (T | undefined)[]): T {
+  for (const c of candidates.slice(0, -1)) if (!isAbsent(c)) return c as T;
+  return candidates[candidates.length - 1] as T;
+}
+
+/** Rantai yang menopang tombol "Use AI suggestion": override, lalu AI, lalu fallback. */
+export const pick = <T>(override: T | undefined, ai: T | undefined, fallback: T): T =>
+  pickFirst(override, ai, fallback);
 
 function resolveHouseTypes(input: ResolveInput, block: Block | undefined): ResolvedHouseType[] {
   const props = (block?.props ?? {}) as { order?: string[]; hidden?: string[] };
@@ -87,6 +94,18 @@ function resolveHouseTypes(input: ResolveInput, block: Block | undefined): Resol
 export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
   const { project, media, agent } = input;
   const ai = project.aiContent;
+  // emptyBrief(): snapshot lama tidak punya brief, dan resolveBlocks juga
+  // dipanggil dari tes yang membangun Project parsial.
+  const brief = project.brief ?? emptyBrief();
+  const briefAccess = brief.nearby
+    .filter((n) => n.minutes !== null)
+    .map((n) => ({ time: `${n.minutes} mnt`, place: n.name }));
+  const briefPromoNote = brief.promo
+    ? [
+        brief.promo.detail,
+        brief.promo.validUntil ? `Berlaku sampai ${formatDateLong(brief.promo.validUntil)}` : '',
+      ].filter(Boolean).join(' · ')
+    : '';
   const projectPhotos = media.filter((m) => m.houseTypeId === null && m.type === 'photo');
   const byId = (type: string) => project.blocks.find((b) => b.type === type);
   const houseTypes = resolveHouseTypes(input, byId('houseTypes'));
@@ -97,16 +116,21 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
   const ctaProps = (byId('agentCta')?.props ?? {}) as { waNumber?: string; defaultMessage?: string };
   const waNumber = pick(ctaProps.waNumber, undefined, agent.whatsapp);
   const defaultMessage = pick(
-    ctaProps.defaultMessage, undefined, `Halo ${agent.fullName}, saya tertarik dengan ${project.name}.`,
+    ctaProps.defaultMessage,
+    ai?.cta?.whatsappMessage,
+    `Halo ${agent.fullName}, saya tertarik dengan ${project.name}.`,
   );
   /**
    * AI hanya mengembalikan kalimat lepas (`sellingPoints: string[]`), sementara
    * blok menyimpan { title, desc }. Dinaikkan ke bentuk blok DI SINI supaya tiap
-   * komponen tema cukup membaca satu bentuk saja.
+   * komponen tema cukup membaca satu bentuk saja. Rantai empat lapis: override
+   * blok, lalu AI, lalu highlights mentah agen dari brief (jaring pengaman
+   * kalau AI gagal), lalu array kosong.
    */
-  const highlightItems: { title: string; desc: string }[] = pick<{ title: string; desc?: string }[]>(
+  const highlightItems: { title: string; desc: string }[] = pickFirst<{ title: string; desc?: string }[]>(
     (byId('highlights')?.props as { items?: { title: string; desc?: string }[] } | undefined)?.items,
     ai?.sellingPoints?.map((title) => ({ title })),
+    brief.highlights.map((title) => ({ title })),
     [],
   ).map((it) => ({ title: it.title, desc: it.desc ?? '' }));
 
@@ -126,7 +150,7 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
         out.push({
           id: block.id, type: 'hero', projectId: project.id,
           title: pick(p.title as string | undefined, ai?.headline, project.name),
-          subtitle: pick(p.subtitle as string | undefined, undefined, project.location),
+          subtitle: pick(p.subtitle as string | undefined, ai?.subheadline, project.location),
           // Terpisah dari subtitle: beberapa tema menaruh baris lokasi pendek
           // di atas judul DAN kalimat pemasaran di bawahnya. Sebelum ini keduanya
           // memakai `subtitle`, jadi kalimat panjang muncul sebagai eyebrow
@@ -170,11 +194,14 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
         break;
 
       case 'facilities':
+        // Brief di ATAS AI di sini — AI tidak punya kandidat sama sekali. Rantai:
+        // override blok, lalu fasilitas terstruktur dari brief, lalu daftar nama
+        // mentah dari project (jaring pengaman kalau brief belum diisi).
         out.push({
           id: block.id, type: 'facilities',
-          items: pick<{ name: string; desc?: string }[]>(
+          items: pickFirst<{ name: string; desc?: string }[]>(
             p.items as { name: string; desc?: string }[] | undefined,
-            undefined,
+            brief.facilities.map((f) => ({ name: f.name, desc: f.desc })),
             project.facilities.map((name) => ({ name })),
           ).map((it) => ({ name: it.name, desc: it.desc ?? '' })),
         });
@@ -199,19 +226,23 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
       case 'location':
         out.push({
           id: block.id, type: 'location',
-          address: pick(p.address as string | undefined, undefined, project.location),
+          address: pickFirst(
+            p.address as string | undefined,
+            brief.location?.address,
+            project.location,
+          ),
           mapUrl: (p.mapUrl as string | undefined) ?? null,
-          access: (p.access as { time: string; place: string }[] | undefined) ?? [],
+          access: pickFirst(p.access as { time: string; place: string }[] | undefined, briefAccess, []),
         });
         break;
 
       case 'pricePromo':
         out.push({
           id: block.id, type: 'pricePromo', priceFrom,
-          dpText: (p.dpText as string) ?? '',
-          installmentText: (p.installmentText as string) ?? '',
-          promos: (p.promos as string[]) ?? [],
-          note: (p.note as string) ?? '',
+          dpText: pickFirst(p.dpText as string | undefined, brief.promo?.dpText, ''),
+          installmentText: pickFirst(p.installmentText as string | undefined, brief.promo?.installmentText, ''),
+          promos: pickFirst(p.promos as string[] | undefined, brief.promo?.items, []),
+          note: pickFirst(p.note as string | undefined, briefPromoNote, ''),
         });
         break;
 
@@ -254,7 +285,7 @@ export function resolveBlocks(input: ResolveInput): ResolvedBlock[] {
           waNumber: pick(p.waNumber as string | undefined, undefined, agent.whatsapp),
           defaultMessage: pick(
             p.defaultMessage as string | undefined,
-            undefined,
+            ai?.cta?.whatsappMessage,
             `Halo ${agent.fullName}, saya tertarik dengan ${project.name}.`,
           ),
           agentName: agent.fullName,
