@@ -67,7 +67,7 @@ export async function updateProjectAction(id: string, input: unknown): Promise<A
     // konfirmasi ke agen sebelum memanggil ini, jadi di sini diterapkan tanpa
     // tanya — tapi HANYA saat nilainya benar-benar BERUBAH, supaya penyimpanan
     // langkah lain tidak menimpa toggle manual agen di step 2.
-    const patch = { ...parsed.data } as typeof parsed.data & { blocks?: typeof owned.blocks };
+    const patch = { ...parsed.data } as Omit<typeof parsed.data, 'blocks'> & { blocks?: typeof owned.blocks };
     const nextType = patch.projectType;
     if (nextType && nextType !== owned.projectType) {
       // `patch.blocks ?? owned.blocks`, BUKAN `owned.blocks` telanjang: mulai
