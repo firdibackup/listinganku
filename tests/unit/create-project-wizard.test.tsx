@@ -57,7 +57,8 @@ describe('CreateProjectWizard — simpan otomatis per langkah', () => {
     const created = afterStep1[0];
     expect(created.name).toBe('Cluster Uji Wizard');
 
-    await user.click(screen.getByRole('button', { name: 'Kolam renang' }));
+    // Content Planner (step 2): matikan section FAQ lewat checkbox-nya.
+    await user.click(screen.getByRole('checkbox', { name: 'FAQ' }));
     await user.click(screen.getByRole('button', { name: 'Lanjut' }));
 
     await screen.findByText('Review');
@@ -66,10 +67,10 @@ describe('CreateProjectWizard — simpan otomatis per langkah', () => {
     // Masih satu baris: langkah 2 meng-UPDATE baris yang sama (bug klasiknya
     // adalah membuat baris kedua di sini), dan baris itu sudah membawa
     // perubahan dari langkah 2 (bug klasik satunya adalah baru menyimpan di
-    // langkah terakhir, sehingga fasilitas belum ke database sama sekali).
+    // langkah terakhir, sehingga blocks belum ke database sama sekali).
     expect(afterStep2).toHaveLength(1);
     expect(afterStep2[0].id).toBe(created.id);
-    expect(afterStep2[0].facilities).toEqual(['Kolam renang']);
+    expect(afterStep2[0].blocks.find((b) => b.id === 'blk_faq')?.enabled).toBe(false);
   });
 
   it('mengetik nama project yang sama di dua sesi wizard terpisah tidak menghasilkan error', async () => {
@@ -170,5 +171,45 @@ describe('CreateProjectWizard — step 1 basic info', () => {
     expect(screen.getByText('Sesuaikan section untuk tipe project ini?')).toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: 'Pertahankan pilihan saya' }));
     expect(screen.queryByText('Sesuaikan section untuk tipe project ini?')).not.toBeInTheDocument();
+  });
+
+  // Task 11 tambahan wajib: applySectionPreset() harus jalan lewat DUA jalur
+  // (pemilihan tipe pertama kali DAN konfirmasi ganti tipe), bukan cuma salah
+  // satunya — dulu logikanya terduplikasi di dua tempat dan hanya menulis
+  // projectType, tidak pernah menyentuh state `blocks`, jadi rekomendasi
+  // section dari Task 6 tidak pernah terlihat di step 2.
+  it('memilih tipe project PERTAMA KALI langsung menerapkan preset section ke Content Planner', async () => {
+    const user = userEvent.setup();
+    render(<CreateProjectWizard />);
+    await user.type(screen.getByLabelText(/Nama project/), 'Cluster Preset Awal');
+    await user.click(screen.getByRole('button', { name: 'Kavling' }));
+    await user.click(screen.getByRole('button', { name: 'Lanjut' }));
+    await screen.findByText('Materi landing page');
+
+    // Preset kavling (lib/landing/sectionPreset.ts) mematikan Tipe Rumah &
+    // Fasilitas (kavling adalah tanah, tidak ada tipe rumah/fasilitas kawasan),
+    // tapi tidak menyentuh Lokasi.
+    expect(screen.getByRole('checkbox', { name: 'Tipe Rumah' })).not.toBeChecked();
+    expect(screen.getByRole('checkbox', { name: 'Fasilitas' })).not.toBeChecked();
+    expect(screen.getByRole('checkbox', { name: 'Lokasi' })).toBeChecked();
+  });
+
+  it('MENGGANTI tipe project lalu mengonfirmasi JUGA menerapkan preset section — bukan cuma pemilihan pertama', async () => {
+    const user = userEvent.setup();
+    render(<CreateProjectWizard />);
+    await user.type(screen.getByLabelText(/Nama project/), 'Cluster Preset Ganti');
+    await user.click(screen.getByRole('button', { name: 'Apartemen' }));
+    await user.click(screen.getByRole('button', { name: 'Kavling' }));
+    await user.click(screen.getByRole('button', { name: 'Sesuaikan section' }));
+    await user.click(screen.getByRole('button', { name: 'Lanjut' }));
+    await screen.findByText('Materi landing page');
+
+    // Preset apartemen menyalakan Spesifikasi per Tipe; preset kavling mematikannya
+    // lagi. Kalau jalur konfirmasi tidak memanggil applySectionPreset, flag dari
+    // pemilihan PERTAMA (apartemen) akan tetap menyala di sini.
+    expect(screen.getByRole('checkbox', { name: 'Spesifikasi per Tipe' })).not.toBeChecked();
+    expect(screen.getByRole('checkbox', { name: 'Tipe Rumah' })).not.toBeChecked();
+    expect(screen.getByRole('checkbox', { name: 'Fasilitas' })).not.toBeChecked();
+    expect(screen.getByRole('checkbox', { name: 'Denah' })).toBeChecked();
   });
 });

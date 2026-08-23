@@ -85,6 +85,10 @@ export const ProjectDraftSchema = z.object({
   facilities: z.array(z.string()).default([]),
   projectType: z.enum(PROJECT_TYPES).nullable().default(null),
   brief: ProjectBriefSchema.optional(),
+  // Blok divalidasi longgar di sini: bentuk penuhnya dijaga tipe Block di klien
+  // dan defaultBlocksForTheme di repo. Yang penting wizard boleh mengirimkan
+  // flag enabled yang sudah disetel agen.
+  blocks: z.array(z.object({ id: z.string(), type: z.string(), enabled: z.boolean() }).passthrough()).optional(),
   slug: z
     .string()
     .trim()

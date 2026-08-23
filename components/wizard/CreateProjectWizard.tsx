@@ -4,13 +4,17 @@ import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Card, Chip, Input } from '@/components/ds';
 import { toast } from '@/components/ui';
-import { FACILITY_OPTIONS, PROJECT_TYPES, PROJECT_TYPE_LABELS } from '@/lib/schemas';
+import { PROJECT_TYPES, PROJECT_TYPE_LABELS } from '@/lib/schemas';
 import { createProjectAction, updateProjectAction } from '@/app/(dashboard)/projects/actions';
 import { emptyBrief } from '@/lib/data/types';
 import type { ProjectBrief, ProjectType } from '@/lib/data/types';
 import { composeLocationLabel } from '@/lib/places/regions';
+import { defaultBlocksForTheme, toggleBlock, type Block } from '@/lib/landing/blocks';
+import { DEFAULT_THEME } from '@/lib/landing/themeNames';
+import { applySectionPreset } from '@/lib/landing/sectionPreset';
 import { StepProgress } from './StepProgress';
 import { LocationCombobox } from './LocationCombobox';
+import { SectionPlanner } from './SectionPlanner';
 
 const TOTAL = 3;
 
@@ -29,16 +33,35 @@ export function CreateProjectWizard({ developers = [] }: { developers?: string[]
   });
   /** Tipe yang menunggu konfirmasi karena penerapannya menyusun ulang section. */
   const [typeConfirm, setTypeConfirm] = useState<ProjectType | null>(null);
+  /**
+   * State blok section landing page. Diinisialisasi dengan preset SUDAH
+   * diterapkan (bukan defaultBlocksForTheme telanjang) — form.projectType
+   * di sini selalu null saat mount (wizard hanya dipakai untuk create baru),
+   * jadi applySectionPreset(..., null) memang no-op, tapi konsisten dengan
+   * applyType() di bawah supaya tidak ada dua sumber kebenaran untuk "state
+   * blocks yang sudah di-preset".
+   */
+  const [blocks, setBlocks] = useState<Block[]>(
+    () => applySectionPreset(defaultBlocksForTheme(DEFAULT_THEME), form.projectType),
+  );
 
   const set = (patch: Partial<typeof form>) => setForm((f) => ({ ...f, ...patch }));
   const setBrief = (patch: Partial<ProjectBrief>) =>
     setForm((f) => ({ ...f, brief: { ...f.brief, ...patch } }));
-  const toggleFacility = (name: string) =>
-    set({
-      facilities: form.facilities.includes(name)
-        ? form.facilities.filter((f) => f !== name)
-        : [...form.facilities, name],
-    });
+
+  /**
+   * Satu-satunya jalur yang benar-benar MENERAPKAN sebuah tipe project: menulis
+   * projectType DAN menyusun ulang flag enabled blocks lewat applySectionPreset.
+   * Dipanggil dari DUA tempat (chooseType saat tipe pertama kali dipilih, dan
+   * tombol konfirmasi "Sesuaikan section" saat tipe diganti) — diekstrak supaya
+   * keduanya tidak bisa berdivergensi lagi (dulu logika ini duplikat dan hanya
+   * menulis projectType, bukan blocks, sehingga preset dari Task 6 tidak pernah
+   * terlihat agen di step 2).
+   */
+  function applyType(next: ProjectType) {
+    set({ projectType: next });
+    setBlocks((b) => applySectionPreset(b, next));
+  }
 
   /**
    * Tipe pertama kali dipilih: terapkan langsung, belum ada apa pun untuk
@@ -47,7 +70,7 @@ export function CreateProjectWizard({ developers = [] }: { developers?: string[]
    */
   function chooseType(next: ProjectType) {
     if (form.projectType && form.projectType !== next) setTypeConfirm(next);
-    else set({ projectType: next });
+    else applyType(next);
   }
 
   function pickRegion(r: { district: string; city: string; province: string }) {
@@ -78,9 +101,10 @@ export function CreateProjectWizard({ developers = [] }: { developers?: string[]
    */
   function next() {
     startTransition(async () => {
+      const payload = { ...form, blocks };
       const result = projectId
-        ? await updateProjectAction(projectId, form)
-        : await createProjectAction(form);
+        ? await updateProjectAction(projectId, payload)
+        : await createProjectAction(payload);
 
       if (!result.ok) {
         setErrors(result.fieldErrors);
@@ -161,7 +185,7 @@ export function CreateProjectWizard({ developers = [] }: { developers?: string[]
                 <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
                   <Button
                     variant="primary" size="sm"
-                    onClick={() => { set({ projectType: typeConfirm }); setTypeConfirm(null); }}
+                    onClick={() => { applyType(typeConfirm); setTypeConfirm(null); }}
                   >
                     Sesuaikan section
                   </Button>
@@ -204,25 +228,16 @@ export function CreateProjectWizard({ developers = [] }: { developers?: string[]
         {step === 2 ? (
           <>
             <h2 className="lw-h3">Materi landing page</h2>
-            <div>
-              <span className="lw-label">Fasilitas umum</span>
-              <div className="wz__chips">
-                {FACILITY_OPTIONS.map((name) => (
-                  <button
-                    key={name} type="button" className="wz__chip"
-                    aria-pressed={form.facilities.includes(name)}
-                    onClick={() => toggleFacility(name)}
-                  >
-                    <Chip tone={form.facilities.includes(name) ? 'accent' : 'outline'} size="md">
-                      {name}
-                    </Chip>
-                  </button>
-                ))}
-              </div>
-            </div>
-            <p style={{ fontSize: 14, color: 'var(--sage)' }}>
-              Foto proyek bisa diunggah setelah project tersimpan, di halaman detail. Langkah ini boleh dilewati.
-            </p>
+            <SectionPlanner
+              blocks={blocks}
+              brief={form.brief}
+              projectType={form.projectType}
+              onToggle={(id) => setBlocks((b) => toggleBlock(b, id))}
+              onUsePreset={() => setBlocks((b) => applySectionPreset(b, form.projectType))}
+              onNote={(type, text) =>
+                setBrief({ notes: { ...form.brief.notes, [type]: text || undefined } })
+              }
+            />
           </>
         ) : null}
 

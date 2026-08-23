@@ -72,3 +72,17 @@
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
 }
+
+/* SectionPlanner (step 2 — Content Planner). Nama token dikoreksi dari brief
+   sama seperti wz-combo di atas: --border-default/--surface-muted, bukan
+   --line/--wash yang tidak ada di proyek ini. */
+.wz-plan { display: flex; flex-direction: column; gap: 14px; }
+.wz-plan__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.wz-plan__list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--border-default); border-radius: var(--radius-md); }
+.wz-plan__row + .wz-plan__row { border-top: 1px solid var(--border-default); }
+.wz-plan__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; }
+.wz-plan__check { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.wz-plan__toggle { display: flex; padding: 4px; border: 0; background: none; cursor: pointer; color: var(--sage); }
+.wz-plan__toggle[aria-expanded='true'] svg { transform: rotate(180deg); }
+.wz-plan__panel { display: flex; flex-direction: column; gap: 12px; padding: 4px 12px 14px; }
+.wz-plan__summary { display: flex; flex-direction: column; gap: 4px; padding: 12px 14px; background: var(--surface-muted); border-radius: var(--radius-md); }
