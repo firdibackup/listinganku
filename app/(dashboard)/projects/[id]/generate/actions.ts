@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { db } from '@/lib/data';
 import { requireSessionUserId } from '@/lib/session';
 import { getGenerator, AiContentSchema } from '@/lib/ai';
+import { emptyBrief } from '@/lib/data/types';
 
 export async function generateContentAction(
   projectId: string,
@@ -19,13 +20,15 @@ export async function generateContentAction(
   const started = Date.now();
 
   try {
-    const raw = await generator.generate({ project, houseTypes });
+    const raw = await generator.generate({ project, houseTypes, brief: project.brief ?? emptyBrief() });
     const content = AiContentSchema.parse(raw);
 
     // Respons dipecah: bagian proyek ke projects, tiap tipe ke barisnya sendiri.
     await db.projects.update(projectId, {
       aiContent: {
         headline: content.headline,
+        subheadline: content.subheadline,
+        cta: content.cta,
         description: content.description,
         sellingPoints: content.sellingPoints,
         faq: content.faq,

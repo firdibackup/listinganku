@@ -6,6 +6,7 @@ import { z } from 'zod';
  */
 export const AiContentSchema = z.object({
   headline: z.string().min(1),
+  subheadline: z.string().min(1),
   description: z.string().min(1),
   houseTypes: z.array(
     z.object({
@@ -22,6 +23,11 @@ export const AiContentSchema = z.object({
     facebook: z.string().min(1),
     whatsapp: z.string().min(1),
   }),
+  /**
+   * Hanya pesan WhatsApp yang menjadi data di 3A. Label CTA tetap milik tema —
+   * kesepuluh tema punya wordingnya sendiri hasil transkrip file desain.
+   */
+  cta: z.object({ whatsappMessage: z.string().min(1) }),
 });
 
 export type AiContent = z.infer<typeof AiContentSchema>;
