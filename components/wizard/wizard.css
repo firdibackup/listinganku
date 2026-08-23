@@ -18,3 +18,50 @@
 .wz__chip:hover .ds-chip--accent{border-color:var(--orange);color:var(--orange)}
 .wz__review{display:grid;grid-template-columns:150px 1fr;gap:12px;font-size:var(--type-body-sm-size)}
 @media (max-width:640px){.wz__review{grid-template-columns:1fr;gap:4px}}
+
+/* LocationCombobox — wrapper luar hanya memberi konteks posisi untuk listbox
+   absolut; border/latar field-nya sendiri datang dari .ds-field (lihat
+   components/ds/Input.tsx). Nama token dikoreksi dari yang tertulis di brief:
+   proyek ini memakai --surface-card/--border-default/--surface-muted/--shadow-menu,
+   bukan --paper/--line/--wash/--elev-2. */
+.wz-combo { position: relative; display: flex; flex-direction: column; gap: 6px; }
+
+.wz-combo__list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 4px 0 0;
+  padding: 4px;
+  list-style: none;
+  background: var(--surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-menu);
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.wz-combo__opt {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.wz-combo__opt:hover,
+.wz-combo__opt.is-active { background: var(--surface-muted); }
+
+.wz-combo__name { display: block; font-weight: 500; }
+.wz-combo__meta { display: block; font-size: 13px; color: var(--sage); }
+
+.wz-combo__picked {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  font-size: 13px;
+  color: var(--sage);
+}
