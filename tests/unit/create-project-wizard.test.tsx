@@ -50,7 +50,7 @@ describe('CreateProjectWizard — simpan otomatis per langkah', () => {
 
     // Step 2 baru muncul setelah createProjectAction sukses — kalau simpan
     // langkah 1 gagal diam-diam, findByText ini yang akan timeout duluan.
-    await screen.findByText('Fasilitas dan media');
+    await screen.findByText('Materi landing page');
 
     const afterStep1 = await db.projects.list('usr_wizard');
     expect(afterStep1).toHaveLength(1);
@@ -77,13 +77,13 @@ describe('CreateProjectWizard — simpan otomatis per langkah', () => {
     const first = render(<CreateProjectWizard />);
     await user.type(screen.getByLabelText(/Nama project/), 'Cluster Duplikat');
     await user.click(screen.getByRole('button', { name: 'Lanjut' }));
-    await screen.findByText('Fasilitas dan media');
+    await screen.findByText('Materi landing page');
     first.unmount();
 
     render(<CreateProjectWizard />);
     await user.type(screen.getByLabelText(/Nama project/), 'Cluster Duplikat');
     await user.click(screen.getByRole('button', { name: 'Lanjut' }));
-    await screen.findByText('Fasilitas dan media');
+    await screen.findByText('Materi landing page');
 
     const rows = (await db.projects.list('usr_wizard')).filter((p) => p.name === 'Cluster Duplikat');
     expect(rows).toHaveLength(2);
@@ -98,7 +98,7 @@ describe('CreateProjectWizard — simpan otomatis per langkah', () => {
     await user.click(screen.getByRole('button', { name: 'Lanjut' }));
 
     await screen.findByText('Wajib diisi.');
-    expect(screen.queryByText('Fasilitas dan media')).not.toBeInTheDocument();
+    expect(screen.queryByText('Materi landing page')).not.toBeInTheDocument();
     expect(await db.projects.list('usr_wizard')).toHaveLength(before);
   });
 
@@ -108,7 +108,7 @@ describe('CreateProjectWizard — simpan otomatis per langkah', () => {
 
     await user.type(screen.getByLabelText(/Nama project/), 'Cluster Sesi Blip');
     await user.click(screen.getByRole('button', { name: 'Lanjut' }));
-    await screen.findByText('Fasilitas dan media');
+    await screen.findByText('Materi landing page');
 
     // Simulasikan sesi yang tidak lagi memiliki project ini (mis. sesi berganti
     // di tab lain) — projectId di state komponen masih sama, tapi
@@ -121,7 +121,54 @@ describe('CreateProjectWizard — simpan otomatis per langkah', () => {
     // ...dan pengguna TETAP di step 2 — bukan dilempar ke step 1. Kegagalan ini
     // sama sekali tidak terkait field "Nama project", jadi tidak ada alasan
     // untuk membuang progres tampilan yang sudah dicapai.
-    expect(screen.getByText('Fasilitas dan media')).toBeInTheDocument();
+    expect(screen.getByText('Materi landing page')).toBeInTheDocument();
     expect(screen.queryByLabelText(/Nama project/)).not.toBeInTheDocument();
+  });
+});
+
+describe('CreateProjectWizard — step 1 basic info', () => {
+  it('menyimpan tipe project yang dipilih', async () => {
+    const user = userEvent.setup();
+    render(<CreateProjectWizard />);
+    await user.type(screen.getByLabelText(/Nama project/), 'Cluster Tipe');
+    await user.click(screen.getByRole('button', { name: 'Kavling' }));
+    await user.click(screen.getByRole('button', { name: 'Lanjut' }));
+    await screen.findByText('Materi landing page');
+
+    const projects = await db.projects.list('usr_wizard');
+    expect(projects.find((p) => p.name === 'Cluster Tipe')?.projectType).toBe('kavling');
+  });
+
+  it('memilih lokasi dari combobox menurunkan project.location', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => new Response(
+      JSON.stringify({ results: [{ district: 'Kelapa Dua', city: 'Kabupaten Tangerang', province: 'Banten' }] }),
+      { status: 200 },
+    )));
+    const user = userEvent.setup();
+    render(<CreateProjectWizard />);
+    await user.type(screen.getByLabelText(/Nama project/), 'Cluster Lokasi');
+    await user.type(screen.getByRole('combobox', { name: /Cari kota atau kecamatan/i }), 'kelapa');
+    await user.click(await screen.findByText('Kelapa Dua'));
+    await user.type(screen.getByLabelText(/Nama kawasan/), 'Gading Serpong');
+    await user.click(screen.getByRole('button', { name: 'Lanjut' }));
+    await screen.findByText('Materi landing page');
+
+    const projects = await db.projects.list('usr_wizard');
+    const saved = projects.find((p) => p.name === 'Cluster Lokasi');
+    expect(saved?.location).toBe('Gading Serpong, Kelapa Dua, Kabupaten Tangerang');
+    expect(saved?.brief.location?.province).toBe('Banten');
+    vi.unstubAllGlobals();
+  });
+
+  it('mengganti tipe project MEMINTA KONFIRMASI sebelum menyusun ulang section', async () => {
+    const user = userEvent.setup();
+    render(<CreateProjectWizard />);
+    await user.type(screen.getByLabelText(/Nama project/), 'Cluster Konfirmasi');
+    await user.click(screen.getByRole('button', { name: 'Perumahan' }));
+    await user.click(screen.getByRole('button', { name: 'Kavling' }));
+
+    expect(screen.getByText('Sesuaikan section untuk tipe project ini?')).toBeInTheDocument();
+    await user.click(screen.getByRole('button', { name: 'Pertahankan pilihan saya' }));
+    expect(screen.queryByText('Sesuaikan section untuk tipe project ini?')).not.toBeInTheDocument();
   });
 });

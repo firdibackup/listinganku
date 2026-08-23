@@ -4,13 +4,17 @@ import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Card, Chip, Input } from '@/components/ds';
 import { toast } from '@/components/ui';
-import { FACILITY_OPTIONS } from '@/lib/schemas';
+import { FACILITY_OPTIONS, PROJECT_TYPES, PROJECT_TYPE_LABELS } from '@/lib/schemas';
 import { createProjectAction, updateProjectAction } from '@/app/(dashboard)/projects/actions';
+import { emptyBrief } from '@/lib/data/types';
+import type { ProjectBrief, ProjectType } from '@/lib/data/types';
+import { composeLocationLabel } from '@/lib/places/regions';
 import { StepProgress } from './StepProgress';
+import { LocationCombobox } from './LocationCombobox';
 
 const TOTAL = 3;
 
-export function CreateProjectWizard() {
+export function CreateProjectWizard({ developers = [] }: { developers?: string[] }) {
   const router = useRouter();
   const [step, setStep] = useState(1);
   const [pending, startTransition] = useTransition();
@@ -18,16 +22,50 @@ export function CreateProjectWizard() {
   /** Terisi begitu langkah 1 disimpan; langkah berikutnya meng-update baris yang sama. */
   const [projectId, setProjectId] = useState<string | null>(null);
   const [form, setForm] = useState({
-    name: '', location: '', developer: '', description: '', facilities: [] as string[],
+    name: '', location: '', developer: '', description: '',
+    facilities: [] as string[],
+    projectType: null as ProjectType | null,
+    brief: emptyBrief() as ProjectBrief,
   });
+  /** Tipe yang menunggu konfirmasi karena penerapannya menyusun ulang section. */
+  const [typeConfirm, setTypeConfirm] = useState<ProjectType | null>(null);
 
   const set = (patch: Partial<typeof form>) => setForm((f) => ({ ...f, ...patch }));
+  const setBrief = (patch: Partial<ProjectBrief>) =>
+    setForm((f) => ({ ...f, brief: { ...f.brief, ...patch } }));
   const toggleFacility = (name: string) =>
     set({
       facilities: form.facilities.includes(name)
         ? form.facilities.filter((f) => f !== name)
         : [...form.facilities, name],
     });
+
+  /**
+   * Tipe pertama kali dipilih: terapkan langsung, belum ada apa pun untuk
+   * ditimpa. MENGGANTI tipe menyusun ulang flag section, jadi harus bertanya —
+   * pola yang sama dengan "Terapkan urutan bawaan tema ini?" di editor.
+   */
+  function chooseType(next: ProjectType) {
+    if (form.projectType && form.projectType !== next) setTypeConfirm(next);
+    else set({ projectType: next });
+  }
+
+  function pickRegion(r: { district: string; city: string; province: string }) {
+    setForm((f) => {
+      const area = f.brief.location?.area ?? '';
+      const address = f.brief.location?.address ?? '';
+      const location = { ...r, area, address };
+      return { ...f, brief: { ...f.brief, location }, location: composeLocationLabel(location) };
+    });
+  }
+
+  function setArea(area: string) {
+    setForm((f) => {
+      const base = f.brief.location ?? { area: '', district: '', city: '', province: '', address: '' };
+      const next = { ...base, area };
+      return { ...f, brief: { ...f.brief, location: next }, location: composeLocationLabel(next) };
+    });
+  }
 
   /**
    * Auto-save di level langkah: setiap "Lanjut" meng-upsert draft, sehingga wizard
@@ -95,15 +133,69 @@ export function CreateProjectWizard() {
             <h2 className="lw-h3">Basic info</h2>
             <Input
               label="Nama project" required value={form.name}
+              placeholder="Contoh: ParkSpring Gading"
               error={errors.name?.[0]}
               onChange={(e) => set({ name: e.target.value })}
             />
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
-              <Input label="Lokasi" value={form.location} onChange={(e) => set({ location: e.target.value })} />
-              <Input label="Developer" value={form.developer} onChange={(e) => set({ developer: e.target.value })} />
+
+            <div>
+              <span className="lw-label">Tipe project</span>
+              <div className="wz__chips">
+                {PROJECT_TYPES.map((t) => (
+                  <button
+                    key={t} type="button" className="wz__chip"
+                    aria-pressed={form.projectType === t}
+                    onClick={() => chooseType(t)}
+                  >
+                    <Chip tone={form.projectType === t ? 'accent' : 'outline'} size="md">
+                      {PROJECT_TYPE_LABELS[t]}
+                    </Chip>
+                  </button>
+                ))}
+              </div>
             </div>
+
+            {typeConfirm ? (
+              <div className="wz__confirm" role="group" aria-label="Konfirmasi tipe project">
+                <p className="lw-label-sm">Sesuaikan section untuk tipe project ini?</p>
+                <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
+                  <Button
+                    variant="primary" size="sm"
+                    onClick={() => { set({ projectType: typeConfirm }); setTypeConfirm(null); }}
+                  >
+                    Sesuaikan section
+                  </Button>
+                  <Button variant="secondary" size="sm" onClick={() => setTypeConfirm(null)}>
+                    Pertahankan pilihan saya
+                  </Button>
+                </div>
+              </div>
+            ) : null}
+
+            <LocationCombobox value={form.brief.location} onSelect={pickRegion} />
             <Input
-              label="Deskripsi" textarea rows={3} value={form.description}
+              label="Nama kawasan"
+              hint="Opsional. Kawasan seperti Gading Serpong atau BSD City tidak ada di data wilayah resmi."
+              placeholder="Contoh: Gading Serpong"
+              value={form.brief.location?.area ?? ''}
+              onChange={(e) => setArea(e.target.value)}
+            />
+
+            <Input
+              label="Developer" list="wz-developers"
+              placeholder="Contoh: Summarecon Agung"
+              value={form.developer}
+              onChange={(e) => set({ developer: e.target.value })}
+            />
+            <datalist id="wz-developers">
+              {developers.map((d) => <option key={d} value={d} />)}
+            </datalist>
+
+            <Input
+              label="Ceritakan singkat tentang project ini" textarea rows={3}
+              placeholder="Contoh: Perumahan modern di Gading Serpong dengan akses tol dekat, fasilitas lengkap, dan pilihan tipe rumah 2–3 lantai."
+              hint="Tidak perlu membuat copywriting. Tulis informasi seadanya, kami yang menyusunnya jadi copy marketing."
+              value={form.description}
               onChange={(e) => set({ description: e.target.value })}
             />
           </>
@@ -111,7 +203,7 @@ export function CreateProjectWizard() {
 
         {step === 2 ? (
           <>
-            <h2 className="lw-h3">Fasilitas dan media</h2>
+            <h2 className="lw-h3">Materi landing page</h2>
             <div>
               <span className="lw-label">Fasilitas umum</span>
               <div className="wz__chips">
