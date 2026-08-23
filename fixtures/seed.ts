@@ -1,7 +1,8 @@
 import { defaultBlocksForTheme } from '@/lib/landing/blocks';
 import type { Block, BlockType } from '@/lib/landing/blocks';
 import { DEFAULT_THEME, THEME_DEFAULT_PALETTE } from '@/lib/landing/themeNames';
-import type { StoreShape } from '@/lib/data/types';
+import { emptyBrief } from '@/lib/data/types';
+import type { ProjectBrief, ProjectType, StoreShape } from '@/lib/data/types';
 
 export const SEED_USER_ID = 'usr_audi';
 const NOW = '2026-08-10T09:00:00.000Z';
@@ -17,8 +18,11 @@ const project = (
   id: string, name: string, slug: string, location: string, developer: string,
   description: string, facilities: string[], status: 'draft' | 'published', updatedAt: string,
   blocks: Block[] = defaultBlocksForTheme(DEFAULT_THEME),
+  projectType: ProjectType | null = null,
+  brief: ProjectBrief = emptyBrief(),
 ) => ({
   id, userId: SEED_USER_ID, name, slug, location, developer, description, facilities,
+  projectType, brief,
   // Palet DITURUNKAN dari tema, tidak ditulis ulang: pasangan tema x palet yang
   // tidak cocok membuat sebagian teks tak terlihat (bug-037).
   status, theme: DEFAULT_THEME, palette: THEME_DEFAULT_PALETTE[DEFAULT_THEME], blocks,
@@ -50,27 +54,6 @@ const PARKSPRING_BLOCKS = withContent({
       { title: 'Legalitas jelas', desc: 'SHM per unit, PBG lengkap, dan bebas sengketa.' },
     ],
   },
-  location: {
-    address: 'Jl. Boulevard Raya, Kelapa Gading, Jakarta Utara 14240',
-    access: [
-      { time: '3 mnt', place: 'Gerbang Tol Kelapa Gading' },
-      { time: '8 mnt', place: 'Mall Kelapa Gading' },
-      { time: '10 mnt', place: 'LRT Boulevard Utara' },
-      { time: '12 mnt', place: 'RS Mitra Keluarga' },
-      { time: '15 mnt', place: 'Sekolah & universitas' },
-      { time: '35 mnt', place: 'Bandara Soekarno-Hatta' },
-    ],
-  },
-  facilities: {
-    items: [
-      { name: 'Clubhouse', desc: 'Lounge & ruang serbaguna' },
-      { name: 'Swimming Pool', desc: 'Kolam 25 m & kolam anak' },
-      { name: 'Taman Tematik', desc: 'Empat taman tropis' },
-      { name: 'Jogging Track', desc: 'Lintasan 800 meter' },
-      { name: 'Playground', desc: 'Dua titik area anak' },
-      { name: 'One Gate System', desc: 'Security 24 jam & CCTV' },
-    ],
-  },
   gallery: {
     captions: [
       'Fasade Type Villa', 'Ruang keluarga', 'Clubhouse & kolam',
@@ -79,17 +62,6 @@ const PARKSPRING_BLOCKS = withContent({
   },
   floorPlans: {
     legend: ['Cluster Villa', 'Cluster Medea', 'Cluster Grand', 'Fasilitas & taman'],
-  },
-  pricePromo: {
-    dpText: '10%',
-    installmentText: 'Rp 18 jt/bln',
-    promos: [
-      'Free BPHTB dan AJB',
-      'Cashback 5% untuk pembelian tunai bertahap',
-      'Free smart door lock dan CCTV',
-      'Free biaya balik nama sertifikat',
-    ],
-    note: 'Promo berlaku untuk pemesanan bulan ini, selama unit tersedia.',
   },
   developer: {
     about:
@@ -117,6 +89,61 @@ const PARKSPRING_BLOCKS = withContent({
     ],
   },
 });
+
+/**
+ * Fakta Parkspring — dipindahkan dari blocks[].props ke brief (spec §12.2).
+ * Kalau ditaruh di KEDUA tempat, props menang dan rantai brief tidak pernah
+ * teruji. Teks di sini wajib sama persis dengan yang dulu ada di props: papan
+ * /preview membandingkan sepuluh tema di atas konten kanonik ini.
+ */
+const PARKSPRING_BRIEF: ProjectBrief = {
+  ...emptyBrief(),
+  location: {
+    area: 'Kelapa Gading',
+    district: 'Kelapa Gading',
+    city: 'Jakarta Utara',
+    province: 'DKI Jakarta',
+    address: 'Jl. Boulevard Raya, Kelapa Gading, Jakarta Utara 14240',
+  },
+  nearby: [
+    { category: 'tol', name: 'Gerbang Tol Kelapa Gading', minutes: 3 },
+    { category: 'mall', name: 'Mall Kelapa Gading', minutes: 8 },
+    { category: 'stasiun', name: 'LRT Boulevard Utara', minutes: 10 },
+    { category: 'rumahSakit', name: 'RS Mitra Keluarga', minutes: 12 },
+    { category: 'sekolah', name: 'Sekolah & universitas', minutes: 15 },
+    { category: 'bandara', name: 'Bandara Soekarno-Hatta', minutes: 35 },
+  ],
+  highlights: [
+    'Lokasi strategis di koridor Boulevard Kelapa Gading',
+    'Developer 28 tahun dengan 40 kawasan serah terima',
+    'Desain tropis modern dengan ventilasi silang',
+    'Legalitas SHM per unit dan PBG lengkap',
+  ],
+  facilities: [
+    { name: 'Clubhouse', desc: 'Lounge & ruang serbaguna', mediaIds: [] },
+    { name: 'Swimming Pool', desc: 'Kolam 25 m & kolam anak', mediaIds: [] },
+    { name: 'Taman Tematik', desc: 'Empat taman tropis', mediaIds: [] },
+    { name: 'Jogging Track', desc: 'Lintasan 800 meter', mediaIds: [] },
+    { name: 'Playground', desc: 'Dua titik area anak', mediaIds: [] },
+    { name: 'One Gate System', desc: 'Security 24 jam & CCTV', mediaIds: [] },
+  ],
+  promo: {
+    name: 'Free BPHTB',
+    items: [
+      'Free BPHTB dan AJB',
+      'Cashback 5% untuk pembelian tunai bertahap',
+      'Free smart door lock dan CCTV',
+      'Free biaya balik nama sertifikat',
+    ],
+    detail: 'Promo berlaku untuk pemesanan bulan ini, selama unit tersedia.',
+    validUntil: null,
+    dpText: '10%',
+    installmentText: 'Rp 18 jt/bln',
+  },
+  heroEmphasis: 'lokasi',
+  ctaGoals: ['whatsapp', 'lihatTipe'],
+  notes: {},
+};
 
 const houseType = (
   id: string, projectId: string, name: string, slug: string, price: number,
@@ -166,18 +193,20 @@ export function seedStore(): StoreShape {
         ['Clubhouse', 'Swimming Pool', 'Taman Tematik', 'Jogging Track', 'Playground', 'One Gate System'],
         'published', '2026-08-10T09:00:00.000Z',
         PARKSPRING_BLOCKS,
+        'perumahan',
+        PARKSPRING_BRIEF,
       ),
       project(
         'prj_casaverde', 'Casa Verde Alam Sutera', 'casa-verde-alam-sutera',
         'Alam Sutera, Tangerang', 'Alam Sutera Realty',
         'Dua tipe hunian di kawasan matang dengan akses tol langsung.',
-        ['Taman', 'Clubhouse'], 'draft', '2026-08-07T09:00:00.000Z',
+        ['Taman', 'Clubhouse'], 'draft', '2026-08-07T09:00:00.000Z', undefined, 'perumahan',
       ),
       project(
         'prj_bintaro', 'Bintaro Loop Residence', 'bintaro-loop-residence',
         'Bintaro, Tangerang Selatan', 'Jaya Real Property',
         'Empat tipe unit dengan akses langsung ke stasiun dan pusat kuliner Bintaro.',
-        ['Security 24 jam', 'Masjid', 'Taman'], 'published', '2026-08-02T09:00:00.000Z',
+        ['Security 24 jam', 'Masjid', 'Taman'], 'published', '2026-08-02T09:00:00.000Z', undefined, 'perumahan',
       ),
     ],
     houseTypes: [

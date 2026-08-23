@@ -144,3 +144,68 @@ describe('COPY — AI di atas brief', () => {
     expect(c.defaultMessage).toBe('Pesan WA dari AI');
   });
 });
+
+describe('seed Parkspring — render dari brief IDENTIK dengan render lama dari props', () => {
+  const seedInput = () => {
+    const store = seedStore();
+    return {
+      project: store.projects[0],
+      houseTypes: store.houseTypes.filter((h) => h.projectId === 'prj_parkspring'),
+      media: [],
+      agent: store.agentProfiles[0],
+    };
+  };
+
+  it('kartu akses tetap enam butir dengan teks yang sama persis', () => {
+    const loc = block(resolveBlocks(seedInput()), 'location') as {
+      address: string; access: { time: string; place: string }[];
+    };
+    expect(loc.address).toBe('Jl. Boulevard Raya, Kelapa Gading, Jakarta Utara 14240');
+    expect(loc.access).toEqual([
+      { time: '3 mnt', place: 'Gerbang Tol Kelapa Gading' },
+      { time: '8 mnt', place: 'Mall Kelapa Gading' },
+      { time: '10 mnt', place: 'LRT Boulevard Utara' },
+      { time: '12 mnt', place: 'RS Mitra Keluarga' },
+      { time: '15 mnt', place: 'Sekolah & universitas' },
+      { time: '35 mnt', place: 'Bandara Soekarno-Hatta' },
+    ]);
+  });
+
+  it('fasilitas tetap enam butir beserta keterangannya', () => {
+    const f = block(resolveBlocks(seedInput()), 'facilities') as { items: { name: string; desc: string }[] };
+    expect(f.items).toEqual([
+      { name: 'Clubhouse', desc: 'Lounge & ruang serbaguna' },
+      { name: 'Swimming Pool', desc: 'Kolam 25 m & kolam anak' },
+      { name: 'Taman Tematik', desc: 'Empat taman tropis' },
+      { name: 'Jogging Track', desc: 'Lintasan 800 meter' },
+      { name: 'Playground', desc: 'Dua titik area anak' },
+      { name: 'One Gate System', desc: 'Security 24 jam & CCTV' },
+    ]);
+  });
+
+  it('promo tetap empat butir dengan DP, cicilan, dan catatan yang sama', () => {
+    const p = block(resolveBlocks(seedInput()), 'pricePromo') as {
+      promos: string[]; dpText: string; installmentText: string; note: string;
+    };
+    expect(p.dpText).toBe('10%');
+    expect(p.installmentText).toBe('Rp 18 jt/bln');
+    expect(p.promos).toEqual([
+      'Free BPHTB dan AJB',
+      'Cashback 5% untuk pembelian tunai bertahap',
+      'Free smart door lock dan CCTV',
+      'Free biaya balik nama sertifikat',
+    ]);
+    expect(p.note).toBe('Promo berlaku untuk pemesanan bulan ini, selama unit tersedia.');
+  });
+
+  it('fakta itu benar-benar PINDAH — bukan disalin, supaya rantai brief teruji', () => {
+    const blocks = seedStore().projects[0].blocks;
+    const locProps = blocks.find((b) => b.type === 'location')!.props as Record<string, unknown>;
+    const facProps = blocks.find((b) => b.type === 'facilities')!.props as Record<string, unknown>;
+    const promoProps = blocks.find((b) => b.type === 'pricePromo')!.props as Record<string, unknown>;
+    expect(locProps.access).toBeUndefined();
+    expect(locProps.address).toBeUndefined();
+    expect(facProps.items).toBeUndefined();
+    expect(promoProps.promos).toBeUndefined();
+  });
+});
