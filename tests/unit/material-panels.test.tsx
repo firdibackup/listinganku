@@ -1,12 +1,39 @@
 import { describe, expect, it, vi } from 'vitest';
+import { useState } from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { emptyBrief } from '@/lib/data/types';
+import type { ProjectBrief } from '@/lib/data/types';
 import { HeroPanel } from '@/components/wizard/panels/HeroPanel';
 import { HighlightsPanel } from '@/components/wizard/panels/HighlightsPanel';
 import { FacilitiesPanel } from '@/components/wizard/panels/FacilitiesPanel';
 import { LocationPanel } from '@/components/wizard/panels/LocationPanel';
 import { PromoPanel } from '@/components/wizard/panels/PromoPanel';
+
+/**
+ * `PromoPanel` sepenuhnya controlled dari `brief` milik parent. Merender
+ * langsung dengan `onChange={vi.fn()}` TIDAK menutup lingkaran state — value
+ * textarea selamanya sama dengan snapshot awal, jadi ketikan multi-karakter
+ * tidak pernah benar-benar terakumulasi di DOM (lihat riwayat bug-042: fix
+ * pertama salah didiagnosis sebagai "harus uncontrolled" gara-gara tes tanpa
+ * harness ini). Harness ini menutup lingkaran state sungguhan sama seperti
+ * `CreateProjectWizard.setBrief` melakukannya di produksi.
+ */
+function PromoHarness({ onPatch }: { onPatch?: (patch: Partial<ProjectBrief>) => void }) {
+  const [brief, setBrief] = useState<ProjectBrief>({
+    ...emptyBrief(),
+    promo: { name: '', items: [], detail: '', validUntil: null, dpText: '', installmentText: '' },
+  });
+  return (
+    <PromoPanel
+      brief={brief}
+      onChange={(patch) => {
+        onPatch?.(patch);
+        setBrief((b) => ({ ...b, ...patch }));
+      }}
+    />
+  );
+}
 
 describe('HeroPanel', () => {
   it('memilih penekanan hero', async () => {
@@ -135,15 +162,24 @@ describe('PromoPanel', () => {
   });
 
   it('butir promo dipisah per baris', async () => {
-    const onChange = vi.fn();
+    const patches: Partial<ProjectBrief>[] = [];
     const user = userEvent.setup();
-    render(
-      <PromoPanel
-        brief={{ ...emptyBrief(), promo: { name: '', items: [], detail: '', validUntil: null, dpText: '', installmentText: '' } }}
-        onChange={onChange}
-      />,
-    );
-    await user.type(screen.getByLabelText('Butir promo'), 'Free BPHTB');
-    expect(onChange.mock.calls.at(-1)?.[0].promo.items).toEqual(['Free BPHTB']);
+    render(<PromoHarness onPatch={(patch) => patches.push(patch)} />);
+    const textarea = screen.getByLabelText('Butir promo');
+    await user.type(textarea, 'Free BPHTB{Enter}Cashback 5%');
+
+    // Hasil yang TERLIHAT di layar harus persis apa yang diketik (dua kata,
+    // dua baris). Kalau komponen menyapu balik DOM sebelum keystroke fisik
+    // berikutnya tiba, teks yang tersisa akan lebih pendek/tercampur dari
+    // yang diketik — persis gejala bug-042 sebelum harness ini ada.
+    expect(textarea).toHaveValue('Free BPHTB\nCashback 5%');
+
+    // Dan ketikan itu harus benar-benar DIPECAH jadi dua butir array, bukan
+    // satu string berisi newline literal (yang, kalau split() dibuang,
+    // masih akan me-reconstruct tampilan yang SAMA lewat join('\n') tapi
+    // dengan bentuk data yang salah — assert toHaveValue saja tidak cukup
+    // untuk menangkap itu).
+    const last = patches.at(-1);
+    expect(last?.promo?.items).toEqual(['Free BPHTB', 'Cashback 5%']);
   });
 });

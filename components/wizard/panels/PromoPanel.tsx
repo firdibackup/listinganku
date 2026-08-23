@@ -8,6 +8,28 @@ const KOSONG: BriefPromo = {
   name: '', items: [], detail: '', validUntil: null, dpText: '', installmentText: '',
 };
 
+/**
+ * Memecah teks textarea jadi array butir promo. Baris TERAKHIR (yang sedang
+ * diketik) sengaja TIDAK di-trim/filter di sini — kalau setiap baris
+ * diperlakukan sama, spasi atau baris-baru yang BARU SAJA diketik langsung
+ * tersapu balik oleh trim()/filter() sebelum karakter berikutnya sempat
+ * diketik (elemen controlled menulis ulang DOM ke `value` baru pada render
+ * berikutnya, yang terjadi SEBELUM keystroke fisik selanjutnya tiba) —
+ * ketikan multi-kata ("Free BPHTB") atau multi-baris jadi rusak jadi
+ * "FreeBPHTB" walau state parent sudah benar tersambung ke `onChange`
+ * (dibuktikan lewat harness ber-state sungguhan di tes, bukan mock).
+ * Baris SEBELUM baris terakhir sudah "selesai" (kursor sudah pindah),
+ * aman dibersihkan seperti biasa. `parsePromoLines` diekspor supaya
+ * dites langsung tanpa perlu simulasi ketikan.
+ */
+export function parsePromoLines(raw: string): string[] {
+  const lines = raw.split('\n');
+  const last = lines.length - 1;
+  return lines
+    .map((s, i) => (i === last ? s : s.trim()))
+    .filter((s, i) => i === last || s.length > 0);
+}
+
 export function PromoPanel({ brief, onChange }: PanelProps) {
   const promo = brief.promo;
   const set = (patch: Partial<BriefPromo>) => onChange({ promo: { ...(promo ?? KOSONG), ...patch } });
@@ -27,17 +49,15 @@ export function PromoPanel({ brief, onChange }: PanelProps) {
         <>
           <Input label="Nama promo" placeholder="Contoh: Free BPHTB" value={promo.name} onChange={(e) => set({ name: e.target.value })} />
           <Input
-            // Uncontrolled dengan sengaja: kalau di-`value`-kan dari promo.items,
-            // React menulis ulang DOM textarea ke prop lama setiap kali onChange
-            // TIDAK memicu re-render dengan value baru (mis. di unit test yang
-            // memakai mock onChange) — tiap keystroke saling menghapus keystroke
-            // sebelumnya dan hanya karakter terakhir yang tersimpan. defaultValue
-            // membiarkan browser yang memegang teksnya; kita hanya membaca lewat
-            // e.target.value saat berubah.
             label="Butir promo" textarea rows={4}
             hint="Satu butir per baris. Inilah yang tampil di halaman."
-            defaultValue={promo.items.join('\n')}
-            onChange={(e) => set({ items: e.target.value.split('\n').map((s) => s.trim()).filter(Boolean) })}
+            value={promo.items.join('\n')}
+            onChange={(e) => set({ items: parsePromoLines(e.target.value) })}
+            // Baris terakhir yang mungkin masih kosong/berspasi (belum diisi
+            // saat onChange terakhir berjalan) dirapikan begitu field
+            // ditinggalkan — supaya baris kosong yang tersisa tidak lolos ke
+            // penyimpanan (BriefPromoSchema menolak butir kosong).
+            onBlur={() => set({ items: promo.items.map((s) => s.trim()).filter(Boolean) })}
           />
           <Input label="Catatan" placeholder="Contoh: Berlaku untuk pemesanan bulan ini." value={promo.detail} onChange={(e) => set({ detail: e.target.value })} />
           <Input
