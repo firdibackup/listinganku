@@ -62,6 +62,13 @@ export function LandingView({
       className={`lp ${themeConfig.fonts.className}`}
       data-lp-theme={themeName}
       data-lp-palette={paletteName}
+      /* Menyalakan latar panggung `.lp[data-lp-standalone]::before`. Hanya
+         halaman yang memiliki viewport-nya SENDIRI (publik + /preview) yang
+         boleh memasangnya. Pratinjau editor merakit `.lp`-nya sendiri lalu
+         men-transform-nya: pseudo `fixed` di dalam elemen ber-transform
+         berbalik menutupi halaman, bukan jadi latar di belakangnya —
+         penjelasan lengkap di lib/landing/landing.css. */
+      data-lp-standalone=""
       style={paletteStyle(paletteName)}
     >
       {/* JSON-LD dibentuk dari data kita sendiri lalu diserialisasi lewat

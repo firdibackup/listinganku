@@ -1,6 +1,6 @@
 import { defaultBlocksForTheme } from '@/lib/landing/blocks';
 import type { Block, BlockType } from '@/lib/landing/blocks';
-import { DEFAULT_THEME } from '@/lib/landing/themeNames';
+import { DEFAULT_THEME, THEME_DEFAULT_PALETTE } from '@/lib/landing/themeNames';
 import type { StoreShape } from '@/lib/data/types';
 
 export const SEED_USER_ID = 'usr_audi';
@@ -19,7 +19,9 @@ const project = (
   blocks: Block[] = defaultBlocksForTheme(DEFAULT_THEME),
 ) => ({
   id, userId: SEED_USER_ID, name, slug, location, developer, description, facilities,
-  status, theme: DEFAULT_THEME, palette: 'tropicalWarm' as const, blocks,
+  // Palet DITURUNKAN dari tema, tidak ditulis ulang: pasangan tema x palet yang
+  // tidak cocok membuat sebagian teks tak terlihat (bug-037).
+  status, theme: DEFAULT_THEME, palette: THEME_DEFAULT_PALETTE[DEFAULT_THEME], blocks,
   seo: {}, aiContent: null,
   createdAt: NOW, updatedAt, publishedAt: status === 'published' ? updatedAt : null,
 });

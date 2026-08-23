@@ -9,7 +9,7 @@
   --lp-font-text: var(--font-space-grotesk), system-ui, -apple-system, 'Segoe UI', sans-serif;
   --lp-font-mono: var(--font-space-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
   --lp-hair: color-mix(in srgb, var(--lp-line) 100%, transparent);
-  --lp-quiet: color-mix(in srgb, var(--lp-ink-faint) 82%, var(--lp-bg));
+  --lp-quiet: var(--lp-ink-faint);
   background: var(--lp-bg);
   color: var(--lp-ink);
   font-family: var(--lp-font-text);

@@ -7,7 +7,7 @@
   --lp-font-display: var(--font-anton), 'Arial Black', system-ui, sans-serif;
   --lp-font-text: var(--font-figtree), system-ui, -apple-system, 'Segoe UI', sans-serif;
   --lp-rule: var(--lp-contrast);
-  --lp-quiet: color-mix(in srgb, var(--lp-ink-soft) 78%, var(--lp-bg));
+  --lp-quiet: var(--lp-ink-faint);
   background: var(--lp-bg);
   color: var(--lp-ink);
   font-family: var(--lp-font-text);
@@ -27,7 +27,7 @@
 
 /* Strip atas + header kuning */
 .lp-br-ticker {
-  background: var(--lp-contrast); color: var(--lp-accent);
+  background: var(--lp-contrast); color: var(--lp-contrast-accent);
   padding: 9px 16px; font-size: 11.5px; font-weight: 700; letter-spacing: 0.06em;
   display: flex; justify-content: space-between; gap: 12px; text-transform: uppercase;
 }
@@ -38,7 +38,7 @@
 }
 .lp-br-header__name { font-family: var(--lp-font-display); font-size: 24px; letter-spacing: 0.02em; text-transform: uppercase; }
 .lp-br-header__cta {
-  background: var(--lp-contrast); color: var(--lp-accent); padding: 9px 13px; border-radius: 4px;
+  background: var(--lp-contrast); color: var(--lp-contrast-accent); padding: 9px 13px; border-radius: 4px;
   font-size: 11.5px; font-weight: 700; text-transform: uppercase; white-space: nowrap;
 }
 
@@ -55,7 +55,7 @@
   display: flex; align-items: center; justify-content: center; text-align: center;
   min-height: 48px; padding: 15px; font-weight: 800; font-size: 14px; border-radius: 0;
 }
-.lp-br-btn--black { background: var(--lp-contrast); color: var(--lp-accent); font-family: var(--lp-font-display); font-size: 17px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 400; }
+.lp-br-btn--black { background: var(--lp-contrast); color: var(--lp-contrast-accent); font-family: var(--lp-font-display); font-size: 17px; letter-spacing: 0.04em; text-transform: uppercase; font-weight: 400; }
 .lp-br-btn--outline { background: var(--lp-bg); border: 2px solid var(--lp-contrast); color: var(--lp-ink); }
 .lp-br-btn--yellow { background: var(--lp-accent); border: 2px solid var(--lp-contrast); color: var(--lp-on-accent); margin-top: 14px; }
 
@@ -109,7 +109,7 @@
 /* Tabel */
 .lp-br-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .lp-br-table th, .lp-br-table td { text-align: left; padding: 11px 12px; border: 2px solid var(--lp-contrast); white-space: nowrap; }
-.lp-br-table thead th { background: var(--lp-contrast); color: var(--lp-accent); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
+.lp-br-table thead th { background: var(--lp-contrast); color: var(--lp-contrast-accent); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; }
 .lp-br-table tbody th { font-weight: 700; }
 
 /* Promo oranye */
@@ -165,7 +165,7 @@
 .lp-br-rail { display: flex; gap: 10px; overflow-x: auto; padding: 0 16px 6px; scroll-snap-type: x mandatory; }
 .lp-br-rail__item { min-width: 240px; scroll-snap-align: start; border: 3px solid var(--lp-contrast); }
 .lp-br-rail__media { height: 180px; }
-.lp-br-rail__cap { padding: 10px 12px; background: var(--lp-contrast); color: var(--lp-accent); font-size: 12px; font-weight: 800; }
+.lp-br-rail__cap { padding: 10px 12px; background: var(--lp-contrast); color: var(--lp-contrast-accent); font-size: 12px; font-weight: 800; }
 
 /* Testimoni di pita hitam */
 .lp-br-tst { margin: 0; border: 2px solid color-mix(in srgb, var(--lp-on-contrast) 24%, transparent); padding: 16px; }

@@ -29,7 +29,7 @@
 
 .lp-tw-eyebrow {
   font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--lp-accent); font-weight: 500; margin: 0 0 8px;
+  color: var(--lp-accent-ink); font-weight: 500; margin: 0 0 8px;
 }
 .lp-tw-h2 {
   font-family: var(--lp-font-display); font-size: 29px; line-height: 1.2;
@@ -75,19 +75,36 @@
   color: var(--lp-on-contrast);
 }
 .lp-tw-hero__media { position: absolute; inset: 0; }
+/*
+ * Scrim hero. Satu-satunya tempat di kesepuluh tema yang menaruh teks di ATAS
+ * media, jadi kontrasnya bergantung pada foto — dan sampai agen mengunggah
+ * foto, medianya adalah placeholder KREM. Versi lama mulai dari `transparent`
+ * di 30%: badge cuma 2,70:1 dan subjudul 2,67:1 di atas placeholder itu.
+ * Sekarang scrim sudah punya bobot sejak puncak dan menua lebih cepat, supaya
+ * hero terbaca di atas media terang MAUPUN gelap.
+ */
 .lp-tw-hero__overlay {
   position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 30%, color-mix(in srgb, var(--lp-contrast) 78%, transparent) 100%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--lp-contrast) 14%, transparent) 0%,
+    color-mix(in srgb, var(--lp-contrast) 66%, transparent) 58%,
+    color-mix(in srgb, var(--lp-contrast) 94%, transparent) 100%
+  );
 }
 .lp-tw-hero__body { position: relative; padding: 22px 20px 24px; }
 .lp-tw-hero__badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
 .lp-tw-badge {
-  background: color-mix(in srgb, var(--lp-on-accent) 16%, transparent);
+  /* Kaca GELAP, bukan terang: teksnya on-contrast (krem), jadi latar yang
+     menerangkan justru menghapusnya di atas foto terang. */
+  background: color-mix(in srgb, var(--lp-contrast) 58%, transparent);
   backdrop-filter: blur(6px); color: var(--lp-on-contrast);
   padding: 6px 11px; border-radius: 6px; font-size: 11px; white-space: nowrap;
 }
 .lp-tw-hero__title { font-family: var(--lp-font-display); font-size: 40px; line-height: 1.08; margin: 0 0 10px; }
-.lp-tw-hero__sub { color: var(--lp-on-contrast-soft); margin: 0; font-size: 14px; line-height: 1.6; }
+/* on-contrast, bukan on-contrast-soft: nada teredam itu dikalibrasi untuk blok
+   contrast yang PEKAT, dan tidak pernah sampai 4,5:1 di atas scrim. */
+.lp-tw-hero__sub { color: var(--lp-on-contrast); margin: 0; font-size: 14px; line-height: 1.6; }
 
 /* Price bar — blok gelap (contrast), nilai memakai contrast-accent */
 .lp-tw-pricebar {
@@ -118,13 +135,13 @@
 }
 .lp-tw-access { display: flex; gap: 9px; overflow-x: auto; padding-bottom: 6px; }
 .lp-tw-access__item { min-width: 126px; background: var(--lp-surface); border-radius: 12px; padding: 14px; }
-.lp-tw-access__time { font-family: var(--lp-font-display); font-size: 22px; color: var(--lp-accent); }
+.lp-tw-access__time { font-family: var(--lp-font-display); font-size: 22px; color: var(--lp-accent-ink); }
 .lp-tw-access__place { font-size: 11.5px; color: var(--lp-ink-soft); margin-top: 4px; line-height: 1.4; }
 
 /* Highlights / USP — kartu tergabung, nomor serif */
 .lp-tw-usp { display: flex; flex-direction: column; gap: 1px; background: var(--lp-line); border-radius: 14px; overflow: hidden; }
 .lp-tw-usp__item { background: var(--lp-bg); padding: 16px 17px; display: flex; gap: 14px; }
-.lp-tw-usp__num { font-family: var(--lp-font-display); font-size: 20px; color: var(--lp-accent); min-width: 26px; }
+.lp-tw-usp__num { font-family: var(--lp-font-display); font-size: 20px; color: var(--lp-accent-ink); min-width: 26px; }
 .lp-tw-usp__body { display: flex; flex-direction: column; gap: 3px; }
 .lp-tw-usp__text { font-size: 15px; font-weight: 500; line-height: 1.4; }
 .lp-tw-usp__desc { font-size: 12.5px; line-height: 1.55; color: var(--lp-ink-soft); }
@@ -139,13 +156,13 @@
   background: transparent; color: var(--lp-on-feature-soft); font-family: var(--lp-font-text);
   border: 1px solid color-mix(in srgb, var(--lp-on-feature) 35%, transparent);
 }
-.lp-tw-tab[aria-selected='true'] { background: var(--lp-bg); color: var(--lp-feature); border-color: var(--lp-bg); }
+.lp-tw-tab[aria-selected='true'] { background: var(--lp-bg); color: var(--lp-accent-ink); border-color: var(--lp-bg); }
 .lp-tw-unitcard { background: var(--lp-bg); color: var(--lp-ink); border-radius: 14px; overflow: hidden; }
 .lp-tw-unitcard__media { height: 180px; }
 .lp-tw-unitcard__body { padding: 18px; }
 .lp-tw-unitcard__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
 .lp-tw-unitcard__name { font-family: var(--lp-font-display); font-size: 24px; margin: 0; }
-.lp-tw-unitcard__price { font-size: 14px; color: var(--lp-accent); font-weight: 500; }
+.lp-tw-unitcard__price { font-size: 14px; color: var(--lp-accent-ink); font-weight: 500; }
 .lp-tw-specgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--lp-line); border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
 .lp-tw-spec { background: var(--lp-bg); padding: 12px 13px; }
 .lp-tw-spec__label { font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--lp-ink-faint); }
@@ -200,7 +217,7 @@
 /* Developer */
 .lp-tw-dev__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
 .lp-tw-dev__stat { background: var(--lp-surface); border-radius: 12px; padding: 16px 8px; text-align: center; }
-.lp-tw-dev__val { font-family: var(--lp-font-display); font-size: 23px; color: var(--lp-accent); }
+.lp-tw-dev__val { font-family: var(--lp-font-display); font-size: 23px; color: var(--lp-accent-ink); }
 .lp-tw-dev__lbl { font-size: 10.5px; color: var(--lp-ink-faint); margin-top: 3px; }
 
 /* Testimonials */
@@ -224,7 +241,7 @@
   padding: 15px 16px; background: none; border: 0; text-align: left;
   color: var(--lp-ink); cursor: pointer; font-size: 13.5px; font-family: var(--lp-font-text);
 }
-.lp-tw-faq__mark { color: var(--lp-accent); flex: none; font-size: 17px; }
+.lp-tw-faq__mark { color: var(--lp-accent-ink); flex: none; font-size: 17px; }
 .lp-tw-faq__a { padding: 0 16px 15px; color: var(--lp-ink-soft); line-height: 1.7; font-size: 12.5px; }
 
 /* Tim marketing / agent CTA */

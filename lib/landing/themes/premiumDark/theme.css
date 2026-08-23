@@ -8,7 +8,7 @@
 .lp[data-lp-theme='premiumDark'] {
   --lp-font-display: var(--font-cormorant), Georgia, 'Times New Roman', serif;
   --lp-font-text: var(--font-jost), system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --lp-dim: color-mix(in srgb, var(--lp-ink-faint) 78%, var(--lp-bg));
+  --lp-dim: var(--lp-ink-faint);
   --lp-hairline: color-mix(in srgb, var(--lp-line) 60%, var(--lp-ink) 18%);
   background: var(--lp-bg);
   color: var(--lp-ink);
@@ -26,7 +26,7 @@
 }
 .lp[data-lp-theme='premiumDark'] .lp-ph__label {
   font: 10px ui-monospace, monospace; letter-spacing: 0.2em; text-transform: uppercase;
-  color: color-mix(in srgb, var(--lp-ink-faint) 60%, var(--lp-bg));
+  color: var(--lp-ink-faint);
 }
 
 /* Header */
@@ -213,7 +213,7 @@
 .lp-pd-tst__avatar {
   width: 40px; height: 40px; border-radius: 50%; flex: none;
   display: grid; place-items: center; font-size: 12px; letter-spacing: 0.06em;
-  background: var(--lp-feature); color: var(--lp-ink-faint);
+  background: var(--lp-feature); color: var(--lp-on-feature-soft);
 }
 .lp-pd-tst__name { display: block; font-size: 13.5px; }
 .lp-pd-tst__unit { display: block; font-size: 11px; color: var(--lp-dim); letter-spacing: 0.06em; }
@@ -238,7 +238,7 @@
 .lp-pd-agent { border: 1px solid var(--lp-line); padding: 14px; display: flex; gap: 14px; align-items: center; }
 .lp-pd-agent__avatar {
   width: 56px; height: 56px; flex: none; display: grid; place-items: center;
-  background: var(--lp-feature); color: var(--lp-accent);
+  background: var(--lp-feature); color: var(--lp-on-feature);
   font-family: var(--lp-font-display); font-size: 20px;
 }
 .lp-pd-agent__body { flex: 1; min-width: 0; }

@@ -25,17 +25,28 @@
 
 /*
  * Latar di luar bingkai. Fixed + z-index:-1 supaya menutup seluruh viewport
- * tanpa memasang warna ke <body> (yang dipakai bersama dashboard). `.lp` tidak
- * membuat stacking context (position:relative, z-index:auto), jadi pseudo ini
- * jatuh tepat di belakangnya. Warnanya diturunkan dari palet aktif — tema gelap
- * dapat latar gelap, tema terang dapat abu netral.
+ * tanpa memasang warna ke <body> (yang dipakai bersama dashboard).
+ *
+ * WAJIB `[data-lp-standalone]`, dan hanya LandingView yang memasangnya (bug-035).
+ * Trik "fixed + z-index:-1 jatuh di belakang .lp" cuma berlaku selama `.lp`
+ * TIDAK membuat stacking context. Pratinjau editor memakai elemen `.lp` yang
+ * SAMA lalu men-`transform: scale()`-nya; transform membuat `.lp` jadi (a)
+ * containing block untuk keturunan `position: fixed` — pseudo ini berhenti kabur
+ * ke viewport dan malah menutupi seluruh pratinjau — dan (b) stacking context —
+ * `z-index:-1` tidak lagi berarti "di belakang .lp", melainkan dicat SESUDAH
+ * latar `.lp` sendiri. Akibatnya semua section transparan tertutup warna ini.
+ * Jangan pernah menyalakan pseudo ini di elemen `.lp` yang di-transform.
+ *
+ * Warnanya token palet (`--lp-backdrop`), bukan campuran dengan hex literal:
+ * `color-mix(var(--lp-bg) 52%, #0e1013)` menghasilkan abu lumpur ~#898683 yang
+ * bukan milik palet mana pun.
  */
-.lp::before {
+.lp[data-lp-standalone]::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: color-mix(in srgb, var(--lp-bg) 52%, #0e1013);
+  background: var(--lp-backdrop);
 }
 
 /* Bar aksi yang ikut menggulir. Dikunci ke lebar bingkai, bukan ke viewport. */

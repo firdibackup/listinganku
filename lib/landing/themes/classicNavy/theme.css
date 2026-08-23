@@ -6,7 +6,7 @@
 .lp[data-lp-theme='classicNavy'] {
   --lp-font-display: var(--font-playfair), Georgia, 'Times New Roman', serif;
   --lp-font-text: var(--font-lato), system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --lp-quiet: color-mix(in srgb, var(--lp-ink-faint) 80%, var(--lp-bg));
+  --lp-quiet: var(--lp-ink-faint);
   background: var(--lp-bg);
   color: var(--lp-ink);
   font-family: var(--lp-font-text);
@@ -70,7 +70,7 @@
 .lp-cn-row { display: flex; justify-content: space-between; gap: 14px; padding: 11px 0; border-top: 1px solid var(--lp-line); font-size: 13.5px; }
 .lp-cn-row dt { color: var(--lp-quiet); margin: 0; }
 .lp-cn-row dd { margin: 0; }
-.lp-cn-rows--wide .lp-cn-row dd { font-family: var(--lp-font-display); font-size: 17px; color: var(--lp-accent); }
+.lp-cn-rows--wide .lp-cn-row dd { font-family: var(--lp-font-display); font-size: 17px; color: var(--lp-accent-ink); }
 
 /* USP — daftar bergaris, rata tengah */
 .lp-cn-usp { padding: 20px 0; border-top: 1px solid var(--lp-line); }
@@ -156,7 +156,7 @@
 .lp-cn-tst__who { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .lp-cn-avatar {
   width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
-  background: var(--lp-surface); color: var(--lp-accent); font-family: var(--lp-font-display); font-size: 15px;
+  background: var(--lp-surface); color: var(--lp-accent-ink); font-family: var(--lp-font-display); font-size: 15px;
 }
 .lp-cn-avatar--lg { width: 60px; height: 60px; font-size: 21px; margin: 0 auto 12px; }
 .lp-cn-tst__name { font-size: 13.5px; }

@@ -10,7 +10,7 @@ import { resolveBlocks } from '@/lib/landing/resolve';
 import { BLOCK_LABELS, applyThemeOrder, moveBlock, toggleBlock, updateBlockProps } from '@/lib/landing/blocks';
 import type { Block } from '@/lib/landing/blocks';
 import { AVAILABLE_THEMES } from '@/lib/landing/themes';
-import { THEME_NAMES, THEME_LABELS } from '@/lib/landing/themeNames';
+import { THEME_NAMES, THEME_LABELS, THEME_DEFAULT_PALETTE } from '@/lib/landing/themeNames';
 import { paletteStyle } from '@/lib/landing/palettes';
 import { saveBlocksAction, setPaletteAction, setThemeAction } from '@/app/(dashboard)/projects/[id]/editor/actions';
 import type { AgentProfile, HouseType, Media, PaletteName, Project, ThemeName } from '@/lib/data/types';
@@ -36,7 +36,16 @@ export function EditorShell({
   function chooseTheme(next: ThemeName) {
     if (next === theme) return;
     setTheme(next);
-    startTransition(async () => { await setThemeAction(project.id, next); });
+    // Palet ikut pindah ke bawaan tema. Tanpa ini agen bisa mendarat di pasangan
+    // yang tidak pernah didesain (project demo tersimpan sebagai tema
+    // premiumDark + palet natureCalm) sehingga sebagian teks jadi kontras
+    // 1,00:1 — bug-037. Server tetap sumber kebenarannya; di sini disamakan
+    // lebih dulu supaya pratinjau tidak berkedip ke palet lama.
+    setPalette(THEME_DEFAULT_PALETTE[next]);
+    startTransition(async () => {
+      const res = await setThemeAction(project.id, next);
+      setPalette(res.palette);
+    });
     // Susunan manual agen tidak pernah ditimpa diam-diam — konfirmasi dulu (spec §10).
     setThemeConfirm(next);
   }
