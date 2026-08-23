@@ -50,7 +50,7 @@ export const formatRegion = (r: Region): string => `${r.district}, ${r.city}, ${
  * hero tidak kepanjangan di lebar 390px.
  */
 export function composeLocationLabel(d: {
-  area: string; district: string; city: string; province: string;
+  area: string; district: string; city: string; province: string; address?: string;
 }): string {
   return [d.area, d.district, d.city].map((s) => s.trim()).filter(Boolean).join(', ');
 }
