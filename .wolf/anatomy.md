@@ -410,10 +410,21 @@
 
 ## components/wizard/
 
-- `CreateProjectWizard.tsx` — Terisi begitu langkah 1 disimpan; langkah berikutnya meng-update baris yang sama. (~1930 tok)
-  - fn `CreateProjectWizard` L13-162 (~1810 tok)
+- `CreateProjectWizard.tsx` — Terisi begitu langkah 1 disimpan; langkah berikutnya meng-update baris yang sama. Step 2 render `<SectionPlanner>` dengan `panelFor` (Task 12) tersambung ke lima panel materi (`./panels/*`) — hero/highlights/facilities/location/pricePromo; tipe lain jatuh ke fallback catatan bebas SectionPlanner. `applyType(next)` satu-satunya jalur yang menulis `projectType` DAN menerapkan `applySectionPreset` ke state `blocks` — dipanggil dari `chooseType` (pilihan pertama) dan tombol konfirmasi "Sesuaikan section" (ganti tipe), supaya keduanya tidak divergen. (~2150 tok)
+  - fn `CreateProjectWizard` L21-268 (~1980 tok)
+- `SectionPlanner.tsx` — Task 11: Content Planner step 2 — satu baris per BlockType (checkbox enabled + tombol buka/tutup panel materi), progressive disclosure (satu panel terbuka sekaligus), fallback catatan bebas (`brief.notes[type]`) saat `panelFor` tidak menyediakan panel khusus, ringkasan materi yang sudah dimiliki agen. BUKAN page builder — sengaja tanpa reorder/copy-per-blok. Panel materi sungguhan disambung di Task 12 lewat prop `panelFor`. (~950 tok)
 - `StepProgress.tsx` — StepProgress (~107 tok)
-- `wizard.css` — Styles: 13 rules, 1 media queries (~402 tok)
+- `wizard.css` — Styles: 13 rules, 1 media queries + blok `.wz-plan*` Task 11 (Content Planner) + blok `.wz-panel*` Task 12 (lima panel materi) (~540 tok)
+
+## components/wizard/panels/
+
+Lima panel materi step 2 (Task 12) — mengumpulkan fakta mentah (bahan AI), BUKAN copy final. `PanelProps = { brief, onChange }` diekspor SEKALI dari `HeroPanel.tsx`, diimpor keempat panel lain.
+
+- `HeroPanel.tsx` — Mengumpulkan INTENT (radio `heroEmphasis`, checkbox multi `ctaGoals`), sengaja TANPA field judul/subjudul/CTA copy — itu pekerjaan AI. Ekspor `PanelProps`. (~350 tok)
+- `HighlightsPanel.tsx` — Daftar baris teks bebas `brief.highlights` (tambah/hapus). Keunggulan kawasan ("bebas banjir"), beda dari fasilitas. (~230 tok)
+- `FacilitiesPanel.tsx` — Chip preset dari `FACILITY_OPTIONS` (toggle tambah/lepas by name) + baris custom nama/keterangan di luar preset. (~260 tok)
+- `LocationPanel.tsx` — Alamat lengkap opsional + daftar `nearby` (kategori/nama/menit). Menit kosong → `e.target.value === '' ? null : Number(...)`, TIDAK PERNAH 0 — halaman publik merender `${minutes} mnt`. Pesan peringatan saat ada item ber-`minutes: null` ("tidak tampil sebagai kartu akses"). (~320 tok)
+- `PromoPanel.tsx` — Checkbox "Ada promo" toggle `brief.promo` null/objek. Field "Butir promo" TETAP controlled (`value={promo.items.join('\n')}`, konsisten dengan 5 field lain di panel ini) lewat `parsePromoLines()` (diekspor) — baris TERAKHIR (sedang diketik) dikecualikan dari trim/filter per-keystroke supaya spasi/baris-baru yang baru diketik tidak tersapu balik sebelum keystroke berikutnya tiba (`restoreControlledState`); `onBlur` merapikan baris kosong sisa. Fix round 1 Task 12, `bug-042` — koreksi dari fix pertama yang salah bikin field ini uncontrolled. (~380 tok)
 
 ## data/
 
@@ -960,6 +971,7 @@
   - fn `formFor` L71-84 (~94 tok)
   - fn `listUploadFiles` L85-350 (~3604 tok)
 - `media-validation.test.ts` — Declares type (~345 tok)
+- `material-panels.test.tsx` — Task 12: lima panel materi (Hero/Highlights/Facilities/Location/Promo) — pilih heroEmphasis, ctaGoals multi, tambah/hapus keunggulan, chip preset fasilitas + custom, tambah/hapus nearby, menit kosong -> null (bukan 0), pesan "tidak tampil sebagai kartu akses", toggle promo null/objek, butir promo per baris. `PromoHarness` (wrapper `useState`, fix round 1) menutup lingkaran state sungguhan untuk tes "butir promo dipisah" — assert `toHaveValue` (tampilan) DAN bentuk array items (menangkap split() yang dibuang, yang tidak tertangkap toHaveValue saja). (~950 tok)
 - `mock-store.test.ts` — API routes: GET (4 endpoints) (~7047 tok)
 - `page-view-tracker.test.tsx` — recordEventActionMock (~473 tok)
 - `palettes.test.ts` — Luminansi relatif WCAG 2.1 dari hex #rrggbb. (~997 tok)
@@ -974,6 +986,7 @@
 - `resolve.test.ts` — fixture: describe (~3752 tok)
   - fn `fixture` L8-289 (~3652 tok)
 - `schemas.test.ts` — Declares result (~1144 tok)
+- `section-planner.test.tsx` — Task 11: SectionPlanner satu baris per section, progressive disclosure (semua terkuncup, buka/tutup panel), checkbox onToggle pakai id blok bukan tipe, "Gunakan rekomendasi" -> onUsePreset, fallback catatan bebas saat panelFor kosong, ringkasan materi brief. (~700 tok)
 - `section-preset.test.ts` — Task 6: SECTION_PRESET punya entri per ProjectType, hanya BlockType valid, testimonials mati di semua preset, kavling/ruko sesuai spec; applySectionPreset menyalakan/mematikan tanpa mengubah urutan/props. (~450 tok)
 - `seo.test.ts` — Declares store (~917 tok)
 - `session.test.ts` — Declares store (~322 tok)

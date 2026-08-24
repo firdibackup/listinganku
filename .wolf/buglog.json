@@ -738,6 +738,70 @@
       ],
       "occurrences": 1,
       "last_seen": "2026-08-23T00:00:00+07:00"
+    },
+    {
+      "id": "bug-040",
+      "timestamp": "2026-08-23T00:00:00+07:00",
+      "error_message": "tests/unit/resolve.test.ts > resolveBlocks > menurunkan fasilitas dari project saat blok tidak mengoverride — expected desc kosong tapi terisi.",
+      "file": "tests/unit/resolve.test.ts",
+      "root_cause": "Task 4 memindahkan fakta fasilitas Parkspring dari blocks[].props ke project.brief.facilities (PARKSPRING_BRIEF di fixtures/seed.ts), sesuai spec. Fixture lokal fixture() di resolve.test.ts membangun project dari store.projects[0] (Parkspring) dan hanya me-reset blocks, bukan brief. Sebelum Task 4, project.brief adalah undefined di runtime sehingga resolve.ts (brief = project.brief ?? emptyBrief()) jatuh ke brief kosong lalu ke fallback project.facilities (desc selalu ''), pas dengan asersi lama. Sesudah Task 4, brief Parkspring berisi facilities lengkap dengan desc, jadi rantai pickFirst berhenti di lapis brief (memang perilaku yang benar, sudah diuji eksplisit di brief-resolve.test.ts) dan desc tidak lagi kosong.",
+      "fix": "DITAMBAL (fix round 1, ruling koordinator: cacat plan Task 4 yang tidak mencantumkan file ini, tesnya yang basi bukan kodenya). fixture() di tests/unit/resolve.test.ts sekarang menambah `brief: emptyBrief()` sejajar dengan `blocks: defaultBlocksForTheme(...)` yang sudah ada, sebelum ...overrides diterapkan. Tidak menyentuh lib/landing/resolve.ts atau fixtures/seed.ts. Hasil: tests/unit/resolve.test.ts 32/32 PASS, tests/unit/brief-resolve.test.ts 16/16 PASS, seluruh suite unit 437/437 PASS.",
+      "tags": [
+        "brief",
+        "resolve",
+        "seed",
+        "test-fixture",
+        "stale-assumption"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-23T00:00:00+07:00"
+    },
+    {
+      "id": "bug-041",
+      "timestamp": "2026-08-23T00:00:00+07:00",
+      "error_message": "npx tsc --noEmit: app/(dashboard)/projects/actions.ts(77,7): error TS2322 Type 'Block[]' is not assignable to type 'objectOutputType<{id,type,enabled}, ZodTypeAny, \"passthrough\">[] & Block[]' — muncul begitu ProjectDraftSchema.blocks ditambahkan (Task 11). DIPERBAIKI di fix round 1 (izin scope sempit dari koordinator).",
+      "file": "app/(dashboard)/projects/actions.ts (diperbaiki, fix round 1), lib/schemas/project.ts (penyebab, Task 11)",
+      "root_cause": "updateProjectAction (Task 6) memakai cast sementara `{ ...parsed.data } as typeof parsed.data & { blocks?: typeof owned.blocks }` sebagai jembatan SEBELUM ProjectDraftSchema punya field blocks sungguhan (dicatat eksplisit di cerebrum sebagai utang yang akan 'otomatis jadi berlebih' begitu Task 11 selesai). Begitu Task 11 menambah `blocks: z.array(z.object({id,type,enabled}).passthrough()).optional()` PERSIS seperti brief, parsed.data punya properti blocks sendiri (tipe passthrough Zod), dan intersection & di cast lama menggabungkan tipe itu dengan Block[] — HeroBlock/dst tidak punya index signature [k:string]:unknown sehingga tidak structurally assignable ke sisi passthrough intersection-nya. Diverifikasi lewat git stash: TANPA perubahan Task 11 error ini tidak ada.",
+      "fix": "DIPERBAIKI (fix round 1) — koordinator memverifikasi sendiri error ini dan mencabut larangan menyentuh app/(dashboard)/projects/actions.ts secara sempit, khusus baris 71-78. Cast lama `{ ...parsed.data } as typeof parsed.data & { blocks?: typeof owned.blocks }` diganti `{ ...parsed.data } as Omit<typeof parsed.data, \"blocks\"> & { blocks?: typeof owned.blocks }` — Omit membuang properti blocks bertipe passthrough Zod dari sisi kiri intersection SEBELUM digabung dengan sisi kanan bertipe Block[], jadi tidak ada lagi dua tipe blocks yang bentrok di properti yang sama. Syarat `nextType && nextType !== owned.projectType`, ekspresi `patch.blocks ?? owned.blocks`, dan kedua komentar penjelas dipertahankan persis — hanya baris cast yang berubah. Tidak memakai `as any`, tidak melonggarkan .passthrough() di skema, tidak mengubah tanda tangan applySectionPreset. Diverifikasi: `tsc --noEmit | grep -E \"projects/actions\"` nihil; tsc project-wide hanya menyisakan 10 error pra-eksis di tests/** yang sudah ada sebelum Task 11 (tidak bertambah); tests/unit/project-actions.test.ts + section-planner.test.tsx + create-project-wizard.test.tsx 29/29 pass; full suite 486/486 pass.",
+      "tags": [
+        "typescript",
+        "zod",
+        "passthrough",
+        "intersection-type",
+        "schema",
+        "out-of-scope",
+        "task-11",
+        "fixed",
+        "fix-round-1"
+      ],
+      "related_bugs": [],
+      "occurrences": 1,
+      "last_seen": "2026-08-23T00:00:00+07:00"
+    },
+    {
+      "id": "bug-042",
+      "timestamp": "2026-08-23T00:00:00+07:00",
+      "error_message": "vitest tests/unit/material-panels.test.tsx > PromoPanel > butir promo dipisah per baris: expected [ 'B' ] to deeply equal [ 'Free BPHTB' ] — user.type() ke textarea controlled ('value={promo.items.join(String.fromCharCode(10))}') dengan onChange={vi.fn()} hanya menyisakan huruf terakhir yang diketik.",
+      "file": "components/wizard/panels/PromoPanel.tsx, tests/unit/material-panels.test.tsx",
+      "root_cause": "KESIMPULAN AWAL SALAH, DIKOREKSI koordinator (fix round 1): akar masalah SEBENARNYA adalah TES-nya, bukan komponennya. Tes mengirim onChange={vi.fn()} — mock murni yang tidak pernah menutup lingkaran state ke brief. Terhadap komponen controlled, value karenanya selamanya string lama (snapshot render pertama), dan React menulis-ulang DOM ke value lama itu tiap kali event selesai diproses (restoreControlledState) — perilaku controlled component yang BENAR, karena TIDAK ADA yang pernah memberitahunya nilai sudah berubah. Fix pertama (SALAH, sudah dibatalkan): mengubah field jadi uncontrolled (defaultValue) supaya tes lolos — ini melonggarkan kode PRODUKSI supaya cocok dengan tes yang cacat, membuat 'Butir promo' tidak sinkron kalau brief.promo.items pernah berubah dari luar selagi panel terbuka, dan bikin panel ini inkonsisten (5 field controlled, 1 uncontrolled) dibanding 4 sibling field lain di panel yang sama.",
+      "fix": "PromoPanel dikembalikan controlled penuh: value={promo.items.join(String.fromCharCode(10))}, tanpa defaultValue, tanpa key trik. Tesnya yang diperbaiki: PromoHarness (komponen wrapper ber-useState di file tes) benar-benar menutup lingkaran state persis seperti CreateProjectWizard.setBrief di produksi, lalu tes mengetik ke situ dan mengasersi DUA hal — (a) textarea.toHaveValue(teks lengkap yang diketik, TERLIHAT di layar) dan (b) array promo.items hasil ketikan (menangkap kalau split() dibuang, yang tidak akan tertangkap asersi (a) saja karena join() satu-elemen berisi newline literal me-reconstruct tampilan yang sama). SATU temuan tambahan yang baru ketahuan lewat harness sungguhan (bukan artefak tes): trim()+filter() PER KEYSTROKE yang diterapkan ke SEMUA baris (termasuk baris yang SEDANG diketik) memang menyapu balik spasi/baris-baru yang baru saja diketik SEBELUM keystroke fisik berikutnya tiba, walau state parent tersambung sempurna — ini bug produksi NYATA (dibuktikan dengan harness ber-state asli), bukan cuma soal controlled-vs-mock. Diperbaiki dengan parsePromoLines(raw) (diekspor dari PromoPanel.tsx): baris TERAKHIR (sedang diketik) dikecualikan dari trim/filter saat onChange per-keystroke supaya tidak ada karakter yang tersapu balik; onBlur menjalankan trim+filter PENUH sekali supaya baris kosong yang tersisa (mis. Enter tanpa lanjut mengetik) tidak lolos ke penyimpanan (BriefPromoSchema menolak butir kosong). Diverifikasi red/green sungguhan: parsePromoLines() sengaja dirusak jadi 'return [raw]', tes gagal PERSIS pada asersi array items (bukan asersi tampilan — toEqual(['Free BPHTB','Cashback 5%']) vs diterima ['Free BPHTB\nCashback 5%']), lalu dikembalikan dan tes hijau lagi. Keempat panel lain (Hero/Highlights/Facilities/Location) diperiksa untuk pola serupa: semua field teks lain di kelima panel memetakan e.target.value identik ke value tanpa transform lossy (aman); satu-satunya field number (Menit, LocationPanel) melakukan round-trip Number()/String() yang lossless untuk ketikan digit wajar; satu-satunya tes lain yang menyentuh input teks (LocationPanel, user.clear() pada Menit) sudah pakai toHaveBeenCalledWith yang mengecek SEMUA call bukan cuma call terakhir, jadi sudah tahan terhadap pola kegagalan yang sama.",
+      "tags": [
+        "react",
+        "controlled-input",
+        "textarea",
+        "testing-library",
+        "user-event",
+        "restoreControlledState",
+        "test-harness",
+        "per-keystroke-transform",
+        "task-12",
+        "fixed",
+        "fix-round-1"
+      ],
+      "related_bugs": [],
+      "occurrences": 2,
+      "last_seen": "2026-08-23T00:00:00+07:00"
     }
   ]
 }

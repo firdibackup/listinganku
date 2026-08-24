@@ -67,39 +67,71 @@
 **Dua tes baru:** `tests/unit/theme-token-pairs.test.ts` (memindai kesepuluh `theme.css` x kesepuluh palet — peran token + 4,5:1) dan `tests/unit/editor-theme-palette.test.ts` (palet mengikuti tema). `tests/unit/palettes.test.ts` diperluas dari 6 jadi 18 pasangan + hierarki ink + backdrop.
 
 
-## 🚀 Next phase — Slice 3A: pipeline brief
+## ✅ Done — Slice 3A: pipeline brief (2026-08-24)
 
-**Spec disetujui 2026-08-23**, commit `6b5f998` di `slice-2-templates-mobile`:
-`docs/superpowers/specs/2026-08-23-listingku-brief-pipeline-slice3a-design.md` (683 baris).
-**Implementation plan siap** (commit `fc1ed21`):
-`docs/superpowers/plans/2026-08-23-listingku-brief-pipeline-slice3a.md` — 14 task TDD,
-tiap task punya tes, kode, dan commit-nya sendiri. **Baca spec-nya sebelum menyentuh
-kode** — enam keputusan §3 sudah tertutup, jangan dibuka ulang.
+**SELESAI di `10f2fcb`.** 19 commit dari `b40f485`. `npm run verify` EXIT 0 —
+unit hijau, build bersih, e2e 36 lulus + 1 di-skip.
 
-Urutan task WAJIB berurutan: Task 3 (rantai resolve) harus selesai sebelum Task 4
-(seed pindah ke brief), kalau tidak halaman publik terender kosong.
+Spec `docs/superpowers/specs/2026-08-23-listingku-brief-pipeline-slice3a-design.md`,
+plan `docs/superpowers/plans/2026-08-23-listingku-brief-pipeline-slice3a.md`.
+Jejak eksekusi lengkap (14 laporan task + semua ruling) di
+`.superpowers/sdd/2026-08-23-listingku-brief-pipeline-slice3a/` — git-ignored,
+boleh dihapus kapan saja.
 
-Masalah yang diperbaiki: agen tidak punya tempat menaruh bahan mentahnya sebelum AI
-jalan, jadi alurnya `input tipis → AI menebak → agen membangun ulang halaman di
-editor`. Slice ini membaliknya jadi `input kaya → AI menyusun → editor merapikan`.
+Alurnya sekarang `input kaya → AI menyusun → editor merapikan`, bukan lagi
+`input tipis → AI menebak → agen membangun ulang halaman`.
 
-Isi 3A: `Project.projectType` + `Project.brief` (JSONB) · preset section
+**Yang masuk:** `Project.projectType` + `Project.brief` (JSONB) · preset section
 deterministik per tipe · lokasi terstruktur (dataset offline + `/api/places` +
-combobox) · wizard step 1 dirombak, step 2 jadi **Materi landing page** ·
-`GenerateInput.brief` + `AiContentSchema` bertambah `subheadline`/`cta` ·
-`resolve()` menyisipkan brief ke rantai `pick()`.
+combobox ARIA) · wizard step 1 dirombak, step 2 jadi **Materi landing page** dengan
+lima panel materi · `GenerateInput.brief` + `AiContentSchema` bertambah
+`subheadline`/`cta` · `resolve()` menyisipkan brief ke rantai `pick()`.
 
-**Batas keras slice 3A: NOL file di `lib/landing/themes/` boleh tersentuh.** Kalau
-plan menyuruh membuka file tema, plan-nya menyimpang dari spec.
+### Invarian yang WAJIB dijaga siapa pun yang menyentuh ini
 
-Ditunda ke **3B**: tab Materi di halaman detail · `MediaType` += `site_plan`,
-`location_map` · `BlockType` += `about` (menambal `aiContent.description` yang
-sekarang di-generate lalu dibuang) · label CTA sebagai data.
+**Fakta di ATAS AI, copy di BAWAH AI.** `resolve()` untuk `access`, `facilities`,
+dan `pricePromo` **tidak pernah membaca `ai.*`** — dan `AiContentSchema` tidak punya
+field untuk fakta sama sekali, jadi AI tidak punya kandidat data untuk dikirim ke
+sana. Review akhir memverifikasi kebocoran ini **struktural tidak mungkin**, bukan
+sekadar belum ketemu jalannya. Jangan menambah field angka ke `AiContentSchema`,
+dan jangan memberi fallback `ai.*` ke ketiga blok itu.
 
-**Blocker eksternal baru:** `data/id-regions.json` belum ada di repo — sumber dan
-lisensinya harus diputuskan sebelum §11 dikerjakan. Tidak menghalangi item lain.
+`NearbyItem.minutes` bertipe `number | null` dan Zod menolak string. Input kosong
+di panel WAJIB tersimpan `null`, bukan `0` — `0` terender `"0 mnt"` di halaman
+properti, angka yang tidak pernah dikatakan agen.
 
-### Pekerjaan lain yang menunggu (tidak memblokir 3A)
+**Nol file `lib/landing/themes/` tersentuh** sepanjang slice ini. Dipertahankan.
+
+### Yang ditunda ke 3B
+
+Tab Materi di halaman detail · `MediaType` += `site_plan`, `location_map` ·
+`BlockType` += `about` (menambal `aiContent.description` yang di-generate lalu
+dibuang) · label CTA sebagai data + `ctaGoals` yang menentukan tombol mana tampil.
+
+Tiga field brief yang UI-nya sudah ada tapi **belum dibaca AI**: `heroEmphasis`,
+`promo.name`, `notes`. Sambungkan saat prompt Gemini asli ditulis.
+
+### ⚠️ Blocker eksternal yang masih terbuka
+
+`data/id-regions.json` baru berisi **40 kecamatan starter**. Sumber dan lisensi
+dataset penuh (~7.300 kecamatan) belum diputuskan. Bentuk barisnya
+(`{district, city, province}`) sengaja stabil — dataset penuh cukup mengganti isi
+file, nol perubahan kode. **Sebelum rilis wajib diganti**, kalau tidak agen di luar
+40 kecamatan itu tidak menemukan lokasinya.
+
+---
+
+## 🚀 Next phase
+
+Pilih salah satu:
+
+1. **Slice 3B** — spec-nya belum ditulis; mulai dari brainstorming di atas daftar
+   "ditunda ke 3B".
+2. **Tutup dataset wilayah** (blocker di atas) — pekerjaan data murni.
+3. **Gabungkan ke `slice-1-frontend`** lewat PR. `gh` CLI tidak terpasang di mesin
+   ini; siapkan judul + body lalu pakai URL compare GitHub.
+
+### Pekerjaan lain yang menunggu
 
 **Kerja slice 2K belum di-commit ke `slice-1-frontend`** — masih di branch
 `slice-2-templates-mobile`.

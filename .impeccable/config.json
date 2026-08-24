@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "lib/landing/themes/tropicalWarm/theme.css"
+        ],
+        "createdAt": "2026-08-23T05:41:56.474Z",
+        "reason": "Permukaan PETA, bukan latar dekoratif: .lp-tw-map__grid berada di dalam .lp-tw-map di belakang .lp-tw-map__pin dan digantikan .lp-tw-map iframe saat peta sungguhan dipasang — pengecualian yang disebut aturan itu sendiri (map/blueprint/measurement surface). Kode pre-existing dari slice 2K, ditranskrip dari design/project/10 Tropis Hangat.dc.html; tidak disentuh sesi ini."
+      }
+    ]
+  }
+}

@@ -249,3 +249,53 @@
 | Time | Action | File(s) | Outcome | ~Tokens |
 |------|--------|---------|---------|--------|
 | 17:50 | Task 7: dataset wilayah offline starter (39 kecamatan, bentuk baris `{district,city,province}` stabil untuk penggantian dataset penuh nanti) + `searchRegions`/`formatRegion`/`composeLocationLabel`. JSON diimpor statis (`import raw from '@/data/id-regions.json'`), TIDAK lewat node:fs, TIDAK mengimpor `@/lib/data` — aman untuk route handler Task 8. Verifikasi runtime: `/\p{Diacritic}/gu` bekerja benar di Node 24.19.0 (café->cafe teruji langsung), dipakai apa adanya dari brief. tsconfig.json sudah punya `resolveJsonModule: true` sebelumnya — tidak disentuh. | data/id-regions.json, lib/places/regions.ts, tests/unit/places.test.ts | places.test.ts 11/11, commit pending | ~15k |
+
+## Session: 2026-08-23 21:56
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-23 22:02
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 22:19 | Task 11 TDD: wrote failing section-planner.test.tsx, confirmed fail (module missing) | tests/unit/section-planner.test.tsx | RED confirmed | ~2k |
+| 22:19 | Implemented SectionPlanner component per brief | components/wizard/SectionPlanner.tsx | 7/7 tests green | ~2k |
+| 22:20 | Added blocks field to ProjectDraftSchema (passthrough per brief) | lib/schemas/project.ts | activates dead patch.blocks path in Task 6's updateProjectAction | ~0.5k |
+| 22:20 | Wired SectionPlanner into wizard step 2; extracted applyType() helper called from BOTH chooseType and confirm button (mandatory addition beyond brief text) | components/wizard/CreateProjectWizard.tsx | preset now applies on first pick AND on type-change confirm | ~2k |
+| 22:20 | Appended wz-plan CSS, corrected --line/--wash to --border-default/--surface-muted (those tokens don't exist here) | components/wizard/wizard.css | matches existing wz-combo pattern | ~0.5k |
+| 22:21 | Fixed pre-existing wizard test broken by step-2 UI replacement (facility chips -> SectionPlanner), added 2 new tests proving preset applies via both paths | tests/unit/create-project-wizard.test.tsx | 9/9 green, 16/16 total across both files | ~3k |
+| 22:22 | Full unit suite + tsc --noEmit check | (all) | 49 files/486 tests green; tsc clean for wizard/planner; pre-existing unrelated tsc debt untouched | ~3k |
+| 22:23 | Discovered tsc regression in forbidden file app/(dashboard)/projects/actions.ts caused by adding blocks to schema (Task 6's temp cast becomes type-incompatible) — confirmed via git stash, logged bug-041, left untouched per explicit scope constraint | app/(dashboard)/projects/actions.ts (not touched) | documented as concern, not fixed | ~1k |
+| 22:50 | Task 12: 5 panel materi step 2 (Hero/Highlights/Facilities/Location/Promo) — TDD lengkap, PanelProps diekspor sekali dari HeroPanel | components/wizard/panels/*.tsx, tests/unit/material-panels.test.tsx | 13/13 pass; menit kosong -> null (bukan 0) via e.target.value === '' ? null : Number(...) | ~9k |
+| 22:50 | Bug ditemukan+fix: PromoPanel "Butir promo" controlled textarea di-user.type() dengan mock onChange hanya menyimpan huruf terakhir (React restoreControlledState). Fix: value -> defaultValue (uncontrolled), tanpa key | components/wizard/panels/PromoPanel.tsx | bug-042 logged; 13/13 pass termasuk akumulasi teks | ~2k |
+| 22:50 | Sambungkan panelFor ke SectionPlanner di step 2 wizard, CSS .wz-panel* diappend | components/wizard/CreateProjectWizard.tsx, components/wizard/wizard.css | material-panels + section-planner 20/20 pass; create-project-wizard.test.tsx 9/9 tetap hijau; tsc --noEmit grep panel\|wizard nihil | ~2k |
+| 23:05 | Fix round 1 (koordinator): PromoPanel dikembalikan controlled (bukan defaultValue) sesuai instruksi; tes diperbaiki pakai PromoHarness (useState wrapper) yang menutup lingkaran state, bukan vi.fn() murni | components/wizard/panels/PromoPanel.tsx, tests/unit/material-panels.test.tsx | 13/13 + 20/20 pass; bug-042 dikoreksi root cause-nya di buglog+cerebrum | ~4k |
+| 23:05 | Harness sungguhan membongkar bug produksi ASLI (bukan artefak tes): trim/filter per-keystroke di semua baris textarea menyapu balik spasi/newline yang baru diketik sebelum keystroke berikutnya. Fix: parsePromoLines() kecualikan baris terakhir dari trim/filter, onBlur merapikan sisa | components/wizard/panels/PromoPanel.tsx | diverifikasi red/green: parsePromoLines dirusak sementara jadi return [raw], tes gagal tepat di asersi array items, dikembalikan | ~3k |
+| 23:05 | Audit 4 panel lain (Hero/Highlights/Facilities/Location) untuk pola transform-lossy-fed-back-ke-controlled-value serupa | components/wizard/panels/*.tsx | semua field lain identity-mapped (aman); Menit (LocationPanel) round-trip Number/String lossless untuk digit wajar; tes user.clear() sudah pakai toHaveBeenCalledWith (cek SEMUA call, bukan cuma terakhir) — sudah tahan pola kegagalan yang sama | ~2k |
+
+## Session: 2026-08-23 23:42
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-23 23:44
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-23 23:56
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+
+## Session: 2026-08-23 00:10
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
+| 00:19 | Slice 3A pipeline brief SELESAI: 14 task TDD + fix wave, 19 commit, npm run verify EXIT 0 | seluruh slice | 508 unit + 36 e2e hijau | ~380k |
+
+## Session: 2026-08-23 00:20
+
+| Time | Action | File(s) | Outcome | ~Tokens |
+|------|--------|---------|---------|--------|
